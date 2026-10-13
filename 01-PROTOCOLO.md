@@ -1,6 +1,6 @@
 # Protocolo · Fase 1: ¿el esquema de residuo hace que el registro consigne el hueco?
 
-**Estado: v15, NO congelado.** Incorpora lo que midió el piloto en la máquina de
+**Estado: v16, NO congelado.** Incorpora lo que midió el piloto en la máquina de
 Nico (`05-PRUEBA-SANDBOX-1.md`, `06-PRUEBA-SANDBOX-2.md`,
 `08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`, `09-PILOTO-GENERAR-1.md`,
 `10-PRUEBA-SANDBOX-GENERADOR.md`, `11-PILOTO-GENERAR-Y-CHEQUEAR.md`,
@@ -435,6 +435,16 @@ leen sólo `findings` y `residue`, **reimplementadas en el arnés** porque
 - **R2 bis:** ningún campo empieza con el marcador de plantilla `FILL_IN`.
 - **R8:** una refutación interpretativa pide atención humana.
 
+**Escrito** (`herramientas/validador.py`, con sus pruebas): el esquema con
+`jsonschema` 4.26.0, `Draft202012Validator` sin verificar formatos, el mismo que
+usa `rules.py`; las cuatro reglas, con `GENERIC_MARKERS`, `RESIDUE_STATES` y las
+clases esperadas copiados textuales de `rules.py` en `de14e5c`. A diferencia de
+`rules.py`, que supone un artefacto ya válido, las reglas toleran un JSON mal
+formado: un campo que falta o tiene otro tipo no dispara la regla, y lo informa el
+esquema. `jsonschema` no es de la biblioteca estándar: está en el site de usuario
+de Python, como dependencia de disensor, así que el arnés y sus pruebas corren sin
+`python -I`.
+
 **No hay reintento en esta fase.** El brazo A3 de la v2 (un reintento con la
 salida del validador) queda para la fase 2 (§13). El resultado del validador no
 cambia ninguna variable de C2: un JSON que no cumple se juzga igual.
@@ -592,6 +602,18 @@ log (supuesto conservador), 4.000 réplicas por fila:
 
 Con los dos brazos iguales, la prueba rechaza entre el 3% y el 4% de las veces:
 es un poco conservadora, por lo discreto de los datos.
+
+**Reproducida** con la prueba ya escrita (`herramientas/analisis.py`, `15`): la
+distribución exacta sale de contar los signos de las diferencias de valor 1 y de
+valor 2 con coeficientes binomiales, sin enumerar 2^n casos; se rechaza con
+p ≤ 0,05. Las seis filas dan 84,4%, 79,2%, 77,6%, 98,9%, 44,9% y 86,9%, todas a
+menos de un punto de las escritas; con los brazos iguales rechaza entre 3,1% y
+3,7%.
+
+**El intervalo de §9** («`s_json` aumentó en X [intervalo]»), que el protocolo no
+fijaba: **propuesto** el percentil 2,5 y 97,5 de la media de las diferencias
+pareadas en 10.000 remuestreos de logs, semilla 20261013. Queda a confirmar por
+Nico o por la tercera revisión antes de congelar.
 
 **Una prueba no significativa no prueba ausencia.** Si C2 no da, la frase es «no
 detectamos un efecto; con N=n, la potencia para un efecto de X puntos era Y». Los
@@ -890,6 +912,12 @@ autor de la herramienta decida el resultado.
 y Nico reconocen el brazo. Por eso la guarda de §6.2 es mecánica y la regla de
 arriba sólo deja quitar.
 
+**Escrito** (`analisis.py`, con pruebas de que las etiquetas sólo pueden quitar):
+la muestra estratificada se sortea con la semilla 20261013 entre los JSON que el
+juez leyó (uno sin JSON legible no tiene veredicto del juez) y se le entrega a Nico
+sin la etiqueta del juez; la recalculada usa las etiquetas de Nico sólo en los
+ítems decisivos.
+
 ### 8.2 Los gemelos limpios
 
 Más registros pueden ser sólo más ruido. El paper lo controla en su Apéndice D,
@@ -956,6 +984,12 @@ en una planilla (`piloto/gemelos/PARA-NICO.md` en el piloto).
   ilegible», las llamadas que no terminaron, las que ejecutaron un comando o
   cambiaron un archivo, las coincidencias con Nico, y cuántos logs salieron de la
   prueba y por qué.
+
+**La frase la elige el script** (`analisis.frase`), no quien lee los datos. **Un
+hueco, a decidir antes de congelar:** la prueba es bilateral, y si C2 diera
+significativa con A2 por debajo de A2b, §9 no tiene la frase escrita; el script
+dice entonces «C2 da significativa en contra de A2: `s_json` disminuyó en X
+[intervalo]» y avisa que §9 no la escribió.
 
 **Frases prohibidas.** Ninguna prueba de equivalencia está pre-registrada:
 «cualquier estructura hace lo mismo», «los slots no agregan nada», o cualquier
@@ -1096,6 +1130,16 @@ su propia ventana, o declara la confusión.
       etiquetar los JSON de los logs decisivos y 30 más.
 
 ## 15. Cambios
+
+### De la v15 a la v16
+
+| # | Qué | Qué se hizo | Dónde |
+|---|---|---|---|
+| 16.1 | El validador de §5.3 | Escrito con `jsonschema` 4.26.0 y las cuatro reglas copiadas de `rules.py`, tolerantes a JSON mal formado; las pruebas corren sin `-I` | §5.3 |
+| 16.2 | La prueba de §2.1 y la potencia de §6.4 | Escritas; la tabla de §6.4 se reproduce a menos de un punto | §6.4 |
+| 16.3 | El intervalo de §9 no estaba fijado | Propuesto el bootstrap percentil; a confirmar | §6.4, §9 |
+| 16.4 | §8.1 escrito | Muestra estratificada sobre lo que leyó el juez; etiquetas sólo en decisivos | §8.1 |
+| 16.5 | §9 no escribe la frase de una C2 significativa en contra | Marcado como hueco a decidir; el script la dice y avisa | §9 |
 
 ### De la v14 a la v15
 

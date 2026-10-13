@@ -18,8 +18,10 @@ tachada.
    al día las secciones del protocolo que describen el arnés (§7, §14, §15). Los
    prompts, los esquemas y los umbrales no cambian sin una decisión de Nico, y
    después de congelar sólo por «Enmiendas». Cada cambio a `herramientas/` pasa
-   `python -I experimento\herramientas\prueba_offline.py` antes de gastar una
+   `python experimento\herramientas\prueba_offline.py` antes de gastar una
    llamada, y va en su propio commit, separado de las salidas y de los informes.
+   Sin `-I` desde la v16: el validador de §5.3 usa `jsonschema`, que está en el
+   site de usuario.
 2. **De a una etapa, en orden, y parás en la primera que falle.**
 3. **Cada etapa que llame a un modelo necesita el OK de Nico.** Las dos de abajo
    ya lo tienen: `sandbox` hace una sola llamada a GPT y `contexto` no llama a
