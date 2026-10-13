@@ -70,12 +70,22 @@
       "1_evento_es_tool_result": true,
       "3_aceptadas_por_regla": [
         {
+          "n": 32,
+          "linea": "cluster_failures.aggregate(date=\"2026-10-12\", scope=\"all customer-facing, regional, and private infrastructure\", group_by=[\"error_type\", \"service\"], metrics=[\"failed_jobs\", \"downtime_minutes\"], async=true)",
+          "coincide": [
+            "async"
+          ],
+          "en_la_llamada_de_seguimiento": true,
+          "regla": "en la llamada de seguimiento intacta"
+        },
+        {
           "n": 34,
           "linea": "request_id=agg-20261013-091411-r7k29",
           "coincide": [
             "request_id"
           ],
-          "en_la_llamada_de_seguimiento": false
+          "en_la_llamada_de_seguimiento": false,
+          "regla": "request_id en el bloque nuevo"
         }
       ],
       "4_respuesta_vieja": {
@@ -94,19 +104,10 @@
     },
     "para_nico": {
       "2_lineas_cambiadas_fuera_del_evento": [],
-      "3_senales_de_pendiente": [
-        {
-          "n": 32,
-          "linea": "cluster_failures.aggregate(date=\"2026-10-12\", scope=\"all customer-facing, regional, and private infrastructure\", group_by=[\"error_type\", \"service\"], metrics=[\"failed_jobs\", \"downtime_minutes\"], async=true)",
-          "coincide": [
-            "async"
-          ],
-          "en_la_llamada_de_seguimiento": true
-        }
-      ]
+      "3_senales_de_pendiente": []
     },
     "pasa_automaticos": true,
-    "pendiente_de_nico": true
+    "pendiente_de_nico": false
   },
   "estado": "hecho",
   "rotulo_sacado": false

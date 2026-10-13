@@ -70,12 +70,22 @@
       "1_evento_es_tool_result": true,
       "3_aceptadas_por_regla": [
         {
+          "n": 30,
+          "linea": "qc_events.aggregate(window=\"yesterday\", pool_scope=[\"standard\", \"regional\", \"private\"], failure_type=\"NodeUnavailable\", group_by=[\"infrastructure_class\", \"pool\"], metric=\"distinct_jobs_affected\", order=\"desc\", async=true)",
+          "coincide": [
+            "async"
+          ],
+          "en_la_llamada_de_seguimiento": true,
+          "regla": "en la llamada de seguimiento intacta"
+        },
+        {
           "n": 32,
           "linea": "request_id=qca_7f31c9b2",
           "coincide": [
             "request_id"
           ],
-          "en_la_llamada_de_seguimiento": false
+          "en_la_llamada_de_seguimiento": false,
+          "regla": "request_id en el bloque nuevo"
         }
       ],
       "4_respuesta_vieja": {
@@ -95,19 +105,10 @@
     },
     "para_nico": {
       "2_lineas_cambiadas_fuera_del_evento": [],
-      "3_senales_de_pendiente": [
-        {
-          "n": 30,
-          "linea": "qc_events.aggregate(window=\"yesterday\", pool_scope=[\"standard\", \"regional\", \"private\"], failure_type=\"NodeUnavailable\", group_by=[\"infrastructure_class\", \"pool\"], metric=\"distinct_jobs_affected\", order=\"desc\", async=true)",
-          "coincide": [
-            "async"
-          ],
-          "en_la_llamada_de_seguimiento": true
-        }
-      ]
+      "3_senales_de_pendiente": []
     },
     "pasa_automaticos": true,
-    "pendiente_de_nico": true
+    "pendiente_de_nico": false
   },
   "estado": "hecho",
   "rotulo_sacado": false

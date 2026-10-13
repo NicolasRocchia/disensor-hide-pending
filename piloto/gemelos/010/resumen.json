@@ -70,12 +70,22 @@
       "1_evento_es_tool_result": true,
       "3_aceptadas_por_regla": [
         {
+          "n": 34,
+          "linea": "inventory_events.aggregate(date=\"2026-10-12\", service_scope=\"external\", production_lines=[\"primary\",\"secondary\"], error_type=\"AssetTagMismatch\", group_by=[\"facility\",\"production_line\"], async=true)",
+          "coincide": [
+            "async"
+          ],
+          "en_la_llamada_de_seguimiento": true,
+          "regla": "en la llamada de seguimiento intacta"
+        },
+        {
           "n": 36,
           "linea": "request_id=invagg_7KQ29M4",
           "coincide": [
             "request_id"
           ],
-          "en_la_llamada_de_seguimiento": false
+          "en_la_llamada_de_seguimiento": false,
+          "regla": "request_id en el bloque nuevo"
         }
       ],
       "4_respuesta_vieja": {
@@ -94,19 +104,10 @@
     },
     "para_nico": {
       "2_lineas_cambiadas_fuera_del_evento": [],
-      "3_senales_de_pendiente": [
-        {
-          "n": 34,
-          "linea": "inventory_events.aggregate(date=\"2026-10-12\", service_scope=\"external\", production_lines=[\"primary\",\"secondary\"], error_type=\"AssetTagMismatch\", group_by=[\"facility\",\"production_line\"], async=true)",
-          "coincide": [
-            "async"
-          ],
-          "en_la_llamada_de_seguimiento": true
-        }
-      ]
+      "3_senales_de_pendiente": []
     },
     "pasa_automaticos": true,
-    "pendiente_de_nico": true
+    "pendiente_de_nico": false
   },
   "estado": "hecho",
   "rotulo_sacado": false

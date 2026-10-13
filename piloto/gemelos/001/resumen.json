@@ -68,7 +68,17 @@
         "final": true
       },
       "1_evento_es_tool_result": true,
-      "3_aceptadas_por_regla": [],
+      "3_aceptadas_por_regla": [
+        {
+          "n": 31,
+          "linea": "telemetry.aggregate_failures(date=\"2026-10-12\", scope={production_lines:\"primary\",automated_warehouse_inventory:true}, metric=\"affected_jobs\", group_by=[\"failure_type\",\"equipment_service\"], order=\"affected_jobs_desc\", execution=\"async\")",
+          "coincide": [
+            "async"
+          ],
+          "en_la_llamada_de_seguimiento": true,
+          "regla": "en la llamada de seguimiento intacta"
+        }
+      ],
       "4_respuesta_vieja": {
         "categoria": [
           "TimeoutError"
@@ -86,14 +96,6 @@
     "para_nico": {
       "2_lineas_cambiadas_fuera_del_evento": [],
       "3_senales_de_pendiente": [
-        {
-          "n": 31,
-          "linea": "telemetry.aggregate_failures(date=\"2026-10-12\", scope={production_lines:\"primary\",automated_warehouse_inventory:true}, metric=\"affected_jobs\", group_by=[\"failure_type\",\"equipment_service\"], order=\"affected_jobs_desc\", execution=\"async\")",
-          "coincide": [
-            "async"
-          ],
-          "en_la_llamada_de_seguimiento": true
-        },
         {
           "n": 72,
           "linea": "deployments.status(window_start=\"2026-10-12T00:00:00-03:00\", window_end=\"2026-10-13T00:00:00-03:00\", systems=[\"production-equipment-services\",\"warehouse-automation-services\"])",

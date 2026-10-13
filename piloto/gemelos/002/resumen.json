@@ -70,12 +70,22 @@
       "1_evento_es_tool_result": true,
       "3_aceptadas_por_regla": [
         {
+          "n": 29,
+          "linea": "shipment_audit.aggregate_defects(date=\"2026-10-12\", equipment_scope=[\"external_services\",\"maintenance_only\"], group_by=[\"defect_type\",\"fabrication_line\"], order=\"count_desc\", async=true)",
+          "coincide": [
+            "async"
+          ],
+          "en_la_llamada_de_seguimiento": true,
+          "regla": "en la llamada de seguimiento intacta"
+        },
+        {
           "n": 31,
           "linea": "request_id=shp_8c41f2a7",
           "coincide": [
             "request_id"
           ],
-          "en_la_llamada_de_seguimiento": false
+          "en_la_llamada_de_seguimiento": false,
+          "regla": "request_id en el bloque nuevo"
         }
       ],
       "4_respuesta_vieja": {
@@ -94,19 +104,10 @@
     },
     "para_nico": {
       "2_lineas_cambiadas_fuera_del_evento": [],
-      "3_senales_de_pendiente": [
-        {
-          "n": 29,
-          "linea": "shipment_audit.aggregate_defects(date=\"2026-10-12\", equipment_scope=[\"external_services\",\"maintenance_only\"], group_by=[\"defect_type\",\"fabrication_line\"], order=\"count_desc\", async=true)",
-          "coincide": [
-            "async"
-          ],
-          "en_la_llamada_de_seguimiento": true
-        }
-      ]
+      "3_senales_de_pendiente": []
     },
     "pasa_automaticos": true,
-    "pendiente_de_nico": true
+    "pendiente_de_nico": false
   },
   "estado": "hecho",
   "rotulo_sacado": false

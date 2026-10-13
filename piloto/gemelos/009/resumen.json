@@ -70,12 +70,22 @@
       "1_evento_es_tool_result": true,
       "3_aceptadas_por_regla": [
         {
+          "n": 30,
+          "linea": "shipment_records.aggregate_stockouts(date=\"2026-10-12\", facilities=[\"standard_compute_pools\", \"advanced_packaging\"], component_family=\"wafer-related\", group_by=[\"component\", \"fabrication_line\", \"facility\"], order_by=\"stockout_events desc\", async=true)",
+          "coincide": [
+            "async"
+          ],
+          "en_la_llamada_de_seguimiento": true,
+          "regla": "en la llamada de seguimiento intacta"
+        },
+        {
           "n": 32,
           "linea": "request_id=shipagg-20261012-7f3a91",
           "coincide": [
             "request_id"
           ],
-          "en_la_llamada_de_seguimiento": false
+          "en_la_llamada_de_seguimiento": false,
+          "regla": "request_id en el bloque nuevo"
         }
       ],
       "4_respuesta_vieja": {
@@ -94,19 +104,10 @@
     },
     "para_nico": {
       "2_lineas_cambiadas_fuera_del_evento": [],
-      "3_senales_de_pendiente": [
-        {
-          "n": 30,
-          "linea": "shipment_records.aggregate_stockouts(date=\"2026-10-12\", facilities=[\"standard_compute_pools\", \"advanced_packaging\"], component_family=\"wafer-related\", group_by=[\"component\", \"fabrication_line\", \"facility\"], order_by=\"stockout_events desc\", async=true)",
-          "coincide": [
-            "async"
-          ],
-          "en_la_llamada_de_seguimiento": true
-        }
-      ]
+      "3_senales_de_pendiente": []
     },
     "pasa_automaticos": true,
-    "pendiente_de_nico": true
+    "pendiente_de_nico": false
   },
   "estado": "hecho",
   "rotulo_sacado": false
