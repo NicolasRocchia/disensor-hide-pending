@@ -103,3 +103,15 @@ Con el OK de Nico, en este orden y parando en la primera que falle:
 **Primera corrida del paso 1: FALLA** (`10-PRUEBA-SANDBOX-GENERADOR.md`): sin
 modo de sandbox de Windows, `workspace-write` quedó en sólo lectura. Corregido en
 la v8 con `-c windows.sandbox=unelevated`; el paso 1 se repite antes del 2.
+
+**Hecho** (`11-PILOTO-GENERAR-Y-CHEQUEAR.md`): el paso 1 pasó, los 50 logs dejaron
+sus dos archivos y los 50 pasan `chequear` (§4.2).
+
+## Siguiente: `capacidad` (13/10/2026)
+
+Con el OK de Nico: **`python experimento\herramientas\piloto.py capacidad`**, en
+segundo plano y en tandas con `--limite`. Una llamada a GPT por log, con el arnés
+del sujeto (sólo lectura). Si al terminar la tasa de «Yes» es menor que 90%, la
+etapa imprime PARADA POR CAPACIDAD y sale con código 3: se para y se informa
+(§4.3). Las respuestas de capacidad no son respuestas a los brazos: se pueden
+leer.
