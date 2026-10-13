@@ -1,0 +1,4 @@
+# Los bytes de cada archivo quedan como estan: sin conversion de fin de linea
+# en ningun checkout. Los md5 de los prompts congelados dependen de esto, y
+# core.autocrlf=true en la maquina de Nico los romperia en un clon.
+* -text

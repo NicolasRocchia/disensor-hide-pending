@@ -1,0 +1,10 @@
+# El PDF del paper no se redistribuye: se cita por arXiv:2609.36139.
+insecure-reporters-arxiv-2609.36139.pdf
+
+# Traen el email de la cuenta de Claude (recordatorio del Agent SDK, ver
+# protocolo, 7.2). Quedan locales; si hacen falta en el repo, van redactados.
+piloto/claude-d.jsonl
+piloto/claude-e.jsonl
+
+__pycache__/
+*.pyc
