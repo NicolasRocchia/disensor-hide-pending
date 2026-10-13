@@ -1,0 +1,41 @@
+{
+  "lanzador": "desde-claude-code",
+  "codigo": 0,
+  "duracion_s": 22.211,
+  "carpeta_trabajo": "C:\\w\\57ec3b213da2",
+  "afuera": [
+    "C:\\w\\fuera-0e08876f.txt",
+    "C:\\Users\\Usuario\\AppData\\Local\\Temp\\fuera-0e08876f.txt"
+  ],
+  "mensaje_md5": "7e001169e50052a38a814ebaa55781fe",
+  "comandos_ejecutados": [],
+  "comandos_rechazados": [],
+  "archivos_cambiados": [],
+  "cambios_rechazados": [],
+  "otras_acciones": [],
+  "mensajes_agente": 2,
+  "uso": {
+    "input_tokens": 130666,
+    "cached_input_tokens": 117760,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 489,
+    "reasoning_output_tokens": 116
+  },
+  "turno_fallido": null,
+  "errores": [],
+  "lineas_ilegibles": 0,
+  "stderr": {
+    "shell_rechazados": [],
+    "parches_rechazados": [
+      "2026-10-13T17:58:12.379548Z ERROR codex_core::tools::router: error=patch rejected: writing is blocked by read-only sandbox; rejected by user approval settings",
+      "2026-10-13T17:58:14.054761Z ERROR codex_core::tools::router: error=patch rejected: writing is blocked by read-only sandbox; rejected by user approval settings",
+      "2026-10-13T17:58:16.235839Z ERROR codex_core::tools::router: error=patch rejected: writing is blocked by read-only sandbox; rejected by user approval settings"
+    ],
+    "otros_errores_herramienta": []
+  },
+  "escribio_adentro": false,
+  "archivos_en_la_carpeta": [],
+  "escapes": [],
+  "cambios_fuera_de_la_carpeta": [],
+  "shell_presente": false
+}
