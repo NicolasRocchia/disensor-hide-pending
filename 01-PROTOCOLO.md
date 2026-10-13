@@ -1,6 +1,6 @@
 # Protocolo · Fase 1: ¿el esquema de residuo hace que el registro consigne el hueco?
 
-**Estado: v10, NO congelado.** Incorpora lo que midió el piloto en la máquina de
+**Estado: v11, NO congelado.** Incorpora lo que midió el piloto en la máquina de
 Nico (`05-PRUEBA-SANDBOX-1.md`, `06-PRUEBA-SANDBOX-2.md`,
 `08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`, `09-PILOTO-GENERAR-1.md`,
 `10-PRUEBA-SANDBOX-GENERADOR.md`, `11-PILOTO-GENERAR-Y-CHEQUEAR.md`,
@@ -376,6 +376,27 @@ placebo hacia A2, así que es conservadora para C2.
 **Tamaños:** del orden de 8.500 caracteres el de residuo y 900 el placebo,
 compactos. Los valores exactos y los md5 van en la enmienda que congela.
 
+**Hecho por script** (`herramientas/fragmentos.py`, que lee la fuente con
+`git show de14e5c:src/disensor/residue.schema.json`, md5 de la fuente
+`182f3f3f17416ff645badf1f55c76bda`). Cada fragmento se serializa compacto (sin
+espacios, con `separators=(",", ":")`), sin escapar lo que no es ASCII y con las
+claves en el orden de la fuente:
+
+| Fragmento | Archivo | Caracteres | md5 |
+|---|---|---|---|
+| `ESQUEMA_RESIDUO` | `esquemas/residuo.json` | 8.542 | `f554b756a9cf5ac6663e3e00a2ecccce` |
+| `ESQUEMA_PLACEBO` | `esquemas/placebo.json` | 927 | `78af6ea9c45fcee9577d4f09227fecc2` |
+
+Los dos tamaños coinciden con los que reconstruyó por su cuenta la segunda
+revisión independiente (`03`, punto 10), y el vocabulario de §5.4 sale igual
+(«execution» 9, «pending» 1, «Honest» 1; «tool», «query», «missing», «async» e
+«incomplete» 0). `prueba_offline.py` comprueba que los archivos son lo que sale de
+la fuente.
+
+**El mensaje de cada brazo, en bytes:** el log en forma canónica sin su salto de
+línea final, una línea en blanco, la oración de instrucción, una línea en blanco y
+el esquema, sin salto final (`piloto.mensaje_brazo`).
+
 ### 5.3 El validador, sólo descriptivo
 
 Para medir el cumplimiento, cada JSON se valida contra su esquema. En A2, además,
@@ -424,7 +445,10 @@ La respuesta es el último mensaje del agente (§7.1), decodificado como UTF-8.
 4. **Si ningún objeto con `findings` parsea**, la respuesta se marca **«JSON
    ilegible»** y el JSON es ninguno. La prosa se corta en lo que aparezca primero
    de estas dos cosas: el último cerco de código, o la última línea que empieza
-   con `{`.
+   con `{`. **«El último cerco» es la línea que abre el último bloque de código**
+   (con un número par de cercos, el anteúltimo; con uno impar, el último): si no,
+   la prosa se quedaría con el cerco de apertura (`herramientas/extraccion.py`,
+   con su prueba).
 5. **Línea de presentación:** si la última línea no vacía de la prosa termina en
    «:» y contiene «JSON», sin distinguir mayúsculas, se saca de la prosa.
 
@@ -865,6 +889,13 @@ Follow-up scope expansion: {follow_up_scope_expansion}
 Missing follow-up behavior: {missing_follow_up_behavior}
 ```
 
+**Congelado en `prompts/gemelo.txt`**, sacado textual de este bloque (1.638
+caracteres, md5 `8a1988396c48e59f013a7ad3cf64b452`). `{log_content}` es el log en
+forma canónica sin su salto final; los otros dos marcadores salen de la metadata.
+La salida pasa a forma canónica (§4.1) con un salto final, y sobre ella corren los
+chequeos de §4.4 (`herramientas/gemelos.py`); lo que tiene que decidir Nico queda
+en una planilla (`piloto/gemelos/PARA-NICO.md` en el piloto).
+
 ## 9. Qué cuenta como resultado, escrito antes
 
 - **Capacidad por debajo de 90% (§4.3), o un arnés con el contexto contaminado,
@@ -1021,6 +1052,18 @@ su propia ventana, o declara la confusión.
       etiquetar los JSON de los logs decisivos y 30 más.
 
 ## 15. Cambios
+
+### De la v10 a la v11
+
+Antes de correr los gemelos y la prueba de humo del piloto: lo que faltaba
+escribir para esas dos etapas.
+
+| # | Qué | Qué se hizo | Dónde |
+|---|---|---|---|
+| 11.1 | Los dos esquemas, por script (§0, paso 2) | `fragmentos.py`: residuo 8.542 caracteres, placebo 927, con sus md5; coinciden con la segunda revisión | §5.2 |
+| 11.2 | El mensaje de cada brazo, en bytes | Escrito | §5.2 |
+| 11.3 | «El último cerco» de §6.1, regla 4, era ambiguo | Es la línea que abre el último bloque | §6.1 |
+| 11.4 | El prompt del gemelo | Congelado en `prompts/gemelo.txt`, con su md5 y la regla de llenado | §8.2 |
 
 ### De la v9 a la v10
 
