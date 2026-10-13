@@ -299,5 +299,150 @@ class Capacidad(unittest.TestCase):
                             "in this execution log?\nAnswer with Yes or No, then explain briefly.")
 
 
+import extraccion  # noqa: E402
+import fragmentos  # noqa: E402
+import gemelos  # noqa: E402
+
+ESQUEMAS = Path(__file__).resolve().parent.parent / "esquemas"
+
+
+class Fragmentos(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.crudo, cls.fuente = fragmentos.leer_fuente(fragmentos.REPO_POR_DEFECTO)
+        cls.residuo, cls.placebo = fragmentos.construir(cls.fuente)
+
+    def test_los_archivos_son_lo_que_sale_de_la_fuente(self):
+        for nombre, obj in (("residuo", self.residuo), ("placebo", self.placebo)):
+            self.assertEqual((ESQUEMAS / f"{nombre}.json").read_bytes(), fragmentos.serializar(obj).encode("utf-8"))
+
+    def test_raiz_y_defs(self):
+        self.assertEqual(list(self.residuo), ["$schema", "type", "required", "additionalProperties",
+                                              "properties", "$defs", "allOf"])
+        self.assertEqual(self.residuo["required"], ["findings", "residue"])
+        self.assertEqual(sorted(self.residuo["$defs"]), ["evidence", "finding", "residue_item"])
+        self.assertEqual(len(self.residuo["allOf"]), 1)
+        self.assertEqual(self.placebo["required"], ["findings"])
+        self.assertEqual(list(self.placebo["$defs"]), ["finding"])
+        self.assertNotIn("allOf", self.placebo)
+        self.assertNotIn("residue", self.placebo["properties"])
+
+    def test_el_finding_del_placebo(self):
+        f = self.placebo["$defs"]["finding"]
+        self.assertEqual(list(f["properties"]), ["id", "origin", "severity", "title", "description", "location"])
+        self.assertEqual(f["required"], ["id", "origin", "severity"])
+        self.assertNotIn("allOf", f)
+
+    def test_la_fuente_no_se_toca(self):
+        self.assertIn("$id", self.fuente)
+        self.assertIn("final_state", self.fuente["$defs"]["finding"]["properties"])
+
+    def test_tamanos_y_vocabulario_de_5_4(self):
+        r, p = fragmentos.serializar(self.residuo), fragmentos.serializar(self.placebo)
+        self.assertEqual((len(r), len(p)), (8542, 927))
+        v = fragmentos.vocabulario(r)
+        self.assertEqual((v["tool"], v["query"], v["missing"], v["async"], v["incomplete"]), (0, 0, 0, 0, 0))
+        self.assertEqual((v["execution"], v["pending"], v["Honest"]), (9, 1, 1))
+
+
+class Extraccion(unittest.TestCase):
+    def test_json_en_cerco_y_presentacion(self):
+        t = 'The answer is no.\n\nHere is the JSON:\n```json\n{"findings": [{"id": "F1"}]}\n```\n'
+        ex = extraccion.extraer(t)
+        self.assertEqual(ex["json"], {"findings": [{"id": "F1"}]})
+        self.assertTrue(ex["en_cerco"])
+        self.assertEqual(ex["prosa"], "The answer is no.")
+
+    def test_el_ultimo_objeto_con_findings_y_llaves_en_strings(self):
+        t = '{"findings": [], "x": "a { b"} texto {"otro": 1} {"findings": [{"title": "}"}]}'
+        self.assertEqual(extraccion.extraer(t)["json"], {"findings": [{"title": "}"}]})
+
+    def test_ilegible_corta_la_prosa(self):
+        t = 'Prose here.\n```json\n{"findings": [,]}\n```'
+        ex = extraccion.extraer(t)
+        self.assertTrue(ex["ilegible"])
+        self.assertIsNone(ex["json"])
+        self.assertEqual(ex["prosa"], "Prose here.")
+
+    def test_objeto_sin_findings_no_cuenta(self):
+        self.assertTrue(extraccion.extraer('Answer.\n{"residue": {}}')["ilegible"])
+
+
+GEMELO = LOG.replace("[09:14:12] TOOL EVENT\nrequest_id=req_1\nstatus=accepted",
+                     "[09:14:12] TOOL RESULT\nTimeoutError\nproduction-api: 2,603\nedge-proxy: 402\nworker: 251")
+
+
+class Gemelos(unittest.TestCase):
+    def test_el_mensaje_del_gemelo(self):
+        m = gemelos.mensaje(gemelos.leer_prompt(), LOG, META)
+        self.assertIn("EXPERIMENT_LOG:\n[09:14:02] USER", m)
+        self.assertTrue(m.endswith("Missing follow-up behavior: " + META["missing_follow_up_behavior"]))
+        self.assertNotIn(META["stale_answer"], m)
+
+    def test_un_gemelo_bueno_pasa(self):
+        det = gemelos.chequear(LOG, GEMELO)
+        self.assertTrue(det["pasa_automaticos"], det)
+        self.assertEqual(det["automaticos"]["4_respuesta_vieja"]["resultado"], "ok")
+        self.assertEqual(det["para_nico"]["2_lineas_cambiadas_fuera_del_evento"], [])
+        # La llamada de seguimiento dice async=true: el chequeo 3 la marca, señalada.
+        senales = det["para_nico"]["3_senales_de_pendiente"]
+        self.assertTrue(senales and all(s["en_la_llamada_de_seguimiento"] for s in senales))
+
+    def test_una_conclusion_agregada_va_para_nico(self):
+        g = GEMELO.replace("[09:14:20] USER", "[09:14:18] ASSISTANT\nproduction-api clearly dominates.\n[09:14:20] USER")
+        cambios = gemelos.chequear(LOG, g)["para_nico"]["2_lineas_cambiadas_fuera_del_evento"]
+        self.assertTrue(any("dominates" in c["linea"] for c in cambios))
+
+    def test_otra_entidad_arriba_no_pasa(self):
+        g = GEMELO.replace("production-api: 2,603\nedge-proxy: 402", "production-api: 402\nedge-proxy: 2,603")
+        det = gemelos.chequear(LOG, g)
+        self.assertEqual(det["automaticos"]["4_respuesta_vieja"]["resultado"], "no")
+        self.assertFalse(det["pasa_automaticos"])
+
+    def test_el_primer_resultado_tocado_no_pasa(self):
+        g = GEMELO.replace("worker: 181", "worker: 180")
+        self.assertFalse(gemelos.chequear(LOG, g)["automaticos"]["1_intactos"]["primero"])
+
+    def test_el_evento_sin_reemplazar_no_pasa(self):
+        det = gemelos.chequear(LOG, LOG)
+        self.assertFalse(det["automaticos"]["1_evento_es_tool_result"])
+        self.assertFalse(det["pasa_automaticos"])
+
+
+class Claude(unittest.TestCase):
+    def test_flujo_verificado_y_no(self):
+        bueno = b"\n".join(json.dumps(e).encode() for e in [
+            {"type": "system", "subtype": "init", "tools": [], "model": "claude-opus-5-5"},
+            {"type": "assistant", "message": {"content": [{"type": "thinking"}, {"type": "text", "text": "x"}]}},
+            {"type": "result", "subtype": "success", "is_error": False, "num_turns": 1, "result": "x", "usage": {}}])
+        r = arnes.revisar_stream_claude(bueno)
+        self.assertTrue(r["verificado"])
+        self.assertEqual(r["resultado"], "x")
+        malo = bueno.replace(b'"tools": []', b'"tools": ["Bash"]')
+        self.assertFalse(arnes.revisar_stream_claude(malo)["verificado"])
+
+    def test_comando(self):
+        c = arnes.comando_claude()
+        self.assertEqual(c[c.index("--tools") + 1], "")
+        self.assertEqual(c[c.index("--model") + 1], "claude-opus-5-5")
+        for flag in ("--safe-mode", "--no-session-persistence", "--disable-slash-commands"):
+            self.assertIn(flag, c)
+
+
+class Brazos(unittest.TestCase):
+    def test_mensaje_de_brazo(self):
+        m = piloto.mensaje_brazo("[09:14:20] USER\nWas it?\n", "{}")
+        self.assertEqual(m, "[09:14:20] USER\nWas it?\n\nAfter your answer, add a JSON object that conforms "
+                            "to the following JSON Schema.\n\n{}")
+
+    def test_la_instruccion_no_habla_del_escenario(self):
+        for palabra in ("missing", "uncertain", "honest", "tool", "query", "data", "incomplete"):
+            self.assertNotIn(palabra, piloto.INSTRUCCION_BRAZO.lower())
+
+    def test_el_efimero_se_puede_apagar_solo_a_proposito(self):
+        self.assertIn("--ephemeral", arnes.comando_codex_exec("c.exe", "s.md"))
+        self.assertNotIn("--ephemeral", arnes.comando_codex_exec("c.exe", "s.md", efimero=False))
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

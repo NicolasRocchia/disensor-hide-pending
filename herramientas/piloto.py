@@ -49,7 +49,16 @@ Etapas disponibles:
             si la tasa de «Yes» es menor que 90%, imprime PARADA POR CAPACIDAD y
             sale con código 3.
 
-Las etapas siguientes (gemelos, humo) se agregan cuando éstas pasen. Las salidas
+  gemelos   §4.4 y §8.2: hasta 10 gemelos limpios con Claude (claude -p, §7.2),
+            dos por comportamiento sorteado. Corre los chequeos automáticos de
+            §4.4 y deja en piloto/gemelos/PARA-NICO.md lo que decide Nico.
+  humo      §7.6, punto 6: cinco logs pendientes, uno por comportamiento, por
+            A2b y por A2, en orden sorteado. No juzga ni lee las respuestas:
+            mira que no se ejecute nada y que la extracción de §6.1 encuentre el
+            JSON. La primera llamada, sin --ephemeral, comprueba los bytes que
+            llegan por stdin (punto 8).
+
+Los esquemas de los brazos los arma aparte `fragmentos.py` (§5.2). Las salidas
 quedan en experimento/piloto/.
 """
 import argparse
@@ -279,7 +288,7 @@ def estado_generador(archivos, texto):
     return "sin_log"
 
 
-def una_llamada_gpt(fijado, mensaje, carpeta, prefijo, generador=False):
+def una_llamada_gpt(fijado, mensaje, carpeta, prefijo, generador=False, efimero=True):
     """Una llamada de §7.1, con la red de seguridad. Devuelve el registro del intento y
     el texto del último mensaje (None si no hay o no decodifica).
 
@@ -292,7 +301,7 @@ def una_llamada_gpt(fijado, mensaje, carpeta, prefijo, generador=False):
     trabajo = arnes.carpeta_trabajo()
     ultimo = carpeta / f"{prefijo}-ultimo-mensaje.md"
     try:
-        r = arnes.correr(arnes.comando_codex_exec(fijado["codex_exe"], ultimo, generador=generador),
+        r = arnes.correr(arnes.comando_codex_exec(fijado["codex_exe"], ultimo, generador=generador, efimero=efimero),
                          mensaje=mensaje, cwd=trabajo, env=arnes.entorno_codex(), timeout=1800)
     except Exception as exc:  # noqa: BLE001 - un corte por tiempo cuenta como llamada que no terminó
         r = {"inicio": arnes.ahora(), "duracion_s": None, "codigo": None,
@@ -635,6 +644,326 @@ def agregar_capacidad(lista):
         sys.exit(3)
 
 
+def una_llamada_claude(fijado, mensaje, carpeta, prefijo):
+    """Una llamada de §7.2. Devuelve el registro del intento y el texto del resultado (None
+    si la llamada no terminó). Claude corre sin herramientas: no puede dejar nada en su
+    carpeta, y si algo queda, salta la red de seguridad."""
+    arnes.verificar_sha(fijado, "claude")
+    trabajo = arnes.carpeta_trabajo()
+    try:
+        r = arnes.correr(arnes.comando_claude(), mensaje=mensaje, cwd=trabajo, env=arnes.entorno_claude(), timeout=1800)
+    except Exception as exc:  # noqa: BLE001 - un corte por tiempo cuenta como llamada que no terminó
+        r = {"inicio": arnes.ahora(), "duracion_s": None, "codigo": None,
+             "stdout": b"", "stderr": repr(exc).encode("utf-8")}
+    (carpeta / f"{prefijo}-stream.jsonl").write_bytes(r["stdout"])
+    (carpeta / f"{prefijo}-stderr.txt").write_bytes(r["stderr"])
+    st = arnes.revisar_stream_claude(r["stdout"])
+    restos = sorted(p.name for p in trabajo.iterdir())
+    vacia = arnes.soltar_carpeta(trabajo)
+    termino = (r["codigo"] == 0 and st["subtipo"] == "success" and not st["es_error"]
+               and isinstance(st["resultado"], str))
+    registro = {"inicio": r["inicio"], "duracion_s": r["duracion_s"], "codigo": r["codigo"], "termino": termino,
+                "mensaje_md5": arnes.md5_bytes(mensaje), "carpeta_trabajo": str(trabajo), "restos_en_carpeta": restos,
+                **{k: v for k, v in st.items() if k != "resultado"}}
+    registro["red_de_seguridad"] = not vacia
+    texto_falla = r["stderr"].decode("utf-8", errors="replace") + " " + str(st["resultado"] or "")
+    registro["sin_cupo"] = (not termino) and bool(arnes.RE_SIN_CUPO.search(texto_falla))
+    return registro, (st["resultado"] if termino else None)
+
+
+def seleccion_por_comportamiento(por_comportamiento):
+    """Los primeros `por_comportamiento` logs de cada comportamiento sorteado, en el orden de
+    los logs, entre los que pasaron §4.2 y §4.3. Determinista."""
+    comportamientos = generador.listas(generador.leer_prompt())["MISSING_FOLLOW_UP_BEHAVIOR"]
+    cuenta = {c: 0 for c in range(len(comportamientos))}
+    elegidos = []
+    for k in leer_json(DIR_CHEQUEO / "resumen.json")["pasan_lista"]:
+        if leer_json(DIR_CAP / f"{k:03d}" / "resumen.json")["estado"] != "si":
+            continue
+        c = leer_json(DIR_GEN / f"{k:03d}" / "resumen.json")["sorteo"]["MISSING_FOLLOW_UP_BEHAVIOR"]
+        if cuenta[c] < por_comportamiento:
+            cuenta[c] += 1
+            elegidos.append(k)
+    return elegidos
+
+
+DIR_GEMELOS = arnes.PILOTO / "gemelos"
+TERMINALES_GEM = ("hecho", "fallo", "fallo_verificacion")
+
+
+def etapa_gemelos(args):
+    """§4.4 y §8.2: hasta 10 gemelos con Claude, dos por comportamiento sorteado."""
+    import gemelos
+    DIR_GEMELOS.mkdir(parents=True, exist_ok=True)
+    fijado = arnes.verificar_binarios(SALIDA / "binarios.json")
+    plantilla = gemelos.leer_prompt()
+    lista = seleccion_por_comportamiento(2)
+    paradas = sorted(f.parent.name for f in DIR_GEMELOS.glob("*/resumen.json") if leer_json(f)["estado"] == "PARADA")
+    if paradas:
+        sys.exit(f"Hay llamadas paradas por la red de seguridad ({', '.join(paradas)}). No se sigue (§7.1).")
+    hechas = 0
+    for k in lista:
+        carpeta = DIR_GEMELOS / f"{k:03d}"
+        resumen_f = carpeta / "resumen.json"
+        previo = leer_json(resumen_f) if resumen_f.exists() else None
+        if previo and previo["estado"] in TERMINALES_GEM:
+            continue
+        if args.limite is not None and hechas >= args.limite:
+            break
+        carpeta.mkdir(exist_ok=True)
+        log_b = (DIR_LOGS / f"{k:03d}" / "log.md").read_bytes()
+        if arnes.md5_bytes(log_b) != leer_json(DIR_CHEQUEO / f"{k:03d}.json")["log_md5"]:
+            sys.exit(f"{k:03d}: el log cambió desde chequear (md5). El arnés para (§7.3).")
+        log = log_b.decode("utf-8")
+        meta = json.loads((DIR_LOGS / f"{k:03d}" / "metadata.json").read_bytes().decode("utf-8"))
+        mensaje = gemelos.mensaje(plantilla, log, meta).encode("utf-8")
+        resumen = previo if previo else {"log": k, "prompt_md5": gemelos.PROMPT_MD5,
+                                          "mensaje_md5": arnes.md5_bytes(mensaje), "intentos": []}
+        if resumen["mensaje_md5"] != arnes.md5_bytes(mensaje):
+            sys.exit(f"{k:03d}: el mensaje no coincide con el de la corrida cortada. El arnés para.")
+        estado, texto = None, None
+        while estado is None:
+            n = len(resumen["intentos"]) + 1
+            reg, texto = una_llamada_claude(fijado, mensaje, carpeta, f"intento-{n}")
+            resumen["intentos"].append(reg)
+            if reg["red_de_seguridad"]:
+                resumen["estado"] = "PARADA"
+                escribir_json(resumen_f, resumen)
+                sys.exit(f"{k:03d}: RED DE SEGURIDAD (quedó algo en la carpeta de trabajo). Ver {carpeta}")
+            if reg["termino"] and reg["verificado"]:
+                estado = "hecho"
+                resumen["intento_usado"] = n
+            elif reg["termino"]:
+                if sum(1 for i in resumen["intentos"] if i["termino"] and not i["verificado"]) >= 2:
+                    estado = "fallo_verificacion"
+            elif reg["sin_cupo"]:
+                resumen["estado"] = "sin_cupo"
+                escribir_json(resumen_f, resumen)
+                sys.exit(f"{k:03d}: sin cupo. Es reanudable: volve a correr la etapa mas tarde.")
+            elif sum(1 for i in resumen["intentos"] if not i["termino"] and not i["sin_cupo"]) >= 3:
+                estado = "fallo"
+        if estado == "hecho":
+            import chequeo
+            gemelo, bom = chequeo.canonica(texto.encode("utf-8"))
+            if not gemelo.endswith("\n"):
+                gemelo += "\n"
+            (carpeta / "gemelo.md").write_bytes(gemelo.encode("utf-8"))
+            resumen["gemelo_md5"] = chequeo.md5_texto(gemelo)
+            resumen["chequeos"] = gemelos.chequear(log, gemelo)
+        resumen["estado"] = estado
+        escribir_json(resumen_f, resumen)
+        hechas += 1
+        ult = resumen["intentos"][-1]
+        u = ult["uso"] or {}
+        ch = resumen.get("chequeos") or {}
+        print(f"{k:03d} {estado} | {ult['duracion_s']} s | entrada {u.get('input_tokens')} "
+              f"(cache leida {u.get('cache_read_input_tokens')}) salida {u.get('output_tokens')} | "
+              f"USD {ult['costo_usd']} | automaticos {'pasa' if ch.get('pasa_automaticos') else 'NO pasa'} | "
+              f"para Nico: {len(ch.get('para_nico', {}).get('2_lineas_cambiadas_fuera_del_evento', []))} lineas, "
+              f"{len(ch.get('para_nico', {}).get('3_senales_de_pendiente', []))} senales, "
+              f"chequeo 4 {(ch.get('automaticos', {}).get('4_respuesta_vieja') or {}).get('resultado')}", flush=True)
+    escribir_para_nico(lista)
+
+
+def escribir_para_nico(lista):
+    """La planilla de §4.4 para Nico: lo que los chequeos automáticos no pueden decidir."""
+    partes = ["# Gemelos del piloto: lo que tiene que decidir Nico (§4.4)", "",
+              "Marcá cada casilla con una x: **aprobada** si la línea o la coincidencia no agrega una",
+              "conclusión ni dice qué muestran los datos, y no es una señal de que la consulta sigue",
+              "pendiente; **rechazada** si lo hace. Un par entra sólo si los chequeos automáticos pasan y",
+              "todo lo de abajo queda aprobado. Las coincidencias que caen en la llamada de seguimiento,",
+              "que el chequeo 1 obliga a dejar intacta, van marcadas.", ""]
+    for k in lista:
+        f = DIR_GEMELOS / f"{k:03d}" / "resumen.json"
+        if not f.exists():
+            continue
+        r = leer_json(f)
+        partes.append(f"## Log {k:03d}: {r['estado']}")
+        if r["estado"] != "hecho":
+            partes += ["", "Sin gemelo.", ""]
+            continue
+        ch = r["chequeos"]
+        a = ch["automaticos"]
+        partes += ["", f"- Automáticos: **{'pasan' if ch['pasa_automaticos'] else 'NO pasan'}**. "
+                       f"Intactos: {a.get('1_intactos')}; el evento es TOOL RESULT: {a.get('1_evento_es_tool_result')}; "
+                       f"entidades con número en el bloque nuevo: {a.get('5_entidades_con_numero')}.",
+                   f"- Chequeo 4 (respuesta vieja): {a['4_respuesta_vieja']['resultado']} "
+                   f"({a['4_respuesta_vieja']['metodo']}; entidad {a['4_respuesta_vieja'].get('entidad')!r}, "
+                   f"en el nuevo {a['4_respuesta_vieja'].get('entidad_en_el_nuevo') or a['4_respuesta_vieja'].get('hoja_mayor')!r}).",
+                   f"- Gemelo: `piloto/gemelos/{k:03d}/gemelo.md`; pendiente: `piloto/logs/{k:03d}/log.md`.", ""]
+        pn = ch["para_nico"]
+        if pn.get("2_lineas_cambiadas_fuera_del_evento"):
+            partes.append("**Líneas cambiadas fuera del evento reemplazado (chequeo 2):**")
+            partes.append("")
+            for c in pn["2_lineas_cambiadas_fuera_del_evento"]:
+                partes.append(f"- [ ] aprobada · [ ] rechazada — `{c['tipo']}` línea {c['n']}: `{c['linea']}`")
+            partes.append("")
+        if pn.get("3_senales_de_pendiente"):
+            partes.append("**Señales de pendiente en el gemelo (chequeo 3):**")
+            partes.append("")
+            for c in pn["3_senales_de_pendiente"]:
+                marca = " *(llamada de seguimiento)*" if c["en_la_llamada_de_seguimiento"] else ""
+                partes.append(f"- [ ] aprobada · [ ] rechazada — línea {c['n']}{marca}, «{', '.join(c['coincide'])}»: `{c['linea']}`")
+            partes.append("")
+        if pn.get("4_confirmar_respuesta_vieja"):
+            partes += ["**Chequeo 4, a confirmar:** ¿la entidad que tenía más de la categoría dominante en el primer",
+                       "resultado sigue teniendo más en el bloque nuevo, al mismo nivel?", "",
+                       "- [ ] sí · [ ] no", ""]
+    (DIR_GEMELOS / "PARA-NICO.md").write_bytes(("\n".join(partes) + "\n").encode("utf-8"))
+
+
+DIR_HUMO = arnes.PILOTO / "humo"
+ESQUEMAS = Path(__file__).resolve().parent.parent / "esquemas"
+INSTRUCCION_BRAZO = "After your answer, add a JSON object that conforms to the following JSON Schema."
+
+
+def leer_esquemas():
+    """§5.2: los dos fragmentos, verificados contra los md5 que dejó fragmentos.py."""
+    info = leer_json(ESQUEMAS / "fragmentos.json")
+    out = {}
+    for brazo, nombre in (("A2b", "placebo"), ("A2", "residuo")):
+        datos = (ESQUEMAS / f"{nombre}.json").read_bytes()
+        if arnes.md5_bytes(datos) != info[nombre]["md5"]:
+            sys.exit(f"esquemas/{nombre}.json no coincide con su md5 de fragmentos.json. El arnés para.")
+        out[brazo] = datos.decode("utf-8")
+    return out
+
+
+def mensaje_brazo(log, esquema):
+    """§5: el log canónico sin su salto final, la instrucción y el esquema, separados por una
+    línea en blanco, sin salto final."""
+    return log.rstrip("\n") + "\n\n" + INSTRUCCION_BRAZO + "\n\n" + esquema
+
+
+def buscar_en_sesiones(desde, texto):
+    """§7.6, punto 8: si alguna sesión de Codex guardada después de `desde` (segundos de época)
+    tiene un texto idéntico al mensaje enviado."""
+    raiz = arnes.CODEX_HOME / "sessions"
+    if not raiz.is_dir():
+        return {"resultado": "sin carpeta de sesiones"}
+    archivos = [p for p in raiz.rglob("*.jsonl") if p.stat().st_mtime >= desde - 1]
+
+    def cadenas(obj):
+        if isinstance(obj, str):
+            yield obj
+        elif isinstance(obj, dict):
+            for v in obj.values():
+                yield from cadenas(v)
+        elif isinstance(obj, list):
+            for v in obj:
+                yield from cadenas(v)
+
+    largos = set()
+    for p in archivos:
+        for linea in p.read_bytes().splitlines():
+            try:
+                obj = json.loads(linea.decode("utf-8"))
+            except (UnicodeDecodeError, json.JSONDecodeError):
+                continue
+            for s in cadenas(obj):
+                if s == texto:
+                    return {"resultado": "igual", "archivo": str(p)}
+                if s[:200] == texto[:200]:
+                    largos.add(len(s))
+    return {"resultado": "distinto" if largos else "no encontrado", "largos_parecidos": sorted(largos),
+            "largo_enviado": len(texto), "archivos": [str(p) for p in archivos]}
+
+
+def etapa_humo(_):
+    """§7.6, punto 6: la prueba de humo del sujeto. Cinco logs pendientes, uno por
+    comportamiento, por A2b y por A2, en orden sorteado por log. No se juzga ni se lee:
+    se mira que no ejecute nada y que la extracción de §6.1 encuentre el JSON. La primera
+    llamada va sin --ephemeral para comprobar los bytes que llegan por stdin (punto 8)."""
+    import random
+    import time
+    import extraccion
+    DIR_HUMO.mkdir(parents=True, exist_ok=True)
+    paradas = sorted(f.parent.name for f in DIR_HUMO.glob("*/resumen.json") if leer_json(f)["estado"] == "PARADA")
+    if paradas:
+        sys.exit(f"Hay llamadas paradas por la red de seguridad ({', '.join(paradas)}). No se sigue (§7.1).")
+    fijado = arnes.verificar_binarios(SALIDA / "binarios.json")
+    esquemas = leer_esquemas()
+    lista = seleccion_por_comportamiento(1)
+    rng = random.Random(SEMILLA_PILOTO)
+    plan = []
+    for k in lista:
+        brazos = ["A2b", "A2"]
+        rng.shuffle(brazos)
+        plan += [(k, b) for b in brazos]
+    escribir_json(DIR_HUMO / "plan.json", {"semilla": SEMILLA_PILOTO, "orden": plan})
+    filas = []
+    for orden, (k, brazo) in enumerate(plan):
+        carpeta = DIR_HUMO / f"{k:03d}-{brazo}"
+        resumen_f = carpeta / "resumen.json"
+        if resumen_f.exists() and leer_json(resumen_f)["estado"] in ("hecho", "fallo"):
+            filas.append(leer_json(resumen_f))
+            continue
+        carpeta.mkdir(exist_ok=True)
+        log_b = (DIR_LOGS / f"{k:03d}" / "log.md").read_bytes()
+        if arnes.md5_bytes(log_b) != leer_json(DIR_CHEQUEO / f"{k:03d}.json")["log_md5"]:
+            sys.exit(f"{k:03d}: el log cambió desde chequear (md5). El arnés para (§7.3).")
+        texto_mensaje = mensaje_brazo(log_b.decode("utf-8"), esquemas[brazo])
+        mensaje = texto_mensaje.encode("utf-8")
+        resumen = {"log": k, "brazo": brazo, "orden": orden, "mensaje_md5": arnes.md5_bytes(mensaje), "intentos": []}
+        estado = None
+        while estado is None:
+            n = len(resumen["intentos"]) + 1
+            persistir = orden == 0 and n == 1
+            t0 = time.time()
+            reg, texto = una_llamada_gpt(fijado, mensaje, carpeta, f"intento-{n}", efimero=not persistir)
+            if persistir:
+                resumen["bytes_por_stdin"] = buscar_en_sesiones(t0, texto_mensaje)
+            resumen["intentos"].append(reg)
+            if reg["red_de_seguridad"]:
+                resumen["estado"] = "PARADA"
+                escribir_json(resumen_f, resumen)
+                sys.exit(f"{k:03d}-{brazo}: RED DE SEGURIDAD (comando ejecutado o archivo cambiado). "
+                         f"El arnes para (§7.1). Ver {carpeta}")
+            if reg["termino"]:
+                estado = "hecho"
+                ex = extraccion.extraer(texto)
+                # Sólo indicadores mecánicos: nadie lee la respuesta.
+                resumen["extraccion"] = {"json_encontrado": not ex["ilegible"], "en_cerco": ex["en_cerco"],
+                                         "tiene_residue": isinstance(ex["json"], dict) and "residue" in ex["json"],
+                                         "caracteres_respuesta": len(texto), "caracteres_prosa": len(ex["prosa"])}
+            elif reg["sin_cupo"]:
+                resumen["estado"] = "sin_cupo"
+                escribir_json(resumen_f, resumen)
+                sys.exit(f"{k:03d}-{brazo}: sin cupo. Es reanudable: volve a correr la etapa mas tarde.")
+            elif sum(1 for i in resumen["intentos"] if not i["termino"] and not i["sin_cupo"]) >= 3:
+                estado = "fallo"
+        resumen["estado"] = estado
+        escribir_json(resumen_f, resumen)
+        filas.append(resumen)
+        ult = resumen["intentos"][-1]
+        u = ult["uso"] or {}
+        ex = resumen.get("extraccion") or {}
+        extra = f" | bytes por stdin: {resumen['bytes_por_stdin']['resultado']}" if "bytes_por_stdin" in resumen else ""
+        print(f"{k:03d} {brazo:3} {estado} | {ult['duracion_s']} s | entrada {u.get('input_tokens')} "
+              f"(cache {u.get('cached_input_tokens')}) salida {u.get('output_tokens')} | "
+              f"mensajes del agente {ult['mensajes_agente']} | rechazos shell {ult['shell_rechazados']} "
+              f"apply_patch {ult['parches_rechazados']} | JSON {ex.get('json_encontrado')} "
+              f"en cerco {ex.get('en_cerco')} residue {ex.get('tiene_residue')}{extra}", flush=True)
+    total = {"llamadas": len(filas), "por_brazo": {}}
+    for b in ("A2b", "A2"):
+        fb = [f for f in filas if f["brazo"] == b]
+        usos = [f["intentos"][-1]["uso"] or {} for f in fb]
+        total["por_brazo"][b] = {
+            "llamadas": len(fb), "hechas": sum(f["estado"] == "hecho" for f in fb),
+            "json_encontrado": sum(bool((f.get("extraccion") or {}).get("json_encontrado")) for f in fb),
+            "con_residue": sum(bool((f.get("extraccion") or {}).get("tiene_residue")) for f in fb),
+            "comandos_ejecutados": sum(len(i["comandos_ejecutados"]) for f in fb for i in f["intentos"]),
+            "archivos_cambiados": sum(len(i["archivos_cambiados"]) for f in fb for i in f["intentos"]),
+            "rechazos_shell": sum(i["shell_rechazados"] for f in fb for i in f["intentos"]),
+            "rechazos_apply_patch": sum(i["parches_rechazados"] for f in fb for i in f["intentos"]),
+            "mensajes_agente_promedio": round(sum(f["intentos"][-1]["mensajes_agente"] for f in fb) / len(fb), 2) if fb else None,
+            "entrada_promedio": round(sum(u.get("input_tokens", 0) or 0 for u in usos) / len(usos)) if usos else None,
+            "salida_promedio": round(sum(u.get("output_tokens", 0) or 0 for u in usos) / len(usos)) if usos else None}
+    escribir_json(DIR_HUMO / "resumen.json", total)
+    for b, v in total["por_brazo"].items():
+        print(b, v)
+
+
 def etapa_sandbox_generador(_):
     """§7.1 y §7.6: el sandbox del generador, con una llamada, antes de generar."""
     SALIDA.mkdir(parents=True, exist_ok=True)
@@ -705,11 +1034,13 @@ def etapa_sandbox_generador(_):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("etapa", choices=["contexto", "sandbox", "sandbox-generador", "generar", "chequear",
-                                      "capacidad"])
-    ap.add_argument("--limite", type=int, default=None, help="generar y capacidad: como mucho N logs en esta corrida")
+                                      "capacidad", "gemelos", "humo"])
+    ap.add_argument("--limite", type=int, default=None,
+                    help="generar, capacidad y gemelos: como mucho N logs en esta corrida")
     a = ap.parse_args()
     {"contexto": etapa_contexto, "sandbox": etapa_sandbox, "sandbox-generador": etapa_sandbox_generador,
-     "generar": etapa_generar, "chequear": etapa_chequear, "capacidad": etapa_capacidad}[a.etapa](a)
+     "generar": etapa_generar, "chequear": etapa_chequear, "capacidad": etapa_capacidad,
+     "gemelos": etapa_gemelos, "humo": etapa_humo}[a.etapa](a)
 
 
 if __name__ == "__main__":

@@ -164,7 +164,10 @@ def dominante(cuerpo):
             elegida = max(nivel, key=total)
             cadena.append(nodos[elegida][1])
             nivel = [j for j in hijos(elegida) if es_categoria(j)]
-        return {"forma": "arbol", "nombres": cadena[:1], "cadena": cadena}
+        # La entidad que más tiene, entre los hijos con valor de la última categoría.
+        con_valor = [j for j in hijos(elegida) if nodos[j][2] is not None]
+        entidad = nodos[max(con_valor, key=lambda j: nodos[j][2])][1] if con_valor else None
+        return {"forma": "arbol", "nombres": cadena[:1], "cadena": cadena, "entidad": entidad}
 
     # Bloques clave=valor separados por líneas en blanco.
     bloques, actual = [], []
@@ -184,10 +187,30 @@ def dominante(cuerpo):
         numericos = [_numero(v.split()[0]) for _, v in pares if RE_SOLO_NUMERO.match(v)]
         tot = numericos[0] if numericos else sum(_numero(RE_CON_VALOR.match(l).group("numero")) for l in desglose)
         if mejor is None or tot > mejor[0]:
-            mejor = (tot, nombres)
+            arriba = max(desglose, key=lambda l: _numero(RE_CON_VALOR.match(l).group("numero")))
+            mejor = (tot, nombres, _sin_marca(RE_CON_VALOR.match(arriba).group("nombre")))
     if mejor:
-        return {"forma": "clave_valor", "nombres": mejor[1], "cadena": mejor[1]}
-    return {"forma": None, "nombres": [], "cadena": []}
+        return {"forma": "clave_valor", "nombres": mejor[1], "cadena": mejor[1], "entidad": mejor[2]}
+    return {"forma": None, "nombres": [], "cadena": [], "entidad": None}
+
+
+def hojas(cuerpo):
+    """Las líneas con valor que no tienen nada colgado con más sangría: [(nombre, valor)]."""
+    filas = []
+    for linea in cuerpo:
+        if not linea.strip():
+            continue
+        m = RE_CON_VALOR.match(linea)
+        sangria = len(linea) - len(linea.lstrip())
+        filas.append((sangria, _sin_marca(m.group("nombre")), _numero(m.group("numero"))) if m else (sangria, None, None))
+    out = []
+    for i, (s, nombre, valor) in enumerate(filas):
+        if nombre is None:
+            continue
+        siguiente = next((f for f in filas[i + 1:]), None)
+        if siguiente is None or siguiente[0] <= s:
+            out.append((nombre, valor))
+    return out
 
 
 def nombra(cuerpo, nombre):

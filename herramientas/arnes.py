@@ -171,7 +171,7 @@ def prohibidas_en(texto):
     return sorted({p.pattern for p in PROHIBIDAS if p.search(texto)})
 
 
-def comando_codex_exec(codex_exe, salida_ultimo_mensaje, generador=False):
+def comando_codex_exec(codex_exe, salida_ultimo_mensaje, generador=False, efimero=True):
     """La llamada de §7.1. El mensaje va por stdin.
 
     Capacidad y brazos corren con sandbox de sólo lectura. El generador, por la
@@ -194,12 +194,51 @@ def comando_codex_exec(codex_exe, salida_ultimo_mensaje, generador=False):
                    "-c", "sandbox_workspace_write.network_access=false"]
     else:
         sandbox = ["-s", "read-only"]
-    return [str(codex_exe), "exec", "-m", MODELO_GPT, *sandbox, "--ephemeral",
+    # `efimero=False` sólo para comprobar en el piloto los bytes que llegan por stdin
+    # (§7.6, punto 8): sin --ephemeral, Codex guarda la sesión en CODEX_HOME/sessions.
+    return [str(codex_exe), "exec", "-m", MODELO_GPT, *sandbox, *(["--ephemeral"] if efimero else []),
             "--ignore-user-config", "--ignore-rules",
             "-c", "project_doc_max_bytes=0",
             "-c", f"model_reasoning_effort={ESFUERZO_GPT}",
             "-c", "skills.include_instructions=false",
             "--skip-git-repo-check", "--json", "-o", str(salida_ultimo_mensaje)]
+
+
+def comando_claude():
+    """§7.2, igual para gemelos y juez. El mensaje va por stdin. `--tools ""` va como un
+    elemento vacío de la lista: desde PowerShell o Git Bash se perdería."""
+    return [str(CLAUDE_EXE), "-p", "--safe-mode", "--setting-sources", "project",
+            "--tools", "", "--system-prompt", "", "--disable-slash-commands",
+            "--effort", ESFUERZO_CLAUDE, "--no-session-persistence",
+            "--output-format", "stream-json", "--verbose", "--model", MODELO_CLAUDE]
+
+
+def revisar_stream_claude(stdout_bytes):
+    """§7.2: lo que hay que verificar en cada llamada a Claude, del flujo `stream-json`."""
+    r = {"init_tools": None, "modelo": None, "usos_de_herramienta": 0, "turnos": None,
+         "subtipo": None, "es_error": None, "resultado": None, "uso": None, "costo_usd": None,
+         "lineas_ilegibles": 0}
+    for linea in stdout_bytes.splitlines():
+        if not linea.strip():
+            continue
+        try:
+            e = json.loads(linea.decode("utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            r["lineas_ilegibles"] += 1
+            continue
+        t = e.get("type")
+        if t == "system" and e.get("subtype") == "init":
+            r["init_tools"] = e.get("tools")
+            r["modelo"] = e.get("model")
+        elif t == "assistant":
+            contenido = (e.get("message") or {}).get("content") or []
+            r["usos_de_herramienta"] += sum(1 for c in contenido if c.get("type") in ("tool_use", "server_tool_use"))
+        elif t == "result":
+            r.update(turnos=e.get("num_turns"), subtipo=e.get("subtype"), es_error=e.get("is_error"),
+                     resultado=e.get("result"), uso=e.get("usage"), costo_usd=e.get("total_cost_usd"))
+    r["verificado"] = (r["init_tools"] == [] and r["modelo"] == MODELO_CLAUDE
+                       and r["usos_de_herramienta"] == 0 and r["turnos"] == 1)
+    return r
 
 
 def revisar_eventos(jsonl_bytes):
