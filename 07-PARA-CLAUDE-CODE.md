@@ -131,10 +131,22 @@ brazos ni el informe antes que Nico.**
 - El juez y la planilla de validación ven sólo los textos libres del JSON, con
   etiquetas opacas (§6.2); las etiquetas de Nico son booleanos JSON.
 
+**Lo que agrega la v20** (cuarta revisión, `19`):
+
+- `--objetivo` de `logs` nunca baja de 110: las tandas van con `--limite`.
+- Después de `incluir`: commitear juntos la lista, su md5 y `decisiones.json`;
+  anotar el md5 y ese commit en «Enmiendas»; commitear el protocolo y **pushear**.
+  `brazos` y `juez` no corren con la lista commiteada más de una vez, con el md5
+  fuera del protocolo commiteado, ni con cambios sin commitear en el protocolo,
+  `herramientas\`, `prompts\` o `esquemas\`.
+- Cada ítem guarda su historia después de cada intento. Un ítem cortado de golpe
+  entre la llamada y el registro queda `interrumpido`, terminal: no se vuelve a
+  llamar.
+
 ## Siguiente (13/10/2026)
 
-El piloto terminó (capacidad 50 de 50, `12`). Antes de congelar, con el OK de Nico:
-**`python experimento\herramientas\piloto.py juez-prueba`** otra vez, porque el
-prompt del juez cambió en la v19 (cuatro llamadas a Claude, en
-`piloto\juez-prueba-528761ba`). Después, si Nico la pide, una ronda de Codex sobre
-el diff de la v19, y se congela (§0, paso 4).
+El piloto terminó (capacidad 50 de 50, `12`). `juez-prueba` con el prompt ciego:
+5 de 5 (`18`); con la regla de textos de la v20 el juez recibe los mismos textos, y
+la etapa lo verifica sin llamar. La cuarta revisión está en `19` y sus arreglos en
+la v20 (`20`). Falta la quinta ronda de Codex, sobre el diff de la v20, que Nico
+ya pidió; después se congela (§0, paso 4).

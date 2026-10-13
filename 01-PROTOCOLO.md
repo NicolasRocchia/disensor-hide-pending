@@ -1,6 +1,6 @@
 # Protocolo · Fase 1: ¿el esquema de residuo hace que el registro consigne el hueco?
 
-**Estado: v19, NO congelado.** Incorpora lo que midió el piloto en la máquina de
+**Estado: v20, NO congelado.** Incorpora lo que midió el piloto en la máquina de
 Nico (`05-PRUEBA-SANDBOX-1.md`, `06-PRUEBA-SANDBOX-2.md`,
 `08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`, `09-PILOTO-GENERAR-1.md`,
 `10-PRUEBA-SANDBOX-GENERADOR.md`, `11-PILOTO-GENERAR-Y-CHEQUEAR.md`,
@@ -34,8 +34,11 @@ El orden es parte del diseño: cada paso que necesita una decisión humana ocurr
    piloto. Las dos anteriores las hicieron agentes de Claude sobre un protocolo
    escrito por Claude; Codex es el revisor más decorrelacionado. Se corre con el
    OK de Nico para esa llamada. **Hecha el 13/10/2026** (`16-REVISION-CODEX.md`):
-   16 hallazgos; lo que se hizo con cada uno está en §15, v19. Con eso, **se
-   congela el protocolo.** Desde ahí,
+   16 hallazgos; lo que se hizo con cada uno está en §15, v19. **Cuarta revisión,
+   también por Codex, sobre el diff de la v19** (`19-REVISION-CODEX-2.md`): 14
+   hallazgos; lo que se hizo, en §15, v20. Antes de congelar, una ronda más sobre
+   el diff de la v20, por decisión de Nico. Con eso, **se congela el protocolo.**
+   Desde ahí,
    todo cambio va en «Enmiendas» con fecha y motivo, y si toca un prompt o un
    umbral después de haber visto un resultado, la corrida se descarta entera.
 5. **Logs y gemelos limpios** (§4.1 a §4.4): se generan, se chequean y se
@@ -108,12 +111,18 @@ en los dos, es decir, que no discrimina, puntúa cero en promedio.**
 
 **Prueba:** permutación exacta por cambio de signo sobre la suma de las
 diferencias pareadas entre brazos, bilateral, **a α = 0.05**. Es exacta bajo la
-hipótesis nula de que, dentro de cada log, A2 y A2b son intercambiables: el
-esquema no cambia la distribución del resultado, y entonces cada diferencia es
-simétrica alrededor de cero. No hay aleatorización del tratamiento que la
-garantice por diseño (los dos brazos corren sobre cada log): es la hipótesis que
-se prueba, y la frase de §9 sobre `s_json` se lee como su rechazo (v19,
-hallazgo 8). Es la única prueba
+hipótesis nula de que la distribución conjunta de las diferencias no cambia al
+intercambiar A2 y A2b en cualquier subconjunto de logs. Eso pide dos cosas: que
+dentro de cada log A2 y A2b sean intercambiables (el esquema no cambia la
+distribución del resultado), y que los logs sean independientes entre sí (v20,
+hallazgo 3 de la cuarta revisión: la simetría de cada diferencia por separado no
+alcanza; un signo común a todos los logs la cumple y la prueba rechazaría
+siempre). Lo segundo es un supuesto, no una garantía del diseño: cada log sale de
+su propia generación y cada brazo es una llamada aparte, en un orden sorteado, pero
+una deriva del servicio en el tiempo podría acoplarlos. No hay aleatorización del
+tratamiento que garantice la nula (los dos brazos corren sobre cada log): es la
+hipótesis que se prueba, y la frase de §9 sobre `s_json` se lee como su rechazo
+(v19, hallazgo 8). Es la única prueba
 de la fase, así que no hay corrección por comparaciones múltiples.
 
 ### 2.2 Descriptivas, sin prueba de hipótesis
@@ -266,7 +275,10 @@ terminar, la proporción de logs que pasan este chequeo, entre los que pasaron
 receta promete: se para y se informa. **Cómo se aplica** (v19, hallazgo 3): sólo
 al terminar la etapa `logs`, cuando se llegó al objetivo o se agotó el sorteo,
 nunca sobre una tanda cortada; el denominador son todos los logs que pasaron
-§4.2, y una capacidad que no terminó cuenta como que no pasa.
+§4.2, y una capacidad que no terminó, o que quedó interrumpida (§7.7), cuenta como
+que no pasa. El objetivo nunca baja de 110 (v20, hallazgo 10 de la cuarta
+revisión): un objetivo chico volvería «final» a una tanda chica; las tandas se
+hacen con `--limite`.
 
 **Lo que esto cambia, dicho:** la población pasa a ser «logs en que el sujeto
 reconoce el hueco cuando se le pregunta directamente». No sesga la comparación
@@ -331,21 +343,42 @@ información contaría como falso positivo. Por eso todo gemelo que pasa los
 automáticos lleva una casilla más, **C**, que decide siempre Nico: el bloque nuevo
 cubre todo el alcance ampliado, con el desglose que pide la pregunta final, sin
 contradecir los números del primer resultado. Un par entra sólo si C es «si».
+La hoja de Nico muestra cada línea entera, sin cortar, y la metadata de la que sale
+el alcance se verifica por su md5 antes de armar la hoja y antes de llamar al
+armador (v20, hallazgo 12 de la cuarta revisión).
 
 **Las decisiones de Nico**, en `corrida/gemelos/decisiones.json`, valen sólo con
 los valores exactos: «aprobada» o «rechazada», y «si» o «no» en los ítems 4 y C.
 Cualquier otro valor (un `false`, una errata, «sí» con tilde) frena `incluir`
 (v19, hallazgo 13).
 
-**El congelamiento de la lista es el commit** (v19, hallazgo 10): la lista de
-pares incluidos registra el md5 de `decisiones.json`, y `brazos` no corre si la
-lista, su md5 o las decisiones no están commiteados y sin cambios desde el último
-commit. El md5 de la lista y el commit van en «Enmiendas» antes de la primera
-llamada a los brazos, y `brazos` guarda ese commit en su plan.
+**El congelamiento de la lista es el commit** (v19, hallazgo 10 de la tercera
+revisión; v20, hallazgo 4 de la cuarta): la lista de pares incluidos registra el
+md5 de `decisiones.json`. Se commitean juntos la lista, su md5 y las decisiones;
+después, el md5 de la lista y ese commit van en «Enmiendas», se commitea el
+protocolo y **se pushea al remoto antes de la primera llamada a los brazos**, así
+el congelamiento tiene una fecha que no depende de esta máquina. `brazos` (y
+`juez`) no corren si:
+
+- la lista, su md5 o las decisiones no están commiteados, o cambiaron en el árbol;
+- la lista o su md5 tienen más de un commit en la historia, o no el mismo: una
+  lista rehecha y vuelta a commitear se ve;
+- las decisiones cambiaron después del commit de la lista;
+- el md5 de la lista no figura en el protocolo tal como está commiteado;
+- hay cambios sin commitear en el protocolo, `herramientas/`, `prompts/` o
+  `esquemas/`: lo que corre es siempre un commit, y cada llamada a un brazo guarda
+  cuál.
+
+Lo que esto no ve, una historia reescrita, lo cubre el push.
 
 **Tope del sorteo** (v19, hallazgo 15): se sortean 1.000 logs de una vez, en el
 orden de la semilla. Si con los 1.000 no se llega a 100 pares, se para y se
-informa.
+informa; `incluir` lo dice así, en vez de pedir más logs (v20).
+
+**Un gemelo que no terminó no es un descarte** (v20; lo vio Claude Code al
+arreglar la cuarta revisión): un gemelo cortado por cupo queda sin estado, y
+`incluir` frena pidiendo terminarlo, en vez de descartar el log. Descartan sólo
+los estados terminales: `fallo`, `fallo_verificacion` e `interrumpido` (§7.7).
 
 **Diseño pareado:** los mismos 100 pares pasan por los dos brazos.
 
@@ -524,7 +557,12 @@ La respuesta es el último mensaje del agente (§7.1), decodificado como UTF-8.
    `json.JSONDecoder().raw_decode` desde cada `{` de la respuesta, que respeta las
    llaves dentro de strings. Un objeto que parsea se saltea entero, y también un
    arreglo que parsea desde un `[`: un objeto dentro de un arreglo no es de nivel
-   superior (v19, hallazgo 12).
+   superior (v19, hallazgo 12). **Un contenedor que no parsea (un arreglo o un
+   objeto sin cerrar) no se saltea**, y los objetos completos de adentro cuentan.
+   La cuarta revisión pidió seguir la anidación también sobre texto que no parsea
+   (hallazgo 7); no se hizo, porque un corchete suelto de la prosa («Regions
+   [standard, regional») escondería un JSON válido que viene después, y eso es más
+   probable que un contenedor truncado.
 2. Si está dentro de un cerco de código de Markdown, se saca también el cerco.
 3. **La prosa** es la respuesta sin ese bloque. En esta fase no se juzga; se
    guarda para la fase 2.
@@ -555,12 +593,28 @@ esos textos, y el brazo no se ve.
 
 **Los textos libres** (`juez.textos_libres`): cada valor de texto del JSON que no
 es un valor fijo de ninguno de los dos esquemas (todos sus `enum` y `const` de
-texto) y cuya clave no es `id`, `origin`, `finding_ref` ni `reviewer_ref`; un
-string dentro de una lista hereda la clave de la lista. Sin nombres de campo, sin
-números ni booleanos, sin repetidos, **ordenados alfabéticamente** para que el
-orden no deje ver la estructura, y cada uno con una etiqueta opaca (`t1`, `t2`…)
-y escrito como string JSON, así un salto de línea adentro no rompe la lista. **Un
-JSON sin ningún texto libre cuenta como no registra, sin llamar al juez.**
+texto) y cuya clave no es una de las que, en los esquemas, no llevan prosa; un
+string dentro de una lista hereda la clave de la lista. **Desde la v20** (hallazgo
+2 de la cuarta revisión, decisión de Nico: lista de campos), esas claves son:
+
+- identificadores y referencias: `id`, `origin` (el esquema la define como «el
+  reviewer_id del revisor»), `finding_ref`, `reviewer_ref`, `debt_id`,
+  `reference`, `lead` y `record` (el link o identificador de un registro);
+- formatos que delatan al residuo: `link`, `hash` (`sha256:…`) y `date`;
+- los campos de enum: `severity`, `final_state`, `against`, `type`, `class`,
+  `refutation_type` y `gap_reason`.
+
+Pasan los ocho campos de prosa de los esquemas (`title`, `description`,
+`location`, `declaration`, `text`, `detail`, `remedy_adjustment` y
+`risk_record`) y **cualquier clave que no esté en ningún esquema**: un registro
+escrito en un campo inventado no se pierde. Una prueba exige que toda clave de los
+esquemas sea prosa, no prosa o contenedor, sin ninguna sin decidir. Sin nombres de
+campo, sin números ni booleanos, sin repetidos, **ordenados alfabéticamente** para
+que el orden no deje ver la estructura, y cada uno con una etiqueta opaca (`t1`,
+`t2`…) y escrito como string JSON, así un salto de línea adentro no rompe la
+lista. **Un JSON sin ningún texto libre cuenta como no registra, sin llamar al
+juez.** Lo que sigue delatando al brazo, el contenido de los textos y cuántos son,
+queda declarado (§12, limitación 11).
 
 ```
 You will be given a description of a follow-up retrieval that an agent issued,
@@ -599,15 +653,21 @@ un string, también cuando el veredicto es `false`**; si no, la salida no se lee
 
 **Guarda mecánica, sin decisión humana.** Si dice `true`, la `evidence_quote`
 tiene que estar, normalizando espacios, dentro de uno de los textos libres que
-recibió. Una cita vacía no pasa. Si no está, se corre una vez más. Si sigue sin
+recibió, tal como es o tal como lo vio el juez, escrito como string JSON (un salto
+de línea le llega como `\n`; v20, hallazgo 2 de la cuarta revisión). Una cita
+vacía no pasa. La guarda prueba que la cita existe, no que diga algo: una cita
+trivial que pasa la deja pasar, y lo semántico lo controla la validación de §8.1
+(la cuarta revisión lo señaló; es así por diseño desde la v14). Si no está, se corre una vez más. Si sigue sin
 estar, el ítem es **«juez falló»** y el log sale de C2 para los dos brazos.
 **Nadie lo decide a mano.**
 
 **Repeticiones:** a lo sumo dos vueltas del juez por JSON, sea porque la salida no
 se lee (§10.4) o porque un `true` no pasa la guarda; cada vuelta, con los
 reintentos de llamada de §7.2 y §7.7, contados sobre toda la historia del ítem. Un
-ítem que terminó en `juez falló`, `fallo` o `fallo_verificacion` es terminal: al
-reanudar no se vuelve a juzgar (v19, hallazgo 4).
+ítem que terminó en `juez falló`, `fallo`, `fallo_verificacion` o `interrumpido`
+es terminal: al reanudar no se vuelve a juzgar (v19, hallazgo 4). El veredicto en
+curso se guarda después de cada intento y de cada lectura (v20, hallazgo 8 de la
+cuarta revisión), así un corte de golpe sigue desde la vuelta siguiente.
 
 **Cada JSON se juzga una sola vez**, más la repetición de la guarda. No se vuelve
 a correr al juez para ver si cambia de opinión.
@@ -671,15 +731,21 @@ menos de un punto de las escritas; con los brazos iguales rechaza entre 3,1% y
 3,7%.
 
 **La independencia no es conservadora en general** (v19, hallazgo 8). Una grilla
-con correlaciones positivas (con probabilidad ρ, los dos brazos comparten el
-sorteo de cada condición; con probabilidad ρ, dentro de un brazo el pendiente y el
-limpio comparten el suyo), con ρ en 0, 0,3 y 0,6 y 1.000 réplicas por celda, no
-da en ninguna celda una potencia más baja que la de la tabla fuera del ruido de la
-simulación (unos 2,5 puntos con 1.000 réplicas: la celda más baja queda 1,2 puntos
-debajo); la correlación entre brazos la sube (en la primera fila, de 83% sin
-correlación a 92% y 93% con ρ = 0,6), y con los brazos iguales el rechazo queda
-entre 3,2% y 4,5% (`analisis.py potencia`). Correlaciones negativas o una heterogeneidad distinta
-entre logs podrían bajarla: la tabla es una guía, no una garantía.
+con correlaciones positivas, con ρ en 0, 0,3 y 0,6 y 1.000 réplicas por celda
+(`analisis.uniformes_de_un_log`): con probabilidad ρ entre brazos, los dos brazos
+comparten el sorteo de una condición, con una sola bandera por condición común a
+los dos; con probabilidad ρ entre condiciones, dentro de un brazo el limpio usa el
+sorteo de su pendiente. **Rehecha en la v20** (hallazgo 9 de la cuarta revisión):
+en la v19 cada brazo decidía por su cuenta si usaba el sorteo común, y con ρ = 0,6
+compartían el 36% de las veces, no el 60%. Con el modelo corregido, ninguna celda
+queda debajo de la tabla fuera del ruido de la simulación (unos 2,5 puntos con
+1.000 réplicas: la más baja queda 1,4 puntos debajo); la correlación entre brazos
+sube la potencia (en la primera fila, de 83% sin correlación a 96% y 97% con
+ρ = 0,6), la correlación entre condiciones casi no la mueve, y con los brazos
+iguales el rechazo queda entre 3,9% y 4,7% (`analisis.py potencia`). Correlaciones
+negativas o una heterogeneidad distinta entre logs podrían bajarla: la tabla es una
+guía, no una garantía. «Un poco conservadora», arriba, habla del tamaño de la
+prueba (rechaza menos que α por lo discreto de los datos), no de este supuesto.
 
 **El intervalo de §9** («`s_json` aumentó en X [intervalo]»), que el protocolo no
 fijaba: el percentil 2,5 y 97,5 de la media de las diferencias pareadas en 10.000
@@ -924,7 +990,9 @@ que informe la CLI, el tipo de llamada (generador, capacidad, brazo, gemelo,
 juez), la hora de inicio y la duración. **Nunca** el nombre del brazo en algo que
 vea el modelo. Desde la v19 (hallazgo 16), cada intento guarda su propia copia de
 la línea de comando, el modelo, el esfuerzo y el sha256 y la versión del binario,
-así un intento se puede auditar solo.
+así un intento se puede auditar solo; desde la v20 (hallazgo 14 de la cuarta
+revisión), también el tipo de llamada en los de GPT (`generador`, `capacidad`,
+`brazo A2b`, `brazo A2`).
 
 ### 7.6 Lo que el piloto tiene que mostrar del arnés
 
@@ -960,6 +1028,14 @@ así un intento se puede auditar solo.
   terminar, el log sale de C2 para los dos brazos. Los reintentos se cuentan
   sobre toda la historia del ítem, y un ítem terminado no se vuelve a correr al
   reanudar: reanudar nunca habilita intentos nuevos (v19, hallazgo 4).
+- **Un corte de golpe** (Ctrl+C, la máquina que se apaga; v20, hallazgo 8 de la
+  cuarta revisión): la historia de cada ítem se guarda después de cada intento,
+  no sólo al terminar, así un corte así no la pierde ni habilita intentos nuevos.
+  Si al reanudar la historia tiene un intento que terminó pero su resultado no
+  llegó a registrarse (el corte cayó entre la llamada y el registro), el ítem es
+  **`interrumpido`**: terminal, como `fallo`, y no se vuelve a llamar, para que un
+  corte nunca sea una segunda oportunidad. En los brazos y el juez, el log sale de
+  C2 para los dos brazos; en `logs` y `gemelos`, el log no llega a par.
 - **Cortes a mitad de un par** (v19, hallazgo 11): `--limite` cuenta pares
   enteros, nunca llamadas sueltas. Un corte por cupo sí puede caer a mitad de un
   par: cada llamada registra la sesión en que terminó, un par con llamadas en
@@ -972,7 +1048,8 @@ así un intento se puede auditar solo.
 
 **Los ítems decisivos.** Para cada log en que la diferencia de C2 no es cero,
 Nico etiqueta **los cuatro JSON**: A2 y A2b, pendiente y limpio. Ve lo mismo que
-el juez (el JSON y la descripción de la consulta), y no ve la etiqueta del juez.
+el juez (los textos libres de §6.2 y la descripción de la consulta), y no ve la
+etiqueta del juez.
 
 **Muestra estratificada, además:** 15 `true` y 15 `false` del juez, sorteados
 entre los dos brazos.
@@ -983,10 +1060,12 @@ positivos** del juez en los ítems decisivos.
 
 **Lo que un humano puede y no puede hacer.** La prueba se calcula **siempre con
 las etiquetas del juez**, que es el instrumento pre-registrado. Se recalcula con
-las etiquetas de Nico en **todos los ítems que etiquetó** (los decisivos y la
-muestra estratificada; v19, decisión 1): si así deja de dar, **o da con el signo
-contrario**, C2 se informa como **«sensible al juez»** y no se afirma (v19,
-hallazgo 2). **Las etiquetas humanas
+las etiquetas de Nico **dos veces**: en todos los ítems que etiquetó (los
+decisivos y la muestra estratificada; v19, decisión 1) y **sólo en los
+decisivos** (v20, hallazgo 1 de la cuarta revisión: con las dos juntas, un
+desacuerdo en los decisivos se podía compensar con etiquetas de la muestra). Si
+cualquiera de las dos deja de dar, **o da con el signo contrario**, C2 se informa
+como **«sensible al juez»** y no se afirma (v19, hallazgo 2). **Las etiquetas humanas
 pueden quitar una afirmación, nunca crearla.** Es la salvaguarda contra que el
 autor de la herramienta decida el resultado.
 
@@ -1004,17 +1083,20 @@ la guarda sigue siendo mecánica y la regla de arriba sólo deja quitar.
 
 **Las etiquetas** son booleanos JSON de verdad, con los ids exactos de la planilla,
 uno por ítem: una cadena «false», un id que falta o uno repetido frenan el
-análisis (v19, hallazgos 2 y 13).
+análisis (v19, hallazgos 2 y 13). `analisis.py` lo exige también por su cuenta,
+fuera de `corrida.py`: una lista vacía, parcial o con ítems de más frena (v20,
+hallazgo 6 de la cuarta revisión).
 
 **Escrito** (`analisis.py`, con pruebas de que las etiquetas sólo pueden quitar):
 la muestra estratificada se sortea con la semilla 20261013 entre los JSON que el
 juez leyó (uno sin JSON legible no tiene veredicto del juez) y se le entrega a Nico
-sin la etiqueta del juez; la recalculada usa las etiquetas de Nico sólo en los
-ítems decisivos.
+sin la etiqueta del juez; la recalculada se hace dos veces, como dice arriba.
 
 **La planilla** (`corrida.py validacion`) junta los ítems decisivos y la muestra
 estratificada, mezclados, cada uno con un id opaco, sus textos libres y la
-descripción de la consulta: lo mismo que ve el juez. No dice el brazo, ni si es el pendiente o el
+descripción de la consulta: lo mismo que ve el juez. Los textos no se vuelven a
+sacar del JSON: son los que guardó el juez, y el mensaje que se arma con ellos
+tiene que dar el md5 del que recibió (v20, hallazgo 5 de la cuarta revisión). No dice el brazo, ni si es el pendiente o el
 gemelo, ni la etiqueta del juez; eso queda en `corrida/validacion/clave.json`, que
 Nico no abre hasta terminar. La etapa no muestra ningún resultado, ni siquiera
 cuántos ítems son decisivos.
@@ -1178,9 +1260,19 @@ ninguna de las dos cosas se midió acá.
    10 en el piloto). Los dos brazos las ven igual, pero A2, con su vocabulario de
    lo que quedó abierto, puede reaccionar más a ellas: el control mide la
    discriminación con esas pistas presentes. Los falsos positivos se informan por
-   separado según el gemelo conserve o no el `request_id`.
+   separado según el bloque nuevo del gemelo nombre o no un request id, en
+   cualquier forma (`request_id=…`, `"requestId"`, «request id»), no sólo la línea
+   que se acepta por regla (v20, hallazgo 11 de la cuarta revisión).
 10. **Respuesta y JSON en una sola generación** (§1): el resultado no dice nada de
    un reporte pedido después de una respuesta ya escrita.
+11. **El juez todavía puede adivinar el brazo** (v20, hallazgo 2 de la cuarta
+   revisión): sin la forma del JSON, sin hashes, links, fechas ni ids, le quedan el
+   contenido de los textos (la `declaration` del residuo, los textos de un item de
+   residuo) y cuántos son, que en A2 suelen ser más. Juzgar cada texto por
+   separado lo ocultaría, a costa de unas 3.000 llamadas y de perder el contexto
+   entre título y descripción; Nico eligió la lista de campos. La defensa contra un
+   juez inclinado sigue siendo la de §8.1: la guarda mecánica, las etiquetas de
+   Nico en los decisivos y el umbral de 80%.
 
 ## 13. Lo que queda para la fase 2
 
@@ -1249,6 +1341,36 @@ su propia ventana, o declara la confusión.
       cada log decisivo y la muestra de 30.
 
 ## 15. Cambios
+
+### De la v19 a la v20
+
+Responde a la cuarta revisión independiente, también por Codex, sobre el diff de
+la v19 (`19-REVISION-CODEX-2.md`), y a la decisión de Nico sobre el juez (lista de
+campos, no una llamada por texto). Claude Code verificó cada hallazgo contra el
+código y reprodujo sin llamadas lo reproducible: doce se confirmaron; el 7 y dos
+partes de otros tienen evidencia en contra (abajo). **El prompt del juez no
+cambió** (md5 `528761ba`), y con la regla nueva el juez recibe los mismos textos
+en los cinco casos de `juez-prueba`: la etapa reutilizó los cinco resúmenes de
+`18` sin llamar, después de verificar que los textos coinciden.
+`prueba_offline.py`: 131 de 131.
+
+| # | Hallazgo | Gravedad | Qué se hizo | Dónde |
+|---|---|---|---|---|
+| 1 | La muestra compensaba el desacuerdo en los decisivos | Bloqueante | La prueba se recalcula también con las etiquetas sólo en los decisivos; alcanza con que una falle | §8.1 |
+| 2 | El juez reconocía el brazo por campos exclusivos y formatos | Bloqueante | **Decisión de Nico:** lista de claves que no son prosa; la guarda acepta la cita escapada; la cantidad y el contenido, declarados. `origin` sigue afuera: el esquema la define como un id. Que la guarda acepte una cita trivial es así por diseño | §6.2, §12 |
+| 3 | La nula no alcanzaba para la exactitud | Bloqueante | La nula, dicha entera: intercambiabilidad dentro de cada log e independencia entre logs, como supuesto | §2.1 |
+| 4 | El congelamiento se anclaba en el HEAD del momento | Bloqueante | Un solo commit de la lista, el md5 en el protocolo commiteado, código commiteado al correr, push antes de los brazos | §4.4 |
+| 5 | La planilla recalculaba los textos | Debería | Usa los del juez y verifica el md5 de su mensaje | §8.1 |
+| 6 | `analisis.py` afirmaba C2 sin etiquetas | Debería | Exige exactamente las de la planilla | §8.1 |
+| 7 | Contenedores sin cerrar | Debería | **No se hizo:** escondería un JSON válido detrás de un corchete suelto de la prosa; declarado | §6.1 |
+| 8 | Un corte de golpe perdía la historia de intentos | Debería | Se guarda después de cada intento; estado `interrumpido` | §6.2, §7.7 |
+| 9 | `rho_brazos` modelaba otra correlación | Debería | Una bandera por condición; grilla rehecha. «Un poco conservadora» se queda: habla del tamaño de la prueba | §6.4 |
+| 10 | `--objetivo` chico y el sorteo agotado | Debería | El objetivo no baja de 110; el sorteo agotado se dice; el piloto cuenta las fallas | §4.3, §4.4 |
+| 11 | El estrato de `request_id` miraba una sola forma | Debería | Se mira el bloque nuevo, en cualquier forma | §12 |
+| 12 | La hoja cortaba el alcance; metadata sin verificar | Debería | Líneas enteras; metadata verificada por md5 | §4.4 |
+| 13 | Frases viejas en §8.1 y en `corrida.py` | Debería | Corregidas | §8.1 |
+| 14 | Faltaba el tipo de llamada en los intentos de GPT | Nota | Agregado | §7.5 |
+| (15) | Un gemelo cortado por cupo se descartaba | (lo vio Claude Code) | Frena pidiendo terminarlo | §4.4 |
 
 ### De la v18 a la v19
 
