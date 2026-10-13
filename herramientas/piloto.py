@@ -706,15 +706,23 @@ def etapa_gemelos(args):
         carpeta = DIR_GEMELOS / f"{k:03d}"
         resumen_f = carpeta / "resumen.json"
         previo = leer_json(resumen_f) if resumen_f.exists() else None
-        if previo and previo["estado"] in TERMINALES_GEM:
-            continue
-        if args.limite is not None and hechas >= args.limite:
-            break
-        carpeta.mkdir(exist_ok=True)
         log_b = (DIR_LOGS / f"{k:03d}" / "log.md").read_bytes()
         if arnes.md5_bytes(log_b) != leer_json(DIR_CHEQUEO / f"{k:03d}.json")["log_md5"]:
             sys.exit(f"{k:03d}: el log cambió desde chequear (md5). El arnés para (§7.3).")
         log = log_b.decode("utf-8")
+        if previo and previo["estado"] in TERMINALES_GEM:
+            # Sin llamar de nuevo: si cambió una regla mecánica de §4.4, los chequeos de
+            # los gemelos ya hechos se recalculan sobre el mismo gemelo.
+            if previo["estado"] == "hecho":
+                gemelo_b = (carpeta / "gemelo.md").read_bytes()
+                if arnes.md5_bytes(gemelo_b) != previo["gemelo_md5"]:
+                    sys.exit(f"{k:03d}: el gemelo cambió (md5). El arnés para.")
+                previo["chequeos"] = gemelos.chequear(log, gemelo_b.decode("utf-8"))
+                escribir_json(resumen_f, previo)
+            continue
+        if args.limite is not None and hechas >= args.limite:
+            break
+        carpeta.mkdir(exist_ok=True)
         meta = json.loads((DIR_LOGS / f"{k:03d}" / "metadata.json").read_bytes().decode("utf-8"))
         mensaje = gemelos.mensaje(plantilla, log, meta).encode("utf-8")
         resumen = previo if previo else {"log": k, "prompt_md5": gemelos.PROMPT_MD5,
@@ -757,8 +765,8 @@ def etapa_gemelos(args):
         u = ult["uso"] or {}
         ch = resumen.get("chequeos") or {}
         print(f"{k:03d} {estado} | {ult['duracion_s']} s | entrada {u.get('input_tokens')} "
-              f"(cache leida {u.get('cache_read_input_tokens')}) salida {u.get('output_tokens')} | "
-              f"USD {ult['costo_usd']} | automaticos {'pasa' if ch.get('pasa_automaticos') else 'NO pasa'} | "
+              f"(cache escrita {u.get('cache_creation_input_tokens')}, leida {u.get('cache_read_input_tokens')}) "
+              f"salida {u.get('output_tokens')} | USD {ult['costo_usd']} | automaticos {'pasa' if ch.get('pasa_automaticos') else 'NO pasa'} | "
               f"para Nico: {len(ch.get('para_nico', {}).get('2_lineas_cambiadas_fuera_del_evento', []))} lineas, "
               f"{len(ch.get('para_nico', {}).get('3_senales_de_pendiente', []))} senales, "
               f"chequeo 4 {(ch.get('automaticos', {}).get('4_respuesta_vieja') or {}).get('resultado')}", flush=True)

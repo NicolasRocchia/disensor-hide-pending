@@ -403,6 +403,14 @@ class Gemelos(unittest.TestCase):
         g = GEMELO.replace("worker: 181", "worker: 180")
         self.assertFalse(gemelos.chequear(LOG, g)["automaticos"]["1_intactos"]["primero"])
 
+    def test_un_total_suelto_no_gana_el_respaldo(self):
+        # Como el gemelo 000: el bloque nuevo agrupa por otra cosa y cierra con un total.
+        g = LOG.replace("[09:14:12] TOOL EVENT\nrequest_id=req_1\nstatus=accepted",
+                        "[09:14:12] TOOL RESULT\nby_class:\n  customer-facing: 2,184\n    production-api: 1,947\n"
+                        "    worker: 181\n  internal: 500\n    batch-api: 300\n    cron: 200\ntotal_failed: 2,684")
+        c4 = gemelos.chequear(LOG, g)["automaticos"]["4_respuesta_vieja"]
+        self.assertEqual((c4["hoja_mayor"], c4["resultado"]), ("production-api", "ok"))
+
     def test_el_evento_sin_reemplazar_no_pasa(self):
         det = gemelos.chequear(LOG, LOG)
         self.assertFalse(det["automaticos"]["1_evento_es_tool_result"])

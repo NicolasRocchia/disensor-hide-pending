@@ -122,10 +122,15 @@ def chequear(pendiente, gemelo):
         c4["metodo"] = "estructura"
         c4["resultado"] = "ok" if mismo(dp.get("entidad"), dn.get("entidad")) else "no"
     else:
+        # Respaldo: la hoja mayor entre las del nivel más profundo, que son las entidades;
+        # un total suelto («total_…: 3,078») queda arriba y no compite.
         hs = chequeo.hojas(nuevo)
+        if hs:
+            fondo = max(h[2] for h in hs)
+            hs = [h for h in hs if h[2] == fondo]
         if hs and dp.get("entidad"):
             arriba = max(hs, key=lambda h: h[1])[0]
-            c4["metodo"] = "hoja mayor del bloque nuevo"
+            c4["metodo"] = "hoja mayor del nivel más profundo del bloque nuevo"
             c4["hoja_mayor"] = arriba
             c4["resultado"] = "ok" if mismo(arriba, dp["entidad"]) else "a_mano"
         else:

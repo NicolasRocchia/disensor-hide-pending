@@ -195,7 +195,7 @@ def dominante(cuerpo):
 
 
 def hojas(cuerpo):
-    """Las líneas con valor que no tienen nada colgado con más sangría: [(nombre, valor)]."""
+    """Las líneas con valor que no tienen nada colgado con más sangría: [(nombre, valor, sangría)]."""
     filas = []
     for linea in cuerpo:
         if not linea.strip():
@@ -209,7 +209,7 @@ def hojas(cuerpo):
             continue
         siguiente = next((f for f in filas[i + 1:]), None)
         if siguiente is None or siguiente[0] <= s:
-            out.append((nombre, valor))
+            out.append((nombre, valor, s))
     return out
 
 
