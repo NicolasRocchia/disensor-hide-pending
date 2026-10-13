@@ -145,18 +145,23 @@ brazos ni el informe antes que Nico.**
 
 **Lo que agrega la v21** (quinta revisión, `21`):
 
-- En «Enmiendas» van el md5 de la lista y su commit **entero** (40 caracteres), y
-  el commit tiene que estar en un remoto: hace falta configurar el remoto del
-  experimento y pushear antes de `brazos`.
-- `brazos`, `juez`, `validacion` y `analizar` verifican el congelamiento. El plan
-  de los brazos fija el árbol de `herramientas`, `prompts` y `esquemas`: un cambio
-  de código después de la primera llamada sólo corre si una enmienda anota el md5
-  del árbol nuevo en el protocolo.
+- `brazos`, `juez`, `validacion` y `analizar` verifican el congelamiento.
+
+**Lo que agrega la v22** (sexta revisión, `22`):
+
+- En «Enmiendas» va un solo registro, con este formato exacto:
+  `- Congelamiento de la lista: md5 <md5>, commit <commit entero>, árbol <md5>.`
+  El árbol sale de `corrida.arbol_normativo()` sobre el commit de la lista.
+- El commit tiene que estar en `origin/main` (se hace `fetch` en cada etapa) y
+  `origin` no puede ser una ruta local: hace falta el remoto del experimento.
+- Un cambio de código después de la primera llamada a los brazos descarta la
+  corrida (§10.1): ninguna enmienda lo autoriza.
 
 ## Siguiente (13/10/2026)
 
 El piloto terminó (capacidad 50 de 50, `12`). `juez-prueba` con el prompt ciego:
 5 de 5 (`18`); con la regla de textos de la v20 el juez recibe los mismos textos, y
 la etapa lo verifica sin llamar. La cuarta revisión está en `19` y sus arreglos en
-la v20 (`20`). La quinta, sobre el diff de la v20, está en `21` y sus arreglos en
-la v21. Lo que sigue lo decide Nico: otra ronda o congelar (§0, paso 4).
+la v20 (`20`). La quinta está en `21` y sus arreglos en la v21; la sexta, en `22`
+y sus arreglos en la v22. Lo que sigue lo decide Nico: otra ronda o congelar (§0,
+paso 4).

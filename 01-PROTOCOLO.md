@@ -1,6 +1,6 @@
 # Protocolo · Fase 1: ¿el esquema de residuo hace que el registro consigne el hueco?
 
-**Estado: v21, NO congelado.** Incorpora lo que midió el piloto en la máquina de
+**Estado: v22, NO congelado.** Incorpora lo que midió el piloto en la máquina de
 Nico (`05-PRUEBA-SANDBOX-1.md`, `06-PRUEBA-SANDBOX-2.md`,
 `08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`, `09-PILOTO-GENERAR-1.md`,
 `10-PRUEBA-SANDBOX-GENERADOR.md`, `11-PILOTO-GENERAR-Y-CHEQUEAR.md`,
@@ -38,7 +38,9 @@ El orden es parte del diseño: cada paso que necesita una decisión humana ocurr
    también por Codex, sobre el diff de la v19** (`19-REVISION-CODEX-2.md`): 14
    hallazgos; lo que se hizo, en §15, v20. **Quinta, sobre el diff de la v20**,
    por decisión de Nico (`21-REVISION-CODEX-3.md`): 8 hallazgos; lo que se hizo,
-   en §15, v21. Con eso, **se congela el protocolo.** Desde ahí,
+   en §15, v21. **Sexta, una ronda corta sobre el diff de la v21**
+   (`22-REVISION-CODEX-4.md`): 5 hallazgos; lo que se hizo, en §15, v22. Con eso,
+   **se congela el protocolo.** Desde ahí,
    todo cambio va en «Enmiendas» con fecha y motivo, y si toca un prompt o un
    umbral después de haber visto un resultado, la corrida se descarta entera.
 5. **Logs y gemelos limpios** (§4.1 a §4.4): se generan, se chequean y se
@@ -355,37 +357,54 @@ Cualquier otro valor (un `false`, una errata, «sí» con tilde) frena `incluir`
 **El congelamiento de la lista es el commit** (v19, hallazgo 10 de la tercera
 revisión; v20, hallazgo 4 de la cuarta): la lista de pares incluidos registra el
 md5 de `decisiones.json`. Se commitean juntos la lista, su md5 y las decisiones;
-después, el md5 de la lista y ese commit, con sus 40 caracteres, van en
-«Enmiendas», se commitea el protocolo y **se pushea al remoto antes de la primera
-llamada a los brazos**, así el congelamiento tiene una fecha que no depende de esta
-máquina. `brazos`, `juez`, `validacion` y `analizar` no corren si (v21, hallazgo 1
-de la quinta revisión: antes, `validacion` y `analizar` sólo miraban el md5):
+después va en «Enmiendas» **un solo registro de congelamiento**, con este formato
+exacto (v22, hallazgo 3 de la sexta revisión: el arnés lo busca sólo en esa
+sección):
+
+```
+- Congelamiento de la lista: md5 <md5 de la lista>, commit <commit entero>, árbol <md5 del árbol>.
+```
+
+donde el árbol es el md5 de `herramientas/`, `prompts/` y `esquemas/` en ese commit
+(`corrida.arbol_normativo`). Se commitea el protocolo y **se pushea a `origin/main`
+antes de la primera llamada a los brazos**, así el congelamiento tiene una fecha que
+no depende de esta máquina. `brazos`, `juez`, `validacion` y `analizar` no corren
+si (v21, hallazgo 1 de la quinta revisión: antes, `validacion` y `analizar` sólo
+miraban el md5):
 
 - la lista, su md5 o las decisiones no están commiteados, o cambiaron en el árbol;
 - la lista o su md5 tienen más de un commit en la historia, o no el mismo: una
   lista rehecha y vuelta a commitear se ve;
 - las decisiones cambiaron después del commit de la lista;
-- el md5 de la lista o su commit no figuran en el protocolo tal como está
-  commiteado;
-- el commit de la lista no está en ningún remoto (v21, hallazgo 2);
+- «Enmiendas» del protocolo commiteado no tiene exactamente un registro de
+  congelamiento, o el registro no es esta lista, su commit y el árbol de lo que
+  corre;
+- el commit de la lista no está en `origin/main`, traída en el momento, o
+  `origin` es una ruta de esta máquina (v21, hallazgo 2 de la quinta; v22,
+  hallazgo 4 de la sexta: antes se miraban referencias locales, que pueden estar
+  viejas);
 - la lista no tiene exactamente 100 pares;
 - hay cambios sin commitear en el protocolo, `herramientas/`, `prompts/` o
   `esquemas/`: lo que corre es siempre un commit, y cada llamada a un brazo guarda
   cuál;
-- **lo que corre cambió desde la primera llamada a los brazos** (v21, hallazgo 3):
-  el plan de los brazos guarda, con la lista, el md5 de los árboles de
-  `herramientas/`, `prompts/` y `esquemas/`, y después sólo se acepta ese árbol o
-  uno que una enmienda anote en el protocolo commiteado. Cada llamada guarda el
-  árbol con que corrió;
+- **lo que corre cambió desde el congelamiento** (v21, hallazgo 3 de la quinta;
+  v22, hallazgo 1 de la sexta): el árbol tiene que ser exactamente el del
+  registro, el del plan de los brazos y el de cada resultado. Ninguna enmienda lo
+  autoriza: un cambio de código después de la primera llamada descarta la
+  corrida, como dice §10.1. Antes de la primera llamada, rehacer el registro es
+  posible (no hay resultados que lo contradigan); después, los resultados guardan
+  el árbol con que corrieron, y no coinciden;
 - el plan de los brazos falta habiendo resultados (no se regenera), o algún
-  resultado de los brazos es de otra lista (cada uno guarda el commit de la suya).
+  resultado de los brazos o del juez es de otra lista (cada uno guarda el commit
+  de la suya), o un veredicto del juez no es del JSON que dejó `brazos` (v22,
+  hallazgo 2 de la sexta: cada veredicto guarda el md5 del JSON que juzgó).
 
 **Lo que esto no ve.** Una rama paralela, armada desde antes del congelamiento con
 otra lista y su propio protocolo, o una historia reescrita, pasan estos chequeos en
 esa rama: el código sólo ve la historia que tiene delante. Lo cubre un ancla fuera
-de esta máquina: el remoto con el commit de la lista desde antes de la primera
-llamada, y el repo público al terminar. La quinta revisión lo señaló, y tiene
-razón en que el push solo no lo cubre si el remoto se puede reescribir; queda
+de esta máquina: `origin/main` con el commit de la lista desde antes de la
+primera llamada, y el repo público al terminar. La quinta revisión lo señaló, y
+tiene razón en que el push solo no lo cubre si el remoto se puede reescribir; queda
 declarado (§12, limitación 12).
 
 **Tope del sorteo** (v19, hallazgo 15): se sortean 1.000 logs de una vez, en el
@@ -626,10 +645,13 @@ Pasan los ocho campos de prosa de los esquemas (`title`, `description`,
 `risk_record`) y **cualquier clave que no esté en ningún esquema**: un registro
 escrito en un campo inventado no se pierde. Una prueba exige que toda clave de los
 esquemas sea prosa, no prosa o contenedor, sin ninguna sin decidir. **Desde la
-v21** (hallazgo 4 de la quinta revisión), además, un valor sin ningún espacio que
-no es una palabra (letras, con guiones o apóstrofos) es técnico y no llega bajo
-ninguna clave: un hash, un link, una fecha, un id, un token del esquema como
-`execution_gap`. Una clave contenedora escrita como string (`"residue": "…"`) no se
+v21** (hallazgo 4 de la quinta revisión), además, un valor técnico no llega bajo
+ninguna clave: un valor sin ningún espacio que no es una palabra (letras, con
+guiones o apóstrofos, sin contar la puntuación final), o, aun con espacios, un
+hash (`sha256: …`, hexadecimal largo), una fecha o un link (v22, hallazgo 5 de la
+sexta: en la v21, «Pending.» se perdía y una fecha con espacio pasaba). Un id con
+espacios («req abc») no se distingue de una frase y pasa; queda en la limitación
+11. Una clave contenedora escrita como string (`"residue": "…"`) no se
 descarta por su clave: en A2b `residue` es una clave desconocida, y descartarla
 sólo en A2 haría perder un registro en un brazo y no en el otro. Sin nombres de
 campo, sin números ni booleanos, sin repetidos, **ordenados alfabéticamente** para
@@ -1131,9 +1153,11 @@ sin la etiqueta del juez; la recalculada se hace dos veces, como dice arriba.
 
 **La planilla** (`corrida.py validacion`) junta los ítems decisivos y la muestra
 estratificada, mezclados, cada uno con un id opaco, sus textos libres y la
-descripción de la consulta: lo mismo que ve el juez. Los textos no se vuelven a
-sacar del JSON: son los que guardó el juez, y el mensaje que se arma con ellos
-tiene que dar el md5 del que recibió (v20, hallazgo 5 de la cuarta revisión). No dice el brazo, ni si es el pendiente o el
+descripción de la consulta: lo mismo que ve el juez. Los textos son los que
+guardó el juez, y el mensaje que se arma con ellos tiene que dar el md5 del que
+recibió (v20, hallazgo 5 de la cuarta revisión); además, tienen que ser los que
+salen hoy del JSON que dejó `brazos`, verificado por su md5 (v22, hallazgo 2 de la
+sexta). No dice el brazo, ni si es el pendiente o el
 gemelo, ni la etiqueta del juez; eso queda en `corrida/validacion/clave.json`, que
 Nico no abre hasta terminar. La etapa no muestra ningún resultado, ni siquiera
 cuántos ítems son decisivos.
@@ -1310,13 +1334,14 @@ ninguna de las dos cosas se midió acá.
    separado lo ocultaría, a costa de unas 3.000 llamadas y de perder el contexto
    entre título y descripción; Nico eligió la lista de campos. La defensa contra un
    juez inclinado sigue siendo la de §8.1: la guarda mecánica, las etiquetas de
-   Nico en los decisivos y el umbral de 80%.
+   Nico en los decisivos y el umbral de 80%. El filtro de valores técnicos (§6.2)
+   no reconoce un id escrito con espacios: si el sujeto escribe uno, llega.
 12. **El congelamiento no se defiende de su operador** (v21, hallazgo 2 de la
    quinta revisión): los chequeos de §4.4 frenan un cambio accidental o uno que
    quiera reusar resultados de otra lista, pero una rama paralela armada desde
    antes del congelamiento, o una historia reescrita, pasan en esa rama. El ancla
-   es externa: el remoto con el commit de la lista antes de la primera llamada y
-   el repo público al terminar. Fabricar los resultados mismos queda fuera de lo
+   es externa: `origin/main` con el commit de la lista antes de la primera llamada
+   y el repo público al terminar. Fabricar los resultados mismos queda fuera de lo
    que cualquier protocolo puede impedir.
 
 ## 13. Lo que queda para la fase 2
@@ -1386,6 +1411,24 @@ su propia ventana, o declara la confusión.
       cada log decisivo y la muestra de 30.
 
 ## 15. Cambios
+
+### De la v21 a la v22
+
+Responde a la sexta revisión independiente, una ronda corta de Codex sobre el diff
+de la v21 (`22-REVISION-CODEX-4.md`), pedida por Nico. Claude Code verificó los
+cinco hallazgos contra el código y los reprodujo; los cinco se confirmaron, y el
+primero choca con §10.1: la v21 dejaba que una enmienda autorizara un árbol nuevo
+a mitad de la corrida. Codex dio por cerrados cinco de los ocho de la quinta. **El
+prompt del juez no cambió**, y con el filtro nuevo `juez-prueba` reutilizó los
+cinco resúmenes sin llamar. `prueba_offline.py`: 137 de 137.
+
+| # | Hallazgo | Gravedad | Qué se hizo | Dónde |
+|---|---|---|---|---|
+| 1 | El árbol se podía cambiar en `plan.json` o autorizar con una enmienda | Bloqueante | Un registro de congelamiento con el árbol; igualdad exacta con el plan y con cada resultado; ninguna enmienda lo autoriza (§10.1) | §4.4 |
+| 2 | Los veredictos del juez no estaban atados a la lista ni al JSON | Bloqueante | Cada veredicto guarda la lista, el árbol y el md5 del JSON; la planilla vuelve a sacar los textos del JSON | §4.4, §8.1 |
+| 3 | El md5, el commit y el árbol se aceptaban en cualquier lugar del protocolo | Debería | Un solo registro, con formato fijo, sólo en «Enmiendas» | §4.4 |
+| 4 | El remoto se miraba por referencias locales | Debería | `fetch` de `origin/main` y ancestro; `origin` no puede ser una ruta local | §4.4 |
+| 5 | «Pending.» se perdía; una fecha o un hash con espacios pasaba | Debería | La puntuación final no cuenta; hash, fecha y link se reconocen con espacios; un id con espacios, declarado | §6.2, §12 |
 
 ### De la v20 a la v21
 
