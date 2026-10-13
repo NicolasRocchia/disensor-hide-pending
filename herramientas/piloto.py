@@ -714,10 +714,14 @@ def etapa_gemelos(args):
             # Sin llamar de nuevo: si cambió una regla mecánica de §4.4, los chequeos de
             # los gemelos ya hechos se recalculan sobre el mismo gemelo.
             if previo["estado"] == "hecho":
-                gemelo_b = (carpeta / "gemelo.md").read_bytes()
-                if arnes.md5_bytes(gemelo_b) != previo["gemelo_md5"]:
-                    sys.exit(f"{k:03d}: el gemelo cambió (md5). El arnés para.")
-                previo["chequeos"] = gemelos.chequear(log, gemelo_b.decode("utf-8"))
+                # El gemelo se vuelve a armar desde la salida cruda de Claude, para que una
+                # regla de limpieza nueva se aplique igual a todos.
+                crudo = (carpeta / f"intento-{previo['intento_usado']}-stream.jsonl").read_bytes()
+                texto = arnes.revisar_stream_claude(crudo)["resultado"]
+                gemelo, sacado = gemelos.limpiar(texto)
+                (carpeta / "gemelo.md").write_bytes(gemelo.encode("utf-8"))
+                previo.update(gemelo_md5=arnes.md5_bytes(gemelo.encode("utf-8")), rotulo_sacado=sacado,
+                              chequeos=gemelos.chequear(log, gemelo))
                 escribir_json(resumen_f, previo)
             continue
         if args.limite is not None and hechas >= args.limite:
@@ -751,13 +755,10 @@ def etapa_gemelos(args):
             elif sum(1 for i in resumen["intentos"] if not i["termino"] and not i["sin_cupo"]) >= 3:
                 estado = "fallo"
         if estado == "hecho":
-            import chequeo
-            gemelo, bom = chequeo.canonica(texto.encode("utf-8"))
-            if not gemelo.endswith("\n"):
-                gemelo += "\n"
+            gemelo, sacado = gemelos.limpiar(texto)
             (carpeta / "gemelo.md").write_bytes(gemelo.encode("utf-8"))
-            resumen["gemelo_md5"] = chequeo.md5_texto(gemelo)
-            resumen["chequeos"] = gemelos.chequear(log, gemelo)
+            resumen.update(gemelo_md5=arnes.md5_bytes(gemelo.encode("utf-8")), rotulo_sacado=sacado,
+                           chequeos=gemelos.chequear(log, gemelo))
         resumen["estado"] = estado
         escribir_json(resumen_f, resumen)
         hechas += 1
@@ -798,7 +799,12 @@ def escribir_para_nico(lista):
                    f"- Chequeo 4 (respuesta vieja): {a['4_respuesta_vieja']['resultado']} "
                    f"({a['4_respuesta_vieja']['metodo']}; entidad {a['4_respuesta_vieja'].get('entidad')!r}, "
                    f"en el nuevo {a['4_respuesta_vieja'].get('entidad_en_el_nuevo') or a['4_respuesta_vieja'].get('hoja_mayor')!r}).",
-                   f"- Gemelo: `piloto/gemelos/{k:03d}/gemelo.md`; pendiente: `piloto/logs/{k:03d}/log.md`.", ""]
+                   f"- Gemelo: `piloto/gemelos/{k:03d}/gemelo.md`; pendiente: `piloto/logs/{k:03d}/log.md`."]
+        if r.get("rotulo_sacado"):
+            partes.append("- Por regla: se sacó la primera línea `EXPERIMENT_LOG:` que repitió el armador.")
+        for c in a.get("3_aceptadas_por_regla", []):
+            partes.append(f"- Por regla: aceptada la línea {c['n']} del bloque nuevo, `{c['linea']}`.")
+        partes.append("")
         pn = ch["para_nico"]
         if pn.get("2_lineas_cambiadas_fuera_del_evento"):
             partes.append("**Líneas cambiadas fuera del evento reemplazado (chequeo 2):**")

@@ -425,6 +425,25 @@ class Gemelos(unittest.TestCase):
         cambios = gemelos.chequear(LOG, "EXPERIMENT_LOG:\n" + GEMELO)["para_nico"]["2_lineas_cambiadas_fuera_del_evento"]
         self.assertEqual([(c["tipo"], c["linea"]) for c in cambios], [("+", "EXPERIMENT_LOG:")])
 
+    def test_limpiar_saca_solo_el_rotulo_exacto_de_arriba(self):
+        g, sacado = gemelos.limpiar("EXPERIMENT_LOG:\r\n" + GEMELO)
+        self.assertEqual((g, sacado), (GEMELO, True))
+        self.assertEqual(gemelos.chequear(LOG, g)["para_nico"]["2_lineas_cambiadas_fuera_del_evento"], [])
+        for texto in ("EXPERIMENT_LOG: aqui\n" + GEMELO, GEMELO + "EXPERIMENT_LOG:\n", "Log:\n" + GEMELO):
+            self.assertFalse(gemelos.limpiar(texto)[1], texto[:20])
+        self.assertTrue(gemelos.limpiar(GEMELO.rstrip("\n"))[0].endswith("\n"))
+
+    def test_el_request_id_del_bloque_nuevo_se_acepta_por_regla(self):
+        g = GEMELO.replace("[09:14:12] TOOL RESULT\n", "[09:14:12] TOOL RESULT\nrequest_id=req_async_1\nstatus=completed\n")
+        det = gemelos.chequear(LOG, g)
+        self.assertEqual([c["linea"] for c in det["automaticos"]["3_aceptadas_por_regla"]], ["request_id=req_async_1"])
+        self.assertTrue(all(c["en_la_llamada_de_seguimiento"] for c in det["para_nico"]["3_senales_de_pendiente"]))
+
+    def test_un_request_id_fuera_del_bloque_nuevo_va_para_nico(self):
+        g = GEMELO.replace('summary="No critical alerts."', 'summary="No critical alerts."\nrequest_id=req_9')
+        senales = gemelos.chequear(LOG, g)["para_nico"]["3_senales_de_pendiente"]
+        self.assertIn("request_id=req_9", [c["linea"] for c in senales])
+
     def test_el_evento_sin_reemplazar_no_pasa(self):
         det = gemelos.chequear(LOG, LOG)
         self.assertFalse(det["automaticos"]["1_evento_es_tool_result"])

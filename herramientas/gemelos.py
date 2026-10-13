@@ -21,6 +21,25 @@ RE_PENDIENTE = re.compile(
     r"|incomplet|not yet|still", re.I)
 
 
+ROTULO = "EXPERIMENT_LOG:"
+# §4.4.3, regla de Nico del 13/10/2026: en el bloque nuevo, la línea del identificador de la
+# consulta asíncrona que terminó no es una señal de que siga pendiente.
+RE_ID_EN_EL_BLOQUE_NUEVO = re.compile(r"request_id=\S+")
+
+
+def limpiar(texto):
+    """§8.2: la salida del armador en forma canónica, con salto final. Regla de Nico del
+    13/10/2026: si la primera línea es exactamente el rótulo del prompt, `EXPERIMENT_LOG:`,
+    se saca. Devuelve (gemelo, se_saco_el_rotulo)."""
+    gemelo, _ = chequeo.canonica(texto.encode("utf-8"))
+    sacado = gemelo.split("\n", 1)[0] == ROTULO
+    if sacado:
+        gemelo = gemelo.split("\n", 1)[1] if "\n" in gemelo else ""
+    if not gemelo.endswith("\n"):
+        gemelo += "\n"
+    return gemelo, sacado
+
+
 def leer_prompt():
     datos = PROMPT.read_bytes()
     if hashlib.md5(datos).hexdigest() != PROMPT_MD5:
@@ -101,16 +120,23 @@ def chequear(pendiente, gemelo):
         cambios += [{"tipo": "+", "n": k + 1, "linea": lg[k][0]} for k in range(b1, b2) if lg[k][1] != ig["evento"]]
     det["para_nico"]["2_lineas_cambiadas_fuera_del_evento"] = cambios
 
-    # 3. Señales de pendiente fuera del primer resultado.
+    # 3. Señales de pendiente fuera del primer resultado. La línea `request_id=…` del bloque
+    #    nuevo queda aceptada por regla y no va a Nico.
     seg_texto = _texto_de_entrada(eg, ig["seguimiento"]).split("\n")
-    coincidencias = []
+    coincidencias, aceptadas = [], []
     for k, (linea, ent) in enumerate(lg):
         if ent == ig["primero"]:
             continue
         hallado = sorted({m.group(0).lower() for m in RE_PENDIENTE.finditer(linea)})
-        if hallado:
-            coincidencias.append({"n": k + 1, "linea": linea, "coincide": hallado,
-                                  "en_la_llamada_de_seguimiento": ent == ig["seguimiento"] and linea in seg_texto})
+        if not hallado:
+            continue
+        fila = {"n": k + 1, "linea": linea, "coincide": hallado,
+                "en_la_llamada_de_seguimiento": ent == ig["seguimiento"] and linea in seg_texto}
+        if ent == ig["evento"] and RE_ID_EN_EL_BLOQUE_NUEVO.fullmatch(linea.strip()):
+            aceptadas.append(fila)
+        else:
+            coincidencias.append(fila)
+    det["automaticos"]["3_aceptadas_por_regla"] = aceptadas
     det["para_nico"]["3_senales_de_pendiente"] = coincidencias
 
     # 4. La respuesta vieja sigue siendo la correcta.
