@@ -13,13 +13,23 @@ def ultimo_objeto_con(texto, clave):
     """§6.1, regla 1: el último objeto de nivel superior que parsea y tiene `clave`.
 
     Intenta `raw_decode` desde cada «{», que respeta las llaves dentro de strings; un
-    objeto que parsea se saltea entero, así que sólo cuentan los de nivel superior.
-    Devuelve (inicio, fin, objeto) o None. La usan la extracción y el juez (§6.2).
+    objeto que parsea se saltea entero, así que sólo cuentan los de nivel superior. Un
+    arreglo que parsea desde un «[» también se saltea entero: un objeto adentro de un
+    arreglo no es de nivel superior (v19, hallazgo 12). Devuelve (inicio, fin, objeto) o
+    None. La usan la extracción y el juez (§6.2).
     """
     dec = json.JSONDecoder()
     elegido = None
     i = 0
     while i < len(texto):
+        if texto[i] == "[":
+            try:
+                valor, fin = dec.raw_decode(texto, i)
+            except json.JSONDecodeError:
+                i += 1
+                continue
+            i = fin if isinstance(valor, list) else i + 1
+            continue
         if texto[i] == "{":
             try:
                 obj, fin = dec.raw_decode(texto, i)

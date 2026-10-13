@@ -1,7 +1,9 @@
-"""El juez «registra» (protocolo v14, §6.2): su mensaje, la lectura de su salida y la guarda.
+"""El juez «registra» (protocolo v19, §6.2): sus textos, su mensaje, la lectura de su salida
+y la guarda.
 
-Funciones puras, sin llamadas a modelos. La llamada y la repetición viven en
-`piloto.juzgar`, que usa éstas.
+Desde la v19 el juez no ve el JSON: ve sólo sus textos libres, ordenados y con etiquetas
+opacas, para que no pueda reconocer el brazo (hallazgo 1 de la tercera revisión). Funciones
+puras, sin llamadas a modelos; la llamada y la repetición viven en `piloto.juzgar`.
 """
 import hashlib
 import json
@@ -10,9 +12,9 @@ from pathlib import Path
 import extraccion
 
 PROMPT = Path(__file__).resolve().parent.parent / "prompts" / "juez.txt"
-PROMPT_MD5 = "534d88070b9b5f3424857624a09869b1"
+PROMPT_MD5 = "528761ba0ee3c66ffc55ff36dd058de9"
 CLAVE = "records_missing_followup"
-# §6.2: la cita no cuenta si sale de un valor con una de estas claves.
+# §6.2: un valor con una de estas claves no es texto libre.
 CLAVES_EXCLUIDAS = {"id", "origin", "finding_ref", "reviewer_ref"}
 
 
@@ -23,21 +25,8 @@ def leer_prompt():
     return datos.decode("utf-8")
 
 
-def mensaje(plantilla, llamada, alcance, json_texto):
-    """§6.2: la línea de la llamada de seguimiento del log pendiente, el alcance ampliado de
-    la metadata y el JSON tal como lo escribió el sujeto. Iguales para el pendiente y su
-    gemelo salvo el JSON."""
-    valores = {"{{FOLLOW_UP_CALL}}": llamada, "{{FOLLOW_UP_SCOPE}}": alcance, "{{JSON_OBJECT}}": json_texto}
-    texto = plantilla
-    for marca, valor in valores.items():
-        if texto.count(marca) != 1:
-            raise SystemExit(f"El marcador {marca} aparece {texto.count(marca)} veces")
-        texto = texto.replace(marca, valor)
-    return texto
-
-
 def valores_fijos(*esquemas):
-    """Todos los valores de `enum` y de `const` de los esquemas: §6.2 no deja citar uno."""
+    """Todos los valores de `enum` y de `const` de texto de los esquemas."""
     out = set()
 
     def recorrer(x):
@@ -57,28 +46,9 @@ def valores_fijos(*esquemas):
     return out
 
 
-def leer_salida(texto):
-    """§6.2: el último objeto de nivel superior con `records_missing_followup`. Devuelve
-    (veredicto, cita) o None si no hay uno que se pueda leer: el veredicto tiene que ser
-    un booleano y la cita, un string."""
-    hallado = extraccion.ultimo_objeto_con(texto or "", CLAVE)
-    if hallado is None:
-        return None
-    obj = hallado[2]
-    veredicto, cita = obj.get(CLAVE), obj.get("evidence_quote", "")
-    if not isinstance(veredicto, bool) or not isinstance(cita, str):
-        return None
-    return veredicto, cita
-
-
-def _espacios(s):
-    return " ".join(s.split())
-
-
 def textos_citables(obj, fijos, clave=None):
-    """Los valores de texto del JSON que una cita puede usar: no son un valor fijo de los
-    esquemas y su clave no es una de las excluidas. Un string dentro de una lista hereda
-    la clave de la lista."""
+    """Los valores de texto del JSON que no son un valor fijo de los esquemas y cuya clave no
+    es una de las excluidas. Un string dentro de una lista hereda la clave de la lista."""
     if isinstance(obj, dict):
         for k, v in obj.items():
             yield from textos_citables(v, fijos, k)
@@ -90,13 +60,56 @@ def textos_citables(obj, fijos, clave=None):
             yield obj
 
 
-def guarda(cita, obj, fijos):
-    """§6.2: si el juez dice `true`, la cita, normalizando espacios, tiene que estar dentro
-    de un valor de texto citable del JSON. Una cita vacía no pasa."""
+def textos_libres(obj, fijos):
+    """§6.2: los textos citables, sin repetidos y ordenados alfabéticamente, para que ni el
+    orden ni la forma dejen ver el brazo. Los vacíos o de puro espacio no cuentan."""
+    return sorted({t for t in textos_citables(obj, fijos) if t.strip()})
+
+
+def lista_de_textos(textos):
+    """Una línea por texto: una etiqueta opaca y el texto como string JSON."""
+    return "\n".join(f"t{n}: {json.dumps(t, ensure_ascii=False)}" for n, t in enumerate(textos, 1))
+
+
+def mensaje(plantilla, llamada, alcance, textos):
+    """§6.2: la llamada de seguimiento del pendiente, el alcance ampliado y la lista de textos.
+    Iguales para el pendiente y su gemelo salvo los textos."""
+    valores = {"{{FOLLOW_UP_CALL}}": llamada, "{{FOLLOW_UP_SCOPE}}": alcance, "{{TEXTS}}": lista_de_textos(textos)}
+    texto = plantilla
+    for marca, valor in valores.items():
+        if texto.count(marca) != 1:
+            raise SystemExit(f"El marcador {marca} aparece {texto.count(marca)} veces")
+        texto = texto.replace(marca, valor)
+    return texto
+
+
+def leer_salida(texto):
+    """§6.2: el último objeto de nivel superior con `records_missing_followup`. Devuelve
+    (veredicto, cita) o None si no se lee: el veredicto tiene que ser un booleano, y la cita
+    tiene que estar y ser un string, también con `false`."""
+    hallado = extraccion.ultimo_objeto_con(texto or "", CLAVE)
+    if hallado is None:
+        return None
+    obj = hallado[2]
+    if "evidence_quote" not in obj:
+        return None
+    veredicto, cita = obj[CLAVE], obj["evidence_quote"]
+    if not isinstance(veredicto, bool) or not isinstance(cita, str):
+        return None
+    return veredicto, cita
+
+
+def _espacios(s):
+    return " ".join(s.split())
+
+
+def guarda(cita, textos):
+    """§6.2: si el juez dice `true`, la cita, normalizando espacios, tiene que estar dentro de
+    uno de los textos libres que recibió. Una cita vacía no pasa."""
     c = _espacios(cita)
     if not c:
         return False
-    return any(c in _espacios(t) for t in textos_citables(obj, fijos))
+    return any(c in _espacios(t) for t in textos)
 
 
 def objetos_de_esquema(rutas):

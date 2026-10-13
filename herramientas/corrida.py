@@ -32,6 +32,7 @@ import argparse
 import hashlib
 import json
 import random
+import subprocess
 import sys
 from pathlib import Path
 
@@ -41,7 +42,9 @@ import generador
 import piloto
 
 SEMILLA = 20261013
-N_SORTEO = 400          # se sortea de una vez y se guarda; el orden es prefijo-estable
+# Se sortea de una vez y se guarda. Es el máximo: si con 1.000 logs no se llega a 100 pares,
+# se para y se informa (v19, hallazgo 15).
+N_SORTEO = 1000
 OBJETIVO_LOGS = 110     # logs que pasan §4.2 y §4.3 antes del primer `gemelos`
 PARES = 100
 BRAZOS = ("A2b", "A2")
@@ -123,9 +126,10 @@ def etapa_logs(args):
     ejemplos = generador.listas(prompt)
     claves = chequeo.claves_de_la_metadata(prompt)
     objetivo = args.objetivo or OBJETIVO_LOGS
-    pasan, hechas = 0, 0
+    pasan, hechas, completo = 0, 0, False
     for k, sorteado in enumerate(sorteo()):
         if pasan >= objetivo:
+            completo = True
             break
         carpeta = DIR / "logs" / f"{k:03d}"
         f = carpeta / "estado.json"
@@ -203,24 +207,32 @@ def etapa_logs(args):
             pasan += 1
         guardar()
         print(f"{k:03d} {est['final']}", flush=True)
-    resumen_logs()
+    else:
+        completo = True  # se agotó el sorteo
+    if pasan < objetivo and completo:
+        print(f"Se agotaron los {N_SORTEO} sorteos con {pasan} logs que pasan §4.2 y §4.3: se para y se informa.")
+    resumen_logs(final=completo)
 
 
-def resumen_logs():
+def resumen_logs(final):
     """Cuántos se generaron y cuántos se descartaron por cada razón (§4.4), y la regla de
-    parada de §4.3."""
+    parada de §4.3. La regla se aplica sólo «al terminar» (`final`: se llegó al objetivo o se
+    agotó el sorteo), nunca a una tanda cortada por --limite, y su denominador son todos los
+    logs que pasaron §4.2: una capacidad que no terminó cuenta como que no pasa (v19,
+    hallazgo 3)."""
     estados = [leer(f) for f in sorted((DIR / "logs").glob("*/estado.json"))]
     finales = {}
     for e in estados:
         clave = (e.get("final") or "en curso").split(":")[0]
         finales[clave] = finales.get(clave, 0) + 1
-    cap = [e["capacidad"]["estado"] for e in estados if e.get("capacidad", {}).get("estado") in ("si", "no")]
+    cap = [e["capacidad"]["estado"] for e in estados if e.get("capacidad", {}).get("estado") in ("si", "no", "fallo")]
     tasa = cap.count("si") / len(cap) if cap else None
     total = {"logs": len(estados), "finales": finales, "capacidad_si": cap.count("si"),
-             "capacidad_evaluados": len(cap), "tasa_capacidad": tasa}
+             "capacidad_no": cap.count("no"), "capacidad_fallo": cap.count("fallo"),
+             "capacidad_evaluados": len(cap), "tasa_capacidad": tasa, "final": final}
     escribir(DIR / "logs" / "resumen.json", total)
     print("logs:", total)
-    if tasa is not None and tasa < piloto.UMBRAL_CAPACIDAD:
+    if final and tasa is not None and tasa < piloto.UMBRAL_CAPACIDAD:
         print(f"PARADA POR CAPACIDAD (§4.3): la tasa de Yes es {tasa:.3f}, menor que {piloto.UMBRAL_CAPACIDAD}.")
         sys.exit(3)
 
@@ -236,17 +248,30 @@ def logs_que_pasan():
     return out
 
 
-def items_para_nico(chequeos):
-    """Los ítems que decide Nico, con un id estable dentro del log."""
+VALORES = {"si_no": ("si", "no"), "aprobacion": ("aprobada", "rechazada")}
+
+
+def items_para_nico(chequeos, alcance):
+    """Los ítems que decide Nico, con un id estable dentro del log y el tipo de respuesta.
+    Desde la v19 (hallazgo 5), todo gemelo que pasa los automáticos lleva el ítem `C`, la
+    completitud, que siempre decide Nico."""
     pn = chequeos["para_nico"]
-    items = [{"id": f"2:{c['tipo']}{c['n']}", "que": "línea cambiada fuera del evento", "linea": c["linea"]}
-             for c in pn.get("2_lineas_cambiadas_fuera_del_evento", [])]
-    items += [{"id": f"3:{c['n']}", "que": f"señal de pendiente «{', '.join(c['coincide'])}»", "linea": c["linea"]}
-              for c in pn.get("3_senales_de_pendiente", [])]
+    items = [{"id": f"2:{c['tipo']}{c['n']}", "que": "línea cambiada fuera del evento", "linea": c["linea"],
+              "valores": "aprobacion"} for c in pn.get("2_lineas_cambiadas_fuera_del_evento", [])]
+    items += [{"id": f"3:{c['n']}", "que": f"señal de pendiente «{', '.join(c['coincide'])}»", "linea": c["linea"],
+               "valores": "aprobacion"} for c in pn.get("3_senales_de_pendiente", [])]
     if pn.get("4_confirmar_respuesta_vieja"):
         items.append({"id": "4", "que": "¿la entidad que tenía más sigue teniendo más, al mismo nivel?",
-                      "linea": json.dumps(pn["4_confirmar_respuesta_vieja"], ensure_ascii=False)})
+                      "linea": json.dumps(pn["4_confirmar_respuesta_vieja"], ensure_ascii=False), "valores": "si_no"})
+    items.append({"id": "C", "que": "¿el bloque nuevo cubre todo el alcance ampliado, con el desglose que pide la "
+                  "pregunta final, sin contradecir los números del primer resultado?", "linea": alcance,
+                  "valores": "si_no"})
     return items
+
+
+def alcance_de(k):
+    meta = json.loads((DIR / "logs" / f"{k:03d}" / "metadata.json").read_bytes().decode("utf-8"))
+    return meta["follow_up_scope_expansion"]
 
 
 def etapa_gemelos(args):
@@ -286,7 +311,7 @@ def etapa_gemelos(args):
         hechas += 1
         ch = r.get("chequeos") or {}
         print(f"{k:03d} {estado} | automaticos {'pasan' if ch.get('pasa_automaticos') else 'NO pasan'} | "
-              f"para Nico {len(items_para_nico(ch)) if ch else '-'}", flush=True)
+              f"para Nico {len(items_para_nico(ch, alcance_de(k))) if ch else '-'}", flush=True)
     escribir_decisiones()
 
 
@@ -297,11 +322,14 @@ def escribir_decisiones():
     previas = leer(f) if f.exists() else {}
     decisiones, partes = {}, [
         "# Gemelos: lo que decide Nico (§4.4)", "",
-        "Para cada ítem, anotá en `corrida/gemelos/decisiones.json` «aprobada» o «rechazada»",
-        "(en el ítem 4, «si» o «no»). Aprobada: la línea no agrega una conclusión, no dice qué",
-        "muestran los datos y no es una señal de que la consulta siga pendiente. Un par entra",
-        "sólo si los automáticos pasan y todo queda aprobado. Los gemelos cuyos automáticos no",
-        "pasan quedan afuera sin pasar por acá.", ""]
+        "Para cada ítem, anotá en `corrida/gemelos/decisiones.json` exactamente «aprobada» o",
+        "«rechazada» (en los ítems 4 y C, exactamente «si» o «no»); cualquier otro valor frena",
+        "`incluir`. Aprobada: la línea no agrega una conclusión, no dice qué muestran los datos y",
+        "no es una señal de que la consulta siga pendiente. C: el bloque nuevo cubre todo el",
+        "alcance ampliado, con el desglose que pide la pregunta final, sin contradecir los",
+        "números del primer resultado. Un par entra sólo si los automáticos pasan, todo queda",
+        "aprobado y C es «si». Los gemelos cuyos automáticos no pasan quedan afuera sin pasar",
+        "por acá.", ""]
     for k in logs_que_pasan():
         fr = DIR / "gemelos" / f"{k:03d}" / "resumen.json"
         if not fr.exists():
@@ -309,14 +337,13 @@ def escribir_decisiones():
         r = leer(fr)
         if r.get("estado") != "hecho" or not r["chequeos"]["pasa_automaticos"]:
             continue
-        items = items_para_nico(r["chequeos"])
-        if not items:
-            continue
+        items = items_para_nico(r["chequeos"], alcance_de(k))
         clave = f"{k:03d}"
         decisiones[clave] = {i["id"]: (previas.get(clave) or {}).get(i["id"]) for i in items}
         partes += [f"## Log {clave}", "", f"Gemelo: `corrida/gemelos/{clave}/gemelo.md`; pendiente: "
                    f"`corrida/logs/{clave}/log.md`.", ""]
-        partes += [f"- `{i['id']}` — {i['que']}: `{i['linea'][:300]}`" for i in items]
+        partes += [f"- `{i['id']}` ({' o '.join(VALORES[i['valores']])}) — {i['que']}: `{i['linea'][:300]}`"
+                   for i in items]
         partes.append("")
     escribir(f, decisiones)
     (DIR / "gemelos" / "PARA-NICO.md").write_bytes(("\n".join(partes) + "\n").encode("utf-8"))
@@ -354,16 +381,23 @@ def elegir_pares():
         if not r["chequeos"]["pasa_automaticos"]:
             descartes[k] = "descarte §4.4: automáticos"
             continue
-        items = [i["id"] for i in items_para_nico(r["chequeos"])]
+        items = items_para_nico(r["chequeos"], alcance_de(k))
         dec = decisiones.get(f"{k:03d}", {})
-        sin = [i for i in items if dec.get(i) is None]
+        sin = [i["id"] for i in items if dec.get(i["id"]) is None]
         if sin:
             return incluidos, descartes, f"faltan decisiones de Nico en el log {k:03d}: {', '.join(sin)}"
-        if any(dec[i] in ("rechazada", "no") for i in items):
+        # v19, hallazgo 13: sólo los valores exactos; cualquier otro frena.
+        malos = [i["id"] for i in items if dec[i["id"]] not in VALORES[i["valores"]]]
+        if malos:
+            return incluidos, descartes, (f"valores inválidos en decisiones.json, log {k:03d}: "
+                                          + ", ".join(f"{i}={dec[i]!r}" for i in malos))
+        if any(dec[i["id"]] in ("rechazada", "no") for i in items):
             descartes[k] = "descarte §4.4: rechazado por Nico"
             continue
         incluidos.append({"log": k, "log_md5": e["log_md5"], "metadata_md5": e["metadata_md5"],
-                          "gemelo_md5": r["gemelo_md5"]})
+                          "gemelo_md5": r["gemelo_md5"],
+                          "gemelo_con_request_id": any(a.get("regla") == "request_id en el bloque nuevo"
+                                                       for a in r["chequeos"]["automaticos"].get("3_aceptadas_por_regla", []))})
     return incluidos, descartes, None
 
 
@@ -378,8 +412,10 @@ def etapa_incluir(_):
         sys.exit(f"No se puede congelar todavía: {problema}.")
     if len(incluidos) < PARES:
         sys.exit(f"Faltan {PARES - len(incluidos)} pares: correr `logs` con un --objetivo mayor y después `gemelos`.")
+    fd = DIR / "gemelos" / "decisiones.json"
     datos = {"semilla": SEMILLA, "pares": incluidos, "descartes": {f"{k:03d}": v for k, v in descartes.items()},
-             "logs_vistos": len(incluidos) + len(descartes)}
+             "logs_vistos": len(incluidos) + len(descartes),
+             "decisiones_md5": md5_archivo(fd) if fd.exists() else None}
     f = DIR / "pares-incluidos.json"
     if f.exists():
         if leer(f) != datos:
@@ -388,7 +424,31 @@ def etapa_incluir(_):
         escribir(f, datos)
     md5 = md5_archivo(f)
     (DIR / "pares-incluidos.md5").write_bytes((md5 + "\n").encode("utf-8"))
-    print(f"Congelada: {f} (md5 {md5}).")
+    print(f"Lista armada: {f} (md5 {md5}).")
+    print("Para congelarla, commiteá corrida/pares-incluidos.json, corrida/pares-incluidos.md5 y "
+          "corrida/gemelos/decisiones.json, y anotá el md5 y el commit en «Enmiendas»: `brazos` no corre sin eso.")
+
+
+def congelamiento_en_git():
+    """§4.4 (v19, hallazgo 10): la lista congelada es la que está commiteada. La lista, su md5 y
+    las decisiones de Nico tienen que estar en git y sin cambios respecto del último commit,
+    y las decisiones tienen que ser las que la lista registró. Devuelve el commit."""
+    g = ["git", "-C", str(arnes.EXPERIMENTO)]
+    commits = []
+    for ruta in (DIR / "pares-incluidos.json", DIR / "pares-incluidos.md5", DIR / "gemelos" / "decisiones.json"):
+        try:
+            rel = ruta.relative_to(arnes.EXPERIMENTO).as_posix()
+        except ValueError:
+            sys.exit(f"{ruta} no está dentro del repo del experimento: no hay congelamiento que verificar.")
+        en_git = subprocess.run(g + ["ls-files", "--error-unmatch", rel], capture_output=True).returncode == 0
+        sin_cambios = subprocess.run(g + ["diff", "--quiet", "HEAD", "--", rel], capture_output=True).returncode == 0
+        if not (en_git and sin_cambios):
+            sys.exit(f"{rel} no está commiteado o cambió desde el último commit: la lista no está congelada (§4.4).")
+        commits.append(subprocess.run(g + ["log", "-1", "--format=%H", "--", rel],
+                                      capture_output=True).stdout.decode("utf-8").strip())
+    if leer(DIR / "pares-incluidos.json")["decisiones_md5"] != md5_archivo(DIR / "gemelos" / "decisiones.json"):
+        sys.exit("decisiones.json no es el que registró la lista congelada. El arnés para.")
+    return commits[0]
 
 
 def leer_incluidos():
@@ -435,9 +495,14 @@ def texto_de_entrada(par, condicion):
 
 
 def etapa_brazos(args):
+    """Las cuatro llamadas de cada par, seguidas. `--limite` cuenta pares, nunca llamadas sueltas
+    (v19, hallazgo 11). Cada llamada registra la sesión en que corrió: un par cuyas llamadas
+    quedaron en sesiones distintas (un corte por cupo en el medio) es un par partido, y el
+    análisis informa la prueba también sin ellos."""
     import extraccion
     import validador
     sin_parada()
+    commit = congelamiento_en_git()
     fijado = arnes.verificar_binarios(BINARIOS)
     pares = leer_incluidos()
     por_log = {p["log"]: p for p in pares}
@@ -445,51 +510,78 @@ def etapa_brazos(args):
     fp = DIR / "brazos" / "plan.json"
     if fp.exists() and leer(fp)["orden"] != [list(x) for x in plan]:
         sys.exit("El plan de los brazos no coincide con el guardado. El arnés para.")
-    escribir(fp, {"semilla": SEMILLA, "orden": plan})
+    if not fp.exists():
+        escribir(fp, {"semilla": SEMILLA, "orden": plan, "commit_de_la_lista": commit})
+    elif leer(fp)["commit_de_la_lista"] != commit:
+        sys.exit("La lista congelada cambió de commit desde que empezaron los brazos. El arnés para.")
     esquemas = piloto.leer_esquemas()
     objetos = {b: json.loads(t) for b, t in esquemas.items()}
-    hechas = 0
-    for k, b, c in plan:
-        carpeta = DIR / "brazos" / f"{k:03d}-{b}-{c}"
-        f = carpeta / "resumen.json"
-        r = leer(f) if f.exists() else {"log": k, "brazo": b, "condicion": c, "intentos": []}
-        if r.get("estado") in ("hecho", "fallo"):
+    sesion = arnes.ahora()
+    pares_hechos = 0
+    for i in range(0, len(plan), 4):
+        bloque = plan[i:i + 4]
+        pendientes = [x for x in bloque if leer_o_nada(DIR / "brazos" / "{:03d}-{}-{}".format(*x) / "resumen.json")
+                      .get("estado") not in ("hecho", "fallo")]
+        if not pendientes:
             continue
-        if args.limite is not None and hechas >= args.limite:
+        if args.limite is not None and pares_hechos >= args.limite:
             break
-        mensaje = piloto.mensaje_brazo(texto_de_entrada(por_log[k], c), esquemas[b]).encode("utf-8")
-        r["mensaje_md5"] = arnes.md5_bytes(mensaje)
-        estado, reg, texto = gpt_con_reintentos(fijado, mensaje, carpeta, r["intentos"])
-        if estado in ("PARADA", "sin_cupo"):
-            cortar(estado, f"{k:03d} {b} {c}", lambda: escribir(f, r))
-        r["estado"] = estado
-        if estado == "hecho":
-            ex = extraccion.extraer(texto)
-            r["json_legible"] = not ex["ilegible"]
-            if ex["json_texto"] is not None:
-                (carpeta / "json.txt").write_bytes(ex["json_texto"].encode("utf-8"))
-                (carpeta / "prosa.txt").write_bytes(ex["prosa"].encode("utf-8"))
-            obj = ex["json"]
-            r["tiene_residue"] = isinstance(obj, dict) and isinstance(obj.get("residue"), dict)
-            r["declared_absence"] = obj["residue"].get("declared_absence") if r["tiene_residue"] else None
-            r["validacion"] = validador.validar(obj, objetos[b], b) if obj is not None else None
-            r["jsonschema"] = validador.version_de_jsonschema()
-        escribir(f, r)
-        hechas += 1
-        ult = r["intentos"][-1]
-        print(f"{k:03d} {b:3} {c:9} {estado} | JSON {r.get('json_legible')} | comandos {len(ult['comandos_ejecutados'])} "
-              f"archivos {len(ult['archivos_cambiados'])} | rechazos {ult['shell_rechazados']}+{ult['parches_rechazados']}",
-              flush=True)
+        for k, b, c in pendientes:
+            carpeta = DIR / "brazos" / f"{k:03d}-{b}-{c}"
+            f = carpeta / "resumen.json"
+            r = leer(f) if f.exists() else {"log": k, "brazo": b, "condicion": c, "intentos": []}
+            r.setdefault("sesiones", []).append(sesion)
+            mensaje = piloto.mensaje_brazo(texto_de_entrada(por_log[k], c), esquemas[b]).encode("utf-8")
+            r["mensaje_md5"] = arnes.md5_bytes(mensaje)
+            estado, reg, texto = gpt_con_reintentos(fijado, mensaje, carpeta, r["intentos"])
+            if estado in ("PARADA", "sin_cupo"):
+                cortar(estado, f"{k:03d} {b} {c}", lambda: escribir(f, r))
+            r["estado"] = estado
+            if estado == "hecho":
+                ex = extraccion.extraer(texto)
+                r["json_legible"] = not ex["ilegible"]
+                if ex["json_texto"] is not None:
+                    json_b = ex["json_texto"].encode("utf-8")
+                    (carpeta / "json.txt").write_bytes(json_b)
+                    (carpeta / "prosa.txt").write_bytes(ex["prosa"].encode("utf-8"))
+                    r["json_md5"] = arnes.md5_bytes(json_b)
+                obj = ex["json"]
+                r["tiene_residue"] = isinstance(obj, dict) and isinstance(obj.get("residue"), dict)
+                r["declared_absence"] = obj["residue"].get("declared_absence") if r["tiene_residue"] else None
+                r["validacion"] = validador.validar(obj, objetos[b], b) if obj is not None else None
+                r["jsonschema"] = validador.version_de_jsonschema()
+            escribir(f, r)
+            ult = r["intentos"][-1]
+            print(f"{k:03d} {b:3} {c:9} {estado} | JSON {r.get('json_legible')} | comandos "
+                  f"{len(ult['comandos_ejecutados'])} archivos {len(ult['archivos_cambiados'])} | rechazos "
+                  f"{ult['shell_rechazados']}+{ult['parches_rechazados']}", flush=True)
+        pares_hechos += 1
+
+
+def leer_o_nada(ruta):
+    return leer(ruta) if ruta.exists() else {}
+
+
+def llamada_de_seguimiento(log):
+    """§6.2: la primera línea no vacía de la entrada de la consulta de seguimiento (la
+    segunda TOOL CALL), sacada del log verificado, no de un archivo intermedio."""
+    ents = chequeo.entradas(log)
+    llamadas = [i for i, (_, t, _) in enumerate(ents) if t == "TOOL CALL"]
+    return next((linea for linea in ents[llamadas[1]][2] if linea.strip()), "")
 
 
 def etapa_juez(args):
     import juez
     sin_parada()
+    congelamiento_en_git()
     fijado = arnes.verificar_binarios(BINARIOS)
     pares = leer_incluidos()
+    por_log = {p["log"]: p for p in pares}
     plantilla = juez.leer_prompt()
     fijos = juez.valores_fijos(*juez.objetos_de_esquema([piloto.ESQUEMAS / "residuo.json",
                                                          piloto.ESQUEMAS / "placebo.json"]))
+    # v19, hallazgo 4: un ítem terminado no se vuelve a juzgar al reanudar.
+    terminales = ("juzgado", "juez_fallo", "sin_llamada", "fallo", "fallo_verificacion")
     hechas = 0
     for k, b, c in plan_del_juez(plan_de_brazos(pares)):
         fb = DIR / "brazos" / f"{k:03d}-{b}-{c}" / "resumen.json"
@@ -498,7 +590,7 @@ def etapa_juez(args):
         carpeta = DIR / "juez" / f"{k:03d}-{b}-{c}"
         f = carpeta / "resumen.json"
         r = leer(f) if f.exists() else {"log": k, "brazo": b, "condicion": c, "intentos": []}
-        if r.get("veredicto", {}).get("estado") in ("juzgado", "juez_fallo", "sin_llamada"):
+        if r.get("veredicto", {}).get("estado") in terminales:
             continue
         if args.limite is not None and hechas >= args.limite:
             break
@@ -508,16 +600,24 @@ def etapa_juez(args):
         elif not br["json_legible"]:
             r["veredicto"] = {"estado": "juzgado", "registra": False, "llamado": False, "motivo": "sin JSON legible"}
         else:
-            json_texto = (fb.parent / "json.txt").read_bytes().decode("utf-8")
-            est = leer(DIR / "logs" / f"{k:03d}" / "estado.json")
-            meta = json.loads((DIR / "logs" / f"{k:03d}" / "metadata.json").read_bytes().decode("utf-8"))
+            # v19, hallazgo 9: todo lo que recibe el juez, verificado por su md5.
+            json_b = (fb.parent / "json.txt").read_bytes()
+            if arnes.md5_bytes(json_b) != br["json_md5"]:
+                sys.exit(f"{fb.parent / 'json.txt'} no coincide con el md5 que registró `brazos`. El arnés para.")
+            meta_b = (DIR / "logs" / f"{k:03d}" / "metadata.json").read_bytes()
+            if arnes.md5_bytes(meta_b) != por_log[k]["metadata_md5"]:
+                sys.exit(f"metadata.json del log {k:03d} no coincide con el md5 congelado. El arnés para.")
+            llamada = llamada_de_seguimiento(texto_de_entrada(por_log[k], "pendiente"))
+            alcance = json.loads(meta_b.decode("utf-8"))["follow_up_scope_expansion"]
+            json_texto = json_b.decode("utf-8")
             carpeta.mkdir(parents=True, exist_ok=True)
-            v = piloto.juzgar(fijado, plantilla, fijos, carpeta, est["chequeo"]["llamada_de_seguimiento"],
-                              meta["follow_up_scope_expansion"], json_texto, json.loads(json_texto), r["intentos"])
+            previas = r.get("veredicto", {}).get("lecturas") if r.get("veredicto", {}).get("estado") == "sin_cupo" else None
+            v = piloto.juzgar(fijado, plantilla, fijos, carpeta, llamada, alcance, json_texto, json.loads(json_texto),
+                              r["intentos"], previas)
+            v["llamado"] = bool(v.get("textos"))
+            r["veredicto"] = v
             if v["estado"] in ("PARADA", "sin_cupo"):
                 cortar(v["estado"], f"juez {k:03d} {b} {c}", lambda: escribir(f, r))
-            v["llamado"] = True
-            r["veredicto"] = v
         escribir(f, r)
         hechas += 1
         if hechas % 20 == 0:
@@ -532,11 +632,12 @@ def armar_pares():
     out = []
     for p in leer_incluidos():
         k = p["log"]
-        brazos = {}
+        brazos, sesiones = {}, set()
         for b in BRAZOS:
             brazos[b] = {}
             for c in CONDICIONES:
                 br = leer(DIR / "brazos" / f"{k:03d}-{b}-{c}" / "resumen.json")
+                sesiones.add((br.get("sesiones") or [None])[-1])
                 jz = leer(DIR / "juez" / f"{k:03d}-{b}-{c}" / "resumen.json")["veredicto"]
                 val = br.get("validacion") or {}
                 ult = br["intentos"][-1]
@@ -548,34 +649,48 @@ def armar_pares():
                     "comandos_ejecutados": sum(len(i["comandos_ejecutados"]) for i in br["intentos"]),
                     "archivos_cambiados": sum(len(i["archivos_cambiados"]) for i in br["intentos"]),
                     "mensajes_agente": ult["mensajes_agente"]}
-        out.append({"log": k, "brazos": brazos})
+        out.append({"log": k, "partido": len(sesiones) > 1,
+                    "gemelo_con_request_id": bool(p.get("gemelo_con_request_id")), "brazos": brazos})
     return out
 
 
 def etapa_validacion(_):
-    """§8.1: la planilla ciega. Nico ve lo mismo que el juez: el JSON y la descripción de la
-    consulta. No ve la etiqueta del juez, ni el brazo, ni la condición."""
+    """§8.1: la planilla ciega. Nico ve lo mismo que el juez (v19, decisión 1): los textos
+    libres del JSON, ordenados y con etiquetas opacas, y la descripción de la consulta. No
+    ve el JSON entero, ni la etiqueta del juez, ni el brazo, ni la condición."""
     import analisis
+    import juez
     pares = armar_pares()
     escribir(DIR / "pares.json", pares)
+    por_log = {p["log"]: p for p in leer_incluidos()}
+    fijos = juez.valores_fijos(*juez.objetos_de_esquema([piloto.ESQUEMAS / "residuo.json",
+                                                         piloto.ESQUEMAS / "placebo.json"]))
     items = sorted(set(analisis.items_decisivos(pares)) | set(analisis.muestra_estratificada(pares)))
     random.Random(SEMILLA).shuffle(items)
     clave, plantilla, partes = {}, [], [
         "# Validación del juez (§8.1)", "",
-        "Para cada ítem: ¿el JSON dice, en uno de sus valores de texto libre, que esta consulta",
-        "de seguimiento no devolvió sus resultados? Anotá true o false en",
-        "`corrida/validacion/etiquetas.json`. No abras `clave.json`: dice de qué brazo y de qué",
-        "condición es cada ítem.", ""]
+        "Para cada ítem: ¿alguno de estos textos dice que esta consulta de seguimiento no devolvió",
+        "sus resultados (que está pendiente, que se aceptó y no terminó, que falta, que nunca volvió,",
+        "que sus datos no están)? Juzgá sólo lo que dicen los textos, no si es cierto. Anotá un",
+        "booleano JSON de verdad, sin comillas, en `corrida/validacion/etiquetas.json`. No abras",
+        "`clave.json`: dice de qué brazo y de qué condición es cada ítem.", ""]
     for n, (k, b, c) in enumerate(items, 1):
         iid = f"v{n:03d}"
         clave[iid] = {"log": k, "brazo": b, "condicion": c}
         plantilla.append({"id": iid, "registra": None})
-        est = leer(DIR / "logs" / f"{k:03d}" / "estado.json")
-        meta = json.loads((DIR / "logs" / f"{k:03d}" / "metadata.json").read_bytes().decode("utf-8"))
+        meta_b = (DIR / "logs" / f"{k:03d}" / "metadata.json").read_bytes()
+        if arnes.md5_bytes(meta_b) != por_log[k]["metadata_md5"]:
+            sys.exit(f"metadata.json del log {k:03d} no coincide con el md5 congelado. El arnés para.")
+        llamada = llamada_de_seguimiento(texto_de_entrada(por_log[k], "pendiente"))
         fj = DIR / "brazos" / f"{k:03d}-{b}-{c}" / "json.txt"
-        json_texto = fj.read_bytes().decode("utf-8") if fj.exists() else "(sin JSON legible)"
-        partes += [f"## {iid}", "", f"- Tool call: `{est['chequeo']['llamada_de_seguimiento']}`",
-                   f"- Expanded scope: {meta['follow_up_scope_expansion']}", "", "```json", json_texto, "```", ""]
+        if fj.exists():
+            textos = juez.textos_libres(json.loads(fj.read_bytes().decode("utf-8")), fijos)
+            cuerpo = juez.lista_de_textos(textos) if textos else "(sin textos libres)"
+        else:
+            cuerpo = "(sin JSON legible)"
+        partes += [f"## {iid}", "", f"- Tool call: `{llamada}`",
+                   f"- Expanded scope: {json.loads(meta_b.decode('utf-8'))['follow_up_scope_expansion']}", "",
+                   "```", cuerpo, "```", ""]
     escribir(DIR / "validacion" / "clave.json", clave)
     fe = DIR / "validacion" / "etiquetas.json"
     if not fe.exists():
@@ -585,6 +700,23 @@ def etapa_validacion(_):
     print(f"validación: {len(items)} ítems para Nico. Sin resultados a la vista hasta `analizar`.")
 
 
+def leer_etiquetas():
+    """§8.1 (v19, hallazgos 2 y 13): las etiquetas de Nico, con los ids exactos de la clave,
+    sin repetidos ni faltantes, y cada una un booleano JSON de verdad."""
+    clave = leer(DIR / "validacion" / "clave.json")
+    crudas = leer(DIR / "validacion" / "etiquetas.json")
+    ids = [e.get("id") for e in crudas if isinstance(e, dict)]
+    if len(ids) != len(crudas) or len(set(ids)) != len(ids) or set(ids) != set(clave):
+        sys.exit("etiquetas.json no tiene exactamente los ids de la planilla, una vez cada uno. El arnés para.")
+    faltan = [e["id"] for e in crudas if e.get("registra") is None]
+    if faltan:
+        return None, faltan
+    malas = [e["id"] for e in crudas if not isinstance(e.get("registra"), bool)]
+    if malas:
+        sys.exit(f"Etiquetas que no son un booleano JSON (true o false, sin comillas): {', '.join(malas)}.")
+    return [dict(clave[e["id"]], registra=e["registra"]) for e in crudas], []
+
+
 def etapa_analizar(args):
     import analisis
     pares = leer(DIR / "pares.json")
@@ -592,18 +724,16 @@ def etapa_analizar(args):
         sys.exit("pares.json no coincide con lo que dejaron `brazos` y `juez`. Correr `validacion`.")
     etiquetas = None
     if not args.sin_etiquetas:
-        clave = leer(DIR / "validacion" / "clave.json")
-        crudas = leer(DIR / "validacion" / "etiquetas.json")
-        faltan = [e["id"] for e in crudas if e["registra"] is None]
+        etiquetas, faltan = leer_etiquetas()
         if faltan:
             sys.exit(f"Faltan {len(faltan)} etiquetas de Nico (§8.1). Para un análisis provisional: --sin-etiquetas.")
-        etiquetas = [dict(clave[e["id"]], registra=bool(e["registra"])) for e in crudas]
     r = analisis.analizar(pares, etiquetas)
     r["provisional"] = etiquetas is None
     escribir(DIR / "informe.json", r)
     c = r["c2"]
-    print(f"N incluidos {r['n_incluidos']} de {r['n_pares']} | p {c['p']:.4f} | efecto {c['efecto_medio']} "
-          f"| IC {c['ic95_bootstrap']}")
+    if c.get("evaluable"):
+        print(f"N incluidos {r['n_incluidos']} de {r['n_pares']} | p {c['p']:.4f} | efecto {c['efecto_medio']} "
+              f"| IC {c['ic95_bootstrap']}")
     print("§9:", r["frase_de_9"])
 
 

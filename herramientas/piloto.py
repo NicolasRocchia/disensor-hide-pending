@@ -61,7 +61,9 @@ Etapas disponibles:
   juez-prueba
             §6.2 de punta a punta sobre cinco JSON armados a mano (nunca
             respuestas del sujeto): mensaje, llamada a Claude, lectura de la
-            salida, guarda y costo, contra lo que se espera de cada caso.
+            salida, guarda y costo, contra lo que se espera de cada caso. Cada
+            versión del prompt escribe en su propia carpeta, con el md5 del
+            prompt en el nombre: la prueba del prompt viejo queda como estaba.
 
 Los esquemas de los brazos los arma aparte `fragmentos.py` (§5.2). Las salidas
 quedan en experimento/piloto/.
@@ -305,9 +307,9 @@ def una_llamada_gpt(fijado, mensaje, carpeta, prefijo, generador=False, efimero=
     arnes.verificar_sha(fijado, "codex")
     trabajo = arnes.carpeta_trabajo()
     ultimo = carpeta / f"{prefijo}-ultimo-mensaje.md"
+    comando = arnes.comando_codex_exec(fijado["codex_exe"], ultimo, generador=generador, efimero=efimero)
     try:
-        r = arnes.correr(arnes.comando_codex_exec(fijado["codex_exe"], ultimo, generador=generador, efimero=efimero),
-                         mensaje=mensaje, cwd=trabajo, env=arnes.entorno_codex(), timeout=1800)
+        r = arnes.correr(comando, mensaje=mensaje, cwd=trabajo, env=arnes.entorno_codex(), timeout=1800)
     except Exception as exc:  # noqa: BLE001 - un corte por tiempo cuenta como llamada que no terminó
         r = {"inicio": arnes.ahora(), "duracion_s": None, "codigo": None,
              "stdout": b"", "stderr": repr(exc).encode("utf-8")}
@@ -334,6 +336,9 @@ def una_llamada_gpt(fijado, mensaje, carpeta, prefijo, generador=False, efimero=
     registro = {
         "inicio": r["inicio"], "duracion_s": r["duracion_s"], "codigo": r["codigo"],
         "termino": termino, "mensaje_md5": arnes.md5_bytes(mensaje), "generador": generador,
+        # §7.5 (v19, hallazgo 16): cada intento se puede auditar solo.
+        "comando": [str(a) for a in comando], "modelo": arnes.MODELO_GPT, "esfuerzo": arnes.ESFUERZO_GPT,
+        "binario_sha256": fijado["codex_sha256"], "binario_version": fijado["codex_version"],
         "carpeta_trabajo": str(trabajo), "restos_en_carpeta": restos,
         "uso": ev["uso"], "mensajes_agente": ev["mensajes_agente"],
         "turno_fallido": ev["turno_fallido"], "errores": ev["errores"],
@@ -655,8 +660,9 @@ def una_llamada_claude(fijado, mensaje, carpeta, prefijo):
     carpeta, y si algo queda, salta la red de seguridad."""
     arnes.verificar_sha(fijado, "claude")
     trabajo = arnes.carpeta_trabajo()
+    comando = arnes.comando_claude()
     try:
-        r = arnes.correr(arnes.comando_claude(), mensaje=mensaje, cwd=trabajo, env=arnes.entorno_claude(), timeout=1800)
+        r = arnes.correr(comando, mensaje=mensaje, cwd=trabajo, env=arnes.entorno_claude(), timeout=1800)
     except Exception as exc:  # noqa: BLE001 - un corte por tiempo cuenta como llamada que no terminó
         r = {"inicio": arnes.ahora(), "duracion_s": None, "codigo": None,
              "stdout": b"", "stderr": repr(exc).encode("utf-8")}
@@ -669,6 +675,9 @@ def una_llamada_claude(fijado, mensaje, carpeta, prefijo):
                and isinstance(st["resultado"], str))
     registro = {"inicio": r["inicio"], "duracion_s": r["duracion_s"], "codigo": r["codigo"], "termino": termino,
                 "mensaje_md5": arnes.md5_bytes(mensaje), "carpeta_trabajo": str(trabajo), "restos_en_carpeta": restos,
+                # §7.5 (v19, hallazgo 16): cada intento se puede auditar solo.
+                "comando": [str(a) for a in comando], "esfuerzo": arnes.ESFUERZO_CLAUDE,
+                "binario_sha256": fijado["claude_sha256"], "binario_version": fijado["claude_version"],
                 **{k: v for k, v in st.items() if k != "resultado"}}
     registro["red_de_seguridad"] = not vacia
     texto_falla = r["stderr"].decode("utf-8", errors="replace") + " " + str(st["resultado"] or "")
@@ -680,14 +689,16 @@ def claude_con_reintentos(fijado, mensaje, carpeta, intentos, etiqueta):
     """§7.2 y §7.7: una llamada a Claude hasta que termina verificada. Una que termina sin
     verificar se repite una vez; una que no termina, hasta tres. Los registros se agregan a
     `intentos`, numerados en orden. Devuelve (estado, texto): `hecho`, `fallo`,
-    `fallo_verificacion`, `sin_cupo` o `PARADA`."""
-    propios = []
+    `fallo_verificacion`, `sin_cupo` o `PARADA`.
+
+    Los límites se cuentan sobre toda la historia del ítem con la misma `etiqueta`, no sólo
+    sobre esta invocación: reanudar no habilita intentos nuevos (v19, hallazgo 4)."""
     while True:
         n = len(intentos) + 1
         reg, texto = una_llamada_claude(fijado, mensaje, carpeta, f"intento-{n}")
         reg["etiqueta"] = etiqueta
         intentos.append(reg)
-        propios.append(reg)
+        propios = [i for i in intentos if i.get("etiqueta") == etiqueta]
         if reg["red_de_seguridad"]:
             return "PARADA", None
         if reg["termino"] and reg["verificado"]:
@@ -701,33 +712,47 @@ def claude_con_reintentos(fijado, mensaje, carpeta, intentos, etiqueta):
             return "fallo", None
 
 
-def juzgar(fijado, plantilla, fijos, carpeta, llamada, alcance, json_texto, obj, intentos):
-    """§6.2: el juez sobre un JSON. Sin JSON, «no registra» sin llamar. Si la salida no se
-    lee o un `true` no pasa la guarda, se corre una vez más; si vuelve a pasar, «juez
-    falló». Devuelve el veredicto con sus lecturas."""
+def juzgar(fijado, plantilla, fijos, carpeta, llamada, alcance, json_texto, obj, intentos, previas=None):
+    """§6.2: el juez sobre los textos libres de un JSON. Sin JSON, o sin ningún texto libre,
+    «no registra» sin llamar. Si la salida no se lee o un `true` no pasa la guarda, se corre
+    una vez más; si vuelve a pasar, «juez falló». `previas` son las lecturas de una
+    invocación cortada por cupo: se sigue desde la vuelta siguiente, sin repetir ninguna.
+    Devuelve el veredicto con sus lecturas."""
     import juez
     if json_texto is None:
         return {"estado": "juzgado", "registra": False, "motivo": "sin JSON legible", "lecturas": []}
-    mensaje = juez.mensaje(plantilla, llamada, alcance, json_texto).encode("utf-8")
-    lecturas = []
-    for vuelta in (1, 2):
+    textos = juez.textos_libres(obj, fijos)
+    if not textos:
+        return {"estado": "juzgado", "registra": False, "motivo": "sin textos libres", "lecturas": [], "textos": []}
+    mensaje = juez.mensaje(plantilla, llamada, alcance, textos).encode("utf-8")
+    base = {"mensaje_md5": arnes.md5_bytes(mensaje), "textos": textos}
+    lecturas = list(previas or [])
+    for vuelta in range(len(lecturas) + 1, 3):
         estado, texto = claude_con_reintentos(fijado, mensaje, carpeta, intentos, f"juez-{vuelta}")
         if estado != "hecho":
-            return {"estado": estado, "lecturas": lecturas, "mensaje_md5": arnes.md5_bytes(mensaje)}
+            return {"estado": estado, "lecturas": lecturas, **base}
         lectura = juez.leer_salida(texto)
         if lectura is None:
             lecturas.append({"vuelta": vuelta, "se_lee": False})
             continue
         veredicto, cita = lectura
-        pasa = (not veredicto) or juez.guarda(cita, obj, fijos)
+        pasa = (not veredicto) or juez.guarda(cita, textos)
         lecturas.append({"vuelta": vuelta, "se_lee": True, "veredicto": veredicto, "cita": cita, "pasa_la_guarda": pasa})
         if pasa:
-            return {"estado": "juzgado", "registra": veredicto, "cita": cita, "lecturas": lecturas,
-                    "mensaje_md5": arnes.md5_bytes(mensaje)}
-    return {"estado": "juez_fallo", "lecturas": lecturas, "mensaje_md5": arnes.md5_bytes(mensaje)}
+            return {"estado": "juzgado", "registra": veredicto, "cita": cita, "lecturas": lecturas, **base}
+    return {"estado": "juez_fallo", "lecturas": lecturas, **base}
 
 
 DIR_JUEZ_PRUEBA = arnes.PILOTO / "juez-prueba"
+
+
+def dir_juez_prueba(prompt_md5):
+    """La carpeta de la prueba del juez para un prompt. La del prompt de la v14 es
+    `juez-prueba` a secas (`14`); cada prompt posterior va en `juez-prueba-<md5[:8]>`, así
+    un resumen de un prompt no se reutiliza nunca con otro."""
+    if prompt_md5 == "534d88070b9b5f3424857624a09869b1":
+        return DIR_JUEZ_PRUEBA
+    return arnes.PILOTO / f"juez-prueba-{prompt_md5[:8]}"
 # Cinco JSON armados a mano, nunca respuestas del sujeto, con lo que se espera del juez.
 # Usan la consulta de seguimiento y el alcance del log 000 del piloto.
 CASOS_JUEZ = [
@@ -757,7 +782,8 @@ def etapa_juez_prueba(_):
     """§6.2 de punta a punta, con JSON armados a mano: mensaje, llamada, lectura, guarda y
     costo. No toca ninguna respuesta del sujeto."""
     import juez
-    DIR_JUEZ_PRUEBA.mkdir(parents=True, exist_ok=True)
+    destino = dir_juez_prueba(juez.PROMPT_MD5)
+    destino.mkdir(parents=True, exist_ok=True)
     fijado = arnes.verificar_binarios(SALIDA / "binarios.json")
     plantilla = juez.leer_prompt()
     fijos = juez.valores_fijos(*juez.objetos_de_esquema([ESQUEMAS / "residuo.json", ESQUEMAS / "placebo.json"]))
@@ -765,15 +791,19 @@ def etapa_juez_prueba(_):
     alcance = json.loads((DIR_LOGS / "000" / "metadata.json").read_bytes().decode("utf-8"))["follow_up_scope_expansion"]
     filas = []
     for nombre, esperado, json_texto in CASOS_JUEZ:
-        carpeta = DIR_JUEZ_PRUEBA / nombre
+        carpeta = destino / nombre
         resumen_f = carpeta / "resumen.json"
-        if resumen_f.exists() and leer_json(resumen_f)["veredicto"]["estado"] in ("juzgado", "juez_fallo"):
-            filas.append(leer_json(resumen_f))
-            continue
+        if resumen_f.exists():
+            previo = leer_json(resumen_f)
+            if previo.get("prompt_md5") != juez.PROMPT_MD5:
+                sys.exit(f"{resumen_f}: es de otro prompt. El arnés para.")
+            if previo["veredicto"]["estado"] in ("juzgado", "juez_fallo"):
+                filas.append(previo)
+                continue
         carpeta.mkdir(exist_ok=True)
         intentos = []
         v = juzgar(fijado, plantilla, fijos, carpeta, llamada, alcance, json_texto, json.loads(json_texto), intentos)
-        r = {"caso": nombre, "esperado": esperado, "veredicto": v, "intentos": intentos}
+        r = {"caso": nombre, "esperado": esperado, "prompt_md5": juez.PROMPT_MD5, "veredicto": v, "intentos": intentos}
         escribir_json(resumen_f, r)
         filas.append(r)
         if v["estado"] in ("PARADA", "sin_cupo"):

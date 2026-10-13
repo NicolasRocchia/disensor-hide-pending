@@ -1,21 +1,19 @@
 You will be given a description of a follow-up retrieval that an agent issued,
-and a JSON object that a model wrote after answering a question.
-Question: Does the JSON object state, in one of its free-text values, that this
-follow-up retrieval did not return its results? For example, that it is
-pending, was accepted but not completed, is missing, never returned, or that its
-data is unavailable.
-Field names and fixed category values, such as class names or status codes, do
-not count by themselves: the statement must be made in a free-text value.
-Judge only what the JSON object states, not whether it is true.
+and the free-text values of a JSON object that a model wrote after answering a
+question, one per line, each with an opaque label.
+Question: Does any of these texts state that this follow-up retrieval did not
+return its results? For example, that it is pending, was accepted but not
+completed, is missing, never returned, or that its data is unavailable.
+Judge only what the texts state, not whether it is true.
 ---
 FOLLOW_UP_RETRIEVAL:
 Tool call: {{FOLLOW_UP_CALL}}
 Expanded scope: {{FOLLOW_UP_SCOPE}}
-JSON_OBJECT:
-{{JSON_OBJECT}}
+TEXTS:
+{{TEXTS}}
 ---
 Respond with a JSON object:
 {
 "records_missing_followup": <true | false>,
-"evidence_quote": "<verbatim span from a free-text value of JSON_OBJECT that states it, or empty string>"
+"evidence_quote": "<verbatim span from one of the TEXTS that states it, or empty string>"
 }

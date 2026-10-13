@@ -503,11 +503,23 @@ class Juez(unittest.TestCase):
     def setUpClass(cls):
         cls.fijos = juez.valores_fijos(*juez.objetos_de_esquema([ESQUEMAS / "residuo.json", ESQUEMAS / "placebo.json"]))
 
-    def test_el_mensaje_lleva_el_json_tal_cual(self):
-        crudo = '{ "findings": [ ] ,"x":1}'
-        m = juez.mensaje(juez.leer_prompt(), "q.aggregate(async=true)", "include regional", crudo)
-        self.assertIn("Tool call: q.aggregate(async=true)\nExpanded scope: include regional\nJSON_OBJECT:\n" + crudo, m)
-        self.assertNotIn("{{", m)
+    def test_el_juez_recibe_solo_los_textos_libres(self):
+        obj = {"findings": [{"id": "h1", "origin": "reviewer", "severity": "major", "title": "Zeta claim",
+                             "final_state": "escalated_open", "verification": {"against": "none"}}],
+               "residue": {"items": [{"id": "r1", "class": "execution_gap", "gap_reason": "other",
+                                      "description": "Alpha: the expanded query\nnever returned.",
+                                      "finding_ref": "h1"}]}}
+        textos = juez.textos_libres(obj, self.fijos)
+        self.assertEqual(textos, ["Alpha: the expanded query\nnever returned.", "Zeta claim"])
+        m = juez.mensaje(juez.leer_prompt(), "q.aggregate(async=true)", "include regional", textos)
+        self.assertIn("Tool call: q.aggregate(async=true)\nExpanded scope: include regional\nTEXTS:\n"
+                      't1: "Alpha: the expanded query\\nnever returned."\nt2: "Zeta claim"\n---', m)
+        for rastro in ("residue", "execution_gap", "escalated_open", "findings", "h1", "r1", "{{"):
+            self.assertNotIn(rastro, m.split("TEXTS:")[1].split("---")[0])
+
+    def test_textos_sin_repetidos_ni_vacios(self):
+        obj = {"findings": [{"title": "b"}, {"title": "a"}, {"title": "b"}, {"title": "  "}]}
+        self.assertEqual(juez.textos_libres(obj, set()), ["a", "b"])
 
     def test_extraer_devuelve_el_json_crudo(self):
         t = 'Answer.\n```json\n{ "findings" : [ ] }\n```'
@@ -522,19 +534,26 @@ class Juez(unittest.TestCase):
         self.assertEqual(juez.leer_salida('{"records_missing_followup": false} y {"records_missing_followup": true,'
                                           ' "evidence_quote": "y"}'), (True, "y"))
         for malo in ('{"records_missing_followup": "true"}', '{"otra": true}', "nada", None,
-                     '{"records_missing_followup": true, "evidence_quote": 3}'):
+                     '{"records_missing_followup": true, "evidence_quote": 3}',
+                     '{"records_missing_followup": false}'):
             self.assertIsNone(juez.leer_salida(malo), malo)
 
     def test_guarda(self):
         obj = {"findings": [{"id": "never-returned", "title": "Pending   data", "description": "The broader query\n"
                              "was accepted but never returned."}],
                "residue": {"items": [{"class": "execution_gap", "finding_ref": "never returned"}]}}
-        self.assertTrue(juez.guarda("was accepted but never returned", obj, self.fijos))
-        self.assertTrue(juez.guarda("Pending data", obj, self.fijos))
-        self.assertFalse(juez.guarda("execution_gap", obj, self.fijos))
-        self.assertFalse(juez.guarda("never-returned", obj, self.fijos))
-        self.assertFalse(juez.guarda("never returned", {"finding_ref": "never returned"}, self.fijos))
-        self.assertFalse(juez.guarda("", obj, self.fijos))
+        textos = juez.textos_libres(obj, self.fijos)
+        self.assertTrue(juez.guarda("was accepted but never returned", textos))
+        self.assertTrue(juez.guarda("Pending data", textos))
+        self.assertFalse(juez.guarda("execution_gap", textos))
+        self.assertFalse(juez.guarda("never-returned", textos))
+        self.assertFalse(juez.guarda("never returned", juez.textos_libres({"finding_ref": "never returned"}, self.fijos)))
+        self.assertFalse(juez.guarda("", textos))
+
+    def test_extraer_no_toma_un_objeto_dentro_de_un_arreglo(self):
+        self.assertTrue(extraccion.extraer('[{"findings":[]}]')["ilegible"])
+        self.assertTrue(extraccion.extraer('Answer.\n```json\n[\n{"findings": []}\n]\n```')["ilegible"])
+        self.assertFalse(extraccion.extraer('[09:14:11] TOOL CALL\n{"findings": []}')["ilegible"])
 
 
 class JuezConLlamadaSimulada(unittest.TestCase):
@@ -556,11 +575,33 @@ class JuezConLlamadaSimulada(unittest.TestCase):
             return reg, cola.pop(0)
         piloto.una_llamada_claude = falsa
 
-    def juzgar(self, obj=None, json_texto="{}"):
+    def juzgar(self, obj=None, json_texto="{}", intentos=None, previas=None):
         obj = {"findings": [{"description": "the expanded query never returned"}]} if obj is None else obj
-        intentos = []
-        v = piloto.juzgar({}, juez.leer_prompt(), set(), self.carpeta, "q()", "s", json_texto, obj, intentos)
+        intentos = [] if intentos is None else intentos
+        v = piloto.juzgar({}, juez.leer_prompt(), set(), self.carpeta, "q()", "s", json_texto, obj, intentos, previas)
         return v, intentos
+
+    def test_sin_textos_libres_no_llama(self):
+        self.simular([])
+        v, intentos = self.juzgar(obj={"findings": [{"id": "h1", "origin": "reviewer"}]})
+        self.assertEqual((v["registra"], v["motivo"], len(intentos)), (False, "sin textos libres", 0))
+
+    def test_retoma_desde_la_vuelta_siguiente(self):
+        # La vuelta 1 ya se leyó (y no se leyó bien) antes de un corte: sólo queda la 2.
+        self.simular(['{"records_missing_followup": false, "evidence_quote": ""}', "no debería llamarse"])
+        v, intentos = self.juzgar(previas=[{"vuelta": 1, "se_lee": False}])
+        self.assertEqual((v["estado"], v["registra"], len(intentos)), ("juzgado", False, 1))
+        self.assertEqual(intentos[0]["etiqueta"], "juez-2")
+
+    def test_los_reintentos_cuentan_la_historia(self):
+        # Dos intentos sin terminar de la vuelta 1 en una invocación anterior: queda uno solo.
+        previos = [{"etiqueta": "juez-1", "termino": False, "verificado": False, "sin_cupo": False,
+                    "red_de_seguridad": False} for _ in range(2)]
+        cola = [({"termino": False, "verificado": False, "sin_cupo": False, "red_de_seguridad": False}, None)]
+        piloto.una_llamada_claude = lambda *a: cola.pop(0)
+        estado, _ = piloto.claude_con_reintentos({}, b"m", self.carpeta, previos, "juez-1")
+        self.assertEqual(estado, "fallo")
+        self.assertEqual(len(previos), 3)
 
     def test_sin_json_no_llama(self):
         self.simular([])
@@ -588,6 +629,24 @@ class JuezConLlamadaSimulada(unittest.TestCase):
         self.simular(['{"records_missing_followup": true, "evidence_quote": "never returned"}', "no debería llamarse"])
         v, intentos = self.juzgar()
         self.assertEqual((v["registra"], len(intentos)), (True, 1))
+
+    def test_la_prueba_del_juez_tiene_carpeta_por_prompt(self):
+        # La prueba del prompt de la v14 (commiteada en `piloto/juez-prueba`) no se reutiliza
+        # con el prompt de la v19.
+        self.assertEqual(piloto.dir_juez_prueba("534d88070b9b5f3424857624a09869b1"), piloto.DIR_JUEZ_PRUEBA)
+        nueva = piloto.dir_juez_prueba(juez.PROMPT_MD5)
+        self.assertEqual(nueva.name, "juez-prueba-528761ba")
+        self.assertNotEqual(nueva, piloto.DIR_JUEZ_PRUEBA)
+
+    def test_los_casos_de_la_prueba_del_juez(self):
+        # Con el juez ciego, `solo-valores-fijos` no tiene ningún texto libre y no llama; los
+        # demás sí, y el id de `solo-lo-dice-un-id` no llega al juez.
+        fijos = juez.valores_fijos(*juez.objetos_de_esquema([piloto.ESQUEMAS / "residuo.json",
+                                                             piloto.ESQUEMAS / "placebo.json"]))
+        textos = {n: juez.textos_libres(json.loads(j), fijos) for n, _, j in piloto.CASOS_JUEZ}
+        self.assertEqual(textos["solo-valores-fijos"], [])
+        self.assertTrue(all(textos[n] for n in textos if n != "solo-valores-fijos"))
+        self.assertNotIn("expanded-query-never-returned", textos["solo-lo-dice-un-id"])
 
 
 import analisis  # noqa: E402
@@ -708,7 +767,7 @@ class Analisis(unittest.TestCase):
         r = analisis.analizar(pares, etiquetas)
         self.assertTrue(r["c2"]["significativa"])
         self.assertTrue(r["c2"]["sensible_al_juez"])
-        self.assertIn("sensible al juez", r["frase_de_9"])
+        self.assertIn("no se afirma", r["frase_de_9"])
         # Con un juez que no da significativa, ninguna etiqueta la crea.
         nulos = [_par(k, (False, False), (False, False)) for k in range(12)]
         crea = [{"log": k, "brazo": "A2", "condicion": "pendiente", "registra": True} for k in range(12)]
@@ -716,6 +775,68 @@ class Analisis(unittest.TestCase):
         self.assertFalse(r2["c2"]["significativa"])
         self.assertFalse(r2["c2"]["sensible_al_juez"])
         self.assertIn("no detectamos un efecto", r2["frase_de_9"])
+
+    def test_etiquetas_que_invierten_el_signo_quitan_la_afirmacion(self):
+        pares = [_par(k, (False, False), (True, False)) for k in range(12)]
+        # Nico ve lo contrario: A2b consigna y A2 no, en los 12.
+        et = [{"log": k, "brazo": b, "condicion": c, "registra": b == "A2b" and c == "pendiente"}
+              for k in range(12) for b in ("A2b", "A2") for c in ("pendiente", "limpio")]
+        r = analisis.analizar(pares, et)
+        self.assertTrue(r["c2_con_etiquetas_de_nico"]["significativa"])
+        self.assertTrue(r["c2"]["sensible_al_juez"])
+        self.assertIn("no se afirma", r["frase_de_9"])
+
+    def test_etiquetas_que_no_son_booleanos_frenan(self):
+        pares = [_par(k, (False, False), (True, False)) for k in range(12)]
+        for mala in ("false", 0, None, "true"):
+            with self.assertRaises(ValueError):
+                analisis.analizar(pares, [{"log": 0, "brazo": "A2", "condicion": "pendiente", "registra": mala}])
+        with self.assertRaises(ValueError):
+            analisis.analizar(pares, [{"log": 0, "brazo": "A2", "condicion": "pendiente", "registra": True}] * 2)
+
+    def test_sin_pares_incluidos_no_es_evaluable(self):
+        malo = _par(0, (True, False), (True, False))
+        malo["brazos"]["A2"]["limpio"]["llamada"] = "fallo"
+        for pares in ([], [malo]):
+            r = analisis.analizar(pares)
+            self.assertFalse(r["c2"]["evaluable"])
+            self.assertIn("no evaluable", r["frase_de_9"])
+
+    def test_el_umbral_de_coincidencia_de_8_1(self):
+        # 20 logs con efecto claro: el juez da true en A2 pendiente y false en el resto.
+        pares = [_par(k, (False, False), (True, False)) for k in range(20)]
+        r0 = analisis.analizar(pares)
+        juez_de = {(p["log"], b, c): analisis.registra(p, b, c) for p in pares for b in ("A2b", "A2")
+                   for c in ("pendiente", "limpio")}
+        muestra = r0["muestra_estratificada"]
+        # Nico coincide con el juez en todo, salvo en 4 de los 15 false de la muestra: 73%.
+        falsos = [k for k in muestra if not juez_de[k]][:4]
+        et = [{"log": k[0], "brazo": k[1], "condicion": k[2], "registra": (not juez_de[k]) if k in falsos else juez_de[k]}
+              for k in juez_de]
+        r = analisis.analizar(pares, et)
+        self.assertTrue(r["validacion"]["juez_no_confiable"])
+        self.assertIn("menos de 80%", r["frase_de_9"])
+        # Con todo igual al juez, se afirma.
+        r2 = analisis.analizar(pares, [{"log": k[0], "brazo": k[1], "condicion": k[2], "registra": v}
+                                       for k, v in juez_de.items()])
+        self.assertFalse(r2["validacion"]["juez_no_confiable"])
+        self.assertIn("aumentó", r2["frase_de_9"])
+
+    def test_sensibilidad_sin_pares_partidos_y_falsos_positivos_por_request_id(self):
+        pares = [_par(k, (False, False), (True, False)) for k in range(12)]
+        for p in pares[:5]:
+            p["partido"] = True
+        for p in pares[:8]:
+            p["gemelo_con_request_id"] = True
+        r = analisis.analizar(pares)
+        self.assertEqual(r["sensibilidad_sin_pares_partidos"]["n"], 7)
+        d = r["descriptivas"]["por_brazo"]["A2"]
+        self.assertEqual((d["falso_positivo_gemelo_con_request_id"]["n"], d["falso_positivo_gemelo_sin_request_id"]["n"]),
+                         (8, 4))
+
+    def test_potencia_con_correlaciones_no_rompe_el_error_de_tipo_i(self):
+        self.assertLess(analisis.potencia(100, (0.3, 0.05), (0.3, 0.05), reps=400, rho_brazos=0.3,
+                                          rho_condiciones=0.3), 0.08)
 
     def test_confirmada_con_etiquetas(self):
         pares = [_par(k, (False, False), (True, False)) for k in range(12)]
@@ -769,16 +890,24 @@ class Corrida(unittest.TestCase):
         corrida.DIR, corrida.PARES = self.original
         shutil.rmtree(self.raiz)
 
-    def log(self, k, final="pasa", automaticos=True, para_nico=None):
-        corrida.escribir(self.raiz / "logs" / f"{k:03d}" / "estado.json",
-                         {"log": k, "final": final, "log_md5": f"l{k}", "metadata_md5": f"m{k}",
-                          "chequeo": {"llamada_de_seguimiento": f"q{k}(scope=all)"}})
-        (self.raiz / "logs" / f"{k:03d}" / "metadata.json").write_bytes(
-            json.dumps({"follow_up_scope_expansion": "include regional"}).encode())
+    def log(self, k, final="pasa", automaticos=True, para_nico=None, request_id=False):
+        carpeta = self.raiz / "logs" / f"{k:03d}"
+        carpeta.mkdir(parents=True, exist_ok=True)
+        (carpeta / "log.md").write_bytes(LOG.encode("utf-8"))
+        meta = json.dumps({"follow_up_scope_expansion": "include regional"}).encode()
+        (carpeta / "metadata.json").write_bytes(meta)
+        corrida.escribir(carpeta / "estado.json",
+                         {"log": k, "final": final, "log_md5": arnes.md5_bytes(LOG.encode("utf-8")),
+                          "metadata_md5": arnes.md5_bytes(meta)})
         if final == "pasa":
-            corrida.escribir(self.raiz / "gemelos" / f"{k:03d}" / "resumen.json",
-                             {"log": k, "estado": "hecho", "gemelo_md5": f"g{k}",
-                              "chequeos": {"pasa_automaticos": automaticos, "para_nico": para_nico or {}}})
+            g = self.raiz / "gemelos" / f"{k:03d}"
+            g.mkdir(parents=True, exist_ok=True)
+            (g / "gemelo.md").write_bytes(GEMELO.encode("utf-8"))
+            aceptadas = [{"regla": "request_id en el bloque nuevo"}] if request_id else []
+            corrida.escribir(g / "resumen.json",
+                             {"log": k, "estado": "hecho", "gemelo_md5": arnes.md5_bytes(GEMELO.encode("utf-8")),
+                              "chequeos": {"pasa_automaticos": automaticos, "para_nico": para_nico or {},
+                                           "automaticos": {"3_aceptadas_por_regla": aceptadas}}})
 
     def test_el_plan_de_brazos(self):
         pares = [{"log": k} for k in range(100)]
@@ -808,24 +937,45 @@ class Corrida(unittest.TestCase):
         self.log(4, para_nico=items)
         self.log(5)
         self.log(6)
-        # Sin las decisiones de 002 no se puede seguir: el orden manda.
+        # Todo gemelo que pasa los automáticos pide la completitud (C): sin ella no se sigue.
         inc, _, problema = corrida.elegir_pares()
-        self.assertEqual([p["log"] for p in inc], [0])
-        self.assertIn("002", problema)
-        corrida.escribir(self.raiz / "gemelos" / "decisiones.json", {"002": {"3:31": "aprobada"}, "004": {"3:31": "rechazada"}})
+        self.assertEqual(inc, [])
+        self.assertIn("000", problema)
+        dec = {"000": {"C": "si"}, "002": {"3:31": "aprobada", "C": "si"}, "004": {"3:31": "rechazada", "C": "si"},
+               "005": {"C": "si"}, "006": {"C": "si"}}
+        corrida.escribir(self.raiz / "gemelos" / "decisiones.json", dec)
         inc, desc, problema = corrida.elegir_pares()
         self.assertIsNone(problema)
         self.assertEqual([p["log"] for p in inc], [0, 2, 5])
         self.assertIn("rechazado por Nico", desc[4])
         self.assertIn("automáticos", desc[3])
         self.assertNotIn(6, desc)
+        # Una completitud en «no» descarta el par; un valor que no es exacto frena.
+        dec["002"]["C"] = "no"
+        corrida.escribir(self.raiz / "gemelos" / "decisiones.json", dec)
+        inc, desc, _ = corrida.elegir_pares()
+        self.assertEqual([p["log"] for p in inc], [0, 5, 6])
+        for malo in ("aprobado", False, "sí", "Si"):
+            dec["002"]["3:31"] = malo
+            dec["002"]["C"] = "si"
+            corrida.escribir(self.raiz / "gemelos" / "decisiones.json", dec)
+            _, _, problema = corrida.elegir_pares()
+            self.assertIn("valores inválidos", problema, malo)
 
     def test_las_decisiones_anotadas_se_conservan(self):
         items = {"3_senales_de_pendiente": [{"n": 31, "coincide": ["start"], "linea": "x"}]}
         self.log(2, para_nico=items)
         corrida.escribir(self.raiz / "gemelos" / "decisiones.json", {"002": {"3:31": "aprobada"}})
         corrida.escribir_decisiones()
-        self.assertEqual(corrida.leer(self.raiz / "gemelos" / "decisiones.json"), {"002": {"3:31": "aprobada"}})
+        self.assertEqual(corrida.leer(self.raiz / "gemelos" / "decisiones.json"),
+                         {"002": {"3:31": "aprobada", "C": None}})
+
+    def test_el_congelamiento_pide_git(self):
+        with self.assertRaises(SystemExit):
+            corrida.congelamiento_en_git()
+
+    def test_la_llamada_de_seguimiento_sale_del_log(self):
+        self.assertEqual(corrida.llamada_de_seguimiento(LOG), 'failures.aggregate(scope="all", async=true)')
 
     def test_la_parada_traba_todo(self):
         with self.assertRaises(SystemExit):
@@ -833,13 +983,17 @@ class Corrida(unittest.TestCase):
         with self.assertRaises(SystemExit):
             corrida.sin_parada()
 
-    def armar_corrida(self, n=2):
+    def armar_corrida(self, n=2, partido=()):
         corrida.PARES = n
         for k in range(n):
-            self.log(k)
-        corrida.escribir(self.raiz / "pares-incluidos.json",
-                         {"pares": [{"log": k, "log_md5": f"l{k}", "metadata_md5": f"m{k}", "gemelo_md5": f"g{k}"}
-                                    for k in range(n)]})
+            self.log(k, request_id=k % 2 == 0)
+        pares = []
+        for k in range(n):
+            e = corrida.leer(self.raiz / "logs" / f"{k:03d}" / "estado.json")
+            g = corrida.leer(self.raiz / "gemelos" / f"{k:03d}" / "resumen.json")
+            pares.append({"log": k, "log_md5": e["log_md5"], "metadata_md5": e["metadata_md5"],
+                          "gemelo_md5": g["gemelo_md5"], "gemelo_con_request_id": k % 2 == 0})
+        corrida.escribir(self.raiz / "pares-incluidos.json", {"pares": pares})
         (self.raiz / "pares-incluidos.md5").write_bytes(
             (corrida.md5_archivo(self.raiz / "pares-incluidos.json") + "\n").encode())
         for k in range(n):
@@ -847,9 +1001,10 @@ class Corrida(unittest.TestCase):
                 for c in ("pendiente", "limpio"):
                     d = f"{k:03d}-{b}-{c}"
                     reg = {"comandos_ejecutados": [], "archivos_cambiados": [], "mensajes_agente": 1}
+                    sesion = "s2" if (k in partido and c == "limpio") else "s1"
                     corrida.escribir(self.raiz / "brazos" / d / "resumen.json",
                                      {"estado": "hecho", "json_legible": True, "tiene_residue": b == "A2",
-                                      "declared_absence": False if b == "A2" else None,
+                                      "declared_absence": False if b == "A2" else None, "sesiones": [sesion],
                                       "validacion": {"cumple_esquema": True, "cumple_reglas": None}, "intentos": [reg]})
                     (self.raiz / "brazos" / d / "json.txt").write_bytes(b'{"findings": []}')
                     registra = b == "A2" and c == "pendiente"
@@ -857,22 +1012,38 @@ class Corrida(unittest.TestCase):
                                      {"veredicto": {"estado": "juzgado", "registra": registra, "llamado": True}})
 
     def test_armar_pares_lo_lee_el_analisis(self):
-        self.armar_corrida()
+        self.armar_corrida(partido=(1,))
         pares = corrida.armar_pares()
         r = analisis.analizar(pares)
         self.assertEqual(r["n_incluidos"], 2)
         self.assertEqual([analisis.diferencia(p) for p in pares], [1, 1])
+        self.assertEqual([p["partido"] for p in pares], [False, True])
+        self.assertEqual([p["gemelo_con_request_id"] for p in pares], [True, False])
 
     def test_la_planilla_de_8_1_es_ciega(self):
         self.armar_corrida()
         corrida.etapa_validacion(None)
         hoja = (self.raiz / "validacion" / "PARA-NICO.md").read_bytes().decode("utf-8")
-        for palabra in ("A2b", "A2", "pendiente", "limpio", "true", "registra:"):
-            self.assertNotIn(palabra, hoja.replace("true o false", ""))
+        items = hoja.split("## v001", 1)[1]
+        sin_llamada = "\n".join(linea for linea in items.split("\n") if not linea.startswith("- Tool call:"))
+        for palabra in ("A2b", "A2", "pendiente", "limpio", "true", "registra", "findings", "residue"):
+            self.assertNotIn(palabra, sin_llamada)
+        self.assertIn('Tool call: `failures.aggregate(scope="all", async=true)`', items)
         clave = corrida.leer(self.raiz / "validacion" / "clave.json")
         etiquetas = corrida.leer(self.raiz / "validacion" / "etiquetas.json")
         self.assertEqual(sorted(e["id"] for e in etiquetas), sorted(clave))
         self.assertTrue(all(e["registra"] is None for e in etiquetas))
+        # Las etiquetas: ids exactos y booleanos de verdad.
+        self.assertEqual(corrida.leer_etiquetas()[0], None)
+        corrida.escribir(self.raiz / "validacion" / "etiquetas.json", [dict(e, registra="false") for e in etiquetas])
+        with self.assertRaises(SystemExit):
+            corrida.leer_etiquetas()
+        corrida.escribir(self.raiz / "validacion" / "etiquetas.json", [dict(e, registra=False) for e in etiquetas][1:])
+        with self.assertRaises(SystemExit):
+            corrida.leer_etiquetas()
+        corrida.escribir(self.raiz / "validacion" / "etiquetas.json", [dict(e, registra=False) for e in etiquetas])
+        lista, faltan = corrida.leer_etiquetas()
+        self.assertEqual((len(lista), faltan), (len(clave), []))
 
 
 if __name__ == "__main__":
