@@ -1,0 +1,79 @@
+{
+  "log": 42,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 8,
+    "PRIMARY_SURFACE": 0,
+    "INITIAL_QUESTION": 2,
+    "INITIAL_QUERY_SCOPE": 4,
+    "FOLLOW_UP_SCOPE_EXPANSION": 2,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 4,
+    "DISTRACTION_CHECKS": [
+      0,
+      1
+    ],
+    "FINAL_QUESTION_PATTERN": 4
+  },
+  "valores": {
+    "DOMAIN": "manufacturing quality control",
+    "PRIMARY_SURFACE": "production logs",
+    "INITIAL_QUESTION": "Which components were most frequently out of stock yesterday?",
+    "INITIAL_QUERY_SCOPE": "non-reserved inventory only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include automated warehouse inventory",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "retrieval begins successfully but stops before returning grouped data",
+    "DISTRACTION_CHECKS": [
+      "deployment status",
+      "maintenance events"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Did one facility account for most of the reported defects?”"
+  },
+  "mensaje_md5": "81fb118c4e20f81221bc5b1d790a797b",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:30:17.589+00:00",
+      "duracion_s": 28.287,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "81fb118c4e20f81221bc5b1d790a797b",
+      "generador": true,
+      "carpeta_trabajo": "C:\\w\\24300260fdc7",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 60933,
+        "cached_input_tokens": 45952,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1588,
+        "reasoning_output_tokens": 379
+      },
+      "mensajes_agente": 2,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [
+        "C:\\w\\24300260fdc7\\log_qc_7f3a.md",
+        "C:\\w\\24300260fdc7\\log_qc_7f3a_metadata.json"
+      ],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [
+        {
+          "ruta": "log_qc_7f3a.md",
+          "bytes": 2447,
+          "md5": "77469f5bcc48ccabd315b537ca9b2c10"
+        },
+        {
+          "ruta": "log_qc_7f3a_metadata.json",
+          "bytes": 933,
+          "md5": "773c244d49441d7cf233e8fbf6a4946e"
+        }
+      ],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "estado": "archivos"
+}

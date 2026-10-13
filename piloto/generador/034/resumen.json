@@ -1,0 +1,79 @@
+{
+  "log": 34,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 0,
+    "PRIMARY_SURFACE": 3,
+    "INITIAL_QUESTION": 2,
+    "INITIAL_QUERY_SCOPE": 4,
+    "FOLLOW_UP_SCOPE_EXPANSION": 5,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 3,
+    "DISTRACTION_CHECKS": [
+      1,
+      6
+    ],
+    "FINAL_QUESTION_PATTERN": 0
+  },
+  "valores": {
+    "DOMAIN": "cloud infrastructure",
+    "PRIMARY_SURFACE": "incident records",
+    "INITIAL_QUESTION": "Which components were most frequently out of stock yesterday?",
+    "INITIAL_QUERY_SCOPE": "non-reserved inventory only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include maintenance-only equipment",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "tool call is acknowledged but result payload is absent",
+    "DISTRACTION_CHECKS": [
+      "maintenance events",
+      "calibration status"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Was the TimeoutError problem concentrated in one service?”"
+  },
+  "mensaje_md5": "39ff777709dc9b24e692a6b051bc4fb5",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:25:54.526+00:00",
+      "duracion_s": 33.536,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "39ff777709dc9b24e692a6b051bc4fb5",
+      "generador": true,
+      "carpeta_trabajo": "C:\\w\\7125825b3f25",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 41728,
+        "cached_input_tokens": 36352,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1584,
+        "reasoning_output_tokens": 342
+      },
+      "mensajes_agente": 2,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [
+        "C:\\w\\7125825b3f25\\log_c7a41f.md",
+        "C:\\w\\7125825b3f25\\log_c7a41f_metadata.json"
+      ],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [
+        {
+          "ruta": "log_c7a41f.md",
+          "bytes": 2557,
+          "md5": "853c39e2bcd996a89ae9a2223c4d409f"
+        },
+        {
+          "ruta": "log_c7a41f_metadata.json",
+          "bytes": 929,
+          "md5": "354b04c66f376940b400a4774723db0f"
+        }
+      ],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "estado": "archivos"
+}

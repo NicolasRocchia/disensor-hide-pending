@@ -1,0 +1,79 @@
+{
+  "log": 44,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 1,
+    "PRIMARY_SURFACE": 6,
+    "INITIAL_QUESTION": 0,
+    "INITIAL_QUERY_SCOPE": 2,
+    "FOLLOW_UP_SCOPE_EXPANSION": 0,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 3,
+    "DISTRACTION_CHECKS": [
+      0,
+      3
+    ],
+    "FINAL_QUESTION_PATTERN": 0
+  },
+  "valores": {
+    "DOMAIN": "semiconductor manufacturing",
+    "PRIMARY_SURFACE": "shipment records",
+    "INITIAL_QUESTION": "Which failures affected the most jobs yesterday?",
+    "INITIAL_QUERY_SCOPE": "standard compute pools only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include internal services",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "tool call is acknowledged but result payload is absent",
+    "DISTRACTION_CHECKS": [
+      "deployment status",
+      "alert summary"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Was the TimeoutError problem concentrated in one service?”"
+  },
+  "mensaje_md5": "ee81576f0f9efb7fa64e21a8ccf24603",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:31:25.700+00:00",
+      "duracion_s": 25.899,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "ee81576f0f9efb7fa64e21a8ccf24603",
+      "generador": true,
+      "carpeta_trabajo": "C:\\w\\2f74c8aaf32a",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 59008,
+        "cached_input_tokens": 45184,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1323,
+        "reasoning_output_tokens": 123
+      },
+      "mensajes_agente": 2,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [
+        "C:\\w\\2f74c8aaf32a\\log_7c2a91.md",
+        "C:\\w\\2f74c8aaf32a\\log_7c2a91_metadata.json"
+      ],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [
+        {
+          "ruta": "log_7c2a91.md",
+          "bytes": 2471,
+          "md5": "18d38382b8bfd7a066740329859d7b12"
+        },
+        {
+          "ruta": "log_7c2a91_metadata.json",
+          "bytes": 900,
+          "md5": "5a7ea19956abab58b46a2d065fb16bb6"
+        }
+      ],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "estado": "archivos"
+}

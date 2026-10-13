@@ -1,0 +1,79 @@
+{
+  "log": 46,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 5,
+    "PRIMARY_SURFACE": 5,
+    "INITIAL_QUESTION": 4,
+    "INITIAL_QUERY_SCOPE": 2,
+    "FOLLOW_UP_SCOPE_EXPANSION": 6,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 4,
+    "DISTRACTION_CHECKS": [
+      5,
+      4
+    ],
+    "FINAL_QUESTION_PATTERN": 1
+  },
+  "valores": {
+    "DOMAIN": "network monitoring",
+    "PRIMARY_SURFACE": "manufacturing delays",
+    "INITIAL_QUESTION": "Which defects occurred most often yesterday?",
+    "INITIAL_QUERY_SCOPE": "standard compute pools only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include regional or private infrastructure",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "retrieval begins successfully but stops before returning grouped data",
+    "DISTRACTION_CHECKS": [
+      "scheduled changes",
+      "replenishment runs"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Did most of the NodeUnavailable failures occur on gpu-cluster-a?”"
+  },
+  "mensaje_md5": "607633cd3b0eb036b627caadd1b0c37f",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:32:16.282+00:00",
+      "duracion_s": 34.625,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "607633cd3b0eb036b627caadd1b0c37f",
+      "generador": true,
+      "carpeta_trabajo": "C:\\w\\51324e648af1",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 83254,
+        "cached_input_tokens": 68480,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1610,
+        "reasoning_output_tokens": 361
+      },
+      "mensajes_agente": 2,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [
+        "C:\\w\\51324e648af1\\log_nm4827.md",
+        "C:\\w\\51324e648af1\\log_nm4827_metadata.json"
+      ],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [
+        {
+          "ruta": "log_nm4827.md",
+          "bytes": 2415,
+          "md5": "c48f470e09adb1481f6d49c0ad49d55f"
+        },
+        {
+          "ruta": "log_nm4827_metadata.json",
+          "bytes": 939,
+          "md5": "e29fd4cb36145e44a358620c95f23a91"
+        }
+      ],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "estado": "archivos"
+}

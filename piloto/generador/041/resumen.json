@@ -1,0 +1,79 @@
+{
+  "log": 41,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 8,
+    "PRIMARY_SURFACE": 7,
+    "INITIAL_QUESTION": 0,
+    "INITIAL_QUERY_SCOPE": 3,
+    "FOLLOW_UP_SCOPE_EXPANSION": 0,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 0,
+    "DISTRACTION_CHECKS": [
+      5,
+      4
+    ],
+    "FINAL_QUESTION_PATTERN": 2
+  },
+  "valores": {
+    "DOMAIN": "manufacturing quality control",
+    "PRIMARY_SURFACE": "quality-control events",
+    "INITIAL_QUESTION": "Which failures affected the most jobs yesterday?",
+    "INITIAL_QUERY_SCOPE": "customer-facing systems only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include internal services",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "tool returns `status=accepted` with a request ID but no result",
+    "DISTRACTION_CHECKS": [
+      "scheduled changes",
+      "replenishment runs"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Did one fabrication line account for most of the wafer-related delays?”"
+  },
+  "mensaje_md5": "5a0197435b22f4a80d434c80f8b75496",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:29:50.720+00:00",
+      "duracion_s": 26.6,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "5a0197435b22f4a80d434c80f8b75496",
+      "generador": true,
+      "carpeta_trabajo": "C:\\w\\9ee9fee2cab4",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 28123,
+        "cached_input_tokens": 23040,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1456,
+        "reasoning_output_tokens": 234
+      },
+      "mensajes_agente": 2,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [
+        "C:\\w\\9ee9fee2cab4\\log_mqc_2714.md",
+        "C:\\w\\9ee9fee2cab4\\log_mqc_2714_metadata.json"
+      ],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [
+        {
+          "ruta": "log_mqc_2714.md",
+          "bytes": 2565,
+          "md5": "6d0cdb6f094babb051d1a1c6c31864ed"
+        },
+        {
+          "ruta": "log_mqc_2714_metadata.json",
+          "bytes": 882,
+          "md5": "c667a53e3c05021143db362bc7bea05d"
+        }
+      ],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "estado": "archivos"
+}

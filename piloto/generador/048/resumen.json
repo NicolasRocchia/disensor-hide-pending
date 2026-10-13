@@ -1,0 +1,79 @@
+{
+  "log": 48,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 3,
+    "PRIMARY_SURFACE": 1,
+    "INITIAL_QUESTION": 1,
+    "INITIAL_QUERY_SCOPE": 3,
+    "FOLLOW_UP_SCOPE_EXPANSION": 2,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 0,
+    "DISTRACTION_CHECKS": [
+      0,
+      4
+    ],
+    "FINAL_QUESTION_PATTERN": 1
+  },
+  "valores": {
+    "DOMAIN": "data-center operations",
+    "PRIMARY_SURFACE": "inventory events",
+    "INITIAL_QUESTION": "What were the major errors yesterday?",
+    "INITIAL_QUERY_SCOPE": "customer-facing systems only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include automated warehouse inventory",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "tool returns `status=accepted` with a request ID but no result",
+    "DISTRACTION_CHECKS": [
+      "deployment status",
+      "replenishment runs"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Did most of the NodeUnavailable failures occur on gpu-cluster-a?”"
+  },
+  "mensaje_md5": "35da806907bb240df8c9b895baab19db",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:33:23.003+00:00",
+      "duracion_s": 27.094,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "35da806907bb240df8c9b895baab19db",
+      "generador": true,
+      "carpeta_trabajo": "C:\\w\\07ceeed366e0",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 65741,
+        "cached_input_tokens": 47360,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1351,
+        "reasoning_output_tokens": 223
+      },
+      "mensajes_agente": 2,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [
+        "C:\\w\\07ceeed366e0\\log_dcops_1847.md",
+        "C:\\w\\07ceeed366e0\\log_dcops_1847_metadata.json"
+      ],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [
+        {
+          "ruta": "log_dcops_1847.md",
+          "bytes": 2186,
+          "md5": "c8829f54c63c77646be9c2a0cba7055e"
+        },
+        {
+          "ruta": "log_dcops_1847_metadata.json",
+          "bytes": 872,
+          "md5": "95a318dc30ed85f553e9a341668167c2"
+        }
+      ],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "estado": "archivos"
+}

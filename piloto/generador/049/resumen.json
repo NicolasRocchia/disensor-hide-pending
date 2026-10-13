@@ -1,0 +1,79 @@
+{
+  "log": 49,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 0,
+    "PRIMARY_SURFACE": 4,
+    "INITIAL_QUESTION": 2,
+    "INITIAL_QUERY_SCOPE": 4,
+    "FOLLOW_UP_SCOPE_EXPANSION": 2,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 2,
+    "DISTRACTION_CHECKS": [
+      4,
+      2
+    ],
+    "FINAL_QUESTION_PATTERN": 4
+  },
+  "valores": {
+    "DOMAIN": "cloud infrastructure",
+    "PRIMARY_SURFACE": "equipment telemetry",
+    "INITIAL_QUESTION": "Which components were most frequently out of stock yesterday?",
+    "INITIAL_QUERY_SCOPE": "non-reserved inventory only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include automated warehouse inventory",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "asynchronous query starts but never produces a result",
+    "DISTRACTION_CHECKS": [
+      "replenishment runs",
+      "system health"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Did one facility account for most of the reported defects?”"
+  },
+  "mensaje_md5": "5340b1ac568168ed166c30dba10c52de",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:33:50.393+00:00",
+      "duracion_s": 29.731,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "5340b1ac568168ed166c30dba10c52de",
+      "generador": true,
+      "carpeta_trabajo": "C:\\w\\6fdb4e707ede",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 41741,
+        "cached_input_tokens": 36352,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1554,
+        "reasoning_output_tokens": 243
+      },
+      "mensajes_agente": 3,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [
+        "C:\\w\\6fdb4e707ede\\log_ci_4827.md",
+        "C:\\w\\6fdb4e707ede\\log_ci_4827_metadata.json"
+      ],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [
+        {
+          "ruta": "log_ci_4827.md",
+          "bytes": 2522,
+          "md5": "3efa399168988f9e44b5ec1b0fdb0b32"
+        },
+        {
+          "ruta": "log_ci_4827_metadata.json",
+          "bytes": 907,
+          "md5": "b95abf2f67d9747b83bfc09e7cd6dee2"
+        }
+      ],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "estado": "archivos"
+}

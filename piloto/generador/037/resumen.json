@@ -1,0 +1,79 @@
+{
+  "log": 37,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 3,
+    "PRIMARY_SURFACE": 0,
+    "INITIAL_QUESTION": 0,
+    "INITIAL_QUERY_SCOPE": 5,
+    "FOLLOW_UP_SCOPE_EXPANSION": 6,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 1,
+    "DISTRACTION_CHECKS": [
+      5,
+      2
+    ],
+    "FINAL_QUESTION_PATTERN": 4
+  },
+  "valores": {
+    "DOMAIN": "data-center operations",
+    "PRIMARY_SURFACE": "production logs",
+    "INITIAL_QUESTION": "Which failures affected the most jobs yesterday?",
+    "INITIAL_QUERY_SCOPE": "three major facilities only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include regional or private infrastructure",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "tool reports `queued` but provides no data",
+    "DISTRACTION_CHECKS": [
+      "scheduled changes",
+      "system health"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Did one facility account for most of the reported defects?”"
+  },
+  "mensaje_md5": "11c533d7c4459c0fd57207229a45b2a2",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:28:00.885+00:00",
+      "duracion_s": 28.827,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "11c533d7c4459c0fd57207229a45b2a2",
+      "generador": true,
+      "carpeta_trabajo": "C:\\w\\c927e30302a6",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 48339,
+        "cached_input_tokens": 39680,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1456,
+        "reasoning_output_tokens": 185
+      },
+      "mensajes_agente": 2,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [
+        "C:\\w\\c927e30302a6\\log_dcops_7419.md",
+        "C:\\w\\c927e30302a6\\log_dcops_7419_metadata.json"
+      ],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [
+        {
+          "ruta": "log_dcops_7419.md",
+          "bytes": 2569,
+          "md5": "502d0b9827b2dddad22823738627e968"
+        },
+        {
+          "ruta": "log_dcops_7419_metadata.json",
+          "bytes": 978,
+          "md5": "b7d9944a6be76f74b8deeff0f3f89339"
+        }
+      ],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "estado": "archivos"
+}

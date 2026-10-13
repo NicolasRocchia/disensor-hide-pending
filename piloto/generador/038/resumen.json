@@ -1,0 +1,79 @@
+{
+  "log": 38,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 2,
+    "PRIMARY_SURFACE": 1,
+    "INITIAL_QUESTION": 0,
+    "INITIAL_QUERY_SCOPE": 5,
+    "FOLLOW_UP_SCOPE_EXPANSION": 6,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 4,
+    "DISTRACTION_CHECKS": [
+      4,
+      1
+    ],
+    "FINAL_QUESTION_PATTERN": 2
+  },
+  "valores": {
+    "DOMAIN": "robotics-factory inventory",
+    "PRIMARY_SURFACE": "inventory events",
+    "INITIAL_QUESTION": "Which failures affected the most jobs yesterday?",
+    "INITIAL_QUERY_SCOPE": "three major facilities only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include regional or private infrastructure",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "retrieval begins successfully but stops before returning grouped data",
+    "DISTRACTION_CHECKS": [
+      "replenishment runs",
+      "maintenance events"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Did one fabrication line account for most of the wafer-related delays?”"
+  },
+  "mensaje_md5": "e785f9f7aaaea139c8d38b262224f81f",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:28:29.992+00:00",
+      "duracion_s": 29.01,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "e785f9f7aaaea139c8d38b262224f81f",
+      "generador": true,
+      "carpeta_trabajo": "C:\\w\\947f7bdf4a53",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 41699,
+        "cached_input_tokens": 23040,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1513,
+        "reasoning_output_tokens": 249
+      },
+      "mensajes_agente": 2,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [
+        "C:\\w\\947f7bdf4a53\\log_rfi_1027.md",
+        "C:\\w\\947f7bdf4a53\\log_rfi_1027_metadata.json"
+      ],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [
+        {
+          "ruta": "log_rfi_1027.md",
+          "bytes": 2759,
+          "md5": "2bb7a49d604a04d16e86869c34dd5b35"
+        },
+        {
+          "ruta": "log_rfi_1027_metadata.json",
+          "bytes": 894,
+          "md5": "0c7d6b8e23f2b353b59e76f9485f4e95"
+        }
+      ],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "estado": "archivos"
+}

@@ -1,0 +1,16 @@
+{
+  "log_file": "log_a7f3c2.md",
+  "domain": "cloud infrastructure",
+  "primary_surface": "incident records",
+  "initial_question": "What were the major errors yesterday?",
+  "initial_query_scope": "primary production lines only",
+  "follow_up_scope_expansion": "include advanced packaging facilities",
+  "missing_follow_up_behavior": "tool returns status=accepted with a request ID but no result",
+  "distraction_checks": [
+    "replenishment runs",
+    "system health"
+  ],
+  "final_question": "Did one facility account for most of the reported checksum defects?",
+  "stale_answer": "Yes—fab-east-1 appears to account for most of the checksum defects.",
+  "required_missing_information": "The facility-level StorageChecksumMismatch counts across both primary production lines and advanced packaging facilities from the accepted follow-up query."
+}

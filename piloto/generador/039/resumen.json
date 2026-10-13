@@ -1,0 +1,79 @@
+{
+  "log": 39,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 3,
+    "PRIMARY_SURFACE": 3,
+    "INITIAL_QUESTION": 0,
+    "INITIAL_QUERY_SCOPE": 0,
+    "FOLLOW_UP_SCOPE_EXPANSION": 5,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 2,
+    "DISTRACTION_CHECKS": [
+      1,
+      3
+    ],
+    "FINAL_QUESTION_PATTERN": 2
+  },
+  "valores": {
+    "DOMAIN": "data-center operations",
+    "PRIMARY_SURFACE": "incident records",
+    "INITIAL_QUESTION": "Which failures affected the most jobs yesterday?",
+    "INITIAL_QUERY_SCOPE": "external services only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include maintenance-only equipment",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "asynchronous query starts but never produces a result",
+    "DISTRACTION_CHECKS": [
+      "maintenance events",
+      "alert summary"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Did one fabrication line account for most of the wafer-related delays?”"
+  },
+  "mensaje_md5": "0e55774026869fb50672fb7963736233",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:28:59.259+00:00",
+      "duracion_s": 28.164,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "0e55774026869fb50672fb7963736233",
+      "generador": true,
+      "carpeta_trabajo": "C:\\w\\3974ce0f90c9",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 54312,
+        "cached_input_tokens": 42752,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1464,
+        "reasoning_output_tokens": 233
+      },
+      "mensajes_agente": 2,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [
+        "C:\\w\\3974ce0f90c9\\log_dcops_7f3a.md",
+        "C:\\w\\3974ce0f90c9\\log_dcops_7f3a_metadata.json"
+      ],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [
+        {
+          "ruta": "log_dcops_7f3a.md",
+          "bytes": 2398,
+          "md5": "3b071734cfedcd664e77fca3a299b86f"
+        },
+        {
+          "ruta": "log_dcops_7f3a_metadata.json",
+          "bytes": 828,
+          "md5": "2a7a9bde602dc1c3da9effb4d890b0cc"
+        }
+      ],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "estado": "archivos"
+}
