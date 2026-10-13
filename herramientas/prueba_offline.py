@@ -746,5 +746,126 @@ class Analisis(unittest.TestCase):
         self.assertAlmostEqual(analisis.potencia(100, (0.2, 0.0), (0.4, 0.0), reps=1000), 0.84, delta=0.05)
 
 
+import corrida  # noqa: E402
+
+
+class Corrida(unittest.TestCase):
+    """Las etapas de la corrida que no llaman a modelos, contra una carpeta armada a mano."""
+
+    def setUp(self):
+        self.original = (corrida.DIR, corrida.PARES)
+        self.raiz = Path(tempfile.mkdtemp())
+        corrida.DIR = self.raiz
+
+    def tearDown(self):
+        corrida.DIR, corrida.PARES = self.original
+        shutil.rmtree(self.raiz)
+
+    def log(self, k, final="pasa", automaticos=True, para_nico=None):
+        corrida.escribir(self.raiz / "logs" / f"{k:03d}" / "estado.json",
+                         {"log": k, "final": final, "log_md5": f"l{k}", "metadata_md5": f"m{k}",
+                          "chequeo": {"llamada_de_seguimiento": f"q{k}(scope=all)"}})
+        (self.raiz / "logs" / f"{k:03d}" / "metadata.json").write_bytes(
+            json.dumps({"follow_up_scope_expansion": "include regional"}).encode())
+        if final == "pasa":
+            corrida.escribir(self.raiz / "gemelos" / f"{k:03d}" / "resumen.json",
+                             {"log": k, "estado": "hecho", "gemelo_md5": f"g{k}",
+                              "chequeos": {"pasa_automaticos": automaticos, "para_nico": para_nico or {}}})
+
+    def test_el_plan_de_brazos(self):
+        pares = [{"log": k} for k in range(100)]
+        plan = corrida.plan_de_brazos(pares)
+        self.assertEqual(len(plan), 400)
+        self.assertEqual(plan, corrida.plan_de_brazos(pares))
+        for i in range(0, 400, 4):
+            bloque = plan[i:i + 4]
+            self.assertEqual(len({k for k, _, _ in bloque}), 1)
+            self.assertEqual(sorted((b, c) for _, b, c in bloque),
+                             sorted((b, c) for b in ("A2b", "A2") for c in ("pendiente", "limpio")))
+        self.assertGreater(len({tuple((b, c) for _, b, c in plan[i:i + 4]) for i in range(0, 400, 4)}), 10)
+
+    def test_el_orden_del_juez_mezcla(self):
+        plan = corrida.plan_de_brazos([{"log": k} for k in range(100)])
+        orden = corrida.plan_del_juez(plan)
+        self.assertEqual(sorted(orden), sorted(plan))
+        self.assertNotEqual(orden[:20], plan[:20])
+
+    def test_elegir_pares_en_orden_con_las_decisiones(self):
+        corrida.PARES = 3
+        items = {"3_senales_de_pendiente": [{"n": 31, "coincide": ["start"], "linea": "window_start=..."}]}
+        self.log(0)
+        self.log(1, final="descarte §4.2: 3: ...")
+        self.log(2, para_nico=items)
+        self.log(3, automaticos=False)
+        self.log(4, para_nico=items)
+        self.log(5)
+        self.log(6)
+        # Sin las decisiones de 002 no se puede seguir: el orden manda.
+        inc, _, problema = corrida.elegir_pares()
+        self.assertEqual([p["log"] for p in inc], [0])
+        self.assertIn("002", problema)
+        corrida.escribir(self.raiz / "gemelos" / "decisiones.json", {"002": {"3:31": "aprobada"}, "004": {"3:31": "rechazada"}})
+        inc, desc, problema = corrida.elegir_pares()
+        self.assertIsNone(problema)
+        self.assertEqual([p["log"] for p in inc], [0, 2, 5])
+        self.assertIn("rechazado por Nico", desc[4])
+        self.assertIn("automáticos", desc[3])
+        self.assertNotIn(6, desc)
+
+    def test_las_decisiones_anotadas_se_conservan(self):
+        items = {"3_senales_de_pendiente": [{"n": 31, "coincide": ["start"], "linea": "x"}]}
+        self.log(2, para_nico=items)
+        corrida.escribir(self.raiz / "gemelos" / "decisiones.json", {"002": {"3:31": "aprobada"}})
+        corrida.escribir_decisiones()
+        self.assertEqual(corrida.leer(self.raiz / "gemelos" / "decisiones.json"), {"002": {"3:31": "aprobada"}})
+
+    def test_la_parada_traba_todo(self):
+        with self.assertRaises(SystemExit):
+            corrida.cortar("PARADA", "log 007", lambda: None)
+        with self.assertRaises(SystemExit):
+            corrida.sin_parada()
+
+    def armar_corrida(self, n=2):
+        corrida.PARES = n
+        for k in range(n):
+            self.log(k)
+        corrida.escribir(self.raiz / "pares-incluidos.json",
+                         {"pares": [{"log": k, "log_md5": f"l{k}", "metadata_md5": f"m{k}", "gemelo_md5": f"g{k}"}
+                                    for k in range(n)]})
+        (self.raiz / "pares-incluidos.md5").write_bytes(
+            (corrida.md5_archivo(self.raiz / "pares-incluidos.json") + "\n").encode())
+        for k in range(n):
+            for b in ("A2b", "A2"):
+                for c in ("pendiente", "limpio"):
+                    d = f"{k:03d}-{b}-{c}"
+                    reg = {"comandos_ejecutados": [], "archivos_cambiados": [], "mensajes_agente": 1}
+                    corrida.escribir(self.raiz / "brazos" / d / "resumen.json",
+                                     {"estado": "hecho", "json_legible": True, "tiene_residue": b == "A2",
+                                      "declared_absence": False if b == "A2" else None,
+                                      "validacion": {"cumple_esquema": True, "cumple_reglas": None}, "intentos": [reg]})
+                    (self.raiz / "brazos" / d / "json.txt").write_bytes(b'{"findings": []}')
+                    registra = b == "A2" and c == "pendiente"
+                    corrida.escribir(self.raiz / "juez" / d / "resumen.json",
+                                     {"veredicto": {"estado": "juzgado", "registra": registra, "llamado": True}})
+
+    def test_armar_pares_lo_lee_el_analisis(self):
+        self.armar_corrida()
+        pares = corrida.armar_pares()
+        r = analisis.analizar(pares)
+        self.assertEqual(r["n_incluidos"], 2)
+        self.assertEqual([analisis.diferencia(p) for p in pares], [1, 1])
+
+    def test_la_planilla_de_8_1_es_ciega(self):
+        self.armar_corrida()
+        corrida.etapa_validacion(None)
+        hoja = (self.raiz / "validacion" / "PARA-NICO.md").read_bytes().decode("utf-8")
+        for palabra in ("A2b", "A2", "pendiente", "limpio", "true", "registra:"):
+            self.assertNotIn(palabra, hoja.replace("true o false", ""))
+        clave = corrida.leer(self.raiz / "validacion" / "clave.json")
+        etiquetas = corrida.leer(self.raiz / "validacion" / "etiquetas.json")
+        self.assertEqual(sorted(e["id"] for e in etiquetas), sorted(clave))
+        self.assertTrue(all(e["registra"] is None for e in etiquetas))
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
