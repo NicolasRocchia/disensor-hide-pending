@@ -1,0 +1,61 @@
+{
+  "log": 1,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 8,
+    "PRIMARY_SURFACE": 4,
+    "INITIAL_QUESTION": 0,
+    "INITIAL_QUERY_SCOPE": 1,
+    "FOLLOW_UP_SCOPE_EXPANSION": 2,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 2,
+    "DISTRACTION_CHECKS": [
+      1,
+      0
+    ],
+    "FINAL_QUESTION_PATTERN": 0
+  },
+  "valores": {
+    "DOMAIN": "manufacturing quality control",
+    "PRIMARY_SURFACE": "equipment telemetry",
+    "INITIAL_QUESTION": "Which failures affected the most jobs yesterday?",
+    "INITIAL_QUERY_SCOPE": "primary production lines only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include automated warehouse inventory",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "asynchronous query starts but never produces a result",
+    "DISTRACTION_CHECKS": [
+      "maintenance events",
+      "deployment status"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Was the TimeoutError problem concentrated in one service?”"
+  },
+  "mensaje_md5": "8d926de94d7e990e623f2b61301b3350",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T17:31:37.378+00:00",
+      "duracion_s": 29.624,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "8d926de94d7e990e623f2b61301b3350",
+      "carpeta_trabajo": "C:\\w\\57d7fe3a191c",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 29565,
+        "cached_input_tokens": 24704,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1442,
+        "reasoning_output_tokens": 282
+      },
+      "mensajes_agente": 2,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 1,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "estado": "ok"
+}

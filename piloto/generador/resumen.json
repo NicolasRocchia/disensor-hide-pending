@@ -1,0 +1,18 @@
+{
+  "estados": {
+    "ok": 2,
+    "pendiente": 48
+  },
+  "llamadas_ok": 2,
+  "promedio_por_llamada_ok": {
+    "entrada": 29532,
+    "cache": 19328,
+    "salida": 1396,
+    "razonamiento": 260,
+    "segundos": 28.7
+  },
+  "rechazos_en_todos_los_intentos": {
+    "shell": 0,
+    "apply_patch": 2
+  }
+}
