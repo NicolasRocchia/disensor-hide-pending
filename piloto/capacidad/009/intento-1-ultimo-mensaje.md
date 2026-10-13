@@ -1,0 +1,1 @@
+Yes. The asynchronous stockout aggregation request (`shipagg-20261012-7f3a91`) was accepted, but no result was returned, so the fabrication-line comparison across standard compute pools and advanced packaging is incomplete.

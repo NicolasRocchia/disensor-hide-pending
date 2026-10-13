@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13697-8bc7-7bc3-8ba3-a9c479c89747"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The async query covering both primary and secondary production lines was accepted (`request_id=qce_7f31b9d4`), but no result was returned. The available primary-line data does show gpu-cluster-a had 1,864 of 2,151 affected jobs (~87%)."}}
+{"type":"turn.completed","usage":{"input_tokens":13036,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":65,"reasoning_output_tokens":0}}

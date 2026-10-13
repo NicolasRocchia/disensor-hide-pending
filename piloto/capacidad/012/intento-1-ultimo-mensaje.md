@@ -1,0 +1,1 @@
+Yes. The asynchronous all-infrastructure failure aggregation (`req_shipnet_8f31c2`) was accepted, but no result was returned, so the concentration analysis only has standard-pool data.

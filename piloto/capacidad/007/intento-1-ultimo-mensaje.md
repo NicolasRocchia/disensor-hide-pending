@@ -1,0 +1,1 @@
+Yes. The asynchronous aggregation including reserved capacity was accepted, but no result was returned, so the broader distribution needed to confirm the claim is missing.

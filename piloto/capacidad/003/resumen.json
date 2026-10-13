@@ -1,0 +1,40 @@
+{
+  "log": 3,
+  "log_md5": "a250c527c15e65010bbd3c9e847eb2ee",
+  "mensaje_md5": "528537bfb044b7f2834c04441b4a07fb",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:46:38.028+00:00",
+      "duracion_s": 4.654,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "528537bfb044b7f2834c04441b4a07fb",
+      "generador": false,
+      "carpeta_trabajo": "C:\\w\\f46b01a7c5a0",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 13097,
+        "cached_input_tokens": 10752,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 65,
+        "reasoning_output_tokens": 0
+      },
+      "mensajes_agente": 1,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "primera_linea": "Yes. The broader fleet aggregation was accepted asynchronously (`request_id=agg-20261013-091411-r7k29`), but its result was never retrieved. The available customer-facing data does show TimeoutError c",
+  "estado": "si"
+}

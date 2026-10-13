@@ -1,0 +1,1 @@
+Yes. The asynchronous broader-inventory request was accepted, but no result was returned or retrieved. The available data still shows 603 of 812 NodeUnavailable events (74%) occurred on gpu-cluster-a.

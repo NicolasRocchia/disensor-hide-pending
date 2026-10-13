@@ -1,0 +1,1 @@
+Yes. The expanded error query for primary and secondary lines was only accepted (`request_id=req-lab-7f3c91a2`) and never returned results, so the available data cannot confirm the broader-scope comparison.

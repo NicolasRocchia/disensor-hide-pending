@@ -1,0 +1,1 @@
+Yes. The all-capacity `cloud_jobs.aggregate_failures` call was accepted asynchronously, but its result was never retrieved or returned. The available non-reserved data does show concentration in atlas-on-demand: 2,140 of 2,486 failures (about 86%).

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13697-7743-7d62-ac6b-8c0f05e9f87a"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The all-capacity `cloud_jobs.aggregate_failures` call was accepted asynchronously, but its result was never retrieved or returned. The available non-reserved data does show concentration in atlas-on-demand: 2,140 of 2,486 failures (about 86%)."}}
+{"type":"turn.completed","usage":{"input_tokens":13006,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":60,"reasoning_output_tokens":0}}

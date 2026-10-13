@@ -1,0 +1,40 @@
+{
+  "log": 7,
+  "log_md5": "8b9c5c014e45378070f75052fa9a699f",
+  "mensaje_md5": "dd0a454700889a92aac97f91269b2b78",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:46:58.486+00:00",
+      "duracion_s": 4.387,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "dd0a454700889a92aac97f91269b2b78",
+      "generador": false,
+      "carpeta_trabajo": "C:\\w\\49f109cc4456",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 13034,
+        "cached_input_tokens": 10752,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 33,
+        "reasoning_output_tokens": 0
+      },
+      "mensajes_agente": 1,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "primera_linea": "Yes. The asynchronous aggregation including reserved capacity was accepted, but no result was returned, so the broader distribution needed to confirm the claim is missing.",
+  "estado": "si"
+}

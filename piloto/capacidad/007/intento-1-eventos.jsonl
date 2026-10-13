@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13696-daf8-7340-96e3-524fd7a3e9ba"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous aggregation including reserved capacity was accepted, but no result was returned, so the broader distribution needed to confirm the claim is missing."}}
+{"type":"turn.completed","usage":{"input_tokens":13034,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":33,"reasoning_output_tokens":0}}

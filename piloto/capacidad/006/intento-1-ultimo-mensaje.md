@@ -1,0 +1,1 @@
+Yes. The broader aggregation including secondary production lines was accepted asynchronously (`request_id=shr_8f3c21b7`), but no result was returned or retrieved.

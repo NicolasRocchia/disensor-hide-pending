@@ -1,0 +1,1 @@
+Yes. The asynchronous inventory aggregation (`request_id=invagg_7f31c9b2`) was accepted, but no result was retrieved or returned. The available data still shows facility-ba-1 accounted for 612 of 728 NodeUnavailable minutes (84%).

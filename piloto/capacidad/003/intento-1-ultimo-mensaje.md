@@ -1,0 +1,1 @@
+Yes. The broader fleet aggregation was accepted asynchronously (`request_id=agg-20261013-091411-r7k29`), but its result was never retrieved. The available customer-facing data does show TimeoutError concentrated in `production-api` (1,492 of 1,684 downtime minutes).

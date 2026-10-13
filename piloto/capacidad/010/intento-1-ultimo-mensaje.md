@@ -1,0 +1,1 @@
+Yes. The asynchronous aggregation for `AssetTagMismatch` across primary and secondary lines was accepted (`request_id=invagg_7KQ29M4`), but its result was never retrieved, so the facility-majority question cannot be answered from this log.

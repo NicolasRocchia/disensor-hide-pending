@@ -1,0 +1,21 @@
+{
+  "logs": 50,
+  "estados": {
+    "si": 17,
+    "pendiente": 33
+  },
+  "tasa_si": 1.0,
+  "umbral": 0.9,
+  "completo": false,
+  "para": false,
+  "gasto_en_todos_los_intentos": {
+    "entrada": 221193,
+    "cache": 139776,
+    "salida": 895,
+    "intentos": 17
+  },
+  "rechazos_en_todos_los_intentos": {
+    "shell": 0,
+    "apply_patch": 0
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "log": 9,
+  "log_md5": "49719043cf0e3900d53987d8039eadae",
+  "mensaje_md5": "8b6b0e136b4e4a70875ba588a28f9bb0",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:47:08.086+00:00",
+      "duracion_s": 4.367,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "8b6b0e136b4e4a70875ba588a28f9bb0",
+      "generador": false,
+      "carpeta_trabajo": "C:\\w\\2022c4adcac0",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 12992,
+        "cached_input_tokens": 10752,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 50,
+        "reasoning_output_tokens": 0
+      },
+      "mensajes_agente": 1,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "primera_linea": "Yes. The asynchronous stockout aggregation request (`shipagg-20261012-7f3a91`) was accepted, but no result was returned, so the fabrication-line comparison across standard compute pools and advanced p",
+  "estado": "si"
+}

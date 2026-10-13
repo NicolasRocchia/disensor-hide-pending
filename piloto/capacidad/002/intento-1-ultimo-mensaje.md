@@ -1,0 +1,1 @@
+Yes. The asynchronous full-population shipment query was accepted (`request_id=shp_8c41f2a7`), but no result was returned. From the available external-services data, line-photon-3 caused 487 of 612 contamination defects (about 80%), so it did account for most.

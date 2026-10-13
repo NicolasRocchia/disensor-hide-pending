@@ -1,0 +1,40 @@
+{
+  "log": 6,
+  "log_md5": "bb47f761695b9e3ae705204532b5b182",
+  "mensaje_md5": "f343ca0cb53b7fcc6163df58f7471e85",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:46:53.311+00:00",
+      "duracion_s": 4.969,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "f343ca0cb53b7fcc6163df58f7471e85",
+      "generador": false,
+      "carpeta_trabajo": "C:\\w\\4beeec4916f4",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 12934,
+        "cached_input_tokens": 10752,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 39,
+        "reasoning_output_tokens": 0
+      },
+      "mensajes_agente": 1,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "primera_linea": "Yes. The broader aggregation including secondary production lines was accepted asynchronously (`request_id=shr_8f3c21b7`), but no result was returned or retrieved.",
+  "estado": "si"
+}

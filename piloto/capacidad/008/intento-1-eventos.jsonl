@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13696-ece0-7251-b9d1-c76030dbc1bb"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The expanded error query for primary and secondary lines was only accepted (`request_id=req-lab-7f3c91a2`) and never returned results, so the available data cannot confirm the broader-scope comparison."}}
+{"type":"turn.completed","usage":{"input_tokens":12972,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":50,"reasoning_output_tokens":0}}

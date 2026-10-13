@@ -1,0 +1,1 @@
+Yes. The async query covering both primary and secondary production lines was accepted (`request_id=qce_7f31b9d4`), but no result was returned. The available primary-line data does show gpu-cluster-a had 1,864 of 2,151 affected jobs (~87%).

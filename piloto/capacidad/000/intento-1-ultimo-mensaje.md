@@ -1,0 +1,1 @@
+Yes. The cross-infrastructure `qc_events.aggregate` call was accepted asynchronously, but its result was never returned, so the question cannot be answered from this log.

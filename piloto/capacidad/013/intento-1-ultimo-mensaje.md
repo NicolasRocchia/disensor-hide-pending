@@ -1,0 +1,1 @@
+Yes. The asynchronous `cluster_failures.aggregate_async` call was accepted, but its result was never retrieved, so the combined customer-facing and internal distribution is missing.

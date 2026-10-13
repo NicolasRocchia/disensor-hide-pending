@@ -1,0 +1,1 @@
+Yes. The combined production-and-warehouse telemetry call was accepted asynchronously, but no result was returned. The available primary-lines data does show concentration in the vision-inspection service: 1,947 of 2,184 TimeoutErrors (89%).

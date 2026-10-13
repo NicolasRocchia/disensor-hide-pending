@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13697-4e8a-7f40-b122-3131dc232076"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous `cluster_failures.aggregate_async` call was accepted, but its result was never retrieved, so the combined customer-facing and internal distribution is missing."}}
+{"type":"turn.completed","usage":{"input_tokens":13011,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":37,"reasoning_output_tokens":0}}

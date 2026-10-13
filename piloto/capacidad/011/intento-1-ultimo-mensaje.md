@@ -1,0 +1,1 @@
+Yes. The asynchronous inventory aggregation including maintenance-only equipment was accepted (`request_id=invagg-20261013-091411-b84d2`), but no result was returned or retrieved. The available data nevertheless shows servo-motor stockouts were concentrated in `cell-culture-2` (74 of 96 events).
