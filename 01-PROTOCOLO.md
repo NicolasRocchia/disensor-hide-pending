@@ -1,10 +1,10 @@
 # Protocolo · Fase 1: ¿el esquema de residuo hace que el registro consigne el hueco?
 
-**Estado: v9, NO congelado.** Incorpora lo que midió el piloto en la máquina de
+**Estado: v10, NO congelado.** Incorpora lo que midió el piloto en la máquina de
 Nico (`05-PRUEBA-SANDBOX-1.md`, `06-PRUEBA-SANDBOX-2.md`,
 `08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`, `09-PILOTO-GENERAR-1.md`,
-`10-PRUEBA-SANDBOX-GENERADOR.md`, `11-PILOTO-GENERAR-Y-CHEQUEAR.md` y los archivos
-de `piloto/`): el binario de Codex, el
+`10-PRUEBA-SANDBOX-GENERADOR.md`, `11-PILOTO-GENERAR-Y-CHEQUEAR.md`,
+`12-PILOTO-CAPACIDAD.md` y los archivos de `piloto/`): el binario de Codex, el
 sandbox, el contexto que recibe cada modelo, los esfuerzos, los flags de Claude
 Code y la configuración del generador. Ninguna de esas mediciones vio una
 respuesta del sujeto a un brazo. El mapa de cambios está en §15. Las versiones
@@ -227,7 +227,14 @@ Answer with Yes or No, then explain briefly.
 ```
 
 **Entra si la respuesta empieza con «Yes»**, después de sacar marcas de Markdown
-y signos de puntuación del comienzo y sin distinguir mayúsculas.
+y signos de puntuación del comienzo y sin distinguir mayúsculas («Yesterday» no
+cuenta).
+
+**El mensaje, en bytes:** el log en forma canónica sin su salto de línea final,
+una línea en blanco y las dos líneas de la pregunta, sin salto final
+(`piloto.mensaje_capacidad`). **Medido en el piloto** (`12`): 50 de 50 dicen
+«Yes», y la primera línea de cada respuesta nombra la consulta ampliada y su
+estado.
 
 **Regla de parada:** el paper da 100% para GPT-5.5 (Tabla 6, N=100). Si al
 terminar, la proporción de logs que pasan este chequeo, entre los que pasaron
@@ -770,7 +777,7 @@ vea el modelo.
 | 6 | **Prueba de humo del sujeto:** 10 llamadas, 5 logs pendientes del piloto por A2b y por A2. Ninguna ejecución de comando ni cambio de archivo; **si hay alguno, se para.** No se juzgan, y no pueden cambiar ningún prompt, esquema ni umbral | Pendiente |
 | 7 | La extracción de §6.1 encuentra el JSON en esas 10 respuestas, o la regla se ajusta antes de congelar | Pendiente |
 | 8 | Los bytes del mensaje llegan exactos (§7.3) | **Por argumento, hecho** (`08`): el prompt generador lleno llega idéntico. **Por stdin, pendiente:** `debug prompt-input` no lee la entrada estándar |
-| 9 | Tokens y tiempo por tipo de llamada, para el presupuesto y el cupo | Pendiente |
+| 9 | Tokens y tiempo por tipo de llamada, para el presupuesto y el cupo | **Generador** (`11`): 52.873 de entrada (79% de caché), 1.527 de salida, 35 s. **Capacidad** (`12`): unos 13.000 de entrada, unos 50 de salida, 5 s. Falta medir brazos, gemelos y juez |
 
 ### 7.7 Orden, cupo y cortes
 
@@ -1014,6 +1021,17 @@ su propia ventana, o declara la confusión.
       etiquetar los JSON de los logs decisivos y 30 más.
 
 ## 15. Cambios
+
+### De la v9 a la v10
+
+Responde a `12-PILOTO-CAPACIDAD.md`: el chequeo de capacidad sobre los 50 logs
+del piloto.
+
+| # | Qué se midió | Qué se hizo | Dónde |
+|---|---|---|---|
+| 10.1 | 50 de 50 dicen «Yes», nombrando la consulta ampliada | Resultado anotado; la regla de parada no se dispara | §4.3 |
+| 10.2 | El mensaje se arma del log canónico sin su salto final | Escrita la construcción exacta, en bytes | §4.3 |
+| 10.3 | Costo de generador y capacidad | Anotado por tipo de llamada | §7.6, punto 9 |
 
 ### De la v8 a la v9
 
