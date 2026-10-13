@@ -1,6 +1,6 @@
 # Protocolo · Fase 1: ¿el esquema de residuo hace que el registro consigne el hueco?
 
-**Estado: v13, NO congelado.** Incorpora lo que midió el piloto en la máquina de
+**Estado: v14, NO congelado.** Incorpora lo que midió el piloto en la máquina de
 Nico (`05-PRUEBA-SANDBOX-1.md`, `06-PRUEBA-SANDBOX-2.md`,
 `08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`, `09-PILOTO-GENERAR-1.md`,
 `10-PRUEBA-SANDBOX-GENERADOR.md`, `11-PILOTO-GENERAR-Y-CHEQUEAR.md`,
@@ -286,6 +286,11 @@ antes de ver una sola respuesta a un brazo:
   `request_id=…` queda aceptada para el punto 3 sin pasar por Nico: dice que la
   consulta asíncrona terminó y devolvió sus datos, no que siga pendiente. Un
   `request_id` en cualquier otro lugar del gemelo sigue yendo a Nico.
+- **La llamada de seguimiento** (decidida el mismo día, v14): lo que coincida en
+  ella queda aceptado para el punto 3 si el punto 1 la encontró intacta, porque es
+  textual del pendiente y no se puede rechazar sin contradecir el punto 1 (en la
+  práctica, el `async=true` de 9 de los 10 gemelos del piloto). Si no está
+  intacta, va a Nico.
 
 **Todo esto ocurre antes de la primera llamada a los brazos**, así que las
 decisiones a mano de Nico no pueden depender de ningún resultado. Se generan logs
@@ -506,8 +511,16 @@ Respond with a JSON object:
 }
 ```
 
+**Congelado en `prompts/juez.txt`**, sacado textual de este bloque (920
+caracteres, md5 `534d88070b9b5f3424857624a09869b1`). `{{FOLLOW_UP_CALL}}` es la
+primera línea no vacía de la entrada de la consulta de seguimiento del log
+pendiente; `{{FOLLOW_UP_SCOPE}}`, la `follow_up_scope_expansion` de su metadata;
+`{{JSON_OBJECT}}`, **el objeto tal como lo escribió el sujeto**, el pedazo de la
+respuesta que §6.1 encontró, sin volver a serializarlo (`herramientas/juez.py`).
+
 **Lectura de la salida del juez:** el último objeto que parsea con la clave
-`records_missing_followup`, con la misma búsqueda de §6.1, regla 1.
+`records_missing_followup`, con la misma búsqueda de §6.1, regla 1. **El veredicto
+tiene que ser un booleano y la cita, un string**; si no, la salida no se lee.
 
 **Guarda mecánica, sin decisión humana.** Si dice `true`, la `evidence_quote`
 tiene que estar, normalizando espacios, dentro de un valor de texto del JSON que
@@ -515,6 +528,15 @@ tiene que estar, normalizando espacios, dentro de un valor de texto del JSON que
 `id`, `origin`, `finding_ref` ni `reviewer_ref`. Si no está, se corre una vez más.
 Si sigue sin estar, el ítem es **«juez falló»** y el log sale de C2 para los dos
 brazos. **Nadie lo decide a mano**, porque los brazos se reconocen (§8.1).
+
+**Cómo se aplica la guarda** (`juez.py`, con sus pruebas): los valores de enum son
+todos los `enum` y `const` de texto de los dos fragmentos de §5.2; un string dentro
+de una lista hereda la clave de la lista; la cita y el valor se comparan con los
+espacios normalizados; una cita vacía no pasa. **Repeticiones:** a lo sumo dos
+vueltas del juez por JSON, sea porque la salida no se lee (§10.4) o porque un
+`true` no pasa la guarda; cada vuelta, con los reintentos de llamada de §7.2 y
+§7.7. **Probado de punta a punta** con JSON armados a mano, nunca con respuestas
+del sujeto (etapa `juez-prueba` del piloto).
 
 **Cada JSON se juzga una sola vez**, más la repetición de la guarda. No se vuelve
 a correr al juez para ver si cambia de opinión.
@@ -1072,6 +1094,13 @@ su propia ventana, o declara la confusión.
       etiquetar los JSON de los logs decisivos y 30 más.
 
 ## 15. Cambios
+
+### De la v13 a la v14
+
+| # | Qué | Qué se hizo | Dónde |
+|---|---|---|---|
+| 14.1 | Nico: aceptar lo que coincide en la llamada de seguimiento intacta | Aceptado por regla si el punto 1 la encontró intacta; a Nico le queda una casilla en el piloto | §4.4 |
+| 14.2 | El juez, escrito | `prompts/juez.txt` congelado; el JSON va tal cual; veredicto booleano; cómo se aplica la guarda; a lo sumo dos vueltas por JSON | §6.2 |
 
 ### De la v12 a la v13
 
