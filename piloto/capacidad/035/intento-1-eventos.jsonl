@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13699-70a7-77b0-ad78-594a51e7514f"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous production-log query covering secondary lines was accepted, but no result was returned. The available data still shows stockouts were concentrated in CELL-A12: 641 of 742 events (86%)."}}
+{"type":"turn.completed","usage":{"input_tokens":12971,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":46,"reasoning_output_tokens":0}}

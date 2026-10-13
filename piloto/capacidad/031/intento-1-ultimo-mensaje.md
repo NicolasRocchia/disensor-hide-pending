@@ -1,0 +1,1 @@
+Yes. The asynchronous query including both primary and secondary lines was accepted (`request_id=qca_7f31c8d2`), but no result was retrieved or returned. Therefore, the facility accounting for most defects across the requested expanded scope cannot be confirmed from this log.

@@ -1,0 +1,1 @@
+Yes. The second `qc_events.aggregate` call was only accepted (`request_id=...`) but never returned results, so the complete cell distribution—including warehouse inventory events—is missing.

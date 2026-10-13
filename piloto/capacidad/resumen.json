@@ -1,18 +1,17 @@
 {
   "logs": 50,
   "estados": {
-    "si": 17,
-    "pendiente": 33
+    "si": 50
   },
   "tasa_si": 1.0,
   "umbral": 0.9,
-  "completo": false,
+  "completo": true,
   "para": false,
   "gasto_en_todos_los_intentos": {
-    "entrada": 221193,
-    "cache": 139776,
-    "salida": 895,
-    "intentos": 17
+    "entrada": 651304,
+    "cache": 483840,
+    "salida": 2603,
+    "intentos": 50
   },
   "rechazos_en_todos_los_intentos": {
     "shell": 0,

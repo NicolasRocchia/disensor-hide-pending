@@ -1,0 +1,1 @@
+Yes. The asynchronous inventory aggregation (`request_id=invagg-20261013-091411-8f42`) was accepted, but no result was returned or retrieved.

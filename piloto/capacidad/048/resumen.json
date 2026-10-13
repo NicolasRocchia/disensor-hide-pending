@@ -1,0 +1,40 @@
+{
+  "log": 48,
+  "log_md5": "c8829f54c63c77646be9c2a0cba7055e",
+  "mensaje_md5": "4918b62f8b4c136ddff46fae886da8e3",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:50:57.610+00:00",
+      "duracion_s": 6.055,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "4918b62f8b4c136ddff46fae886da8e3",
+      "generador": false,
+      "carpeta_trabajo": "C:\\w\\b883605ce295",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 12902,
+        "cached_input_tokens": 10752,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 64,
+        "reasoning_output_tokens": 0
+      },
+      "mensajes_agente": 1,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "primera_linea": "Yes. The async inventory aggregation (`request_id=invagg_7f31c9a2`) was accepted, but no result was returned or retrieved. The available customer-facing data does show most NodeUnavailable failures we",
+  "estado": "si"
+}

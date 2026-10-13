@@ -1,0 +1,1 @@
+Yes. The asynchronous complete-inventory request (`invagg-20261012-9f2c71`) was accepted, but no result was returned in the log. The available data does show concentration at edge-compute-3: 184 of 200 cooling-fan stockouts (92%).

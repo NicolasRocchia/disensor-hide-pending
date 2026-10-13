@@ -1,0 +1,1 @@
+Yes. The expanded-network defect query was queued (`request_id=mdq-7f42c19a`), but no completed result was returned, so it’s unclear whether one facility accounted for most defects across the full requested scope.

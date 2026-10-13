@@ -1,0 +1,1 @@
+Yes. The asynchronous all-infrastructure aggregation was accepted with request ID `invagg-20261013-7Q4M2`, but no result was retrieved or returned. The available three-facility data does show concentration in Cell O-17 (621 of 842 stockouts), but the broader query remained incomplete.

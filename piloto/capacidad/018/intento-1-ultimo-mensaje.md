@@ -1,0 +1,1 @@
+Yes. The complete inventory query—including reserved compute capacity—was accepted asynchronously (`req_inv_7K4M2Q`), but no result was returned, so the facility concentration cannot be confirmed from this log.

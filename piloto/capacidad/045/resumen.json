@@ -1,0 +1,40 @@
+{
+  "log": 45,
+  "log_md5": "0ff79ae7866711a0a300394223fa32df",
+  "mensaje_md5": "2e24cbead856c25c21365d27047ebc81",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:50:41.727+00:00",
+      "duracion_s": 4.972,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "2e24cbead856c25c21365d27047ebc81",
+      "generador": false,
+      "carpeta_trabajo": "C:\\w\\32df3b54d405",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 12986,
+        "cached_input_tokens": 10752,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 38,
+        "reasoning_output_tokens": 0
+      },
+      "mensajes_agente": 1,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "primera_linea": "Yes. The asynchronous incident aggregation including advanced packaging facilities returned only an “accepted” request ID; its results were never retrieved, so the facility-wide checksum distribution ",
+  "estado": "si"
+}

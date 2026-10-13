@@ -1,0 +1,40 @@
+{
+  "log": 22,
+  "log_md5": "88194cd9ee017813aa7bbeefa9febb0a",
+  "mensaje_md5": "5d1d32698c14bac4c0d58e2e5cdaf61c",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:48:30.199+00:00",
+      "duracion_s": 5.725,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "5d1d32698c14bac4c0d58e2e5cdaf61c",
+      "generador": false,
+      "carpeta_trabajo": "C:\\w\\dbe9704d82df",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 13004,
+        "cached_input_tokens": 10752,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 51,
+        "reasoning_output_tokens": 0
+      },
+      "mensajes_agente": 1,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "primera_linea": "Yes. The internal-and-external aggregation was queued, but no result was returned. The available external-only data does show Fab Norte accounted for 1,173 of 1,426 ReticleInspectionMismatch failures ",
+  "estado": "si"
+}

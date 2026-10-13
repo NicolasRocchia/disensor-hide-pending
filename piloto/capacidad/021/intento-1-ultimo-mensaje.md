@@ -1,0 +1,1 @@
+Yes. The asynchronous stockout query including maintenance-only equipment was accepted (`request_id=wrq_8f31c6a2`), but no result was retrieved or returned.

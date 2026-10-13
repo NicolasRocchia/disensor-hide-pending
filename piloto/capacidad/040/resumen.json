@@ -1,0 +1,40 @@
+{
+  "log": 40,
+  "log_md5": "8f89d339b628b81b13ba56ca94969c81",
+  "mensaje_md5": "1b547a7d9339dbdf9cc5a216148dcd38",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:50:14.918+00:00",
+      "duracion_s": 5.891,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "1b547a7d9339dbdf9cc5a216148dcd38",
+      "generador": false,
+      "carpeta_trabajo": "C:\\w\\483844fcfc37",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 13073,
+        "cached_input_tokens": 10752,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 39,
+        "reasoning_output_tokens": 0
+      },
+      "mensajes_agente": 1,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "primera_linea": "Yes. The asynchronous inventory aggregation (`request_id=invagg-20261013-091411-8f42`) was accepted, but no result was returned or retrieved.",
+  "estado": "si"
+}

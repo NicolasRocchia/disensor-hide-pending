@@ -1,0 +1,40 @@
+{
+  "log": 32,
+  "log_md5": "463e4d821c9bd5350671c90eb0521905",
+  "mensaje_md5": "ffbc692c0acf3d16463ff5c835e63004",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:49:31.282+00:00",
+      "duracion_s": 4.725,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "ffbc692c0acf3d16463ff5c835e63004",
+      "generador": false,
+      "carpeta_trabajo": "C:\\w\\385da128e3fc",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 12976,
+        "cached_input_tokens": 10752,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 52,
+        "reasoning_output_tokens": 0
+      },
+      "mensajes_agente": 1,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "primera_linea": "Yes. The async aggregation including reserved capacity was accepted, but no result was returned, so the facility conclusion is only available for standard pools. There, Northbridge accounted for 781 o",
+  "estado": "si"
+}

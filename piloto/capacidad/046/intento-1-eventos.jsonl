@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1369a-573a-7412-8726-23ae3aaeb46d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous aggregate request covering standard, regional, and private pools was accepted, but no result was returned, so the complete NodeUnavailable distribution is missing."}}
+{"type":"turn.completed","usage":{"input_tokens":12987,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":36,"reasoning_output_tokens":0}}

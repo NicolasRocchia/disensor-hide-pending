@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13698-c9e0-75d3-bd82-afd904b7f6e5"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous full-distribution query was queued with request ID `qcagg_20261013_091411_84f2`, but no result was retrieved or returned. The available data still shows Fab Line P3 caused 612 of 747 wafer-interlock downtime minutes—about 82%."}}
+{"type":"turn.completed","usage":{"input_tokens":13165,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":65,"reasoning_output_tokens":0}}

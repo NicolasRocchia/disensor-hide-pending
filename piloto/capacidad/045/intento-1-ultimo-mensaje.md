@@ -1,0 +1,1 @@
+Yes. The asynchronous incident aggregation including advanced packaging facilities returned only an “accepted” request ID; its results were never retrieved, so the facility-wide checksum distribution is incomplete.

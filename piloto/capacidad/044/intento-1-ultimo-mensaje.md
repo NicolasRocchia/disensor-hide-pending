@@ -1,0 +1,1 @@
+Yes. The second `aggregate_failures` call was accepted asynchronously (`request_id=shipagg_...`), but no result was retrieved or returned. Its data is needed to assess concentration across customer-facing and internal services.

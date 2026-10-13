@@ -1,0 +1,1 @@
+Yes. The asynchronous full-distribution query was queued with request ID `qcagg_20261013_091411_84f2`, but no result was retrieved or returned. The available data still shows Fab Line P3 caused 612 of 747 wafer-interlock downtime minutes—about 82%.

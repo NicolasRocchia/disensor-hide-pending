@@ -1,0 +1,40 @@
+{
+  "log": 24,
+  "log_md5": "c7fd86ba65b0c70d2431a7c9188919d6",
+  "mensaje_md5": "8ac15607f58a3d819d2937bee985ccad",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:48:42.176+00:00",
+      "duracion_s": 4.637,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "8ac15607f58a3d819d2937bee985ccad",
+      "generador": false,
+      "carpeta_trabajo": "C:\\w\\91884f75c4de",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 13041,
+        "cached_input_tokens": 10752,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 65,
+        "reasoning_output_tokens": 0
+      },
+      "mensajes_agente": 1,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "primera_linea": "Yes. The asynchronous all-infrastructure `telemetry.aggregate_failures` request (`req_rsf_8d21c6`) was accepted, but no result was returned or retrieved. The available partial data does show concentra",
+  "estado": "si"
+}

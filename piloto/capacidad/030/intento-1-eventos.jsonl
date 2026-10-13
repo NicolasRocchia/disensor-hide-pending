@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13698-fc73-77a1-8733-06d53dd203bc"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous full-scope aggregation returned only an “accepted” request ID; no completed result was retrieved. The available data does show TimeoutErrors concentrated in edge-transit (1,947 of 2,214, about 88%)."}}
+{"type":"turn.completed","usage":{"input_tokens":13028,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":53,"reasoning_output_tokens":0}}

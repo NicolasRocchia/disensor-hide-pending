@@ -1,0 +1,1 @@
+Yes. The asynchronous production-log query covering secondary lines was accepted, but no result was returned. The available data still shows stockouts were concentrated in CELL-A12: 641 of 742 events (86%).

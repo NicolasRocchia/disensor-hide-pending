@@ -1,0 +1,1 @@
+Yes. The asynchronous all-infrastructure `telemetry.aggregate_failures` request (`req_rsf_8d21c6`) was accepted, but no result was returned or retrieved. The available partial data does show concentration in Cell P-04: 336 of 418 jobs (about 80%).

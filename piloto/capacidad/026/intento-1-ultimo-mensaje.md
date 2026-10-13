@@ -1,0 +1,1 @@
+Yes. The asynchronous all-network aggregation was accepted with request ID `nqc_7F3A91C2`, but no result was returned. The available primary-line data does show concentration in cell-alpha: 241 of 284 downtime minutes (about 85%).

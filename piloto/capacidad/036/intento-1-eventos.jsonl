@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13699-87e4-7bb1-9e5c-927cdb1095a4"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous stockout query (`request_id=qc-agg-7f31c9a2`) was accepted, but no result was returned. The available primary-line data still shows concentration in cell-P1: 139 of 168 SM-42 stockouts (about 83%)."}}
+{"type":"turn.completed","usage":{"input_tokens":13007,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":64,"reasoning_output_tokens":0}}

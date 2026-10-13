@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13699-2fd1-74d1-ac0a-0c372a109aa5"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The async aggregation including reserved capacity was accepted, but no result was returned, so the facility conclusion is only available for standard pools. There, Northbridge accounted for 781 of 914 ReservationTagMismatch errors (about 85%)."}}
+{"type":"turn.completed","usage":{"input_tokens":12976,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":52,"reasoning_output_tokens":0}}

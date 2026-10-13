@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13699-ad4d-7041-9312-559ea3c00f47"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The all-facilities servo-motor aggregation was accepted asynchronously (`request_id=invagg-20261013-091411-7f42`), but no result was returned. The available partial data does show concentration at Cordoba Central cell C-7: 873 of 1,124 affected jobs (about 78%)."}}
+{"type":"turn.completed","usage":{"input_tokens":13058,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":73,"reasoning_output_tokens":0}}

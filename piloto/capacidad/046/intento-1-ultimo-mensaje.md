@@ -1,0 +1,1 @@
+Yes. The asynchronous aggregate request covering standard, regional, and private pools was accepted, but no result was returned, so the complete NodeUnavailable distribution is missing.

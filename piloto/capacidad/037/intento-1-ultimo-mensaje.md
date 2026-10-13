@@ -1,0 +1,1 @@
+Yes. The fleet-wide failure aggregation was only accepted asynchronously (`request_id=...`) and never returned results, so the complete GPU ECC facility distribution is missing.

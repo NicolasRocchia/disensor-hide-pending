@@ -1,0 +1,1 @@
+Yes. The automated-warehouse stockout aggregation was accepted asynchronously, but its result was never returned, so the full SD-48 facility distribution is incomplete.

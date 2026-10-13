@@ -1,0 +1,1 @@
+Yes. The async inventory aggregation (`request_id=invagg_7f31c9a2`) was accepted, but no result was returned or retrieved. The available customer-facing data does show most NodeUnavailable failures were on gpu-cluster-a: 947 of 1,126 (84%).

@@ -1,0 +1,1 @@
+Yes. The asynchronous incident aggregation request was accepted, but no result was returned in the log. The available external-service data does show concentration in AR3-Hall-C: 1,826 of 2,184 affected jobs (about 84%).

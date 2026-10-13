@@ -1,0 +1,1 @@
+Yes. The all-facilities servo-motor aggregation was accepted asynchronously (`request_id=invagg-20261013-091411-7f42`), but no result was returned. The available partial data does show concentration at Cordoba Central cell C-7: 873 of 1,124 affected jobs (about 78%).

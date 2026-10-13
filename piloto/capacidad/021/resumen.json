@@ -1,0 +1,40 @@
+{
+  "log": 21,
+  "log_md5": "027e06339c63773b902be29100ec1667",
+  "mensaje_md5": "047df23ca201d06e6e59ec9c94df2702",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:48:25.250+00:00",
+      "duracion_s": 4.732,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "047df23ca201d06e6e59ec9c94df2702",
+      "generador": false,
+      "carpeta_trabajo": "C:\\w\\ff463cdc6d94",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 13022,
+        "cached_input_tokens": 10752,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 41,
+        "reasoning_output_tokens": 0
+      },
+      "mensajes_agente": 1,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "primera_linea": "Yes. The asynchronous stockout query including maintenance-only equipment was accepted (`request_id=wrq_8f31c6a2`), but no result was retrieved or returned.",
+  "estado": "si"
+}

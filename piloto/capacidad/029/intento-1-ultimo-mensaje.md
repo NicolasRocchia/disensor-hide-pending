@@ -1,0 +1,1 @@
+Yes. The async all-facilities shipment aggregation was accepted with request ID `shpagg_7f31c9a2`, but its result was never retrieved, so the concentration at `ashburn-dc3` was not confirmed against the complete shipment path.

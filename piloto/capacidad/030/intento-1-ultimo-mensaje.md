@@ -1,0 +1,1 @@
+Yes. The asynchronous full-scope aggregation returned only an “accepted” request ID; no completed result was retrieved. The available data does show TimeoutErrors concentrated in edge-transit (1,947 of 2,214, about 88%).

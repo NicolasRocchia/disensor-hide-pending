@@ -1,0 +1,1 @@
+Yes. The async aggregation including reserved capacity was accepted, but no result was returned, so the facility conclusion is only available for standard pools. There, Northbridge accounted for 781 of 914 ReservationTagMismatch errors (about 85%).

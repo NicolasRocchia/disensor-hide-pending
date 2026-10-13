@@ -1,0 +1,1 @@
+Yes. The asynchronous wafer-related aggregation was accepted with request ID `qca_7f31d9c2`, but no result was returned or retrieved.

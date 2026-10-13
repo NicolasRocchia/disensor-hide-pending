@@ -1,0 +1,1 @@
+Yes. The internal-and-external aggregation was queued, but no result was returned. The available external-only data does show Fab Norte accounted for 1,173 of 1,426 ReticleInspectionMismatch failures (about 82%).

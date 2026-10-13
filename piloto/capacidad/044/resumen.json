@@ -1,0 +1,40 @@
+{
+  "log": 44,
+  "log_md5": "18d38382b8bfd7a066740329859d7b12",
+  "mensaje_md5": "88f3a6a9588375ee061a577babd29379",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:50:36.780+00:00",
+      "duracion_s": 4.746,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "88f3a6a9588375ee061a577babd29379",
+      "generador": false,
+      "carpeta_trabajo": "C:\\w\\dcc5b9b9c084",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 12975,
+        "cached_input_tokens": 10752,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 49,
+        "reasoning_output_tokens": 0
+      },
+      "mensajes_agente": 1,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "primera_linea": "Yes. The second `aggregate_failures` call was accepted asynchronously (`request_id=shipagg_...`), but no result was retrieved or returned. Its data is needed to assess concentration across customer-fa",
+  "estado": "si"
+}

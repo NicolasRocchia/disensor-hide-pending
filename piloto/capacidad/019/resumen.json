@@ -1,0 +1,40 @@
+{
+  "log": 19,
+  "log_md5": "fd7c08c221343b377b3ede960bbce4ef",
+  "mensaje_md5": "541d222e1bde3da812cbe4168b0894cf",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:48:15.092+00:00",
+      "duracion_s": 5.047,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "541d222e1bde3da812cbe4168b0894cf",
+      "generador": false,
+      "carpeta_trabajo": "C:\\w\\670075c12b9f",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 13161,
+        "cached_input_tokens": 10752,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 69,
+        "reasoning_output_tokens": 0
+      },
+      "mensajes_agente": 1,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "primera_linea": "Yes. The asynchronous all-infrastructure aggregation was accepted with request ID `invagg-20261013-7Q4M2`, but no result was retrieved or returned. The available three-facility data does show concentr",
+  "estado": "si"
+}

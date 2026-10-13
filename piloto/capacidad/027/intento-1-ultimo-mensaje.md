@@ -1,0 +1,1 @@
+Yes. The asynchronous aggregation request (`qcagg-20261013-091411-7f3a`) was accepted, but no result was returned, so the complete facility-level defect distribution is missing.

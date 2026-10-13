@@ -1,0 +1,1 @@
+Yes. The asynchronous stockout query (`request_id=qc-agg-7f31c9a2`) was accepted, but no result was returned. The available primary-line data still shows concentration in cell-P1: 139 of 168 SM-42 stockouts (about 83%).

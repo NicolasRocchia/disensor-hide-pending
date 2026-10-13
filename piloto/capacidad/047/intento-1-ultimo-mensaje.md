@@ -1,0 +1,1 @@
+Yes. The complete wafer-alignment distribution query was accepted, but no result was returned. The available primary-line data still shows fab-line-aurora caused most wafer-related delays: 3,861 of 4,612 minutes (84%).

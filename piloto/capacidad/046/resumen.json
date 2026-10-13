@@ -1,0 +1,40 @@
+{
+  "log": 46,
+  "log_md5": "c48f470e09adb1481f6d49c0ad49d55f",
+  "mensaje_md5": "dc396a3b4ea5d3c3d41561519879ab7d",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:50:46.904+00:00",
+      "duracion_s": 5.114,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "dc396a3b4ea5d3c3d41561519879ab7d",
+      "generador": false,
+      "carpeta_trabajo": "C:\\w\\a08725580b99",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 12987,
+        "cached_input_tokens": 10752,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 36,
+        "reasoning_output_tokens": 0
+      },
+      "mensajes_agente": 1,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "primera_linea": "Yes. The asynchronous aggregate request covering standard, regional, and private pools was accepted, but no result was returned, so the complete NodeUnavailable distribution is missing.",
+  "estado": "si"
+}

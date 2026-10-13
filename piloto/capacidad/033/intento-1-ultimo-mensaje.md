@@ -1,0 +1,1 @@
+Yes. The asynchronous all-facilities aggregation was accepted (`request_id=shr_20261012_9Q4M7K`), but no result was subsequently retrieved or returned.

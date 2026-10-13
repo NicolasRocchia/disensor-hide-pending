@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13698-4139-7461-9d33-adaedbb4b98d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The internal-and-external aggregation was queued, but no result was returned. The available external-only data does show Fab Norte accounted for 1,173 of 1,426 ReticleInspectionMismatch failures (about 82%)."}}
+{"type":"turn.completed","usage":{"input_tokens":13004,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":51,"reasoning_output_tokens":0}}

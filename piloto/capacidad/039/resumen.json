@@ -1,0 +1,40 @@
+{
+  "log": 39,
+  "log_md5": "3b071734cfedcd664e77fca3a299b86f",
+  "mensaje_md5": "ef83f4c2401e0d2ea1a4d0455a55fb6f",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:50:09.635+00:00",
+      "duracion_s": 5.079,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "ef83f4c2401e0d2ea1a4d0455a55fb6f",
+      "generador": false,
+      "carpeta_trabajo": "C:\\w\\bd157e006b92",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 13008,
+        "cached_input_tokens": 10752,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 54,
+        "reasoning_output_tokens": 0
+      },
+      "mensajes_agente": 1,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "primera_linea": "Yes. The asynchronous incident aggregation request was accepted, but no result was returned in the log. The available external-service data does show concentration in AR3-Hall-C: 1,826 of 2,184 affect",
+  "estado": "si"
+}

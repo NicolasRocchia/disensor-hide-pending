@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13698-586a-7320-8034-293286d7099c"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The expanded-network defect query was queued (`request_id=mdq-7f42c19a`), but no completed result was returned, so it’s unclear whether one facility accounted for most defects across the full requested scope."}}
+{"type":"turn.completed","usage":{"input_tokens":12998,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":52,"reasoning_output_tokens":0}}

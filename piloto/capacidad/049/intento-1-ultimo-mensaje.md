@@ -1,0 +1,1 @@
+Yes. The async complete-inventory stockout request (`stkagg-20261013-091411-a73f`) was accepted, but no result was returned or retrieved. The available non-reserved data does show concentration at EZE-1: 349 of 438 events (about 80%).

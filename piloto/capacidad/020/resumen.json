@@ -1,0 +1,40 @@
+{
+  "log": 20,
+  "log_md5": "75361121ff95377c353a8a1df977de47",
+  "mensaje_md5": "d8ede7713e433b3fe71b5218ab5ae4e1",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:48:20.337+00:00",
+      "duracion_s": 4.715,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "d8ede7713e433b3fe71b5218ab5ae4e1",
+      "generador": false,
+      "carpeta_trabajo": "C:\\w\\6c96c8429d68",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 13090,
+        "cached_input_tokens": 10752,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 53,
+        "reasoning_output_tokens": 0
+      },
+      "mensajes_agente": 1,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "primera_linea": "Yes. The asynchronous all-production-assets telemetry request (`tel-20261013-7Q4M2`) was accepted, but no completed result was returned or retrieved. Therefore, the facility-wide question cannot be an",
+  "estado": "si"
+}

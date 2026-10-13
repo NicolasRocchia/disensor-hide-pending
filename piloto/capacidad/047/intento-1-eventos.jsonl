@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1369a-6c17-7ed1-a696-a0466d02db5e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The complete wafer-alignment distribution query was accepted, but no result was returned. The available primary-line data still shows fab-line-aurora caused most wafer-related delays: 3,861 of 4,612 minutes (84%)."}}
+{"type":"turn.completed","usage":{"input_tokens":13126,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":53,"reasoning_output_tokens":0}}

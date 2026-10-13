@@ -1,0 +1,1 @@
+Yes. The `cloud_delay_analytics.aggregate_async` call was accepted with request ID `req-dly-7f31c8a2`, but no result was retrieved or returned.
