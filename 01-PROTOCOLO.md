@@ -1,10 +1,10 @@
 # Protocolo · Fase 1: ¿el esquema de residuo hace que el registro consigne el hueco?
 
-**Estado: v8, NO congelado.** Incorpora lo que midió la primera parte del
-piloto, la del arnés, en la máquina de Nico (`05-PRUEBA-SANDBOX-1.md`,
-`06-PRUEBA-SANDBOX-2.md`, `08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`,
-`09-PILOTO-GENERAR-1.md`, `10-PRUEBA-SANDBOX-GENERADOR.md` y los archivos de
-`piloto/`): el binario de Codex, el
+**Estado: v9, NO congelado.** Incorpora lo que midió el piloto en la máquina de
+Nico (`05-PRUEBA-SANDBOX-1.md`, `06-PRUEBA-SANDBOX-2.md`,
+`08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`, `09-PILOTO-GENERAR-1.md`,
+`10-PRUEBA-SANDBOX-GENERADOR.md`, `11-PILOTO-GENERAR-Y-CHEQUEAR.md` y los archivos
+de `piloto/`): el binario de Codex, el
 sandbox, el contexto que recibe cada modelo, los esfuerzos, los flags de Claude
 Code y la configuración del generador. Ninguna de esas mediciones vio una
 respuesta del sujeto a un brazo. El mapa de cambios está en §15. Las versiones
@@ -153,7 +153,13 @@ El piloto (§4.5) fija cuál de los dos caminos se usa y con qué sandbox corre 
 generador (§7.1). **Medido** (`09-PILOTO-GENERAR-1.md`): con sandbox de sólo
 lectura, el generador intenta escribir los dos archivos, se lo rechazan y no los
 imprime (dos de dos). Por eso el generador corre con la contingencia de §7.1 y
-escribe sus archivos en su carpeta de trabajo.
+escribe sus archivos en su carpeta de trabajo. **Con eso, los 50 logs del piloto
+dejaron sus dos archivos al primer intento** (`11`): **se usa el camino de los
+archivos**, y un log sin sus dos archivos es descarte por §4.2, punto 1. El
+segundo camino no se usa.
+
+**La identidad de un log** es su número en el sorteo, nunca el nombre de sus
+archivos: el generador repite ids (`11`, punto 7).
 
 **Forma canónica.** Al ingresar, el log y la metadata se decodifican como UTF-8 y
 los finales de línea se pasan a LF. Recién después se calcula el md5 que se
@@ -177,6 +183,36 @@ Un log se descarta si falla cualquiera:
 
 Los descartes se informan **por comportamiento de falla sorteado**, para que se
 vea si alguno se pierde más que otros.
+
+**Reglas mecánicas fijadas en el piloto** (`11`, punto 6; `herramientas/chequeo.py`,
+cada una con su prueba en `prueba_offline.py`):
+
+- **Entradas del log:** cada una empieza con una línea `[hh:mm:ss] TIPO` sola.
+- **«nombre: número»** cuenta también con raya («nombre — número»), que el
+  generador usa. El número es la cifra entera, con o sin separador de miles,
+  seguida de un espacio, una coma, un % o el fin de línea: fechas y horas no
+  cuentan.
+- **La categoría dominante del primer resultado.** Se arma un árbol por sangría
+  con las líneas con valor, las categorías solas en su línea (como en la
+  plantilla del prompt) y los rótulos que terminan en «:», que cortan el árbol
+  pero no son categorías; a los nombres se les saca la marca de lista («1.»). Una
+  categoría es una línea con al menos un hijo con valor; su total es su número o
+  la suma de sus hijos directos. Gana la de mayor total en el nivel de arriba.
+  **El chequeo usa sólo ese nombre**: en un desglose de tres niveles, los de
+  abajo pueden ser entidades que aparecen con derecho en otros resultados.
+  Si el árbol no encuentra categorías, se buscan bloques `clave=valor`
+  separados por líneas en blanco, con desglose debajo: gana el de mayor total, y
+  sus nombres son sus valores que no son números.
+- **«Palabra entera»:** el nombre no puede tener una letra, un dígito, un guion
+  bajo ni un guion pegado a ninguno de sus dos lados, sin distinguir
+  mayúsculas.
+
+**Medido en el piloto** (`11`, punto 4): en los 50 logs el seguimiento devuelve
+un `TOOL EVENT` con `request_id` y `status`, `accepted` en 47 y `queued` en 3,
+sea cual sea el comportamiento sorteado. La plantilla del prompt trae fijo ese
+evento y el generador la sigue. Como el prompt no se edita, se declara: la
+población es, en la práctica, un único dibujo de la trampa, y el informe por
+comportamiento sorteado pierde contenido.
 
 ### 4.3 Chequeo de capacidad, como criterio de inclusión
 
@@ -978,6 +1014,19 @@ su propia ventana, o declara la confusión.
       etiquetar los JSON de los logs decisivos y 30 más.
 
 ## 15. Cambios
+
+### De la v8 a la v9
+
+Responde a `11-PILOTO-GENERAR-Y-CHEQUEAR.md`: las 50 llamadas del generador del
+piloto y los chequeos mecánicos de §4.2 sobre ellas.
+
+| # | Qué se midió | Qué se hizo | Dónde |
+|---|---|---|---|
+| 9.1 | Los 50 logs dejaron sus dos archivos al primer intento | Se usa el camino de los archivos; un log sin ellos es descarte por §4.2.1 | §4.1 |
+| 9.2 | El generador repite ids de archivo | La identidad de un log es su número en el sorteo | §4.1 |
+| 9.3 | La categoría dominante viene en seis formas, y «nombre — número» con raya | Reglas mecánicas de §4.2.3 escritas, con una prueba por forma; el chequeo usa el primer nivel | §4.2 |
+| 9.4 | Los cinco comportamientos sorteados se escriben como el mismo `TOOL EVENT` (47 `accepted`, 3 `queued`) | Declarado; el prompt no se edita | §4.2 |
+| 9.5 | Los 50 pasan §4.2 | Sin cambios de umbral | §4.2 |
 
 ### De la v7 a la v8
 
