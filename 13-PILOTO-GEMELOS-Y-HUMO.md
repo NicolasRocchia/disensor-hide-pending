@@ -83,6 +83,11 @@ Diez logs, dos por comportamiento sorteado (`000`, `001`, `002`, `003`, `004`,
 3. **La revisión de los 10 gemelos del piloto**, en `PARA-NICO.md`, que es para lo
    que está el piloto: probar el circuito antes de hacerlo con 110.
 
+**Decididas por Nico el mismo día** (protocolo v13): se saca el rótulo, y la línea
+`request_id=…` del bloque nuevo queda aceptada por regla. Con eso, a Nico le quedan
+en el piloto la coincidencia «async» de la llamada de seguimiento (9 de 10, que el
+chequeo 1 obliga a dejar intacta) y el falso positivo «start» de `001`.
+
 ## Lo que falta antes de congelar
 
 - **El juez (§6.2) y el validador (§5.3)** no están escritos, y el piloto no los

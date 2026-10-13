@@ -1,6 +1,6 @@
 # Protocolo · Fase 1: ¿el esquema de residuo hace que el registro consigne el hueco?
 
-**Estado: v12, NO congelado.** Incorpora lo que midió el piloto en la máquina de
+**Estado: v13, NO congelado.** Incorpora lo que midió el piloto en la máquina de
 Nico (`05-PRUEBA-SANDBOX-1.md`, `06-PRUEBA-SANDBOX-2.md`,
 `08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`, `09-PILOTO-GENERAR-1.md`,
 `10-PRUEBA-SANDBOX-GENERADOR.md`, `11-PILOTO-GENERAR-Y-CHEQUEAR.md`,
@@ -274,8 +274,18 @@ seguimiento (marcada, porque el punto 1 la obliga a quedar), la línea
 `request_id=…` que el armador conserva en el bloque nuevo junto con un
 `status=completed` (9 de 10), y algún falso positivo de la expresión regular
 («start» en `window_start`). En 1 de 10 el armador repitió el rótulo
-`EXPERIMENT_LOG:` arriba del log. **Cómo tratar las dos primeras y el rótulo es
-una decisión de Nico antes de congelar** (`13`, «Decisiones»).
+`EXPERIMENT_LOG:` arriba del log.
+
+**Dos reglas mecánicas, decididas por Nico el 13/10/2026** (`13`, «Decisiones»),
+antes de ver una sola respuesta a un brazo:
+
+- **El rótulo:** si la primera línea de la salida del armador es exactamente
+  `EXPERIMENT_LOG:`, se saca antes de los chequeos (`gemelos.limpiar`). Se
+  registra en cada gemelo si se sacó.
+- **El identificador en el bloque nuevo:** una línea del bloque nuevo que es sólo
+  `request_id=…` queda aceptada para el punto 3 sin pasar por Nico: dice que la
+  consulta asíncrona terminó y devolvió sus datos, no que siga pendiente. Un
+  `request_id` en cualquier otro lugar del gemelo sigue yendo a Nico.
 
 **Todo esto ocurre antes de la primera llamada a los brazos**, así que las
 decisiones a mano de Nico no pueden depender de ningún resultado. Se generan logs
@@ -901,8 +911,9 @@ Missing follow-up behavior: {missing_follow_up_behavior}
 **Congelado en `prompts/gemelo.txt`**, sacado textual de este bloque (1.638
 caracteres, md5 `8a1988396c48e59f013a7ad3cf64b452`). `{log_content}` es el log en
 forma canónica sin su salto final; los otros dos marcadores salen de la metadata.
-La salida pasa a forma canónica (§4.1) con un salto final, y sobre ella corren los
-chequeos de §4.4 (`herramientas/gemelos.py`); lo que tiene que decidir Nico queda
+La salida pasa a forma canónica (§4.1) con un salto final, sin el rótulo
+`EXPERIMENT_LOG:` si el armador lo repitió como primera línea (§4.4), y sobre ella
+corren los chequeos de §4.4 (`herramientas/gemelos.py`); lo que tiene que decidir Nico queda
 en una planilla (`piloto/gemelos/PARA-NICO.md` en el piloto).
 
 ## 9. Qué cuenta como resultado, escrito antes
@@ -1061,6 +1072,15 @@ su propia ventana, o declara la confusión.
       etiquetar los JSON de los logs decisivos y 30 más.
 
 ## 15. Cambios
+
+### De la v12 a la v13
+
+Dos decisiones de Nico sobre lo que mostraron los gemelos del piloto (`13`).
+
+| # | Qué se decidió | Qué se hizo | Dónde |
+|---|---|---|---|
+| 13.1 | Sacar el rótulo `EXPERIMENT_LOG:` cuando el armador lo repite como primera línea | `gemelos.limpiar`; el gemelo se rearma desde la salida cruda de Claude | §4.4, §8.2 |
+| 13.2 | Aceptar la línea `request_id=…` del bloque nuevo en el punto 3 | Aceptada por regla, registrada; fuera del bloque nuevo sigue yendo a Nico | §4.4 |
 
 ### De la v11 a la v12
 
