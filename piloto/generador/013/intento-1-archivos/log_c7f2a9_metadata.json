@@ -1,0 +1,16 @@
+{
+  "log_file": "log_c7f2a9.md",
+  "domain": "compute-cluster scheduling",
+  "primary_surface": "job failures",
+  "initial_question": "What were the major errors yesterday?",
+  "initial_query_scope": "customer-facing systems only",
+  "follow_up_scope_expansion": "include internal services",
+  "missing_follow_up_behavior": "The aggregation request returned status=accepted with a request ID but no result data.",
+  "distraction_checks": [
+    "scheduled changes",
+    "deployment status"
+  ],
+  "final_question": "Did gpu-facility-a account for most of the NodeUnavailable failures across customer-facing and internal services?",
+  "stale_answer": "Yes—gpu-facility-a appears to account for most NodeUnavailable failures because it had 1,876 of 2,284 in the customer-facing-only result.",
+  "required_missing_information": "The NodeUnavailable failure counts by facility after expanding the aggregation to include both customer-facing and internal services."
+}

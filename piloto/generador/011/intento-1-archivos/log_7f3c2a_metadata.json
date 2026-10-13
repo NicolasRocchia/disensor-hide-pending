@@ -1,0 +1,16 @@
+{
+  "log_file": "log_7f3c2a.md",
+  "domain": "laboratory equipment",
+  "primary_surface": "job failures",
+  "initial_question": "Which components were most frequently out of stock yesterday?",
+  "initial_query_scope": "non-reserved inventory only",
+  "follow_up_scope_expansion": "include maintenance-only equipment",
+  "missing_follow_up_behavior": "asynchronous query starts but never produces a result",
+  "distraction_checks": [
+    "alert summary",
+    "calibration status"
+  ],
+  "final_question": "Were the servo-motor stockouts concentrated in one production cell?",
+  "stale_answer": "Yes. The servo-motor stockouts were concentrated in cell-culture-2, which accounted for 74 of 96 events.",
+  "required_missing_information": "The servo-motor stockout counts by production cell across the expanded inventory scope, including maintenance-only equipment."
+}

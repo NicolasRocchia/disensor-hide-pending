@@ -1,0 +1,79 @@
+{
+  "log": 11,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 7,
+    "PRIMARY_SURFACE": 2,
+    "INITIAL_QUESTION": 2,
+    "INITIAL_QUERY_SCOPE": 4,
+    "FOLLOW_UP_SCOPE_EXPANSION": 5,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 2,
+    "DISTRACTION_CHECKS": [
+      3,
+      6
+    ],
+    "FINAL_QUESTION_PATTERN": 3
+  },
+  "valores": {
+    "DOMAIN": "laboratory equipment",
+    "PRIMARY_SURFACE": "job failures",
+    "INITIAL_QUESTION": "Which components were most frequently out of stock yesterday?",
+    "INITIAL_QUERY_SCOPE": "non-reserved inventory only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include maintenance-only equipment",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "asynchronous query starts but never produces a result",
+    "DISTRACTION_CHECKS": [
+      "alert summary",
+      "calibration status"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Were the servo-motor stockouts concentrated in one production cell?”"
+  },
+  "mensaje_md5": "96f2fc92a148ad326474b7c0bfd6026a",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:10:53.626+00:00",
+      "duracion_s": 43.935,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "96f2fc92a148ad326474b7c0bfd6026a",
+      "generador": true,
+      "carpeta_trabajo": "C:\\w\\26a2d3558003",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 28161,
+        "cached_input_tokens": 23040,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1491,
+        "reasoning_output_tokens": 202
+      },
+      "mensajes_agente": 2,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [
+        "C:\\w\\26a2d3558003\\log_7f3c2a.md",
+        "C:\\w\\26a2d3558003\\log_7f3c2a_metadata.json"
+      ],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [
+        {
+          "ruta": "log_7f3c2a.md",
+          "bytes": 2715,
+          "md5": "2d0935d8e7bdc8783c06799faba1dc97"
+        },
+        {
+          "ruta": "log_7f3c2a_metadata.json",
+          "bytes": 865,
+          "md5": "9e0541c5fa8d73aa5b4118735153c0e3"
+        }
+      ],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "estado": "archivos"
+}

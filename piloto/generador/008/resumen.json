@@ -1,0 +1,79 @@
+{
+  "log": 8,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 7,
+    "PRIMARY_SURFACE": 0,
+    "INITIAL_QUESTION": 1,
+    "INITIAL_QUERY_SCOPE": 4,
+    "FOLLOW_UP_SCOPE_EXPANSION": 4,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 3,
+    "DISTRACTION_CHECKS": [
+      4,
+      2
+    ],
+    "FINAL_QUESTION_PATTERN": 1
+  },
+  "valores": {
+    "DOMAIN": "laboratory equipment",
+    "PRIMARY_SURFACE": "production logs",
+    "INITIAL_QUESTION": "What were the major errors yesterday?",
+    "INITIAL_QUERY_SCOPE": "non-reserved inventory only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include secondary production lines",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "tool call is acknowledged but result payload is absent",
+    "DISTRACTION_CHECKS": [
+      "replenishment runs",
+      "system health"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Did most of the NodeUnavailable failures occur on gpu-cluster-a?”"
+  },
+  "mensaje_md5": "d3bf7d6240288f9755d213939f3f53fa",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:09:18.217+00:00",
+      "duracion_s": 38.701,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "d3bf7d6240288f9755d213939f3f53fa",
+      "generador": true,
+      "carpeta_trabajo": "C:\\w\\b10030a8595a",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 82404,
+        "cached_input_tokens": 68096,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1549,
+        "reasoning_output_tokens": 344
+      },
+      "mensajes_agente": 2,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [
+        "C:\\w\\b10030a8595a\\log_lab_1047.md",
+        "C:\\w\\b10030a8595a\\log_lab_1047_metadata.json"
+      ],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [
+        {
+          "ruta": "log_lab_1047.md",
+          "bytes": 2225,
+          "md5": "32e0233755c5728b17a6f2a109dd4a74"
+        },
+        {
+          "ruta": "log_lab_1047_metadata.json",
+          "bytes": 841,
+          "md5": "7472045d117c3af7c30e790a1aa2c4a6"
+        }
+      ],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "estado": "archivos"
+}

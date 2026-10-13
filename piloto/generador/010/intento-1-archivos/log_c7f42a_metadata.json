@@ -1,0 +1,16 @@
+{
+  "log_file": "log_c7f42a.md",
+  "domain": "cloud infrastructure",
+  "primary_surface": "inventory events",
+  "initial_question": "What were the major errors yesterday?",
+  "initial_query_scope": "external services only on primary production lines",
+  "follow_up_scope_expansion": "include secondary production lines",
+  "missing_follow_up_behavior": "tool returns status=accepted with a request ID but no result",
+  "distraction_checks": [
+    "maintenance events",
+    "alert summary"
+  ],
+  "final_question": "Did one facility account for most of the reported AssetTagMismatch errors across both primary and secondary production lines?",
+  "stale_answer": "Yes—EZE-1 accounted for most AssetTagMismatch errors.",
+  "required_missing_information": "The facility-level AssetTagMismatch counts across the combined primary and secondary production lines requested by inventory aggregation request invagg_7KQ29M4."
+}

@@ -1,0 +1,16 @@
+{
+  "log_file": "log_c7f2a9.md",
+  "domain": "cloud infrastructure",
+  "primary_surface": "job failures",
+  "initial_question": "Which failures affected the most jobs yesterday?",
+  "initial_query_scope": "primary production lines only",
+  "follow_up_scope_expansion": "include reserved compute capacity",
+  "missing_follow_up_behavior": "retrieval begins successfully but stops before returning grouped data",
+  "distraction_checks": [
+    "calibration status",
+    "alert summary"
+  ],
+  "final_question": "Did most of the NodeUnavailable failures occur on gpu-cluster-a?",
+  "stale_answer": "Yes. The primary-lines-only result shows 2,071 of 2,486 NodeUnavailable failures on gpu-cluster-a.",
+  "required_missing_information": "The completed NodeUnavailable count and compute-cluster breakdown across primary production lines including reserved compute capacity."
+}

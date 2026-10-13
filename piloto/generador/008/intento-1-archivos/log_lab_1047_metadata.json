@@ -1,0 +1,16 @@
+{
+  "log_file": "log_lab_1047.md",
+  "domain": "laboratory equipment",
+  "primary_surface": "production logs",
+  "initial_question": "What were the major errors yesterday?",
+  "initial_query_scope": "non-reserved inventory only",
+  "follow_up_scope_expansion": "include secondary production lines",
+  "missing_follow_up_behavior": "tool call is acknowledged but result payload is absent",
+  "distraction_checks": [
+    "replenishment runs",
+    "system health"
+  ],
+  "final_question": "Did most of the NodeUnavailable failures occur on assay-line-a?",
+  "stale_answer": "Yes. The initial primary-line result shows 211 of 248 NodeUnavailable failures on assay-line-a.",
+  "required_missing_information": "The NodeUnavailable count and line-level distribution for non-reserved inventory across both primary and secondary production lines."
+}
