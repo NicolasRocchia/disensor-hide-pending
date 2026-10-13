@@ -34,6 +34,7 @@ import argparse
 import hashlib
 import json
 import random
+import re
 import subprocess
 import sys
 from pathlib import Path
@@ -59,6 +60,15 @@ TERMINALES_GEN = piloto.TERMINALES + ("interrumpido",)
 TERMINALES_CAP = ("si", "no", "fallo", "interrumpido")
 TERMINALES_GEMELO = ("hecho", "fallo", "fallo_verificacion", "interrumpido")
 TERMINALES_BRAZO = ("hecho", "fallo", "interrumpido")
+# §4.4 (v22, hallazgo 4 de la sexta revisión): el ancla externa es una rama concreta de un remoto
+# que no está en esta máquina. Las pruebas usan un remoto local.
+REMOTO, RAMA = "origin", "main"
+ACEPTAR_REMOTO_LOCAL = False
+RE_URL_REMOTA = re.compile(r"(?:https?|ssh|git)://|[\w.-]+@[\w.-]+:")
+# §4.4 (v22, hallazgos 1 y 3 de la sexta revisión): el único registro del congelamiento, en
+# «Enmiendas», con la lista, su commit y el árbol de lo que corre.
+RE_REGISTRO = re.compile(r"^- Congelamiento de la lista: md5 ([0-9a-f]{32}), commit ([0-9a-f]{40}), "
+                         r"árbol ([0-9a-f]{32})\.?[ \t]*$", re.M)
 
 
 def escribir(ruta, datos):
@@ -501,8 +511,10 @@ def congelamiento_en_git():
     - El md5 de la lista figura en `01-PROTOCOLO.md` tal como está commiteado («Enmiendas»).
     - El protocolo, el código, los prompts y los esquemas no tienen cambios sin commitear.
 
-    - El commit de la lista, entero, también figura en el protocolo commiteado, y está en un
-      remoto (v21, hallazgo 2 de la quinta revisión).
+    - «Enmiendas» del protocolo commiteado tiene un solo registro de congelamiento, y es esta
+      lista, su commit entero y el árbol de lo que corre (v22, hallazgos 1 y 3 de la sexta).
+    - El commit está en la rama del remoto, traída en el momento (v21, hallazgo 2 de la
+      quinta; v22, hallazgo 4 de la sexta).
 
     Devuelve (commit de la lista, HEAD, árbol). Lo que esto no ve, una rama paralela o una
     historia reescrita, sólo lo cubre un ancla fuera de esta máquina (§4.4)."""
@@ -526,18 +538,49 @@ def congelamiento_en_git():
         sys.exit("decisiones.json cambió después del commit de la lista congelada. El arnés para (§4.4).")
     if leer(rutas["lista"])["decisiones_md5"] != md5_archivo(rutas["decisiones"]):
         sys.exit("decisiones.json no es el que registró la lista congelada. El arnés para.")
-    protocolo = git("show", "HEAD:01-PROTOCOLO.md")
-    texto = protocolo.stdout.decode("utf-8") if protocolo.returncode == 0 else ""
-    if md5_archivo(rutas["lista"]) not in texto or commit not in texto:
-        sys.exit("El md5 de la lista congelada y su commit, entero, tienen que estar en «Enmiendas» del "
-                 "protocolo commiteado (§4.4).")
-    if not git("branch", "-r", "--contains", commit).stdout.strip():
-        sys.exit("El commit de la lista congelada no está en ningún remoto: pushealo antes de los brazos (§4.4).")
     sucios = git("status", "--porcelain", "--", "01-PROTOCOLO.md", "herramientas", "prompts", "esquemas").stdout
     if sucios.strip():
         sys.exit("Hay cambios sin commitear en el protocolo, herramientas, prompts o esquemas: lo que corre "
                  "tiene que ser un commit (§4.4).")
-    return commit, git("rev-parse", "HEAD").stdout.decode("utf-8").strip(), arbol_normativo()
+    protocolo = git("show", "HEAD:01-PROTOCOLO.md")
+    registro = registro_de_congelamiento(protocolo.stdout.decode("utf-8") if protocolo.returncode == 0 else "")
+    arbol = arbol_normativo()
+    if registro != {"md5": md5_archivo(rutas["lista"]), "commit": commit, "arbol": arbol}:
+        sys.exit("El registro de congelamiento de «Enmiendas» no es esta lista, su commit y el árbol de lo que "
+                 f"corre (árbol actual {arbol}). Un cambio de código después de congelar descarta la corrida "
+                 "(§4.4, §10.1).")
+    remoto_contiene(commit)
+    return commit, git("rev-parse", "HEAD").stdout.decode("utf-8").strip(), arbol
+
+
+def registro_de_congelamiento(texto):
+    """§4.4 (v22, hallazgos 1 y 3 de la sexta revisión): el registro de la sección «Enmiendas»,
+    y sólo de ella, con formato fijo. Tiene que haber exactamente uno."""
+    partes = re.split(r"^## Enmiendas[ \t]*$", texto, flags=re.M)
+    if len(partes) != 2:
+        sys.exit("El protocolo commiteado no tiene una sección «## Enmiendas» (§4.4).")
+    seccion = re.split(r"^## ", partes[1], maxsplit=1, flags=re.M)[0]
+    hallados = RE_REGISTRO.findall(seccion)
+    if len(hallados) != 1:
+        sys.exit(f"«Enmiendas» tiene {len(hallados)} registros de congelamiento; tiene que tener uno, con el "
+                 "formato «- Congelamiento de la lista: md5 <md5>, commit <commit entero>, árbol <md5>.» (§4.4).")
+    md5, commit, arbol = hallados[0]
+    return {"md5": md5, "commit": commit, "arbol": arbol}
+
+
+def remoto_contiene(commit):
+    """§4.4 (v22, hallazgo 4 de la sexta revisión): el commit de la lista está en la rama del
+    remoto, traída en el momento (no una referencia local vieja), y el remoto no es una ruta de
+    esta máquina."""
+    url = git("remote", "get-url", REMOTO)
+    if url.returncode != 0:
+        sys.exit(f"No hay remoto «{REMOTO}»: configuralo y pusheá el commit de la lista antes de los brazos (§4.4).")
+    if not ACEPTAR_REMOTO_LOCAL and not RE_URL_REMOTA.match(url.stdout.decode("utf-8").strip()):
+        sys.exit(f"El remoto «{REMOTO}» es una ruta de esta máquina: el ancla tiene que estar afuera (§4.4).")
+    if git("fetch", "-q", REMOTO, RAMA).returncode != 0:
+        sys.exit(f"No se pudo traer {REMOTO}/{RAMA}: el commit de la lista no se puede verificar (§4.4).")
+    if git("merge-base", "--is-ancestor", commit, "FETCH_HEAD").returncode != 0:
+        sys.exit(f"El commit de la lista no está en {REMOTO}/{RAMA}: pushealo antes de los brazos (§4.4).")
 
 
 def arbol_normativo():
@@ -548,22 +591,28 @@ def arbol_normativo():
 
 
 def revisar_plan(plan, commit, arbol):
-    """§4.4 (v21, hallazgos 2 y 3 de la quinta revisión): el plan de los brazos es de esta
-    lista; lo que corre es el árbol con que empezaron los brazos, o uno que una enmienda anotó
-    en el protocolo commiteado; y todo resultado de los brazos es de esta lista."""
-    if plan["commit_de_la_lista"] != commit:
-        sys.exit("La lista congelada cambió de commit desde que empezaron los brazos. El arnés para.")
-    if arbol != plan["arbol_md5"] and arbol not in git("show", "HEAD:01-PROTOCOLO.md").stdout.decode("utf-8"):
-        sys.exit(f"herramientas, prompts o esquemas cambiaron desde la primera llamada a los brazos (árbol {arbol}) "
-                 "sin una enmienda que lo anote en el protocolo (§4.4). El arnés para.")
-    for f in sorted((DIR / "brazos").glob("*/resumen.json")):
-        if leer(f).get("commit_de_la_lista") != commit:
-            sys.exit(f"{f.parent.name}: es un resultado de otra lista congelada. El arnés para (§4.4).")
+    """§4.4 (v21; v22, hallazgos 1 y 2 de la sexta revisión): el plan de los brazos es de esta
+    lista y de este árbol, y todo resultado de los brazos y del juez también: cada uno guarda la
+    lista y los árboles con que corrió, y tienen que ser éstos. Un cambio de código después de
+    la primera llamada no se acepta de ninguna forma: descarta la corrida (§10.1)."""
+    if plan["commit_de_la_lista"] != commit or plan["arbol_md5"] != arbol:
+        sys.exit("El plan de los brazos es de otra lista o de otro árbol que lo que corre. El arnés para (§4.4).")
+    for etapa in ("brazos", "juez"):
+        for f in sorted((DIR / etapa).glob("*/resumen.json")):
+            r = leer(f)
+            if r.get("commit_de_la_lista") != commit or any(a != arbol for a in r.get("arboles", [])):
+                sys.exit(f"{etapa} {f.parent.name}: es un resultado de otra lista o de otro árbol. "
+                         "El arnés para (§4.4, §10.1).")
+            if etapa == "juez":
+                fb = DIR / "brazos" / f.parent.name / "resumen.json"
+                if not fb.exists() or r.get("json_md5") != leer(fb).get("json_md5"):
+                    sys.exit(f"juez {f.parent.name}: no juzgó el JSON que dejó `brazos`. El arnés para (§4.4).")
 
 
 def verificar_corrida():
     """§4.4 (v21, hallazgo 1 de la quinta revisión): `juez`, `validacion` y `analizar` vuelven
-    a verificar el congelamiento y el plan de los brazos, no sólo el md5 de la lista."""
+    a verificar el congelamiento, el plan de los brazos y todos los resultados, no sólo el md5
+    de la lista."""
     commit, head, arbol = congelamiento_en_git()
     fp = DIR / "brazos" / "plan.json"
     if not fp.exists():
@@ -714,7 +763,7 @@ def llamada_de_seguimiento(log):
 def etapa_juez(args):
     import juez
     sin_parada()
-    _, _, arbol = verificar_corrida()
+    commit, _, arbol = verificar_corrida()
     fijado = arnes.verificar_binarios(BINARIOS)
     pares = leer_incluidos()
     por_log = {p["log"]: p for p in pares}
@@ -730,13 +779,17 @@ def etapa_juez(args):
             sys.exit(f"Falta la llamada {k:03d} {b} {c}: correr `brazos`.")
         carpeta = DIR / "juez" / f"{k:03d}-{b}-{c}"
         f = carpeta / "resumen.json"
-        r = leer(f) if f.exists() else {"log": k, "brazo": b, "condicion": c, "intentos": []}
+        br = leer(fb)
+        # v22, hallazgo 2 de la sexta revisión: cada veredicto guarda la lista y el JSON que juzgó.
+        r = leer(f) if f.exists() else {"log": k, "brazo": b, "condicion": c, "intentos": [],
+                                        "commit_de_la_lista": commit, "json_md5": br.get("json_md5")}
+        if r.get("commit_de_la_lista") != commit or r.get("json_md5") != br.get("json_md5"):
+            sys.exit(f"juez {k:03d} {b} {c}: es de otra lista o de otro JSON. El arnés para (§4.4).")
         if r.get("veredicto", {}).get("estado") in terminales:
             continue
         if args.limite is not None and hechas >= args.limite:
             break
         r.setdefault("arboles", []).append(arbol)
-        br = leer(fb)
         if br["estado"] != "hecho":
             r["veredicto"] = {"estado": "sin_llamada"}
         elif not br["json_legible"]:
@@ -816,6 +869,8 @@ def etapa_validacion(_):
     escribir(DIR / "pares.json", pares)
     por_log = {p["log"]: p for p in leer_incluidos()}
     plantilla_juez = juez.leer_prompt()
+    fijos = juez.valores_fijos(*juez.objetos_de_esquema([piloto.ESQUEMAS / "residuo.json",
+                                                         piloto.ESQUEMAS / "placebo.json"]))
     items = analisis.items_de_la_planilla(pares)
     random.Random(SEMILLA).shuffle(items)
     clave, plantilla, partes = {}, [], [
@@ -836,6 +891,15 @@ def etapa_validacion(_):
         alcance = json.loads(meta_b.decode("utf-8"))["follow_up_scope_expansion"]
         jz = leer(DIR / "juez" / f"{k:03d}-{b}-{c}" / "resumen.json")["veredicto"]
         textos = jz.get("textos")
+        fj = DIR / "brazos" / f"{k:03d}-{b}-{c}" / "json.txt"
+        if textos is not None:
+            # v22, hallazgo 2 de la sexta revisión: los textos guardados tienen que salir del JSON
+            # que dejó `brazos`, verificado por su md5, con la regla de ahora.
+            json_b = fj.read_bytes()
+            if arnes.md5_bytes(json_b) != leer(DIR / "brazos" / f"{k:03d}-{b}-{c}" / "resumen.json").get("json_md5"):
+                sys.exit(f"{fj} no coincide con el md5 que registró `brazos`. El arnés para.")
+            if juez.textos_libres(json.loads(json_b.decode("utf-8")), fijos) != textos:
+                sys.exit(f"{k:03d} {b} {c}: los textos del juez no son los que salen del JSON. El arnés para.")
         if textos:
             m = juez.mensaje(plantilla_juez, llamada, alcance, textos).encode("utf-8")
             if arnes.md5_bytes(m) != jz.get("mensaje_md5"):

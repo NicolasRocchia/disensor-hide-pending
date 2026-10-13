@@ -36,11 +36,23 @@ CONTENEDORES = {"findings", "residue", "items", "evidence", "verification", "fix
 # string no se descarta por su clave: en A2b `residue` es una clave desconocida, y descartarla
 # sólo en A2 haría perder un registro en un brazo y no en el otro.
 RE_PALABRA = re.compile(r"[^\W\d_]+(?:['’-][^\W\d_]+)*")
+# v22, hallazgo 5 de la sexta revisión: los formatos técnicos se reconocen también con espacios
+# (un hash, una fecha, un link), y la puntuación final no vuelve técnica a una palabra
+# («Pending.» es una frase).
+RE_FORMATO_TECNICO = re.compile(
+    r"sha256\s*:\s*[0-9a-f]+|[0-9a-f]{16,}"
+    r"|\d{4}-\d{2}-\d{2}(?:[ T]\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?)?\s*(?:Z|[+-]\d{2}:?\d{2})?", re.I)
+RE_ESQUEMA_DE_URL = re.compile(r"[a-z][a-z0-9+.-]*://", re.I)
 
 
 def es_tecnico(valor):
     v = valor.strip()
-    return bool(v) and not re.search(r"\s", v) and not RE_PALABRA.fullmatch(v)
+    if not v:
+        return False
+    if RE_FORMATO_TECNICO.fullmatch(v) or RE_ESQUEMA_DE_URL.match(v):
+        return True
+    w = v.rstrip(".?!,;:")
+    return not re.search(r"\s", w) and not RE_PALABRA.fullmatch(w)
 
 
 def leer_prompt():

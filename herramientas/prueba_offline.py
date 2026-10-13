@@ -550,6 +550,15 @@ class Juez(unittest.TestCase):
         self.assertEqual(juez.textos_libres({"status": "pending", "title": "Summary"}, self.fijos),
                          ["Summary", "pending"])
 
+    def test_el_filtro_tecnico_con_puntuacion_y_espacios(self):
+        # v22, hallazgo 5 de la sexta revisión: «Pending.» es una frase; un hash, una fecha o un
+        # link con espacios siguen siendo técnicos.
+        for frase in ("Pending.", "Unavailable?", "Missing!", "Summary", "not-returned", "The query never returned."):
+            self.assertFalse(juez.es_tecnico(frase), frase)
+        for tecnico in ("sha256: abcdef0123", "2026-10-13 10:00:00Z", "2026-10-13", "https://example.test/a b",
+                        "execution_gap", "h1", "DEBT-12", "0123456789abcdef0123", "..."):
+            self.assertTrue(juez.es_tecnico(tecnico), tecnico)
+
     def test_la_lista_de_claves_cubre_los_esquemas(self):
         # Toda clave de los dos esquemas es prosa, no es prosa o es un contenedor: ninguna queda
         # sin decidir.
@@ -1163,17 +1172,27 @@ class Corrida(unittest.TestCase):
             corrida.congelamiento_en_git()
 
     def test_el_congelamiento_en_un_repo(self):
-        # v20, hallazgo 4 de la cuarta revisión, en un repo de git armado a mano.
+        # v20 a v22, en un repo de git armado a mano, con un remoto local.
         import subprocess
         repo = self.raiz / "repo"
-        original = arnes.EXPERIMENTO
+        original = (arnes.EXPERIMENTO, corrida.ACEPTAR_REMOTO_LOCAL)
         arnes.EXPERIMENTO, corrida.DIR = repo, repo / "corrida"
         try:
             def g(*a):
                 return subprocess.run(["git", "-C", str(repo), "-c", "user.name=x", "-c", "user.email=x@x",
                                        "-c", "core.autocrlf=false", *a], capture_output=True, check=True)
+
+            def protocolo(en_15="", enmiendas="*(ninguna todavía)*"):
+                (repo / "01-PROTOCOLO.md").write_bytes(
+                    f"# Protocolo\n\n## 15. Cambios\n\n{en_15}\n\n## Enmiendas\n\n{enmiendas}\n".encode())
+                g("commit", "-q", "-am", "protocolo")
+
+            def frena(texto, funcion=corrida.congelamiento_en_git):
+                with self.assertRaises(SystemExit) as e:
+                    funcion()
+                self.assertIn(texto, str(e.exception))
             repo.mkdir()
-            g("init", "-q")
+            g("init", "-q", "-b", "main")
             (repo / "herramientas").mkdir()
             (repo / "herramientas" / "a.py").write_bytes(b"x = 1\n")
             dec = repo / "corrida" / "gemelos" / "decisiones.json"
@@ -1186,73 +1205,65 @@ class Corrida(unittest.TestCase):
             g("add", "-A")
             g("commit", "-q", "-m", "lista")
             commit = g("rev-parse", "HEAD").stdout.decode().strip()
-            # Sin el md5 en «Enmiendas», no; con el md5 y sin el commit entero, tampoco.
-            with self.assertRaises(SystemExit):
-                corrida.congelamiento_en_git()
-            (repo / "01-PROTOCOLO.md").write_bytes(f"# Protocolo\n\n## Enmiendas\n\nLista {md5}\n".encode())
-            g("commit", "-q", "-am", "enmienda sin commit")
-            with self.assertRaises(SystemExit):
-                corrida.congelamiento_en_git()
-            (repo / "01-PROTOCOLO.md").write_bytes(
-                f"# Protocolo\n\n## Enmiendas\n\nLista {md5}, commit {commit}\n".encode())
-            g("commit", "-q", "-am", "enmienda")
-            # Sin remoto, no (v21, hallazgo 2 de la quinta revisión).
-            with self.assertRaises(SystemExit) as e:
-                corrida.congelamiento_en_git()
-            self.assertIn("remoto", str(e.exception))
+            arbol = corrida.arbol_normativo()
+            registro = f"- Congelamiento de la lista: md5 {md5}, commit {commit}, árbol {arbol}."
+            # Sin «Enmiendas», sin registro, con el registro fuera de «Enmiendas» o con dos: no
+            # (hallazgo 3 de la sexta revisión).
+            frena("«## Enmiendas»")
+            protocolo()
+            frena("0 registros")
+            protocolo(en_15=registro)
+            frena("0 registros")
+            protocolo(enmiendas=registro + "\n" + registro)
+            frena("2 registros")
+            # Un registro con otro árbol: no.
+            protocolo(enmiendas=registro.replace(arbol, "0" * 32))
+            frena("no es esta lista")
+            protocolo(enmiendas=registro)
+            # Sin remoto, con uno local sin aceptarlo, o sin el commit pusheado: no (hallazgo 4).
+            frena("No hay remoto")
             remoto = self.raiz / "remoto.git"
             subprocess.run(["git", "init", "-q", "--bare", str(remoto)], check=True, capture_output=True)
             g("remote", "add", "origin", str(remoto))
+            frena("ruta de esta máquina")
+            corrida.ACEPTAR_REMOTO_LOCAL = True
+            frena("No se pudo traer")
             g("push", "-q", "origin", "HEAD:refs/heads/main")
-            self.assertEqual(corrida.congelamiento_en_git()[0], commit)
-            arbol = corrida.congelamiento_en_git()[2]
-            # El plan se escribe una vez, con el commit y el árbol; los resultados son de esa lista.
+            self.assertEqual(corrida.congelamiento_en_git(), (commit, g("rev-parse", "HEAD").stdout.decode().strip(),
+                                                              arbol))
+            # El plan y los resultados de los brazos y del juez, atados a la lista, al árbol y al
+            # JSON (v21; v22, hallazgos 1 y 2).
             corrida.PARES = 0
             corrida.plan_congelado([], commit, arbol)
-            self.assertEqual(corrida.verificar_corrida()[0], commit)
-            corrida.escribir(repo / "corrida" / "brazos" / "000-A2-pendiente" / "resumen.json",
-                             {"commit_de_la_lista": "otro"})
-            with self.assertRaises(SystemExit):
-                corrida.verificar_corrida()
-            corrida.escribir(repo / "corrida" / "brazos" / "000-A2-pendiente" / "resumen.json",
-                             {"commit_de_la_lista": commit})
+            bueno = {"commit_de_la_lista": commit, "arboles": [arbol], "json_md5": "x"}
+            fb = repo / "corrida" / "brazos" / "000-A2-pendiente" / "resumen.json"
+            fj = repo / "corrida" / "juez" / "000-A2-pendiente" / "resumen.json"
+            corrida.escribir(fb, bueno)
+            corrida.escribir(fj, bueno)
             corrida.verificar_corrida()
+            for malo in ({"commit_de_la_lista": "otro"}, {"arboles": [arbol, "0" * 32]}, {"json_md5": "y"}):
+                corrida.escribir(fj, dict(bueno, **malo))
+                frena("El arnés para", corrida.verificar_corrida)
+            corrida.escribir(fj, bueno)
+            # Un plan con el árbol cambiado a mano no autoriza nada (hallazgo 1).
+            fp = repo / "corrida" / "brazos" / "plan.json"
+            plan = corrida.leer(fp)
+            corrida.escribir(fp, dict(plan, arbol_md5="0" * 32))
+            frena("otro árbol", corrida.verificar_corrida)
             # Un plan borrado con resultados no se regenera.
-            (repo / "corrida" / "brazos" / "plan.json").unlink()
-            with self.assertRaises(SystemExit):
-                corrida.plan_congelado([], commit, arbol)
-            corrida.escribir(repo / "corrida" / "brazos" / "plan.json",
-                             {"semilla": corrida.SEMILLA, "orden": [], "commit_de_la_lista": commit, "arbol_md5": arbol})
-            # Código cambiado y commiteado a mitad de la corrida: no, salvo con una enmienda que
-            # anote el árbol nuevo (v21, hallazgo 3 de la quinta revisión).
+            fp.unlink()
+            frena("no se regenera", lambda: corrida.plan_congelado([], commit, arbol))
+            corrida.escribir(fp, plan)
+            corrida.verificar_corrida()
+            # Código cambiado y commiteado a mitad de la corrida: no, y rehacer el registro con el
+            # árbol nuevo tampoco lo autoriza, porque los resultados son del árbol viejo (§10.1).
             (repo / "herramientas" / "a.py").write_bytes(b"x = 3\n")
             g("commit", "-q", "-am", "cambio de codigo")
-            nuevo = corrida.arbol_normativo()
-            self.assertNotEqual(nuevo, arbol)
-            with self.assertRaises(SystemExit):
-                corrida.verificar_corrida()
-            with open(repo / "01-PROTOCOLO.md", "ab") as f:
-                f.write(f"Enmienda: árbol {nuevo}\n".encode())
-            g("commit", "-q", "-am", "enmienda del arbol")
-            corrida.verificar_corrida()
-            g("checkout", "-q", "HEAD~2", "--", "herramientas/a.py")
-            g("commit", "-q", "-am", "vuelve el codigo")
-            # Código sin commitear: no.
-            (repo / "herramientas" / "a.py").write_bytes(b"x = 2\n")
-            with self.assertRaises(SystemExit):
-                corrida.congelamiento_en_git()
-            g("checkout", "-q", "--", "herramientas/a.py")
-            # Decisiones cambiadas después del commit de la lista: no.
-            corrida.escribir(dec, {"000": {"C": "no"}})
-            g("commit", "-q", "-am", "otra decision")
-            with self.assertRaises(SystemExit):
-                corrida.congelamiento_en_git()
-            corrida.escribir(dec, {"000": {"C": "si"}})
-            g("commit", "-q", "-am", "vuelve")
-            with self.assertRaises(SystemExit):
-                corrida.congelamiento_en_git()
+            frena("no es esta lista", corrida.verificar_corrida)
+            protocolo(enmiendas=registro.replace(arbol, corrida.arbol_normativo()))
+            frena("El arnés para", corrida.verificar_corrida)
         finally:
-            arnes.EXPERIMENTO = original
+            arnes.EXPERIMENTO, corrida.ACEPTAR_REMOTO_LOCAL = original
 
     def test_la_lista_rehecha_se_ve(self):
         import subprocess
@@ -1276,8 +1287,9 @@ class Corrida(unittest.TestCase):
                 (repo / "01-PROTOCOLO.md").write_bytes(f"Enmiendas: {md5s[-1]}\n".encode())
                 g("add", "-A")
                 g("commit", "-q", "-m", f"lista {n}")
-            with self.assertRaises(SystemExit):
+            with self.assertRaises(SystemExit) as e:
                 corrida.congelamiento_en_git()
+            self.assertIn("un solo commit", str(e.exception))
         finally:
             arnes.EXPERIMENTO = original
 
@@ -1407,13 +1419,15 @@ class Corrida(unittest.TestCase):
                     d = f"{k:03d}-{b}-{c}"
                     reg = {"comandos_ejecutados": [], "archivos_cambiados": [], "mensajes_agente": 1}
                     sesion = "s2" if (k in partido and c == "limpio") else "s1"
+                    registra = b == "A2" and c == "pendiente"
+                    textos = ["The broader query never returned."] if registra else ["Summary of failures"]
+                    json_b = json.dumps({"findings": [{"id": "h1", "title": textos[0]}]}).encode()
                     corrida.escribir(self.raiz / "brazos" / d / "resumen.json",
                                      {"estado": "hecho", "json_legible": True, "tiene_residue": b == "A2",
                                       "declared_absence": False if b == "A2" else None, "sesiones": [sesion],
-                                      "validacion": {"cumple_esquema": True, "cumple_reglas": None}, "intentos": [reg]})
-                    (self.raiz / "brazos" / d / "json.txt").write_bytes(b'{"findings": []}')
-                    registra = b == "A2" and c == "pendiente"
-                    textos = ["The broader query never returned."] if registra else ["Summary of failures"]
+                                      "validacion": {"cumple_esquema": True, "cumple_reglas": None}, "intentos": [reg],
+                                      "json_md5": arnes.md5_bytes(json_b)})
+                    (self.raiz / "brazos" / d / "json.txt").write_bytes(json_b)
                     m = juez.mensaje(juez.leer_prompt(), corrida.llamada_de_seguimiento(LOG), "include regional",
                                      textos).encode("utf-8")
                     corrida.escribir(self.raiz / "juez" / d / "resumen.json",
@@ -1465,8 +1479,16 @@ class Corrida(unittest.TestCase):
         r = corrida.leer(f)
         r["veredicto"]["textos"] = ["Otro texto"]
         corrida.escribir(f, r)
-        with self.assertRaises(SystemExit):
+        with self.assertRaises(SystemExit) as e:
             corrida.etapa_validacion(None)
+        self.assertIn("no son los que salen del JSON", str(e.exception))
+        # Y un json.txt cambiado después de `brazos` tampoco (v22, hallazgo 2 de la sexta).
+        r["veredicto"]["textos"] = ["The broader query never returned."]
+        corrida.escribir(f, r)
+        (self.raiz / "brazos" / "000-A2-pendiente" / "json.txt").write_bytes(b'{"findings": []}')
+        with self.assertRaises(SystemExit) as e:
+            corrida.etapa_validacion(None)
+        self.assertIn("md5", str(e.exception))
 
 
 if __name__ == "__main__":
