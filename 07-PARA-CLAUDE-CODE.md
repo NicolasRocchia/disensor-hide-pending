@@ -35,3 +35,40 @@ parte es correr las etapas en la máquina de Nico e informar lo que salió.**
 3. **Informá a Nico:** lo que imprimió cada etapa, y qué archivos quedaron en
    `experimento\piloto\arnes\`. Con eso, la sesión de difusión escribe la etapa
    siguiente.
+
+## Siguiente: `generar` (13/10/2026)
+
+Aplicados los cambios 1 y 2 de `08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`, que Nico
+aprobó:
+
+- **`arnes.revisar_stderr`** cuenta en el stderr los rechazos del sandbox, una
+  línea por intento: shell (`rejected: blocked by policy`), `apply_patch`
+  (`error=patch rejected`) y otros errores de herramienta. Probado contra el
+  stderr real de 08: 3 de shell (el `echo` y dos de `a.txt`) y 2 de
+  `apply_patch`.
+- **La etapa `sandbox`** da OK sólo si ve en el stderr los tres intentos (el
+  `echo`, la escritura de `a.txt` por shell y un `apply_patch`). Si falta
+  alguno, imprime INCONCLUSO y sale con código 2. No hace falta volver a
+  correrla: la lógica nueva se probó contra la salida guardada.
+
+**El paso que sigue, con el OK de Nico: `python experimento\herramientas\piloto.py generar`.**
+Son las 50 llamadas del generador del piloto (§4.5, punto 1): semilla 20261012,
+10 por cada comportamiento de falla.
+
+- **Conviene empezar con `--limite 2`**, mirar lo que imprime y los dos
+  `piloto\generador\00N\resumen.json`, y recién después correr el resto. La
+  etapa es reanudable: saltea las que ya terminaron, sean `ok` o `fallo` (tres
+  intentos sin terminar). Cada llamada puede tardar minutos; si las 48 restantes
+  no entran en el tiempo de tu Bash, corrélas en segundo plano o por tandas con
+  `--limite`.
+- **Para sola** por la red de seguridad de §7.1 (un comando ejecutado, un archivo
+  cambiado o la carpeta de trabajo no vacía) y por falta de cupo. Si para por la
+  red de seguridad, no la vuelvas a correr: queda trabada hasta que Nico revise.
+  Si para por cupo, se retoma más tarde con el mismo comando.
+- **Qué informar:** la línea por llamada y el resumen final (estados, promedio de
+  tokens y segundos, rechazos de shell y de `apply_patch`). Los rechazos de
+  `apply_patch` dicen cuántas veces el generador intentó escribir sus dos
+  archivos en vez de imprimirlos, que es lo que decide su sandbox (§4.1, §7.1).
+- **Los logs generados no son respuestas a los brazos:** podés abrir uno para
+  confirmar el formato. La extracción y los chequeos de §4.2 son la etapa
+  siguiente, que todavía no está escrita.
