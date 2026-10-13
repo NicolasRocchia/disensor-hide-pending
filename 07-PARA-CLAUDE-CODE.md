@@ -99,3 +99,7 @@ Con el OK de Nico, en este orden y parando en la primera que falle:
    para confirmar el formato.
 3. Si los dos dan `archivos` o `mensaje`, las 48 restantes, en segundo plano y
    con su propio OK.
+
+**Primera corrida del paso 1: FALLA** (`10-PRUEBA-SANDBOX-GENERADOR.md`): sin
+modo de sandbox de Windows, `workspace-write` quedó en sólo lectura. Corregido en
+la v8 con `-c windows.sandbox=unelevated`; el paso 1 se repite antes del 2.
