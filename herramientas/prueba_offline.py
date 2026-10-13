@@ -1,4 +1,4 @@
-"""Pruebas del arnés que no llaman a ningún modelo (protocolo v16, §7).
+"""Pruebas del arnés que no llaman a ningún modelo (protocolo v20, §7).
 
 Corren contra las salidas guardadas del piloto y contra carpetas armadas a mano.
 Se corren antes de gastar cupo, después de cada cambio a herramientas/:
@@ -7,7 +7,9 @@ Se corren antes de gastar cupo, después de cada cambio a herramientas/:
 
 Sin `-I`: el validador de §5.3 usa `jsonschema`, que está en el site de usuario.
 """
+import os
 import shutil
+import stat
 import sys
 import tempfile
 import unittest
@@ -517,6 +519,51 @@ class Juez(unittest.TestCase):
         for rastro in ("residue", "execution_gap", "escalated_open", "findings", "h1", "r1", "{{"):
             self.assertNotIn(rastro, m.split("TEXTS:")[1].split("---")[0])
 
+    def test_los_campos_que_no_son_prosa_no_llegan(self):
+        # v20, hallazgo 2 de la cuarta revisión: hashes, links, fechas, ids y referencias del
+        # residuo no llegan al juez; una clave inventada sí.
+        obj = {"summary": "The expanded query never returned.",
+               "findings": [{"id": "h1", "origin": "The reviewer that saw it", "severity": "major",
+                             "title": "Concentration claim", "debt_id": "DEBT-12",
+                             "evidence": [{"text": "only accepted, no result", "link": "https://x/y",
+                                           "hash": "sha256:" + "0" * 64}],
+                             "fix_verification": {"type": "diff_gate", "reference": "PR 9"}}],
+               "residue": {"declaration": "One execution gap remains open in this cycle.",
+                           "items": [{"id": "r1", "class": "execution_gap", "description": "Pending data",
+                                      "lead_acceptance": {"lead": "Ana", "date": "2026-10-13T00:00:00Z",
+                                                          "record": "REC-1"}}]}}
+        self.assertEqual(juez.textos_libres(obj, self.fijos),
+                         ["Concentration claim", "One execution gap remains open in this cycle.", "Pending data",
+                          "The expanded query never returned.", "only accepted, no result"])
+
+    def test_la_lista_de_claves_cubre_los_esquemas(self):
+        # Toda clave de los dos esquemas es prosa, no es prosa o es un contenedor: ninguna queda
+        # sin decidir.
+        contenedores = {"findings", "residue", "items", "evidence", "verification", "fix_verification",
+                        "lead_acceptance", "declared_absence", "requires_human_attention"}
+        claves = set()
+
+        def recorrer(x):
+            if isinstance(x, dict):
+                if isinstance(x.get("properties"), dict):
+                    claves.update(x["properties"])
+                for v in x.values():
+                    recorrer(v)
+            elif isinstance(x, list):
+                for v in x:
+                    recorrer(v)
+        for e in juez.objetos_de_esquema([ESQUEMAS / "residuo.json", ESQUEMAS / "placebo.json"]):
+            recorrer(e)
+        self.assertEqual(claves - juez.CAMPOS_DE_PROSA - juez.CLAVES_EXCLUIDAS - contenedores, set())
+        self.assertEqual(juez.CAMPOS_DE_PROSA & juez.CLAVES_EXCLUIDAS, set())
+
+    def test_la_guarda_acepta_la_cita_como_la_vio_el_juez(self):
+        # El juez ve el texto como string JSON: un salto de línea le llega como «\n».
+        textos = ["The broader query\nnever returned."]
+        self.assertTrue(juez.guarda("query\\nnever returned", textos))
+        self.assertTrue(juez.guarda("query never returned", textos))
+        self.assertFalse(juez.guarda("query\\tnever returned", textos))
+
     def test_textos_sin_repetidos_ni_vacios(self):
         obj = {"findings": [{"title": "b"}, {"title": "a"}, {"title": "b"}, {"title": "  "}]}
         self.assertEqual(juez.textos_libres(obj, set()), ["a", "b"])
@@ -602,6 +649,27 @@ class JuezConLlamadaSimulada(unittest.TestCase):
         estado, _ = piloto.claude_con_reintentos({}, b"m", self.carpeta, previos, "juez-1")
         self.assertEqual(estado, "fallo")
         self.assertEqual(len(previos), 3)
+
+    def test_un_corte_de_golpe_no_habilita_otra_llamada(self):
+        # v20, hallazgo 8 de la cuarta revisión: un intento terminado y verificado sin su
+        # resultado registrado quiere decir que el proceso se cortó: interrumpido, sin llamar.
+        previos = [{"etiqueta": "juez-1", "termino": True, "verificado": True, "sin_cupo": False,
+                    "red_de_seguridad": False}]
+        piloto.una_llamada_claude = lambda *a: self.fail("no debería llamarse")
+        estado, _ = piloto.claude_con_reintentos({}, b"m", self.carpeta, previos, "juez-1")
+        self.assertEqual(estado, "interrumpido")
+        v, intentos = self.juzgar(intentos=previos)
+        self.assertEqual((v["estado"], len(intentos)), ("interrumpido", 1))
+
+    def test_juzgar_guarda_despues_de_cada_intento_y_lectura(self):
+        self.simular(["no sé", '{"records_missing_followup": false, "evidence_quote": ""}'])
+        guardados = []
+        obj = {"findings": [{"description": "the expanded query never returned"}]}
+        v = piloto.juzgar({}, juez.leer_prompt(), set(), self.carpeta, "q()", "s", "{}", obj, [], None,
+                          lambda parcial: guardados.append((parcial["estado"], len(parcial["lecturas"]))))
+        self.assertEqual(v["estado"], "juzgado")
+        # Intento 1, lectura 1 (no se lee), intento 2; la lectura 2 vuelve con el veredicto.
+        self.assertEqual(guardados, [("en_curso", 0), ("en_curso", 1), ("en_curso", 1)])
 
     def test_sin_json_no_llama(self):
         self.simular([])
@@ -716,6 +784,14 @@ def _r(registra, llamada="hecho", juez="juzgado", llamado=True, **extra):
             "comandos_ejecutados": 0, "archivos_cambiados": 0, "mensajes_agente": 1, **extra}
 
 
+def _etiquetas(pares, f):
+    """Las etiquetas de Nico para exactamente los ítems de la planilla, con f(clave, juez)."""
+    juez_de = {(p["log"], b, c): analisis.registra(p, b, c) for p in pares for b in ("A2b", "A2")
+               for c in ("pendiente", "limpio")}
+    return [{"log": k[0], "brazo": k[1], "condicion": k[2], "registra": f(k, juez_de[k])}
+            for k in analisis.items_de_la_planilla(pares)]
+
+
 def _par(log, a2b, a2, **por_r):
     """a2b y a2: (registra en el pendiente, registra en el limpio)."""
     return {"log": log, "brazos": {"A2b": {"pendiente": _r(a2b[0]), "limpio": _r(a2b[1])},
@@ -763,14 +839,14 @@ class Analisis(unittest.TestCase):
     def test_las_etiquetas_de_nico_solo_pueden_quitar(self):
         pares = [_par(k, (False, False), (True, False)) for k in range(12)]
         # Nico dice que en 10 de los 12 decisivos A2 no consignó nada: la prueba cae.
-        etiquetas = [{"log": k, "brazo": "A2", "condicion": "pendiente", "registra": k < 2} for k in range(12)]
+        etiquetas = _etiquetas(pares, lambda k, j: (k[0] < 2) if k[1:] == ("A2", "pendiente") else j)
         r = analisis.analizar(pares, etiquetas)
         self.assertTrue(r["c2"]["significativa"])
         self.assertTrue(r["c2"]["sensible_al_juez"])
         self.assertIn("no se afirma", r["frase_de_9"])
         # Con un juez que no da significativa, ninguna etiqueta la crea.
         nulos = [_par(k, (False, False), (False, False)) for k in range(12)]
-        crea = [{"log": k, "brazo": "A2", "condicion": "pendiente", "registra": True} for k in range(12)]
+        crea = _etiquetas(nulos, lambda k, j: k[1:] == ("A2", "pendiente"))
         r2 = analisis.analizar(nulos, crea)
         self.assertFalse(r2["c2"]["significativa"])
         self.assertFalse(r2["c2"]["sensible_al_juez"])
@@ -793,6 +869,50 @@ class Analisis(unittest.TestCase):
                 analisis.analizar(pares, [{"log": 0, "brazo": "A2", "condicion": "pendiente", "registra": mala}])
         with self.assertRaises(ValueError):
             analisis.analizar(pares, [{"log": 0, "brazo": "A2", "condicion": "pendiente", "registra": True}] * 2)
+
+    def test_etiquetas_vacias_parciales_o_de_mas_frenan(self):
+        # v20, hallazgo 6 de la cuarta revisión: sin las etiquetas de la planilla, no se valida.
+        pares = [_par(k, (False, False), (True, False)) for k in range(6)] + \
+                [_par(k, (False, False), (False, False)) for k in range(6, 100)]
+        completas = _etiquetas(pares, lambda k, j: j)
+        de_mas = {"log": 99, "brazo": "A2b", "condicion": "limpio", "registra": False}
+        self.assertNotIn((99, "A2b", "limpio"), analisis.items_de_la_planilla(pares))
+        for malas in ([], completas[:-1], completas + [de_mas]):
+            with self.assertRaises(ValueError):
+                analisis.analizar(pares, malas)
+        self.assertIn("aumentó", analisis.analizar(pares, completas)["frase_de_9"])
+
+    def test_la_muestra_no_compensa_a_los_decisivos(self):
+        # El caso de la cuarta revisión: seis diferencias +1 del juez; Nico rechaza tres de los
+        # seis positivos decisivos y da vuelta tres false de la muestra que suman +1. Con todo
+        # lo etiquetado la suma vuelve a 6, pero con los decisivos solos cae: no se afirma.
+        pares = [_par(k, (False, False), (True, False)) for k in range(6)] + \
+                [_par(k, (False, False), (False, False)) for k in range(6, 100)]
+        r0 = analisis.analizar(pares)
+        decisivos = set(r0["items_decisivos"])
+        suman = [k for k in r0["muestra_estratificada"] if k not in decisivos
+                 and k[1:] in (("A2", "pendiente"), ("A2b", "limpio"))][:3]
+        self.assertEqual(len(suman), 3)
+        rechazados = [(k, "A2", "pendiente") for k in range(3)]
+        et = _etiquetas(pares, lambda k, j: (not j) if (k in suman or k in rechazados) else j)
+        r = analisis.analizar(pares, et)
+        self.assertEqual(r["c2_con_etiquetas_de_nico"]["suma"], 6)
+        self.assertTrue(r["c2_con_etiquetas_de_nico"]["significativa"])
+        self.assertFalse(r["c2_con_etiquetas_de_nico_solo_en_los_decisivos"]["significativa"])
+        self.assertTrue(r["c2"]["sensible_al_juez"])
+        self.assertIn("no se afirma", r["frase_de_9"])
+
+    def test_rho_brazos_es_la_probabilidad_de_compartir(self):
+        # v20, hallazgo 9 de la cuarta revisión: con rho 0,6 los brazos comparten el sorteo de
+        # una condición el 60% de las veces, no el 36%.
+        rng = analisis.random.Random(1)
+        n = 20000
+        comparten = sum(1 for _ in range(n)
+                        if len({u for (b, c), u in analisis.uniformes_de_un_log(rng, 0.6, 0.0).items()
+                                if c == "pendiente"}) == 1)
+        self.assertAlmostEqual(comparten / n, 0.6, delta=0.02)
+        u = analisis.uniformes_de_un_log(rng, 0.0, 1.0)
+        self.assertEqual((u[("A2", "pendiente")], u[("A2b", "pendiente")]), (u[("A2", "limpio")], u[("A2b", "limpio")]))
 
     def test_sin_pares_incluidos_no_es_evaluable(self):
         malo = _par(0, (True, False), (True, False))
@@ -878,6 +998,12 @@ class Analisis(unittest.TestCase):
 import corrida  # noqa: E402
 
 
+def _borrar_solo_lectura(funcion, ruta, _):
+    # git deja sus objetos en sólo lectura, y en Windows rmtree no los borra.
+    os.chmod(ruta, stat.S_IWRITE)
+    funcion(ruta)
+
+
 class Corrida(unittest.TestCase):
     """Las etapas de la corrida que no llaman a modelos, contra una carpeta armada a mano."""
 
@@ -888,7 +1014,7 @@ class Corrida(unittest.TestCase):
 
     def tearDown(self):
         corrida.DIR, corrida.PARES = self.original
-        shutil.rmtree(self.raiz)
+        shutil.rmtree(self.raiz, onexc=_borrar_solo_lectura)
 
     def log(self, k, final="pasa", automaticos=True, para_nico=None, request_id=False):
         carpeta = self.raiz / "logs" / f"{k:03d}"
@@ -974,6 +1100,150 @@ class Corrida(unittest.TestCase):
         with self.assertRaises(SystemExit):
             corrida.congelamiento_en_git()
 
+    def test_el_congelamiento_en_un_repo(self):
+        # v20, hallazgo 4 de la cuarta revisión, en un repo de git armado a mano.
+        import subprocess
+        repo = self.raiz / "repo"
+        original = arnes.EXPERIMENTO
+        arnes.EXPERIMENTO, corrida.DIR = repo, repo / "corrida"
+        try:
+            def g(*a):
+                return subprocess.run(["git", "-C", str(repo), "-c", "user.name=x", "-c", "user.email=x@x",
+                                       "-c", "core.autocrlf=false", *a], capture_output=True, check=True)
+            repo.mkdir()
+            g("init", "-q")
+            (repo / "herramientas").mkdir()
+            (repo / "herramientas" / "a.py").write_bytes(b"x = 1\n")
+            dec = repo / "corrida" / "gemelos" / "decisiones.json"
+            corrida.escribir(dec, {"000": {"C": "si"}})
+            lista = repo / "corrida" / "pares-incluidos.json"
+            corrida.escribir(lista, {"pares": [], "decisiones_md5": corrida.md5_archivo(dec)})
+            md5 = corrida.md5_archivo(lista)
+            (repo / "corrida" / "pares-incluidos.md5").write_bytes((md5 + "\n").encode())
+            (repo / "01-PROTOCOLO.md").write_bytes(b"# Protocolo\n")
+            g("add", "-A")
+            g("commit", "-q", "-m", "lista")
+            commit = g("rev-parse", "HEAD").stdout.decode().strip()
+            # Sin el md5 en «Enmiendas», no.
+            with self.assertRaises(SystemExit):
+                corrida.congelamiento_en_git()
+            (repo / "01-PROTOCOLO.md").write_bytes(f"# Protocolo\n\n## Enmiendas\n\nLista {md5}\n".encode())
+            g("commit", "-q", "-am", "enmienda")
+            self.assertEqual(corrida.congelamiento_en_git()[0], commit)
+            # Código sin commitear: no.
+            (repo / "herramientas" / "a.py").write_bytes(b"x = 2\n")
+            with self.assertRaises(SystemExit):
+                corrida.congelamiento_en_git()
+            g("checkout", "-q", "--", "herramientas/a.py")
+            # Decisiones cambiadas después del commit de la lista: no.
+            corrida.escribir(dec, {"000": {"C": "no"}})
+            g("commit", "-q", "-am", "otra decision")
+            with self.assertRaises(SystemExit):
+                corrida.congelamiento_en_git()
+            corrida.escribir(dec, {"000": {"C": "si"}})
+            g("commit", "-q", "-am", "vuelve")
+            with self.assertRaises(SystemExit):
+                corrida.congelamiento_en_git()
+        finally:
+            arnes.EXPERIMENTO = original
+
+    def test_la_lista_rehecha_se_ve(self):
+        import subprocess
+        repo = self.raiz / "repo"
+        original = arnes.EXPERIMENTO
+        arnes.EXPERIMENTO, corrida.DIR = repo, repo / "corrida"
+        try:
+            def g(*a):
+                return subprocess.run(["git", "-C", str(repo), "-c", "user.name=x", "-c", "user.email=x@x",
+                                       "-c", "core.autocrlf=false", *a], capture_output=True, check=True)
+            repo.mkdir()
+            g("init", "-q")
+            dec = repo / "corrida" / "gemelos" / "decisiones.json"
+            corrida.escribir(dec, {})
+            lista = repo / "corrida" / "pares-incluidos.json"
+            md5s = []
+            for n in (1, 2):
+                corrida.escribir(lista, {"pares": [n], "decisiones_md5": corrida.md5_archivo(dec)})
+                md5s.append(corrida.md5_archivo(lista))
+                (repo / "corrida" / "pares-incluidos.md5").write_bytes((md5s[-1] + "\n").encode())
+                (repo / "01-PROTOCOLO.md").write_bytes(f"Enmiendas: {md5s[-1]}\n".encode())
+                g("add", "-A")
+                g("commit", "-q", "-m", f"lista {n}")
+            with self.assertRaises(SystemExit):
+                corrida.congelamiento_en_git()
+        finally:
+            arnes.EXPERIMENTO = original
+
+    def test_el_objetivo_no_baja_del_de_la_corrida(self):
+        class A:
+            objetivo, limite = 1, None
+        with self.assertRaises(SystemExit) as e:
+            corrida.etapa_logs(A())
+        self.assertIn("--objetivo", str(e.exception))
+
+    def test_un_gemelo_sin_terminar_no_es_descarte(self):
+        corrida.PARES = 2
+        self.log(0)
+        g = corrida.leer(self.raiz / "gemelos" / "000" / "resumen.json")
+        del g["estado"]
+        corrida.escribir(self.raiz / "gemelos" / "000" / "resumen.json", g)
+        inc, desc, problema = corrida.elegir_pares()
+        self.assertIn("no terminó", problema)
+        self.assertNotIn(0, desc)
+
+    def test_el_request_id_sale_del_bloque_nuevo(self):
+        # v20, hallazgo 11 de la cuarta revisión: en cualquier forma, no sólo la línea aceptada.
+        self.assertFalse(gemelos.bloque_nuevo_con_request_id(GEMELO))
+        for bloque in ("request_id=req_1\nstatus=completed", '{"requestId": "abc", "rows": 3}',
+                       "results for request id req_1"):
+            g = GEMELO.replace("[09:14:12] TOOL RESULT\n", "[09:14:12] TOOL RESULT\n" + bloque + "\n")
+            self.assertTrue(gemelos.bloque_nuevo_con_request_id(g), bloque)
+
+    def test_gpt_guarda_cada_intento_y_no_reintenta_tras_un_corte(self):
+        original = piloto.una_llamada_gpt
+        try:
+            cola = [{"termino": False, "sin_cupo": False, "red_de_seguridad": False}] * 3
+            piloto.una_llamada_gpt = lambda *a, **k: (dict(cola.pop(0), tipo=k.get("tipo")), None)
+            intentos, guardados = [], []
+            estado, _, _ = corrida.gpt_con_reintentos({}, b"m", self.raiz / "x", intentos, "capacidad",
+                                                      lambda: guardados.append(len(intentos)))
+            self.assertEqual((estado, guardados, intentos[0]["tipo"]), ("fallo", [1, 2, 3], "capacidad"))
+            piloto.una_llamada_gpt = lambda *a, **k: self.fail("no debería llamarse")
+            hecho = [{"termino": True, "sin_cupo": False, "red_de_seguridad": False}]
+            self.assertEqual(corrida.gpt_con_reintentos({}, b"m", self.raiz / "x", hecho, "brazo A2",
+                                                        lambda: None)[0], "interrumpido")
+        finally:
+            piloto.una_llamada_gpt = original
+
+    def test_la_hoja_de_gemelos_no_corta_y_verifica_la_metadata(self):
+        largo = "include regional and private infrastructure, " * 12
+        self.log(0)
+        meta = json.dumps({"follow_up_scope_expansion": largo}).encode()
+        (self.raiz / "logs" / "000" / "metadata.json").write_bytes(meta)
+        est = corrida.leer(self.raiz / "logs" / "000" / "estado.json")
+        corrida.escribir(self.raiz / "logs" / "000" / "estado.json", dict(est, metadata_md5=arnes.md5_bytes(meta)))
+        corrida.escribir_decisiones()
+        hoja = (self.raiz / "gemelos" / "PARA-NICO.md").read_bytes().decode("utf-8")
+        self.assertIn(largo, hoja)
+        (self.raiz / "logs" / "000" / "metadata.json").write_bytes(meta + b" ")
+        with self.assertRaises(SystemExit):
+            corrida.escribir_decisiones()
+
+    def test_el_sorteo_agotado_se_dice(self):
+        corrida.PARES = 2
+        original = corrida.N_SORTEO
+        corrida.N_SORTEO = 3
+        try:
+            self.log(0, para_nico={})
+            self.log(1, final="descarte §4.2: 3: ...")
+            self.log(2, final="descarte §4.2: 3: ...")
+            corrida.escribir(self.raiz / "gemelos" / "decisiones.json", {"000": {"C": "si"}})
+            with self.assertRaises(SystemExit) as e:
+                corrida.etapa_incluir(None)
+            self.assertIn("Se agotaron", str(e.exception))
+        finally:
+            corrida.N_SORTEO = original
+
     def test_la_llamada_de_seguimiento_sale_del_log(self):
         self.assertEqual(corrida.llamada_de_seguimiento(LOG), 'failures.aggregate(scope="all", async=true)')
 
@@ -1008,8 +1278,12 @@ class Corrida(unittest.TestCase):
                                       "validacion": {"cumple_esquema": True, "cumple_reglas": None}, "intentos": [reg]})
                     (self.raiz / "brazos" / d / "json.txt").write_bytes(b'{"findings": []}')
                     registra = b == "A2" and c == "pendiente"
+                    textos = ["The broader query never returned."] if registra else ["Summary of failures"]
+                    m = juez.mensaje(juez.leer_prompt(), corrida.llamada_de_seguimiento(LOG), "include regional",
+                                     textos).encode("utf-8")
                     corrida.escribir(self.raiz / "juez" / d / "resumen.json",
-                                     {"veredicto": {"estado": "juzgado", "registra": registra, "llamado": True}})
+                                     {"veredicto": {"estado": "juzgado", "registra": registra, "llamado": True,
+                                                    "textos": textos, "mensaje_md5": arnes.md5_bytes(m)}})
 
     def test_armar_pares_lo_lee_el_analisis(self):
         self.armar_corrida(partido=(1,))
@@ -1044,6 +1318,20 @@ class Corrida(unittest.TestCase):
         corrida.escribir(self.raiz / "validacion" / "etiquetas.json", [dict(e, registra=False) for e in etiquetas])
         lista, faltan = corrida.leer_etiquetas()
         self.assertEqual((len(lista), faltan), (len(clave), []))
+
+    def test_la_planilla_muestra_lo_que_vio_el_juez(self):
+        # v20, hallazgo 5 de la cuarta revisión: los textos guardados por el juez, verificados
+        # contra el md5 de su mensaje.
+        self.armar_corrida()
+        corrida.etapa_validacion(None)
+        hoja = (self.raiz / "validacion" / "PARA-NICO.md").read_bytes().decode("utf-8")
+        self.assertIn('t1: "The broader query never returned."', hoja)
+        f = self.raiz / "juez" / "000-A2-pendiente" / "resumen.json"
+        r = corrida.leer(f)
+        r["veredicto"]["textos"] = ["Otro texto"]
+        corrida.escribir(f, r)
+        with self.assertRaises(SystemExit):
+            corrida.etapa_validacion(None)
 
 
 if __name__ == "__main__":

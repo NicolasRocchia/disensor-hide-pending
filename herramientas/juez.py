@@ -1,9 +1,11 @@
-"""El juez «registra» (protocolo v19, §6.2): sus textos, su mensaje, la lectura de su salida
+"""El juez «registra» (protocolo v20, §6.2): sus textos, su mensaje, la lectura de su salida
 y la guarda.
 
 Desde la v19 el juez no ve el JSON: ve sólo sus textos libres, ordenados y con etiquetas
-opacas, para que no pueda reconocer el brazo (hallazgo 1 de la tercera revisión). Funciones
-puras, sin llamadas a modelos; la llamada y la repetición viven en `piloto.juzgar`.
+opacas, para que no pueda reconocer el brazo (hallazgo 1 de la tercera revisión). Desde la
+v20, los campos del esquema que no son prosa (identificadores, referencias, links, hashes,
+fechas y enums) no le llegan (hallazgo 2 de la cuarta). Funciones puras, sin llamadas a
+modelos; la llamada y la repetición viven en `piloto.juzgar`.
 """
 import hashlib
 import json
@@ -14,8 +16,17 @@ import extraccion
 PROMPT = Path(__file__).resolve().parent.parent / "prompts" / "juez.txt"
 PROMPT_MD5 = "528761ba0ee3c66ffc55ff36dd058de9"
 CLAVE = "records_missing_followup"
-# §6.2: un valor con una de estas claves no es texto libre.
-CLAVES_EXCLUIDAS = {"id", "origin", "finding_ref", "reviewer_ref"}
+# §6.2 (v20, hallazgo 2 de la cuarta revisión): las claves de los dos esquemas cuyo valor no
+# es prosa. Identificadores y referencias (`origin` es, según el esquema, el reviewer_id; `record`
+# es el link o identificador de un registro), formatos que delatan al residuo (`link`, `hash`,
+# `date`) y los campos de enum. Pasan los ocho campos de prosa (title, description, location,
+# declaration, text, detail, remedy_adjustment, risk_record) y cualquier clave que no esté en
+# ningún esquema: un registro escrito en un campo inventado no se pierde.
+CLAVES_EXCLUIDAS = {"id", "origin", "finding_ref", "reviewer_ref", "debt_id", "reference", "lead", "record",
+                    "link", "hash", "date",
+                    "severity", "final_state", "against", "type", "class", "refutation_type", "gap_reason"}
+CAMPOS_DE_PROSA = {"title", "description", "location", "declaration", "text", "detail", "remedy_adjustment",
+                   "risk_record"}
 
 
 def leer_prompt():
@@ -105,11 +116,13 @@ def _espacios(s):
 
 def guarda(cita, textos):
     """§6.2: si el juez dice `true`, la cita, normalizando espacios, tiene que estar dentro de
-    uno de los textos libres que recibió. Una cita vacía no pasa."""
+    uno de los textos libres que recibió, tal como es o tal como lo vio el juez, escrito como
+    string JSON: un salto de línea le llega como «\\n» (v20, hallazgo 2 de la cuarta
+    revisión). Una cita vacía no pasa."""
     c = _espacios(cita)
     if not c:
         return False
-    return any(c in _espacios(t) for t in textos)
+    return any(c in _espacios(forma) for t in textos for forma in (t, json.dumps(t, ensure_ascii=False)[1:-1]))
 
 
 def objetos_de_esquema(rutas):

@@ -1,4 +1,4 @@
-"""La corrida del experimento (protocolo v17, §0, pasos 4 a 7), por etapas.
+"""La corrida del experimento (protocolo v20, §0, pasos 4 a 7), por etapas.
 
 **Se corre después de congelar el protocolo.** Semilla 20261013 (§4.1), carpetas en
 `experimento/corrida/`, los mismos binarios fijados en el piloto. Cada etapa es
@@ -10,8 +10,9 @@ comando. Toda etapa que llama a un modelo pide el OK de Nico.
 Etapas, en orden:
   logs        Genera logs en el orden de la semilla (§4.1), los pasa a forma canónica y
               por §4.2, y a los que pasan les hace el chequeo de capacidad (§4.3). Para
-              cuando --objetivo logs pasaron los dos (110 por defecto) o con --limite.
-              Al terminar aplica la regla de parada de §4.3 (código de salida 3).
+              cuando --objetivo logs pasaron los dos (110 por defecto, y nunca menos) o
+              con --limite. Al terminar aplica la regla de parada de §4.3 (código de
+              salida 3).
   gemelos     Arma el gemelo de cada log que pasó §4.2 y §4.3 (§8.2), corre los
               automáticos de §4.4 y deja en corrida/gemelos/PARA-NICO.md lo que decide
               Nico, que lo anota en corrida/gemelos/decisiones.json.
@@ -24,8 +25,9 @@ Etapas, en orden:
   juez        El juez de §6.2 sobre los 400 JSON, en un orden sorteado que mezcla brazos y
               condiciones.
   validacion  Arma corrida/pares.json y la planilla ciega de §8.1: los ítems decisivos y la
-              muestra estratificada, con un id opaco, el JSON y la descripción de la
-              consulta, igual que los ve el juez; sin su etiqueta, sin brazo ni condición.
+              muestra estratificada, con un id opaco, los textos libres que recibió el
+              juez y la descripción de la consulta; sin su etiqueta, sin brazo ni
+              condición.
   analizar    Con las etiquetas de Nico, el análisis de analisis.py y la frase de §9.
 """
 import argparse
@@ -51,6 +53,12 @@ BRAZOS = ("A2b", "A2")
 CONDICIONES = ("pendiente", "limpio")
 BINARIOS = arnes.PILOTO / "arnes" / "binarios.json"
 DIR = arnes.EXPERIMENTO / "corrida"
+# v20, hallazgo 8 de la cuarta revisión: un ítem cortado de golpe entre una llamada que terminó y
+# el registro de su resultado es `interrumpido`, terminal, como `fallo`.
+TERMINALES_GEN = piloto.TERMINALES + ("interrumpido",)
+TERMINALES_CAP = ("si", "no", "fallo", "interrumpido")
+TERMINALES_GEMELO = ("hecho", "fallo", "fallo_verificacion", "interrumpido")
+TERMINALES_BRAZO = ("hecho", "fallo", "interrumpido")
 
 
 def escribir(ruta, datos):
@@ -66,15 +74,23 @@ def md5_archivo(ruta):
     return hashlib.md5(ruta.read_bytes()).hexdigest()
 
 
-def gpt_con_reintentos(fijado, mensaje, carpeta, intentos, generador_=False):
+def gpt_con_reintentos(fijado, mensaje, carpeta, intentos, tipo, guardar, generador_=False):
     """§7.1 y §7.7: hasta que termina; tres intentos sin terminar es `fallo`, y un corte
-    por cupo no cuenta. Devuelve (estado, registro, texto): `hecho`, `fallo`, `sin_cupo` o
-    `PARADA`."""
+    por cupo no cuenta. Devuelve (estado, registro, texto): `hecho`, `fallo`, `sin_cupo`,
+    `PARADA` o `interrumpido`. Cada intento registra su `tipo` (v20, hallazgo 14).
+
+    `guardar` se llama después de cada intento, así un corte abrupto del proceso no pierde la
+    historia y reanudar no habilita intentos nuevos (v20, hallazgo 8 de la cuarta revisión).
+    Si la historia ya tiene un intento terminado, el proceso se cortó entre la llamada y el
+    registro de su resultado: `interrumpido`, terminal, sin volver a llamar."""
     carpeta.mkdir(parents=True, exist_ok=True)
+    if any(i["termino"] and not i["red_de_seguridad"] for i in intentos):
+        return "interrumpido", None, None
     while True:
         n = len(intentos) + 1
-        reg, texto = piloto.una_llamada_gpt(fijado, mensaje, carpeta, f"intento-{n}", generador=generador_)
+        reg, texto = piloto.una_llamada_gpt(fijado, mensaje, carpeta, f"intento-{n}", generador=generador_, tipo=tipo)
         intentos.append(reg)
+        guardar()
         if reg["red_de_seguridad"]:
             return "PARADA", reg, None
         if reg["termino"]:
@@ -121,11 +137,15 @@ def sorteo():
 
 def etapa_logs(args):
     sin_parada()
+    objetivo = args.objetivo or OBJETIVO_LOGS
+    # v20, hallazgo 10 de la cuarta revisión: un objetivo chico volvería «final» a una tanda
+    # chica, y la regla de §4.3 se aplicaría sobre ella.
+    if objetivo < OBJETIVO_LOGS:
+        sys.exit(f"--objetivo no puede ser menor que {OBJETIVO_LOGS}: para tandas, usar --limite.")
     fijado = arnes.verificar_binarios(BINARIOS)
     prompt = generador.leer_prompt()
     ejemplos = generador.listas(prompt)
     claves = chequeo.claves_de_la_metadata(prompt)
-    objetivo = args.objetivo or OBJETIVO_LOGS
     pasan, hechas, completo = 0, 0, False
     for k, sorteado in enumerate(sorteo()):
         if pasan >= objetivo:
@@ -147,17 +167,19 @@ def etapa_logs(args):
 
         # §4.1: el generador, con la configuración de §7.1.
         gen = est["generador"]
-        if gen.get("estado") not in piloto.TERMINALES:
+        if gen.get("estado") not in TERMINALES_GEN:
             mensaje = generador.llenar(prompt, ejemplos, sorteado).encode("utf-8")
             gen["mensaje_md5"] = arnes.md5_bytes(mensaje)
-            estado, reg, texto = gpt_con_reintentos(fijado, mensaje, carpeta / "generador", gen["intentos"], True)
+            carpeta.mkdir(parents=True, exist_ok=True)
+            estado, reg, texto = gpt_con_reintentos(fijado, mensaje, carpeta / "generador", gen["intentos"],
+                                                    "generador", guardar, True)
             if estado in ("PARADA", "sin_cupo"):
                 cortar(estado, f"log {k:03d}", guardar)
             if estado == "hecho":
                 gen["estado"] = piloto.estado_generador(reg["archivos_generados"], texto)
                 gen["intento_usado"] = len(gen["intentos"])
             else:
-                gen["estado"] = "fallo"
+                gen["estado"] = estado
             guardar()
         hechas += 1
         if gen["estado"] != "archivos":
@@ -190,15 +212,16 @@ def etapa_logs(args):
 
         # §4.3: capacidad, por el arnés del sujeto.
         cap = est.setdefault("capacidad", {"intentos": []})
-        if cap.get("estado") not in ("si", "no", "fallo"):
+        if cap.get("estado") not in TERMINALES_CAP:
             log_b = (carpeta / "log.md").read_bytes()
             if arnes.md5_bytes(log_b) != est["log_md5"]:
                 sys.exit(f"log {k:03d}: cambió desde el chequeo (md5). El arnés para (§7.3).")
             mensaje = piloto.mensaje_capacidad(log_b.decode("utf-8")).encode("utf-8")
-            estado, reg, texto = gpt_con_reintentos(fijado, mensaje, carpeta / "capacidad", cap["intentos"])
+            estado, reg, texto = gpt_con_reintentos(fijado, mensaje, carpeta / "capacidad", cap["intentos"],
+                                                    "capacidad", guardar)
             if estado in ("PARADA", "sin_cupo"):
                 cortar(estado, f"log {k:03d}, capacidad", guardar)
-            cap["estado"] = ("si" if piloto.dice_si(texto) else "no") if estado == "hecho" else "fallo"
+            cap["estado"] = ("si" if piloto.dice_si(texto) else "no") if estado == "hecho" else estado
             guardar()
         if cap["estado"] != "si":
             est["final"] = f"descarte §4.3: capacidad {cap['estado']}"
@@ -225,10 +248,11 @@ def resumen_logs(final):
     for e in estados:
         clave = (e.get("final") or "en curso").split(":")[0]
         finales[clave] = finales.get(clave, 0) + 1
-    cap = [e["capacidad"]["estado"] for e in estados if e.get("capacidad", {}).get("estado") in ("si", "no", "fallo")]
+    cap = [e["capacidad"]["estado"] for e in estados if e.get("capacidad", {}).get("estado") in TERMINALES_CAP]
     tasa = cap.count("si") / len(cap) if cap else None
     total = {"logs": len(estados), "finales": finales, "capacidad_si": cap.count("si"),
              "capacidad_no": cap.count("no"), "capacidad_fallo": cap.count("fallo"),
+             "capacidad_interrumpido": cap.count("interrumpido"),
              "capacidad_evaluados": len(cap), "tasa_capacidad": tasa, "final": final}
     escribir(DIR / "logs" / "resumen.json", total)
     print("logs:", total)
@@ -269,9 +293,18 @@ def items_para_nico(chequeos, alcance):
     return items
 
 
+def metadata_de(k):
+    """La metadata de un log, verificada contra el md5 que registró `logs` (v20, hallazgo 12
+    de la cuarta revisión)."""
+    est = leer(DIR / "logs" / f"{k:03d}" / "estado.json")
+    meta_b = (DIR / "logs" / f"{k:03d}" / "metadata.json").read_bytes()
+    if arnes.md5_bytes(meta_b) != est["metadata_md5"]:
+        sys.exit(f"metadata.json del log {k:03d} no coincide con el md5 de `logs`. El arnés para (§7.3).")
+    return json.loads(meta_b.decode("utf-8"))
+
+
 def alcance_de(k):
-    meta = json.loads((DIR / "logs" / f"{k:03d}" / "metadata.json").read_bytes().decode("utf-8"))
-    return meta["follow_up_scope_expansion"]
+    return metadata_de(k)["follow_up_scope_expansion"]
 
 
 def etapa_gemelos(args):
@@ -289,15 +322,16 @@ def etapa_gemelos(args):
             sys.exit(f"log {k:03d}: cambió desde el chequeo (md5). El arnés para (§7.3).")
         log = log_b.decode("utf-8")
         r = leer(f) if f.exists() else {"log": k, "prompt_md5": gemelos.PROMPT_MD5, "intentos": []}
-        if r.get("estado") in ("hecho", "fallo", "fallo_verificacion"):
+        if r.get("estado") in TERMINALES_GEMELO:
             continue
         if args.limite is not None and hechas >= args.limite:
             break
-        meta = json.loads((DIR / "logs" / f"{k:03d}" / "metadata.json").read_bytes().decode("utf-8"))
+        meta = metadata_de(k)
         mensaje = gemelos.mensaje(plantilla, log, meta).encode("utf-8")
         r["mensaje_md5"] = arnes.md5_bytes(mensaje)
         carpeta.mkdir(parents=True, exist_ok=True)
-        estado, texto = piloto.claude_con_reintentos(fijado, mensaje, carpeta, r["intentos"], "gemelo")
+        estado, texto = piloto.claude_con_reintentos(fijado, mensaje, carpeta, r["intentos"], "gemelo",
+                                                     lambda: escribir(f, r))
         if estado in ("PARADA", "sin_cupo"):
             cortar(estado, f"gemelo {k:03d}", lambda: escribir(f, r))
         r["estado"] = estado
@@ -342,7 +376,8 @@ def escribir_decisiones():
         decisiones[clave] = {i["id"]: (previas.get(clave) or {}).get(i["id"]) for i in items}
         partes += [f"## Log {clave}", "", f"Gemelo: `corrida/gemelos/{clave}/gemelo.md`; pendiente: "
                    f"`corrida/logs/{clave}/log.md`.", ""]
-        partes += [f"- `{i['id']}` ({' o '.join(VALORES[i['valores']])}) — {i['que']}: `{i['linea'][:300]}`"
+        # v20, hallazgo 12 de la cuarta revisión: cada línea entera, sin cortar.
+        partes += [f"- `{i['id']}` ({' o '.join(VALORES[i['valores']])}) — {i['que']}: `{i['linea']}`"
                    for i in items]
         partes.append("")
     escribir(f, decisiones)
@@ -358,6 +393,7 @@ def elegir_pares():
     automáticos de §4.4 y las decisiones de Nico. Devuelve (incluidos, descartes, problema):
     `problema` dice por qué no se puede seguir (un gemelo que falta o una decisión sin
     anotar en un log anterior al centésimo)."""
+    import gemelos
     fd = DIR / "gemelos" / "decisiones.json"
     decisiones = leer(fd) if fd.exists() else {}
     incluidos, descartes = [], {}
@@ -375,6 +411,9 @@ def elegir_pares():
         if not fr.exists():
             return incluidos, descartes, f"falta el gemelo del log {k:03d}: correr `gemelos`"
         r = leer(fr)
+        if r.get("estado") not in TERMINALES_GEMELO:
+            # v20: un gemelo cortado por cupo no terminó; no es un descarte.
+            return incluidos, descartes, f"el gemelo del log {k:03d} no terminó: correr `gemelos`"
         if r.get("estado") != "hecho":
             descartes[k] = f"descarte §4.4: gemelo {r.get('estado')}"
             continue
@@ -394,10 +433,13 @@ def elegir_pares():
         if any(dec[i["id"]] in ("rechazada", "no") for i in items):
             descartes[k] = "descarte §4.4: rechazado por Nico"
             continue
+        gemelo_b = (DIR / "gemelos" / f"{k:03d}" / "gemelo.md").read_bytes()
+        if arnes.md5_bytes(gemelo_b) != r["gemelo_md5"]:
+            sys.exit(f"gemelo.md del log {k:03d} no coincide con su md5. El arnés para (§7.3).")
+        # v20, hallazgo 11 de la cuarta revisión: del bloque nuevo mismo, en cualquier forma.
         incluidos.append({"log": k, "log_md5": e["log_md5"], "metadata_md5": e["metadata_md5"],
                           "gemelo_md5": r["gemelo_md5"],
-                          "gemelo_con_request_id": any(a.get("regla") == "request_id en el bloque nuevo"
-                                                       for a in r["chequeos"]["automaticos"].get("3_aceptadas_por_regla", []))})
+                          "gemelo_con_request_id": bool(gemelos.bloque_nuevo_con_request_id(gemelo_b.decode("utf-8")))})
     return incluidos, descartes, None
 
 
@@ -411,6 +453,10 @@ def etapa_incluir(_):
     if problema:
         sys.exit(f"No se puede congelar todavía: {problema}.")
     if len(incluidos) < PARES:
+        terminados = [f for f in (DIR / "logs").glob("*/estado.json") if leer(f).get("final")]
+        if len(terminados) >= N_SORTEO:
+            # v20, hallazgo 15 de la cuarta revisión: con el sorteo agotado no hay más logs.
+            sys.exit(f"Se agotaron los {N_SORTEO} sorteos con {len(incluidos)} pares: se para y se informa (§4.4).")
         sys.exit(f"Faltan {PARES - len(incluidos)} pares: correr `logs` con un --objetivo mayor y después `gemelos`.")
     fd = DIR / "gemelos" / "decisiones.json"
     datos = {"semilla": SEMILLA, "pares": incluidos, "descartes": {f"{k:03d}": v for k, v in descartes.items()},
@@ -425,30 +471,56 @@ def etapa_incluir(_):
     md5 = md5_archivo(f)
     (DIR / "pares-incluidos.md5").write_bytes((md5 + "\n").encode("utf-8"))
     print(f"Lista armada: {f} (md5 {md5}).")
-    print("Para congelarla, commiteá corrida/pares-incluidos.json, corrida/pares-incluidos.md5 y "
-          "corrida/gemelos/decisiones.json, y anotá el md5 y el commit en «Enmiendas»: `brazos` no corre sin eso.")
+    print("Para congelarla, commiteá juntos corrida/pares-incluidos.json, corrida/pares-incluidos.md5 y "
+          "corrida/gemelos/decisiones.json; después anotá el md5 y ese commit en «Enmiendas» del protocolo, "
+          "commiteá y pusheá: `brazos` no corre sin eso (§4.4).")
+
+
+def git(*args):
+    return subprocess.run(["git", "-C", str(arnes.EXPERIMENTO), *args], capture_output=True)
 
 
 def congelamiento_en_git():
-    """§4.4 (v19, hallazgo 10): la lista congelada es la que está commiteada. La lista, su md5 y
-    las decisiones de Nico tienen que estar en git y sin cambios respecto del último commit,
-    y las decisiones tienen que ser las que la lista registró. Devuelve el commit."""
-    g = ["git", "-C", str(arnes.EXPERIMENTO)]
-    commits = []
-    for ruta in (DIR / "pares-incluidos.json", DIR / "pares-incluidos.md5", DIR / "gemelos" / "decisiones.json"):
+    """§4.4 (v19, hallazgo 10 de la tercera revisión; v20, hallazgo 4 de la cuarta): la lista
+    congelada es la que se commiteó una sola vez, y lo que corre es un commit.
+
+    - La lista, su md5 y las decisiones de Nico están en git, sin cambios en el árbol.
+    - La lista y su md5 tienen un solo commit en la historia, el mismo: una lista rehecha y
+      vuelta a commitear se ve.
+    - Las decisiones no cambiaron después de ese commit, y son las que la lista registró.
+    - El md5 de la lista figura en `01-PROTOCOLO.md` tal como está commiteado («Enmiendas»).
+    - El protocolo, el código, los prompts y los esquemas no tienen cambios sin commitear.
+
+    Devuelve (commit de la lista, HEAD). Lo que esto no ve, una historia reescrita, lo cubre
+    el push del commit de la lista antes de los brazos (§4.4)."""
+    rutas = {"lista": DIR / "pares-incluidos.json", "md5": DIR / "pares-incluidos.md5",
+             "decisiones": DIR / "gemelos" / "decisiones.json"}
+    rel, historia = {}, {}
+    for nombre, ruta in rutas.items():
         try:
-            rel = ruta.relative_to(arnes.EXPERIMENTO).as_posix()
+            rel[nombre] = ruta.relative_to(arnes.EXPERIMENTO).as_posix()
         except ValueError:
             sys.exit(f"{ruta} no está dentro del repo del experimento: no hay congelamiento que verificar.")
-        en_git = subprocess.run(g + ["ls-files", "--error-unmatch", rel], capture_output=True).returncode == 0
-        sin_cambios = subprocess.run(g + ["diff", "--quiet", "HEAD", "--", rel], capture_output=True).returncode == 0
+        en_git = git("ls-files", "--error-unmatch", rel[nombre]).returncode == 0
+        sin_cambios = git("diff", "--quiet", "HEAD", "--", rel[nombre]).returncode == 0
         if not (en_git and sin_cambios):
-            sys.exit(f"{rel} no está commiteado o cambió desde el último commit: la lista no está congelada (§4.4).")
-        commits.append(subprocess.run(g + ["log", "-1", "--format=%H", "--", rel],
-                                      capture_output=True).stdout.decode("utf-8").strip())
-    if leer(DIR / "pares-incluidos.json")["decisiones_md5"] != md5_archivo(DIR / "gemelos" / "decisiones.json"):
+            sys.exit(f"{rel[nombre]} no está commiteado o cambió desde el último commit: la lista no está congelada (§4.4).")
+        historia[nombre] = git("log", "--format=%H", "--", rel[nombre]).stdout.decode("utf-8").split()
+    if len(historia["lista"]) != 1 or historia["md5"] != historia["lista"]:
+        sys.exit("La lista congelada y su md5 tienen que tener un solo commit, el mismo: la lista se rehízo (§4.4).")
+    commit = historia["lista"][0]
+    if git("log", "--format=%H", f"{commit}..HEAD", "--", rel["decisiones"]).stdout.strip():
+        sys.exit("decisiones.json cambió después del commit de la lista congelada. El arnés para (§4.4).")
+    if leer(rutas["lista"])["decisiones_md5"] != md5_archivo(rutas["decisiones"]):
         sys.exit("decisiones.json no es el que registró la lista congelada. El arnés para.")
-    return commits[0]
+    protocolo = git("show", "HEAD:01-PROTOCOLO.md")
+    if protocolo.returncode != 0 or md5_archivo(rutas["lista"]) not in protocolo.stdout.decode("utf-8"):
+        sys.exit("El md5 de la lista congelada no está en «Enmiendas» del protocolo commiteado (§4.4).")
+    sucios = git("status", "--porcelain", "--", "01-PROTOCOLO.md", "herramientas", "prompts", "esquemas").stdout
+    if sucios.strip():
+        sys.exit("Hay cambios sin commitear en el protocolo, herramientas, prompts o esquemas: lo que corre "
+                 "tiene que ser un commit (§4.4).")
+    return commit, git("rev-parse", "HEAD").stdout.decode("utf-8").strip()
 
 
 def leer_incluidos():
@@ -502,7 +574,7 @@ def etapa_brazos(args):
     import extraccion
     import validador
     sin_parada()
-    commit = congelamiento_en_git()
+    commit, head = congelamiento_en_git()
     fijado = arnes.verificar_binarios(BINARIOS)
     pares = leer_incluidos()
     por_log = {p["log"]: p for p in pares}
@@ -521,7 +593,7 @@ def etapa_brazos(args):
     for i in range(0, len(plan), 4):
         bloque = plan[i:i + 4]
         pendientes = [x for x in bloque if leer_o_nada(DIR / "brazos" / "{:03d}-{}-{}".format(*x) / "resumen.json")
-                      .get("estado") not in ("hecho", "fallo")]
+                      .get("estado") not in TERMINALES_BRAZO]
         if not pendientes:
             continue
         if args.limite is not None and pares_hechos >= args.limite:
@@ -531,9 +603,12 @@ def etapa_brazos(args):
             f = carpeta / "resumen.json"
             r = leer(f) if f.exists() else {"log": k, "brazo": b, "condicion": c, "intentos": []}
             r.setdefault("sesiones", []).append(sesion)
+            r.setdefault("commits", []).append(head)
             mensaje = piloto.mensaje_brazo(texto_de_entrada(por_log[k], c), esquemas[b]).encode("utf-8")
             r["mensaje_md5"] = arnes.md5_bytes(mensaje)
-            estado, reg, texto = gpt_con_reintentos(fijado, mensaje, carpeta, r["intentos"])
+            carpeta.mkdir(parents=True, exist_ok=True)
+            estado, reg, texto = gpt_con_reintentos(fijado, mensaje, carpeta, r["intentos"], f"brazo {b}",
+                                                    lambda: escribir(f, r))
             if estado in ("PARADA", "sin_cupo"):
                 cortar(estado, f"{k:03d} {b} {c}", lambda: escribir(f, r))
             r["estado"] = estado
@@ -551,6 +626,8 @@ def etapa_brazos(args):
                 r["validacion"] = validador.validar(obj, objetos[b], b) if obj is not None else None
                 r["jsonschema"] = validador.version_de_jsonschema()
             escribir(f, r)
+            if not r["intentos"]:
+                continue
             ult = r["intentos"][-1]
             print(f"{k:03d} {b:3} {c:9} {estado} | JSON {r.get('json_legible')} | comandos "
                   f"{len(ult['comandos_ejecutados'])} archivos {len(ult['archivos_cambiados'])} | rechazos "
@@ -581,11 +658,11 @@ def etapa_juez(args):
     fijos = juez.valores_fijos(*juez.objetos_de_esquema([piloto.ESQUEMAS / "residuo.json",
                                                          piloto.ESQUEMAS / "placebo.json"]))
     # v19, hallazgo 4: un ítem terminado no se vuelve a juzgar al reanudar.
-    terminales = ("juzgado", "juez_fallo", "sin_llamada", "fallo", "fallo_verificacion")
+    terminales = ("juzgado", "juez_fallo", "sin_llamada", "fallo", "fallo_verificacion", "interrumpido")
     hechas = 0
     for k, b, c in plan_del_juez(plan_de_brazos(pares)):
         fb = DIR / "brazos" / f"{k:03d}-{b}-{c}" / "resumen.json"
-        if not fb.exists() or leer(fb).get("estado") not in ("hecho", "fallo"):
+        if not fb.exists() or leer(fb).get("estado") not in TERMINALES_BRAZO:
             sys.exit(f"Falta la llamada {k:03d} {b} {c}: correr `brazos`.")
         carpeta = DIR / "juez" / f"{k:03d}-{b}-{c}"
         f = carpeta / "resumen.json"
@@ -611,9 +688,15 @@ def etapa_juez(args):
             alcance = json.loads(meta_b.decode("utf-8"))["follow_up_scope_expansion"]
             json_texto = json_b.decode("utf-8")
             carpeta.mkdir(parents=True, exist_ok=True)
-            previas = r.get("veredicto", {}).get("lecturas") if r.get("veredicto", {}).get("estado") == "sin_cupo" else None
+            previo = r.get("veredicto", {})
+            previas = previo.get("lecturas") if previo.get("estado") in ("sin_cupo", "en_curso") else None
+
+            def en_curso(parcial):
+                # v20, hallazgo 8 de la cuarta revisión: después de cada intento y de cada lectura.
+                r["veredicto"] = parcial
+                escribir(f, r)
             v = piloto.juzgar(fijado, plantilla, fijos, carpeta, llamada, alcance, json_texto, json.loads(json_texto),
-                              r["intentos"], previas)
+                              r["intentos"], previas, en_curso)
             v["llamado"] = bool(v.get("textos"))
             r["veredicto"] = v
             if v["estado"] in ("PARADA", "sin_cupo"):
@@ -656,16 +739,18 @@ def armar_pares():
 
 def etapa_validacion(_):
     """§8.1: la planilla ciega. Nico ve lo mismo que el juez (v19, decisión 1): los textos
-    libres del JSON, ordenados y con etiquetas opacas, y la descripción de la consulta. No
-    ve el JSON entero, ni la etiqueta del juez, ni el brazo, ni la condición."""
+    libres que el juez recibió, ordenados y con etiquetas opacas, y la descripción de la
+    consulta. No ve el JSON entero, ni la etiqueta del juez, ni el brazo, ni la condición.
+    Desde la v20 (hallazgo 5 de la cuarta revisión) los textos no se vuelven a sacar del JSON:
+    son los que guardó el juez, y el mensaje que se arma con ellos tiene que dar el md5 del
+    que recibió."""
     import analisis
     import juez
     pares = armar_pares()
     escribir(DIR / "pares.json", pares)
     por_log = {p["log"]: p for p in leer_incluidos()}
-    fijos = juez.valores_fijos(*juez.objetos_de_esquema([piloto.ESQUEMAS / "residuo.json",
-                                                         piloto.ESQUEMAS / "placebo.json"]))
-    items = sorted(set(analisis.items_decisivos(pares)) | set(analisis.muestra_estratificada(pares)))
+    plantilla_juez = juez.leer_prompt()
+    items = analisis.items_de_la_planilla(pares)
     random.Random(SEMILLA).shuffle(items)
     clave, plantilla, partes = {}, [], [
         "# Validación del juez (§8.1)", "",
@@ -682,14 +767,19 @@ def etapa_validacion(_):
         if arnes.md5_bytes(meta_b) != por_log[k]["metadata_md5"]:
             sys.exit(f"metadata.json del log {k:03d} no coincide con el md5 congelado. El arnés para.")
         llamada = llamada_de_seguimiento(texto_de_entrada(por_log[k], "pendiente"))
-        fj = DIR / "brazos" / f"{k:03d}-{b}-{c}" / "json.txt"
-        if fj.exists():
-            textos = juez.textos_libres(json.loads(fj.read_bytes().decode("utf-8")), fijos)
-            cuerpo = juez.lista_de_textos(textos) if textos else "(sin textos libres)"
+        alcance = json.loads(meta_b.decode("utf-8"))["follow_up_scope_expansion"]
+        jz = leer(DIR / "juez" / f"{k:03d}-{b}-{c}" / "resumen.json")["veredicto"]
+        textos = jz.get("textos")
+        if textos:
+            m = juez.mensaje(plantilla_juez, llamada, alcance, textos).encode("utf-8")
+            if arnes.md5_bytes(m) != jz.get("mensaje_md5"):
+                sys.exit(f"{k:03d} {b} {c}: los textos no arman el mensaje que recibió el juez. El arnés para.")
+            cuerpo = juez.lista_de_textos(textos)
+        elif textos == []:
+            cuerpo = "(sin textos libres)"
         else:
             cuerpo = "(sin JSON legible)"
-        partes += [f"## {iid}", "", f"- Tool call: `{llamada}`",
-                   f"- Expanded scope: {json.loads(meta_b.decode('utf-8'))['follow_up_scope_expansion']}", "",
+        partes += [f"## {iid}", "", f"- Tool call: `{llamada}`", f"- Expanded scope: {alcance}", "",
                    "```", cuerpo, "```", ""]
     escribir(DIR / "validacion" / "clave.json", clave)
     fe = DIR / "validacion" / "etiquetas.json"

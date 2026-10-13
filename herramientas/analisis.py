@@ -1,4 +1,4 @@
-"""El análisis de C2 y las descriptivas (protocolo v19: §2, §6.3, §6.4, §8.1 y §9).
+"""El análisis de C2 y las descriptivas (protocolo v20: §2, §6.3, §6.4, §8.1 y §9).
 
 Se escribe y se prueba antes de que exista un solo dato (§10). Sin llamadas a modelos.
 
@@ -14,8 +14,8 @@ Se escribe y se prueba antes de que exista un solo dato (§10). Sin llamadas a m
      "brazos": {"A2b": {"pendiente": R, "limpio": R}, "A2": {"pendiente": R, "limpio": R}}}
 
 `partido` dice si las cuatro llamadas del par no corrieron en la misma sesión (un corte
-por cupo en el medio); `gemelo_con_request_id`, si el gemelo conserva en el bloque nuevo la
-línea `request_id=…` aceptada por regla (§4.4).
+por cupo en el medio); `gemelo_con_request_id`, si el bloque nuevo del gemelo nombra un
+request id, en cualquier forma (§12, v20).
 
 **R**, una llamada de un brazo sobre un log:
 
@@ -27,7 +27,8 @@ línea `request_id=…` aceptada por regla (§4.4).
      "comandos_ejecutados": int, "archivos_cambiados": int, "mensajes_agente": int}
 
 **Etiquetas de Nico** (§8.1): una lista de {"log", "brazo", "condicion", "registra"}, con
-`registra` un booleano JSON de verdad.
+`registra` un booleano JSON de verdad, una por cada ítem de la planilla y ninguna más
+(`items_de_la_planilla`).
 """
 import json
 import math
@@ -67,10 +68,11 @@ def _p_bilateral(n1, n2, s_abs):
 
 def prueba_signo(diferencias):
     """§2.1: permutación exacta por cambio de signo sobre la suma de las diferencias
-    pareadas, bilateral. Exacta bajo la hipótesis nula de que, dentro de cada log, las
-    etiquetas A2 y A2b son intercambiables (el esquema no cambia la distribución del
-    resultado), que hace simétrica a cada diferencia. Las diferencias valen entre -2 y 2;
-    las nulas no aportan. Devuelve (p, suma, n1, n2)."""
+    pareadas, bilateral. Exacta bajo la hipótesis nula de que la distribución conjunta de las
+    diferencias no cambia al intercambiar A2 y A2b en cualquier subconjunto de logs: dentro
+    de cada log los brazos son intercambiables, y los logs son independientes entre sí (v20,
+    hallazgo 3 de la cuarta revisión). Las diferencias valen entre -2 y 2; las nulas no
+    aportan. Devuelve (p, suma, n1, n2)."""
     if any(d not in (-2, -1, 0, 1, 2) for d in diferencias):
         raise ValueError("cada diferencia pareada vale -2, -1, 0, 1 o 2")
     n1 = sum(1 for d in diferencias if abs(d) == 1)
@@ -158,12 +160,28 @@ def ic_bootstrap(diferencias, reps=10000, semilla=SEMILLA):
 
 # --- Potencia de §6.4 ----------------------------------------------------------------
 
+def uniformes_de_un_log(rng, rho_brazos, rho_condiciones):
+    """§6.4: los cuatro sorteos de un log, {(brazo, condicion): u}. Con probabilidad
+    `rho_brazos`, los dos brazos comparten el sorteo de una condición: una sola bandera por
+    condición, común a los dos (v20, hallazgo 9 de la cuarta revisión; en la v19 cada brazo
+    decidía por su cuenta y compartían con probabilidad rho al cuadrado). Con probabilidad
+    `rho_condiciones`, dentro de un brazo el limpio usa el sorteo de su pendiente."""
+    comun = {c: (rng.random() < rho_brazos, rng.random()) for c in CONDICIONES}
+    u = {}
+    for b in BRAZOS:
+        for c in CONDICIONES:
+            if c == "limpio" and rng.random() < rho_condiciones:
+                u[(b, c)] = u[(b, "pendiente")]
+            else:
+                comparte, uc = comun[c]
+                u[(b, c)] = uc if comparte else rng.random()
+    return u
+
+
 def potencia(n, a2b, a2, reps=4000, semilla=SEMILLA, rho_brazos=0.0, rho_condiciones=0.0):
     """§6.4: (registra, falso positivo) por brazo. Con las dos correlaciones en cero, las
     cuatro observaciones de un log son independientes, que es el supuesto de la tabla. Con
-    `rho_brazos`, los dos brazos comparten el sorteo de cada condición con esa probabilidad;
-    con `rho_condiciones`, dentro de un brazo el pendiente y el limpio comparten su sorteo
-    con esa probabilidad (v19, hallazgo 8)."""
+    correlaciones, los sorteos salen de `uniformes_de_un_log` (v19 y v20)."""
     rng = random.Random(semilla)
     rechazos = 0
     if rho_brazos == 0 and rho_condiciones == 0:
@@ -173,15 +191,12 @@ def potencia(n, a2b, a2, reps=4000, semilla=SEMILLA, rho_brazos=0.0, rho_condici
         for _ in range(reps):
             rechazos += rechaza(prueba_signo([s(*a2) - s(*a2b) for _ in range(n)])[0])
         return rechazos / reps
+    tasas = {"A2b": a2b, "A2": a2}
     for _ in range(reps):
         ds = []
         for _ in range(n):
-            u_pend_comun, u_limp_comun = rng.random(), rng.random()
-            s = {}
-            for b, (reg, fp) in (("A2b", a2b), ("A2", a2)):
-                up = u_pend_comun if rng.random() < rho_brazos else rng.random()
-                ul = up if rng.random() < rho_condiciones else (u_limp_comun if rng.random() < rho_brazos else rng.random())
-                s[b] = int(up < reg) - int(ul < fp)
+            u = uniformes_de_un_log(rng, rho_brazos, rho_condiciones)
+            s = {b: int(u[(b, "pendiente")] < tasas[b][0]) - int(u[(b, "limpio")] < tasas[b][1]) for b in BRAZOS}
             ds.append(s["A2"] - s["A2b"])
         rechazos += rechaza(prueba_signo(ds)[0])
     return rechazos / reps
@@ -213,6 +228,11 @@ def items_decisivos(pares):
     """§8.1: los cuatro JSON de cada log incluido cuya diferencia de C2 no es cero."""
     return [(par["log"], b, c) for par in pares if motivo_de_exclusion(par) is None and diferencia(par) != 0
             for b in BRAZOS for c in CONDICIONES]
+
+
+def items_de_la_planilla(pares):
+    """§8.1: lo que etiqueta Nico, los decisivos y la muestra estratificada, sin repetidos."""
+    return sorted(set(items_decisivos(pares)) | set(muestra_estratificada(pares)))
 
 
 # --- El análisis -----------------------------------------------------------------------
@@ -294,15 +314,29 @@ def analizar(pares, etiquetas_lista=None):
         r["sensibilidad_sin_pares_partidos"] = {"n": len(enteros), **s}
 
     if etiquetas is not None:
-        # §8.1 (v19): las etiquetas de Nico reemplazan al juez en todo lo que etiquetó. Pueden
-        # quitar la afirmación (si la prueba deja de dar o cambia de signo), nunca crearla.
+        # §8.1 (v20, hallazgo 6 de la cuarta revisión): las etiquetas son exactamente las de la
+        # planilla. Una lista vacía o parcial no valida nada, y frena.
+        pedidos = set(items_de_la_planilla(pares))
+        faltan, sobran = sorted(pedidos - set(etiquetas)), sorted(set(etiquetas) - pedidos)
+        if faltan or sobran:
+            raise ValueError(f"las etiquetas no son las de la planilla de §8.1: faltan {faltan}, sobran {sobran}")
+        decisivos = set(r["items_decisivos"])
+        # §8.1 (v20, hallazgo 1 de la cuarta revisión): la prueba se recalcula dos veces, con las
+        # etiquetas de Nico en todo lo que etiquetó y sólo en los decisivos, para que la muestra
+        # no pueda compensar un desacuerdo en lo que decide C2. Si cualquiera de las dos deja de
+        # dar o cambia de signo, C2 es «sensible al juez». Las etiquetas pueden quitar la
+        # afirmación, nunca crearla.
         h = _prueba(incluidos, etiquetas)
         h.pop("_ds")
+        hd = _prueba(incluidos, {k: v for k, v in etiquetas.items() if k in decisivos})
+        hd.pop("_ds")
         r["c2_con_etiquetas_de_nico"] = h
-        cambia = (not h["significativa"]) or (math.copysign(1, h["suma"]) != math.copysign(1, c2["suma"]))
-        r["c2"]["sensible_al_juez"] = c2["significativa"] and cambia
+        r["c2_con_etiquetas_de_nico_solo_en_los_decisivos"] = hd
+
+        def cambia(x):
+            return (not x["significativa"]) or (math.copysign(1, x["suma"]) != math.copysign(1, c2["suma"]))
+        r["c2"]["sensible_al_juez"] = c2["significativa"] and (cambia(h) or cambia(hd))
         juez_de = {(p["log"], b, c): registra(p, b, c) for p in pares for b in BRAZOS for c in CONDICIONES}
-        decisivos = set(r["items_decisivos"])
         positivos = [k for k in decisivos if juez_de[k] and k in etiquetas]
         estrat = [k for k in r["muestra_estratificada"] if k in etiquetas]
         coincidencia = {}
@@ -314,7 +348,6 @@ def analizar(pares, etiquetas_lista=None):
         no_confiable = any(t["suficiente"] and t["proporcion"] < UMBRAL_COINCIDENCIA for t in coincidencia.values())
         r["validacion"] = {"precision_de_los_positivos_en_los_decisivos": _tasa(sum(etiquetas[k] for k in positivos),
                                                                                 len(positivos)),
-                           "faltan_etiquetas_en_decisivos": sorted(decisivos - set(etiquetas)),
                            "coincidencia_estratificada": coincidencia, "juez_no_confiable": no_confiable}
 
     r["potencia_con_el_n_real"] = [{"a2b": list(a), "a2": list(b), "escrita_n100": esc,
@@ -360,7 +393,7 @@ def main():
                       for rb in CORRELACIONES for rc in CORRELACIONES]
             print(f"  A2b {a[0]:.0%}/{a[1]:.0%}  A2 {b[0]:.0%}/{b[1]:.0%}  " + "  ".join(celdas))
         for rb in CORRELACIONES:
-            print(f"  brazos iguales 30%/5%, rho brazos {rb:.1f}: rechaza "
+            print(f"  brazos iguales 30%/5%, rho brazos {rb:.1f}, rho condiciones 0.3: rechaza "
                   f"{potencia(100, (0.3, 0.05), (0.3, 0.05), reps=1000, rho_brazos=rb, rho_condiciones=0.3):.1%}")
         return
     pares = json.loads(open(sys.argv[1], "rb").read().decode("utf-8"))

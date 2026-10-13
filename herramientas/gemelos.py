@@ -92,6 +92,20 @@ def _indices(ents):
     return {"primero": primero, "seguimiento": seg, "evento": siguiente, "final": final}
 
 
+RE_REQUEST_ID = re.compile(r"request[ _-]?id", re.I)
+
+
+def bloque_nuevo_con_request_id(gemelo):
+    """§12 (v20, hallazgo 11 de la cuarta revisión): si el bloque nuevo del gemelo (la entrada
+    que reemplazó al evento de la consulta de seguimiento) nombra un request id, en cualquier
+    forma o línea. None si no se encuentra el bloque."""
+    eg = chequeo.entradas(gemelo)
+    ig = _indices(eg)
+    if ig is None or ig.get("evento") is None:
+        return None
+    return bool(RE_REQUEST_ID.search(_texto_de_entrada(eg, ig["evento"])))
+
+
 def chequear(pendiente, gemelo):
     """§4.4 sobre el log pendiente y su gemelo, los dos en forma canónica."""
     ep, eg = chequeo.entradas(pendiente), chequeo.entradas(gemelo)

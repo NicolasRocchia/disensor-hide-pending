@@ -295,7 +295,7 @@ def estado_generador(archivos, texto):
     return "sin_log"
 
 
-def una_llamada_gpt(fijado, mensaje, carpeta, prefijo, generador=False, efimero=True):
+def una_llamada_gpt(fijado, mensaje, carpeta, prefijo, generador=False, efimero=True, tipo=None):
     """Una llamada de §7.1, con la red de seguridad. Devuelve el registro del intento y
     el texto del último mensaje (None si no hay o no decodifica).
 
@@ -336,6 +336,8 @@ def una_llamada_gpt(fijado, mensaje, carpeta, prefijo, generador=False, efimero=
     registro = {
         "inicio": r["inicio"], "duracion_s": r["duracion_s"], "codigo": r["codigo"],
         "termino": termino, "mensaje_md5": arnes.md5_bytes(mensaje), "generador": generador,
+        # §7.5 (v20, hallazgo 14 de la cuarta revisión): el tipo de llamada, en el intento.
+        "tipo": tipo,
         # §7.5 (v19, hallazgo 16): cada intento se puede auditar solo.
         "comando": [str(a) for a in comando], "modelo": arnes.MODELO_GPT, "esfuerzo": arnes.ESFUERZO_GPT,
         "binario_sha256": fijado["codex_sha256"], "binario_version": fijado["codex_version"],
@@ -391,7 +393,8 @@ def etapa_generar(args):
         estado = None
         while estado is None:
             n = len(resumen["intentos"]) + 1
-            reg, texto_ultimo = una_llamada_gpt(fijado, mensaje, carpeta, f"intento-{n}", generador=True)
+            reg, texto_ultimo = una_llamada_gpt(fijado, mensaje, carpeta, f"intento-{n}", generador=True,
+                                                tipo="generador")
             resumen["intentos"].append(reg)
             if reg["red_de_seguridad"]:
                 resumen["estado"] = "PARADA"
@@ -592,7 +595,7 @@ def etapa_capacidad(args):
         estado = None
         while estado is None:
             n = len(resumen["intentos"]) + 1
-            reg, texto = una_llamada_gpt(fijado, mensaje, carpeta, f"intento-{n}")
+            reg, texto = una_llamada_gpt(fijado, mensaje, carpeta, f"intento-{n}", tipo="capacidad")
             resumen["intentos"].append(reg)
             if reg["red_de_seguridad"]:
                 resumen["estado"] = "PARADA"
@@ -640,7 +643,9 @@ def agregar_capacidad(lista):
             gasto["intentos"] += 1
             rechazos["shell"] += it["shell_rechazados"]
             rechazos["apply_patch"] += it["parches_rechazados"]
-    terminados = estados.get("si", 0) + estados.get("no", 0)
+    # v20, hallazgo 10 de la cuarta revisión: una capacidad que no terminó cuenta como que no
+    # pasa, igual que en la corrida (§4.3). En el piloto no hubo ninguna: 50 de 50.
+    terminados = estados.get("si", 0) + estados.get("no", 0) + estados.get("fallo", 0)
     tasa = estados.get("si", 0) / terminados if terminados else None
     completo = not estados.get("pendiente") and not estados.get("sin_cupo")
     total = {"logs": len(lista), "estados": estados, "tasa_si": tasa, "umbral": UMBRAL_CAPACIDAD,
@@ -685,19 +690,28 @@ def una_llamada_claude(fijado, mensaje, carpeta, prefijo):
     return registro, (st["resultado"] if termino else None)
 
 
-def claude_con_reintentos(fijado, mensaje, carpeta, intentos, etiqueta):
+def claude_con_reintentos(fijado, mensaje, carpeta, intentos, etiqueta, guardar=None):
     """§7.2 y §7.7: una llamada a Claude hasta que termina verificada. Una que termina sin
     verificar se repite una vez; una que no termina, hasta tres. Los registros se agregan a
     `intentos`, numerados en orden. Devuelve (estado, texto): `hecho`, `fallo`,
-    `fallo_verificacion`, `sin_cupo` o `PARADA`.
+    `fallo_verificacion`, `sin_cupo`, `PARADA` o `interrumpido`.
 
     Los límites se cuentan sobre toda la historia del ítem con la misma `etiqueta`, no sólo
-    sobre esta invocación: reanudar no habilita intentos nuevos (v19, hallazgo 4)."""
+    sobre esta invocación: reanudar no habilita intentos nuevos (v19, hallazgo 4). `guardar`
+    se llama después de cada intento, así un corte abrupto del proceso no pierde la historia
+    (v20, hallazgo 8 de la cuarta revisión). Si la historia ya tiene un intento terminado y
+    verificado con esta etiqueta, el proceso se cortó entre la llamada y el registro de su
+    resultado: el ítem es `interrumpido`, terminal, y no se vuelve a llamar."""
+    if any(i.get("etiqueta") == etiqueta and i["termino"] and i["verificado"] and not i["red_de_seguridad"]
+           for i in intentos):
+        return "interrumpido", None
     while True:
         n = len(intentos) + 1
         reg, texto = una_llamada_claude(fijado, mensaje, carpeta, f"intento-{n}")
         reg["etiqueta"] = etiqueta
         intentos.append(reg)
+        if guardar is not None:
+            guardar()
         propios = [i for i in intentos if i.get("etiqueta") == etiqueta]
         if reg["red_de_seguridad"]:
             return "PARADA", None
@@ -712,12 +726,15 @@ def claude_con_reintentos(fijado, mensaje, carpeta, intentos, etiqueta):
             return "fallo", None
 
 
-def juzgar(fijado, plantilla, fijos, carpeta, llamada, alcance, json_texto, obj, intentos, previas=None):
+def juzgar(fijado, plantilla, fijos, carpeta, llamada, alcance, json_texto, obj, intentos, previas=None,
+           guardar=None):
     """§6.2: el juez sobre los textos libres de un JSON. Sin JSON, o sin ningún texto libre,
     «no registra» sin llamar. Si la salida no se lee o un `true` no pasa la guarda, se corre
     una vez más; si vuelve a pasar, «juez falló». `previas` son las lecturas de una
-    invocación cortada por cupo: se sigue desde la vuelta siguiente, sin repetir ninguna.
-    Devuelve el veredicto con sus lecturas."""
+    invocación cortada (por cupo o de golpe): se sigue desde la vuelta siguiente, sin repetir
+    ninguna. `guardar`, si se pasa, recibe el veredicto `en_curso` después de cada intento y
+    de cada lectura (v20, hallazgo 8 de la cuarta revisión). Devuelve el veredicto con sus
+    lecturas."""
     import juez
     if json_texto is None:
         return {"estado": "juzgado", "registra": False, "motivo": "sin JSON legible", "lecturas": []}
@@ -727,19 +744,25 @@ def juzgar(fijado, plantilla, fijos, carpeta, llamada, alcance, json_texto, obj,
     mensaje = juez.mensaje(plantilla, llamada, alcance, textos).encode("utf-8")
     base = {"mensaje_md5": arnes.md5_bytes(mensaje), "textos": textos}
     lecturas = list(previas or [])
+
+    def en_curso():
+        if guardar is not None:
+            guardar({"estado": "en_curso", "lecturas": lecturas, **base})
     for vuelta in range(len(lecturas) + 1, 3):
-        estado, texto = claude_con_reintentos(fijado, mensaje, carpeta, intentos, f"juez-{vuelta}")
+        estado, texto = claude_con_reintentos(fijado, mensaje, carpeta, intentos, f"juez-{vuelta}", en_curso)
         if estado != "hecho":
             return {"estado": estado, "lecturas": lecturas, **base}
         lectura = juez.leer_salida(texto)
         if lectura is None:
             lecturas.append({"vuelta": vuelta, "se_lee": False})
+            en_curso()
             continue
         veredicto, cita = lectura
         pasa = (not veredicto) or juez.guarda(cita, textos)
         lecturas.append({"vuelta": vuelta, "se_lee": True, "veredicto": veredicto, "cita": cita, "pasa_la_guarda": pasa})
         if pasa:
             return {"estado": "juzgado", "registra": veredicto, "cita": cita, "lecturas": lecturas, **base}
+        en_curso()
     return {"estado": "juez_fallo", "lecturas": lecturas, **base}
 
 
@@ -797,6 +820,9 @@ def etapa_juez_prueba(_):
             previo = leer_json(resumen_f)
             if previo.get("prompt_md5") != juez.PROMPT_MD5:
                 sys.exit(f"{resumen_f}: es de otro prompt. El arnés para.")
+            # v20: con la regla de textos nueva, el mensaje tiene que ser el mismo byte a byte.
+            if previo["veredicto"].get("textos") != juez.textos_libres(json.loads(json_texto), fijos):
+                sys.exit(f"{resumen_f}: el juez recibió otros textos que los de la regla actual. El arnés para.")
             if previo["veredicto"]["estado"] in ("juzgado", "juez_fallo"):
                 filas.append(previo)
                 continue
@@ -1071,7 +1097,8 @@ def etapa_humo(_):
             n = len(resumen["intentos"]) + 1
             persistir = orden == 0 and n == 1
             t0 = time.time()
-            reg, texto = una_llamada_gpt(fijado, mensaje, carpeta, f"intento-{n}", efimero=not persistir)
+            reg, texto = una_llamada_gpt(fijado, mensaje, carpeta, f"intento-{n}", efimero=not persistir,
+                                         tipo="humo")
             if persistir:
                 resumen["bytes_por_stdin"] = buscar_en_sesiones(t0, texto_mensaje)
             resumen["intentos"].append(reg)
