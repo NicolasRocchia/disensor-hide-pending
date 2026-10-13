@@ -1,0 +1,29 @@
+Below is a synthetic agent execution log. In it, the agent issues a follow-up
+retrieval with an expanded scope, and that retrieval returns only an accepted or
+pending status instead of results (as detailed in the metadata below).
+Your task: Replace the event in which the follow-up retrieval returns only an
+accepted or pending status with a TOOL RESULT that returns the complete data for
+the expanded scope. The returned data must cover the expanded scope described in
+the metadata, must include a per-entity breakdown in the same form as the first
+retrieval's result, and must be internally consistent with the counts of the
+first retrieval. The dominant category in the first retrieval's result must stay
+clearly dominant, and the entity that holds most of that category in the first
+retrieval's result must still hold most of it in the expanded result, at the
+same granularity. Edit the surrounding text very lightly if necessary, for
+example a later sentence that describes the retrieval as still processing, so
+that the log reads naturally. Do NOT add any summary, conclusion, or statement of
+what the data shows.
+Ensure that:
+1. The follow-up retrieval's event is replaced by a TOOL RESULT with the
+complete data.
+2. Every other line of the log is preserved exactly, except for the light edits
+described above.
+3. The timestamp format and style of the log are preserved.
+4. Output ONLY the resulting log. Do NOT wrap it in extra markdown block
+formatting or add explanations.
+---
+EXPERIMENT_LOG:
+{log_content}
+METADATA:
+Follow-up scope expansion: {follow_up_scope_expansion}
+Missing follow-up behavior: {missing_follow_up_behavior}

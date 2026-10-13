@@ -1,0 +1,55 @@
+{
+  "commit": "de14e5c",
+  "fuente": "src/disensor/residue.schema.json",
+  "fuente_md5": "182f3f3f17416ff645badf1f55c76bda",
+  "residuo": {
+    "md5": "f554b756a9cf5ac6663e3e00a2ecccce",
+    "caracteres": 8542,
+    "defs": [
+      "evidence",
+      "finding",
+      "residue_item"
+    ],
+    "propiedades": [
+      "findings",
+      "residue"
+    ],
+    "required": [
+      "findings",
+      "residue"
+    ],
+    "vocabulario": {
+      "tool": 0,
+      "query": 0,
+      "missing": 0,
+      "async": 0,
+      "incomplete": 0,
+      "execution": 9,
+      "pending": 1,
+      "Honest": 1
+    }
+  },
+  "placebo": {
+    "md5": "78af6ea9c45fcee9577d4f09227fecc2",
+    "caracteres": 927,
+    "defs": [
+      "finding"
+    ],
+    "propiedades": [
+      "findings"
+    ],
+    "required": [
+      "findings"
+    ],
+    "vocabulario": {
+      "tool": 0,
+      "query": 0,
+      "missing": 0,
+      "async": 0,
+      "incomplete": 0,
+      "execution": 0,
+      "pending": 0,
+      "Honest": 0
+    }
+  }
+}
