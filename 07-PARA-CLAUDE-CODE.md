@@ -143,10 +143,20 @@ brazos ni el informe antes que Nico.**
   entre la llamada y el registro queda `interrumpido`, terminal: no se vuelve a
   llamar.
 
+**Lo que agrega la v21** (quinta revisión, `21`):
+
+- En «Enmiendas» van el md5 de la lista y su commit **entero** (40 caracteres), y
+  el commit tiene que estar en un remoto: hace falta configurar el remoto del
+  experimento y pushear antes de `brazos`.
+- `brazos`, `juez`, `validacion` y `analizar` verifican el congelamiento. El plan
+  de los brazos fija el árbol de `herramientas`, `prompts` y `esquemas`: un cambio
+  de código después de la primera llamada sólo corre si una enmienda anota el md5
+  del árbol nuevo en el protocolo.
+
 ## Siguiente (13/10/2026)
 
 El piloto terminó (capacidad 50 de 50, `12`). `juez-prueba` con el prompt ciego:
 5 de 5 (`18`); con la regla de textos de la v20 el juez recibe los mismos textos, y
 la etapa lo verifica sin llamar. La cuarta revisión está en `19` y sus arreglos en
-la v20 (`20`). Falta la quinta ronda de Codex, sobre el diff de la v20, que Nico
-ya pidió; después se congela (§0, paso 4).
+la v20 (`20`). La quinta, sobre el diff de la v20, está en `21` y sus arreglos en
+la v21. Lo que sigue lo decide Nico: otra ronda o congelar (§0, paso 4).

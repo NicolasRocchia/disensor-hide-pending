@@ -1,6 +1,6 @@
 # Protocolo · Fase 1: ¿el esquema de residuo hace que el registro consigne el hueco?
 
-**Estado: v20, NO congelado.** Incorpora lo que midió el piloto en la máquina de
+**Estado: v21, NO congelado.** Incorpora lo que midió el piloto en la máquina de
 Nico (`05-PRUEBA-SANDBOX-1.md`, `06-PRUEBA-SANDBOX-2.md`,
 `08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`, `09-PILOTO-GENERAR-1.md`,
 `10-PRUEBA-SANDBOX-GENERADOR.md`, `11-PILOTO-GENERAR-Y-CHEQUEAR.md`,
@@ -36,9 +36,9 @@ El orden es parte del diseño: cada paso que necesita una decisión humana ocurr
    OK de Nico para esa llamada. **Hecha el 13/10/2026** (`16-REVISION-CODEX.md`):
    16 hallazgos; lo que se hizo con cada uno está en §15, v19. **Cuarta revisión,
    también por Codex, sobre el diff de la v19** (`19-REVISION-CODEX-2.md`): 14
-   hallazgos; lo que se hizo, en §15, v20. Antes de congelar, una ronda más sobre
-   el diff de la v20, por decisión de Nico. Con eso, **se congela el protocolo.**
-   Desde ahí,
+   hallazgos; lo que se hizo, en §15, v20. **Quinta, sobre el diff de la v20**,
+   por decisión de Nico (`21-REVISION-CODEX-3.md`): 8 hallazgos; lo que se hizo,
+   en §15, v21. Con eso, **se congela el protocolo.** Desde ahí,
    todo cambio va en «Enmiendas» con fecha y motivo, y si toca un prompt o un
    umbral después de haber visto un resultado, la corrida se descarta entera.
 5. **Logs y gemelos limpios** (§4.1 a §4.4): se generan, se chequean y se
@@ -355,21 +355,38 @@ Cualquier otro valor (un `false`, una errata, «sí» con tilde) frena `incluir`
 **El congelamiento de la lista es el commit** (v19, hallazgo 10 de la tercera
 revisión; v20, hallazgo 4 de la cuarta): la lista de pares incluidos registra el
 md5 de `decisiones.json`. Se commitean juntos la lista, su md5 y las decisiones;
-después, el md5 de la lista y ese commit van en «Enmiendas», se commitea el
-protocolo y **se pushea al remoto antes de la primera llamada a los brazos**, así
-el congelamiento tiene una fecha que no depende de esta máquina. `brazos` (y
-`juez`) no corren si:
+después, el md5 de la lista y ese commit, con sus 40 caracteres, van en
+«Enmiendas», se commitea el protocolo y **se pushea al remoto antes de la primera
+llamada a los brazos**, así el congelamiento tiene una fecha que no depende de esta
+máquina. `brazos`, `juez`, `validacion` y `analizar` no corren si (v21, hallazgo 1
+de la quinta revisión: antes, `validacion` y `analizar` sólo miraban el md5):
 
 - la lista, su md5 o las decisiones no están commiteados, o cambiaron en el árbol;
 - la lista o su md5 tienen más de un commit en la historia, o no el mismo: una
   lista rehecha y vuelta a commitear se ve;
 - las decisiones cambiaron después del commit de la lista;
-- el md5 de la lista no figura en el protocolo tal como está commiteado;
+- el md5 de la lista o su commit no figuran en el protocolo tal como está
+  commiteado;
+- el commit de la lista no está en ningún remoto (v21, hallazgo 2);
+- la lista no tiene exactamente 100 pares;
 - hay cambios sin commitear en el protocolo, `herramientas/`, `prompts/` o
   `esquemas/`: lo que corre es siempre un commit, y cada llamada a un brazo guarda
-  cuál.
+  cuál;
+- **lo que corre cambió desde la primera llamada a los brazos** (v21, hallazgo 3):
+  el plan de los brazos guarda, con la lista, el md5 de los árboles de
+  `herramientas/`, `prompts/` y `esquemas/`, y después sólo se acepta ese árbol o
+  uno que una enmienda anote en el protocolo commiteado. Cada llamada guarda el
+  árbol con que corrió;
+- el plan de los brazos falta habiendo resultados (no se regenera), o algún
+  resultado de los brazos es de otra lista (cada uno guarda el commit de la suya).
 
-Lo que esto no ve, una historia reescrita, lo cubre el push.
+**Lo que esto no ve.** Una rama paralela, armada desde antes del congelamiento con
+otra lista y su propio protocolo, o una historia reescrita, pasan estos chequeos en
+esa rama: el código sólo ve la historia que tiene delante. Lo cubre un ancla fuera
+de esta máquina: el remoto con el commit de la lista desde antes de la primera
+llamada, y el repo público al terminar. La quinta revisión lo señaló, y tiene
+razón en que el push solo no lo cubre si el remoto se puede reescribir; queda
+declarado (§12, limitación 12).
 
 **Tope del sorteo** (v19, hallazgo 15): se sortean 1.000 logs de una vez, en el
 orden de la semilla. Si con los 1.000 no se llega a 100 pares, se para y se
@@ -608,7 +625,13 @@ Pasan los ocho campos de prosa de los esquemas (`title`, `description`,
 `location`, `declaration`, `text`, `detail`, `remedy_adjustment` y
 `risk_record`) y **cualquier clave que no esté en ningún esquema**: un registro
 escrito en un campo inventado no se pierde. Una prueba exige que toda clave de los
-esquemas sea prosa, no prosa o contenedor, sin ninguna sin decidir. Sin nombres de
+esquemas sea prosa, no prosa o contenedor, sin ninguna sin decidir. **Desde la
+v21** (hallazgo 4 de la quinta revisión), además, un valor sin ningún espacio que
+no es una palabra (letras, con guiones o apóstrofos) es técnico y no llega bajo
+ninguna clave: un hash, un link, una fecha, un id, un token del esquema como
+`execution_gap`. Una clave contenedora escrita como string (`"residue": "…"`) no se
+descarta por su clave: en A2b `residue` es una clave desconocida, y descartarla
+sólo en A2 haría perder un registro en un brazo y no en el otro. Sin nombres de
 campo, sin números ni booleanos, sin repetidos, **ordenados alfabéticamente** para
 que el orden no deje ver la estructura, y cada uno con una etiqueta opaca (`t1`,
 `t2`…) y escrito como string JSON, así un salto de línea adentro no rompe la
@@ -734,15 +757,21 @@ menos de un punto de las escritas; con los brazos iguales rechaza entre 3,1% y
 con correlaciones positivas, con ρ en 0, 0,3 y 0,6 y 1.000 réplicas por celda
 (`analisis.uniformes_de_un_log`): con probabilidad ρ entre brazos, los dos brazos
 comparten el sorteo de una condición, con una sola bandera por condición común a
-los dos; con probabilidad ρ entre condiciones, dentro de un brazo el limpio usa el
-sorteo de su pendiente. **Rehecha en la v20** (hallazgo 9 de la cuarta revisión):
-en la v19 cada brazo decidía por su cuenta si usaba el sorteo común, y con ρ = 0,6
-compartían el 36% de las veces, no el 60%. Con el modelo corregido, ninguna celda
-queda debajo de la tabla fuera del ruido de la simulación (unos 2,5 puntos con
-1.000 réplicas: la más baja queda 1,4 puntos debajo); la correlación entre brazos
-sube la potencia (en la primera fila, de 83% sin correlación a 96% y 97% con
-ρ = 0,6), la correlación entre condiciones casi no la mueve, y con los brazos
-iguales el rechazo queda entre 3,9% y 4,7% (`analisis.py potencia`). Correlaciones
+los dos; con probabilidad ρ entre condiciones, en los dos brazos el limpio usa el
+sorteo de su pendiente, con una sola bandera por log. Así los brazos comparten cada
+condición con probabilidad ρ entre brazos, y cada brazo repite su pendiente en el
+limpio con probabilidad ρ entre condiciones, con las dos a la vez (una prueba lo
+mide). **Rehecha en la v20 y en la v21** (hallazgo 9 de la cuarta revisión y 6 de
+la quinta): en la v19 cada brazo decidía por su cuenta si usaba el sorteo común, y
+con ρ = 0,6 compartían el 36% de las veces; en la v20 la bandera del limpio era por
+brazo, y con las dos correlaciones el limpio se compartía entre el 31% y el 35% de
+las veces. Con el modelo de la v21, ninguna celda queda debajo de la tabla fuera
+del ruido de la simulación (unos 2,5 puntos con 1.000 réplicas: la más baja queda
+1,6 puntos debajo); la correlación entre brazos sube la potencia (en la primera
+fila, de 83% sin correlación a 97% con ρ = 0,6); la correlación entre condiciones
+la mueve menos, y en las filas con falsos positivos la sube (en la quinta, de 47%
+a 54%); y con los brazos iguales el rechazo queda entre 2,7% y 3,0%
+(`analisis.py potencia`). Correlaciones
 negativas o una heterogeneidad distinta entre logs podrían bajarla: la tabla es una
 guía, no una garantía. «Un poco conservadora», arriba, habla del tamaño de la
 prueba (rechaza menos que α por lo discreto de los datos), no de este supuesto.
@@ -1035,7 +1064,14 @@ revisión), también el tipo de llamada en los de GPT (`generador`, `capacidad`,
   llegó a registrarse (el corte cayó entre la llamada y el registro), el ítem es
   **`interrumpido`**: terminal, como `fallo`, y no se vuelve a llamar, para que un
   corte nunca sea una segunda oportunidad. En los brazos y el juez, el log sale de
-  C2 para los dos brazos; en `logs` y `gemelos`, el log no llega a par.
+  C2 para los dos brazos; en `logs` y `gemelos`, el log no llega a par. **Desde la
+  v21** (hallazgo 5 de la quinta revisión), cada intento se guarda «en vuelo»
+  antes de llamar y se reemplaza al volver: si al reanudar queda uno en vuelo y la
+  llamada alcanzó a dejar archivos, el ítem es `interrumpido`; si no dejó nada,
+  cuenta como un intento que no terminó. Y la historia se revisa antes de llamar:
+  los límites ya alcanzados (tres sin terminar, dos sin verificar) devuelven su
+  estado sin otra llamada, y una red de seguridad deja el ítem en `fallo`, porque
+  es falla de la llamada (§7.1), no un intento más después de la revisión.
 - **Cortes a mitad de un par** (v19, hallazgo 11): `--limite` cuenta pares
   enteros, nunca llamadas sueltas. Un corte por cupo sí puede caer a mitad de un
   par: cada llamada registra la sesión en que terminó, un par con llamadas en
@@ -1085,7 +1121,8 @@ la guarda sigue siendo mecánica y la regla de arriba sólo deja quitar.
 uno por ítem: una cadena «false», un id que falta o uno repetido frenan el
 análisis (v19, hallazgos 2 y 13). `analisis.py` lo exige también por su cuenta,
 fuera de `corrida.py`: una lista vacía, parcial o con ítems de más frena (v20,
-hallazgo 6 de la cuarta revisión).
+hallazgo 6 de la cuarta revisión), también cuando ningún par quedó incluido (v21,
+hallazgo 7 de la quinta).
 
 **Escrito** (`analisis.py`, con pruebas de que las etiquetas sólo pueden quitar):
 la muestra estratificada se sortea con la semilla 20261013 entre los JSON que el
@@ -1262,7 +1299,8 @@ ninguna de las dos cosas se midió acá.
    discriminación con esas pistas presentes. Los falsos positivos se informan por
    separado según el bloque nuevo del gemelo nombre o no un request id, en
    cualquier forma (`request_id=…`, `"requestId"`, «request id»), no sólo la línea
-   que se acepta por regla (v20, hallazgo 11 de la cuarta revisión).
+   que se acepta por regla (v20, hallazgo 11 de la cuarta revisión), y no un
+   prefijo como «request identity» (v21, hallazgo 8 de la quinta).
 10. **Respuesta y JSON en una sola generación** (§1): el resultado no dice nada de
    un reporte pedido después de una respuesta ya escrita.
 11. **El juez todavía puede adivinar el brazo** (v20, hallazgo 2 de la cuarta
@@ -1273,6 +1311,13 @@ ninguna de las dos cosas se midió acá.
    entre título y descripción; Nico eligió la lista de campos. La defensa contra un
    juez inclinado sigue siendo la de §8.1: la guarda mecánica, las etiquetas de
    Nico en los decisivos y el umbral de 80%.
+12. **El congelamiento no se defiende de su operador** (v21, hallazgo 2 de la
+   quinta revisión): los chequeos de §4.4 frenan un cambio accidental o uno que
+   quiera reusar resultados de otra lista, pero una rama paralela armada desde
+   antes del congelamiento, o una historia reescrita, pasan en esa rama. El ancla
+   es externa: el remoto con el commit de la lista antes de la primera llamada y
+   el repo público al terminar. Fabricar los resultados mismos queda fuera de lo
+   que cualquier protocolo puede impedir.
 
 ## 13. Lo que queda para la fase 2
 
@@ -1341,6 +1386,28 @@ su propia ventana, o declara la confusión.
       cada log decisivo y la muestra de 30.
 
 ## 15. Cambios
+
+### De la v20 a la v21
+
+Responde a la quinta revisión independiente, también por Codex, sobre el diff de
+la v20 (`21-REVISION-CODEX-3.md`), pedida por Nico antes de congelar. Claude Code
+verificó los ocho hallazgos contra el código: los ocho se confirmaron, con una
+parte del 4 rechazada (abajo). Codex dio por cerrados ocho de los catorce de la
+cuarta y sostuvo las razones para no aceptar el 7, `origin`, la cita trivial y
+«un poco conservadora». **El prompt del juez no cambió**, y con el filtro nuevo
+el juez recibe los mismos textos en los cinco casos de `juez-prueba`, que la etapa
+reutilizó sin llamar. `prueba_offline.py`: 136 de 136.
+
+| # | Hallazgo | Gravedad | Qué se hizo | Dónde |
+|---|---|---|---|---|
+| 1 | `validacion` y `analizar` no volvían a verificar el congelamiento | Bloqueante | Las cuatro etapas desde `brazos` lo verifican; la lista tiene que tener 100 pares | §4.4 |
+| 2 | Una rama paralela o un plan borrado burlaban el congelamiento | Bloqueante | El commit de la lista en el protocolo y en un remoto; el plan no se regenera con resultados; cada resultado guarda su lista. Lo que el código no puede ver, declarado | §4.4, §12 |
+| 3 | El código podía cambiar a mitad de la corrida | Bloqueante | El árbol de lo que corre, fijo desde la primera llamada salvo enmienda anotada | §4.4 |
+| 4 | Valores técnicos bajo claves inventadas o contenedoras | Debería | Un valor sin espacios que no es una palabra no llega. **Rechazado en parte:** los strings bajo una clave contenedora no se descartan por su clave (asimetría entre brazos), y el filtro de tokens del esquema se queda | §6.2 |
+| 5 | La historia no se revisaba antes de llamar | Debería | Intento «en vuelo»; límites alcanzados y red de seguridad, sin otra llamada | §7.7 |
+| 6 | Con las dos correlaciones, el limpio dejaba de compartirse con ρ | Debería | Una bandera de condiciones por log; grilla rehecha; la frase, fiel a la salida | §6.4 |
+| 7 | Con N=0, las etiquetas no se validaban | Nota | Se validan antes | §8.1 |
+| 8 | La expresión del request id tomaba prefijos | Nota | Límite después de `id` | §12 |
 
 ### De la v19 a la v20
 
