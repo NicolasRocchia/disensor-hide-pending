@@ -1,0 +1,24 @@
+{
+  "lanzador": "desde-claude-code",
+  "codigo": 0,
+  "duracion_s": 26.756,
+  "carpeta_trabajo": "C:\\w\\adf4950f3035",
+  "restos_en_carpeta": [],
+  "mensaje_md5": "84177235fd49483f4af7f270dee381fa",
+  "comandos_ejecutados": [],
+  "comandos_rechazados": [],
+  "archivos_cambiados": [],
+  "cambios_rechazados": [],
+  "otras_acciones": [],
+  "mensajes_agente": 2,
+  "uso": {
+    "input_tokens": 63225,
+    "cached_input_tokens": 60160,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 454,
+    "reasoning_output_tokens": 61
+  },
+  "turno_fallido": null,
+  "errores": [],
+  "lineas_ilegibles": 0
+}

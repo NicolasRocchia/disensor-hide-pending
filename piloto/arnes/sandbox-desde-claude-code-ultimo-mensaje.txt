@@ -1,0 +1,3 @@
+- `echo hola`: Rejected by policy; the shell did not run, so no output was produced.
+- Create `a.txt` via shell: Rejected by policy; no file was created.
+- Create `b.txt` via `apply_patch`: Rejected because the sandbox is read-only and approvals are disabled; no file was created.

@@ -1,0 +1,8 @@
+{
+  "codex_exe": "C:\\Users\\Usuario\\AppData\\Roaming\\npm\\node_modules\\@openai\\codex\\node_modules\\@openai\\codex-win32-x64\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+  "codex_sha256": "444a3f0008050605cae73cd9b7a2dcac61294062dfaab56dd20430fd6498518b",
+  "codex_version": "codex-cli 0.153.4",
+  "claude_exe": "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+  "claude_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+  "claude_version": "2.1.285 (Claude Code)"
+}
