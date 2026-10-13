@@ -139,8 +139,18 @@ OK: contexto limpio y mensaje exacto. Salidas en D:\Programacion\Disensor-Docs\e
 respetado. **No prueba eso:** `read-only` es también el valor por defecto, y
 `codex debug prompt-input` muestra `read-only` aunque se le pida
 `workspace-write`, tanto con `-s workspace-write` antes de `debug` como con
-`-c sandbox_mode="workspace-write"` (probado ese día). Esa herramienta no refleja
-el modo del sandbox. Lo que sí vale del punto 6: el contexto no tiene palabras
-prohibidas ni catálogo de skills, y el mensaje llega idéntico por argumento. El
-modo del sandbox sólo se comprueba con una llamada real, como hacen las etapas
-`sandbox` y `sandbox-generador`.
+`-c sandbox_mode="workspace-write"` (probado ese día). ~~Esa herramienta no
+refleja el modo del sandbox.~~ Lo que sí vale del punto 6: el contexto no tiene
+palabras prohibidas ni catálogo de skills, y el mensaje llega idéntico por
+argumento. ~~El modo del sandbox sólo se comprueba con una llamada real, como
+hacen las etapas `sandbox` y `sandbox-generador`.~~
+
+**Segunda corrección, el mismo día, después de 10.** La frase tachada sacaba la
+conclusión equivocada: `debug prompt-input` sí refleja el modo del sandbox. El
+`read-only` que mostraba era el modo real con el home aislado, que no trae un
+modo de sandbox de Windows; con `-c windows.sandbox=unelevated`, la misma
+herramienta muestra `workspace-write`, y una llamada real sin ese flag se comportó
+como sólo lectura (`10-PRUEBA-SANDBOX-GENERADOR.md`). Sigue valiendo que el `-s`
+del punto 6 no quedó probado, porque `read-only` era a la vez lo pedido y lo que
+sale sin modo de Windows. `debug prompt-input` sirve como chequeo previo, gratis;
+la etapa `sandbox-generador` lo confirma con una llamada.
