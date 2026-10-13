@@ -1,9 +1,10 @@
 # Protocolo · Fase 1: ¿el esquema de residuo hace que el registro consigne el hueco?
 
-**Estado: v7, NO congelado.** Incorpora lo que midió la primera parte del
+**Estado: v8, NO congelado.** Incorpora lo que midió la primera parte del
 piloto, la del arnés, en la máquina de Nico (`05-PRUEBA-SANDBOX-1.md`,
 `06-PRUEBA-SANDBOX-2.md`, `08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`,
-`09-PILOTO-GENERAR-1.md` y los archivos de `piloto/`): el binario de Codex, el
+`09-PILOTO-GENERAR-1.md`, `10-PRUEBA-SANDBOX-GENERADOR.md` y los archivos de
+`piloto/`): el binario de Codex, el
 sandbox, el contexto que recibe cada modelo, los esfuerzos, los flags de Claude
 Code y la configuración del generador. Ninguna de esas mediciones vio una
 respuesta del sujeto a un brazo. El mapa de cambios está en §15. Las versiones
@@ -593,10 +594,18 @@ plugins recomendados, que depende de la cuenta; y el contexto de entorno
     `-c sandbox_workspace_write.exclude_slash_tmp=true` y
     `-c sandbox_workspace_write.network_access=false`, para que `%TEMP%` y `/tmp`
     no sean raíces escribibles y no haya red.
+  - **Con modo de sandbox de Windows: `-c windows.sandbox=unelevated`.** Sin un
+    modo de Windows, que el home aislado no trae, Codex 0.153.4 deja
+    `workspace-write` en sólo lectura (`10`; el mismo síntoma que
+    openai/codex#34958). `unelevated` no necesita la instalación con permisos de
+    administrador de `elevated`; no aísla la red por firewall, pero la red ya está
+    apagada y, sin shell, la única herramienta que escribe es `apply_patch`. El
+    sujeto no lo lleva: sin modo de Windows, todo comando se le rechaza.
 
   Lo comprueba, con una llamada real, la etapa `sandbox-generador` (§7.6, punto
-  1b): `codex debug prompt-input` muestra `read-only` aunque se le pida otro modo
-  (`08`, «Correcciones»), así que no sirve para esto. Todo lo que el generador deja
+  1b). Antes, gratis: `codex debug prompt-input` con los mismos `-c` muestra el
+  modo y las raíces escribibles (`10`: `workspace-write`, sólo la carpeta de
+  trabajo). Todo lo que el generador deja
   en su carpeta se copia a `piloto/generador/NNN/intento-N-archivos/` antes de
   soltarla. Cada log queda en uno de cuatro estados: `archivos` (exactamente un
   `log_*.md` y un `log_*_metadata.json`), `mensaje` (sin esos archivos, pero el
@@ -717,8 +726,8 @@ vea el modelo.
 | # | Qué | Estado |
 |---|---|---|
 | 1 | El sandbox, con una sola llamada desde una terminal común | **Hecho** (`06-PRUEBA-SANDBOX-2.md`): rechaza todo. También con Claude Code como proceso padre (`08`), con los tres intentos vistos en el stderr. Desde ahora la etapa `sandbox` da OK sólo si ve los tres; si no, INCONCLUSO |
-| 1b | El sandbox del generador (§7.1): escribe en su carpeta, no tiene shell y no puede escribir en `C:\w` ni en `%TEMP%`. Una llamada, etapa `sandbox-generador`. **Si falla, no se genera** | Pendiente |
-| 2 | El contexto de Codex, limpio: cero «disensor», «residuo», «residue», «red-team» y «Dev solo»; ninguna skill; ninguna ruta que nombre el brazo, la condición, el log, «disensor» o «experimento». **Si falla, se para** | **Hecho** por `codex.cmd` (`piloto/contexto-b.json`) y por `codex.exe` (`piloto/arnes/contexto-exe.json`, `08`). `debug prompt-input` no refleja el modo del sandbox (`08`, «Correcciones»): el bloque de permisos del generador no se mide así |
+| 1b | El sandbox del generador (§7.1): escribe en su carpeta, no tiene shell y no puede escribir en `C:\w` ni en `%TEMP%`. Una llamada, etapa `sandbox-generador`. **Si falla, no se genera** | **Falló** sin modo de Windows (`10`): sólo lectura también en su carpeta. Con `windows.sandbox=unelevated`, `debug prompt-input` muestra `workspace-write` con la carpeta de trabajo como única raíz; falta repetir la llamada |
+| 2 | El contexto de Codex, limpio: cero «disensor», «residuo», «residue», «red-team» y «Dev solo»; ninguna skill; ninguna ruta que nombre el brazo, la condición, el log, «disensor» o «experimento». **Si falla, se para** | **Hecho** por `codex.cmd` (`piloto/contexto-b.json`) y por `codex.exe` (`piloto/arnes/contexto-exe.json`, `08`). `debug prompt-input` refleja el modo del sandbox (`10`, que corrige `08`) |
 | 3 | El contexto de Claude, sin configuración de usuario | **Hecho** (`piloto/claude-e.jsonl`) |
 | 4 | Los esfuerzos | **Hecho:** `low` para GPT (catálogo), `high` para Claude (fijado) |
 | 5 | Los flags contra el `--help` | **Hecho** para Claude (`piloto/claude-help.txt`); falta Codex |
@@ -970,6 +979,16 @@ su propia ventana, o declara la confusión.
 
 ## 15. Cambios
 
+### De la v7 a la v8
+
+Responde a `10-PRUEBA-SANDBOX-GENERADOR.md`: la primera llamada de la etapa
+`sandbox-generador`, que dio FALLA.
+
+| # | Qué se midió | Qué se hizo | Dónde |
+|---|---|---|---|
+| 8.1 | Con el home aislado y sin modo de sandbox de Windows, `-s workspace-write` queda en sólo lectura: el generador no pudo escribir ni en su carpeta | El generador lleva `-c windows.sandbox=unelevated`; el sujeto no | §7.1 |
+| 8.2 | `debug prompt-input` refleja el modo del sandbox: el `read-only` que mostraba era el real | Corregido el 7.3 de esta tabla y la corrección del `08`; `debug prompt-input` queda como chequeo previo y gratis | §7.1, §7.6 |
+
 ### De la v6 a la v7
 
 Responde a `09-PILOTO-GENERAR-1.md` (las dos primeras llamadas del generador,
@@ -980,7 +999,7 @@ y corre el arnés, y el generador va sin shell.
 |---|---|---|---|
 | 7.1 | Con sólo lectura, el generador intenta escribir sus archivos y no los imprime (dos de dos) | Contingencia aplicada: el generador corre con `workspace-write` sobre su carpeta; las dos llamadas quedan en `piloto/generador-solo-lectura/` y su piloto se repite | §4.1, §7.1 |
 | 7.2 | Nico: el generador, sin shell | `--disable shell_tool`, y sin `%TEMP%`, `/tmp` ni red como raíces escribibles | §7.1 |
-| 7.3 | `debug prompt-input` muestra `read-only` con cualquier modo pedido | Corregido el punto 6 de `08`; el sandbox del generador se comprueba con una llamada real, etapa `sandbox-generador` | §7.1, §7.6 |
+| 7.3 | Con el home aislado, `debug prompt-input` muestra `read-only` con cualquier modo pedido (se leyó como que no refleja el modo; 8.2 lo corrige: era el modo real) | Corregido el punto 6 de `08`; el sandbox del generador se comprueba con una llamada real, etapa `sandbox-generador` | §7.1, §7.6 |
 | 7.4 | El arnés marcaba `ok` una llamada del generador sin log | Estados `archivos`, `mensaje`, `sin_log` y `fallo`; lo que deja en su carpeta se copia antes de soltarla; red de seguridad propia del generador | §7.1 |
 | 7.5 | La señal de cupo podía salir del texto de un comando rechazado, y retomar pisaba los intentos anteriores | Se busca fuera de las líneas de herramientas; los intentos siguen numerándose y el cortado por cupo no cuenta | §7.7 |
 | 7.6 | Nico: Claude Code escribe y corre el arnés | Difusión sale del circuito del arnés; cada cambio pasa `prueba_offline.py` antes de gastar cupo | §7, `07` |
