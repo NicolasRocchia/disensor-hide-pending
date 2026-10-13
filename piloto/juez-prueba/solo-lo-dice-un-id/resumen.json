@@ -1,0 +1,76 @@
+{
+  "caso": "solo-lo-dice-un-id",
+  "esperado": false,
+  "veredicto": {
+    "estado": "juzgado",
+    "registra": false,
+    "cita": "",
+    "lecturas": [
+      {
+        "vuelta": 1,
+        "se_lee": true,
+        "veredicto": false,
+        "cita": "",
+        "pasa_la_guarda": true
+      }
+    ],
+    "mensaje_md5": "c85a770294c415607382d1f5b6659224"
+  },
+  "intentos": [
+    {
+      "inicio": "2026-10-13T19:21:51.835+00:00",
+      "duracion_s": 4.834,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "c85a770294c415607382d1f5b6659224",
+      "carpeta_trabajo": "C:\\w\\0edb083a8e8f",
+      "restos_en_carpeta": [],
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 903,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 140,
+        "output_tokens_details": {
+          "thinking_tokens": 107
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 903,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 140,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 903,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 903
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.010032,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "juez-1"
+    }
+  ]
+}
