@@ -90,3 +90,14 @@ def llenar(prompt, ejemplos, sorteado):
             raise SystemExit(f"El marcador {marca} aparece {texto.count(marca)} veces")
         texto = texto.replace(marca, valor)
     return texto
+
+
+def valores(ejemplos, sorteado):
+    """Los textos sorteados, para registrarlos al lado de los índices."""
+    v = {}
+    for nombre, _, _ in MARCADORES:
+        if nombre == "DISTRACTION_CHECKS":
+            v[nombre] = [ejemplos[nombre][i] for i in sorteado[nombre]]
+        else:
+            v[nombre] = ejemplos[nombre][sorteado[nombre]]
+    return v

@@ -185,7 +185,10 @@ def revisar_eventos(jsonl_bytes):
     """§7.1, red de seguridad: qué hizo el agente además de contestar.
 
     Un comando cuenta como ejecutado si terminó `completed` o tiene código de salida;
-    un cambio de archivo, si terminó `completed`. Lo demás son intentos rechazados.
+    un cambio de archivo, si terminó `completed`. Con Codex 0.153.4 los intentos que
+    el sandbox rechaza no aparecen en este flujo (08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md,
+    punto 3): se cuentan en el stderr, con `revisar_stderr`. Las claves
+    `comandos_rechazados` y `cambios_rechazados` quedan por si otra versión los emite.
     """
     r = {"comandos_ejecutados": [], "comandos_rechazados": [], "archivos_cambiados": [],
          "cambios_rechazados": [], "otras_acciones": [], "mensajes_agente": 0,
@@ -221,3 +224,31 @@ def revisar_eventos(jsonl_bytes):
             elif tipo in ("mcp_tool_call", "collab_tool_call", "web_search"):
                 r["otras_acciones"].append(tipo)
     return r
+
+
+# Líneas del stderr de Codex 0.153.4 con los rechazos del sandbox (08, puntos 2 y 3).
+RE_SHELL_RECHAZADO = re.compile(r"exec_command failed: .*rejected: blocked by policy")
+RE_PARCHE_RECHAZADO = re.compile(r"error=patch rejected")
+RE_ERROR_HERRAMIENTA = re.compile(r"codex_core::tools::router: error=")
+# Señales de cupo agotado, para parar sin gastar reintentos (§7.7).
+RE_SIN_CUPO = re.compile(r"usage limit|rate limit|quota|too many requests|\b429\b", re.I)
+
+
+def revisar_stderr(stderr_bytes):
+    """Los intentos rechazados por el sandbox, contados en el stderr, una línea por intento."""
+    r = {"shell_rechazados": [], "parches_rechazados": [], "otros_errores_herramienta": []}
+    for linea in stderr_bytes.decode("utf-8", errors="replace").splitlines():
+        if RE_SHELL_RECHAZADO.search(linea):
+            r["shell_rechazados"].append(linea)
+        elif RE_PARCHE_RECHAZADO.search(linea):
+            r["parches_rechazados"].append(linea)
+        elif RE_ERROR_HERRAMIENTA.search(linea):
+            r["otros_errores_herramienta"].append(linea)
+    return r
+
+
+def verificar_sha(fijado, cual):
+    """§7.4, antes de cada llamada: el binario sigue siendo el fijado."""
+    ruta = fijado[f"{cual}_exe"]
+    if sha256(ruta) != fijado[f"{cual}_sha256"]:
+        sys.exit(f"Cambió el sha256 de {ruta}. El arnés para (§7.4).")
