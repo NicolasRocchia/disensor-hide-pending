@@ -1,6 +1,6 @@
 # Protocolo · Fase 1: ¿el esquema de residuo hace que el registro consigne el hueco?
 
-**Estado: v16, NO congelado.** Incorpora lo que midió el piloto en la máquina de
+**Estado: v17, NO congelado.** Incorpora lo que midió el piloto en la máquina de
 Nico (`05-PRUEBA-SANDBOX-1.md`, `06-PRUEBA-SANDBOX-2.md`,
 `08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`, `09-PILOTO-GENERAR-1.md`,
 `10-PRUEBA-SANDBOX-GENERADOR.md`, `11-PILOTO-GENERAR-Y-CHEQUEAR.md`,
@@ -43,6 +43,17 @@ El orden es parte del diseño: cada paso que necesita una decisión humana ocurr
    el juez «registra».
 7. **Validación humana** del juez (§8.1).
 8. **Análisis e informe**, con todo lo que §9 obliga a informar.
+
+**Los pasos 5 a 8 los corre `herramientas/corrida.py`**, etapa por etapa, cada una
+reanudable y con el OK de Nico si llama a un modelo: `logs` (§4.1 a §4.3, hasta
+que 110 logs pasan §4.2 y §4.3, con la regla de parada de §4.3), `gemelos` (§4.4 y
+§8.2; las decisiones de Nico van en `corrida/gemelos/decisiones.json`), `incluir`
+(los primeros 100 pares en el orden de la semilla; si falta alguno, más `logs`
+con un objetivo mayor), `brazos` (el orden de las cuatro llamadas de cada par,
+sorteado con la semilla y guardado antes de la primera), `juez` (los 400 JSON en
+un orden sorteado que mezcla brazos y condiciones), `validacion` (la planilla
+ciega de §8.1) y `analizar`. Una parada de la red de seguridad deja la marca
+`corrida/PARADA`, y ninguna etapa sigue hasta que Nico la revise.
 
 ## 1. La pregunta
 
@@ -611,9 +622,9 @@ menos de un punto de las escritas; con los brazos iguales rechaza entre 3,1% y
 3,7%.
 
 **El intervalo de §9** («`s_json` aumentó en X [intervalo]»), que el protocolo no
-fijaba: **propuesto** el percentil 2,5 y 97,5 de la media de las diferencias
-pareadas en 10.000 remuestreos de logs, semilla 20261013. Queda a confirmar por
-Nico o por la tercera revisión antes de congelar.
+fijaba: el percentil 2,5 y 97,5 de la media de las diferencias pareadas en 10.000
+remuestreos de logs, semilla 20261013 (`analisis.ic_bootstrap`). **Decidido por
+Nico el 13/10/2026**, antes de que exista un dato.
 
 **Una prueba no significativa no prueba ausencia.** Si C2 no da, la frase es «no
 detectamos un efecto; con N=n, la potencia para un efecto de X puntos era Y». Los
@@ -918,6 +929,13 @@ juez leyó (uno sin JSON legible no tiene veredicto del juez) y se le entrega a 
 sin la etiqueta del juez; la recalculada usa las etiquetas de Nico sólo en los
 ítems decisivos.
 
+**La planilla** (`corrida.py validacion`) junta los ítems decisivos y la muestra
+estratificada, mezclados, cada uno con un id opaco, el JSON y la descripción de la
+consulta: lo mismo que ve el juez. No dice el brazo, ni si es el pendiente o el
+gemelo, ni la etiqueta del juez; eso queda en `corrida/validacion/clave.json`, que
+Nico no abre hasta terminar. La etapa no muestra ningún resultado, ni siquiera
+cuántos ítems son decisivos.
+
 ### 8.2 Los gemelos limpios
 
 Más registros pueden ser sólo más ruido. El paper lo controla en su Apéndice D,
@@ -1130,6 +1148,14 @@ su propia ventana, o declara la confusión.
       etiquetar los JSON de los logs decisivos y 30 más.
 
 ## 15. Cambios
+
+### De la v16 a la v17
+
+| # | Qué | Qué se hizo | Dónde |
+|---|---|---|---|
+| 17.1 | Nico: el intervalo de §9 es el bootstrap percentil | Fijado | §6.4 |
+| 17.2 | La corrida, escrita | `corrida.py`, siete etapas reanudables; probadas sin llamadas contra carpetas armadas a mano (98 pruebas en total) | §0 |
+| 17.3 | La planilla de §8.1 | Ciega: id opaco, sin brazo, sin condición, sin etiqueta del juez, sin ningún resultado a la vista | §8.1 |
 
 ### De la v15 a la v16
 

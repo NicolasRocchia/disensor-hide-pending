@@ -109,6 +109,17 @@ la v8 con `-c windows.sandbox=unelevated`; el paso 1 se repite antes del 2.
 **Hecho** (`11-PILOTO-GENERAR-Y-CHEQUEAR.md`): el paso 1 pasó, los 50 logs dejaron
 sus dos archivos y los 50 pasan `chequear` (§4.2).
 
+## La corrida (desde la v17)
+
+El piloto terminó (`11` a `14`). La corrida real es `herramientas\corrida.py`, y
+**no se corre antes de congelar el protocolo** (§0, paso 4: la tercera revisión).
+Sus etapas, en orden, cada una con el OK de Nico si llama a un modelo: `logs`,
+`gemelos`, `incluir`, `brazos`, `juez`, `validacion` y `analizar` (§0). Entre
+`gemelos` e `incluir`, Nico anota sus decisiones en
+`corrida\gemelos\decisiones.json`; entre `validacion` y `analizar`, sus etiquetas
+en `corrida\validacion\etiquetas.json`. **Claude Code no lee las respuestas a los
+brazos ni el informe antes que Nico.**
+
 ## Siguiente: `capacidad` (13/10/2026)
 
 Con el OK de Nico: **`python experimento\herramientas\piloto.py capacidad`**, en
