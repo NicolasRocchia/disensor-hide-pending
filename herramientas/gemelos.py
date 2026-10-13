@@ -42,8 +42,10 @@ def mensaje(plantilla, log, meta):
 
 
 def _lineas_por_entrada(log):
-    """Cada línea del log con el índice de su entrada (-1 antes del primer encabezado)."""
-    out, actual = [], -1
+    """Cada línea del log con el índice de su entrada, numerado igual que
+    `chequeo.entradas`: si hay texto antes del primer encabezado, ése es la entrada 0."""
+    ents = chequeo.entradas(log)
+    out, actual = [], (0 if ents and ents[0][1] is None else -1)
     for linea in log.rstrip("\n").split("\n"):
         if chequeo.RE_ENCABEZADO.match(linea):
             actual += 1
@@ -114,7 +116,8 @@ def chequear(pendiente, gemelo):
     # 4. La respuesta vieja sigue siendo la correcta.
     dp = chequeo.dominante(ep[ip["primero"]][2])
     nuevo = eg[ig["evento"]][2]
-    dn = chequeo.dominante(nuevo)
+    # «Al mismo nivel»: la cadena del bloque nuevo se corta en el largo de la del primero.
+    dn = chequeo.dominante(nuevo, niveles=len(dp["cadena"]) or None)
     c4 = {"categoria": dp["nombres"], "entidad": dp.get("entidad"),
           "categoria_en_el_nuevo": dn["nombres"], "entidad_en_el_nuevo": dn.get("entidad")}
     mismo = lambda a, b: a is not None and b is not None and a.strip().lower() == b.strip().lower()  # noqa: E731

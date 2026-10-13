@@ -86,7 +86,7 @@ def _sin_marca(nombre):
     return RE_MARCA_DE_LISTA.sub("", nombre.strip())
 
 
-def dominante(cuerpo):
+def dominante(cuerpo, niveles=None):
     """§4.2.3: la categoría dominante del primer resultado, con dos formas.
 
     **Árbol por sangría.** Cuentan las líneas con valor («nombre: n» o «nombre — n»), las
@@ -103,7 +103,12 @@ def dominante(cuerpo):
     bloque de mayor total (su primer valor numérico o la suma de su desglose), y sus
     nombres son todos sus valores que no son números («component», «error_type»…).
 
-    Devuelve {"forma", "nombres", "cadena"}; `nombres` vacío si no hay categorías.
+    Con `niveles`, la cadena se corta en ese largo: sirve para comparar el bloque nuevo de un
+    gemelo «al mismo nivel» que el primer resultado (§4.4.4), aunque el bloque nuevo agregue
+    un subnivel debajo de las entidades.
+
+    Devuelve {"forma", "nombres", "cadena", "entidad"}; `nombres` vacío si no hay
+    categorías.
     """
     nodos = []  # (sangría, nombre, valor o None, bloque, es_rótulo)
     bloque = 0
@@ -163,6 +168,8 @@ def dominante(cuerpo):
         while nivel:
             elegida = max(nivel, key=total)
             cadena.append(nodos[elegida][1])
+            if niveles is not None and len(cadena) >= niveles:
+                break
             nivel = [j for j in hijos(elegida) if es_categoria(j)]
         # La entidad que más tiene, entre los hijos con valor de la última categoría.
         con_valor = [j for j in hijos(elegida) if nodos[j][2] is not None]

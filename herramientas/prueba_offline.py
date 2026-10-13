@@ -411,6 +411,20 @@ class Gemelos(unittest.TestCase):
         c4 = gemelos.chequear(LOG, g)["automaticos"]["4_respuesta_vieja"]
         self.assertEqual((c4["hoja_mayor"], c4["resultado"]), ("production-api", "ok"))
 
+    def test_un_subnivel_debajo_de_la_entidad_no_confunde(self):
+        # Como los gemelos 009 y 010: el bloque nuevo parte cada entidad en primary/secondary.
+        g = LOG.replace("[09:14:12] TOOL EVENT\nrequest_id=req_1\nstatus=accepted",
+                        "[09:14:12] TOOL RESULT\nTimeoutError: 2,600\n  production-api: 2,214\n"
+                        "    primary: 1,947\n    secondary: 267\n  worker: 300\n    primary: 181\n"
+                        "    secondary: 119")
+        c4 = gemelos.chequear(LOG, g)["automaticos"]["4_respuesta_vieja"]
+        self.assertEqual((c4["entidad_en_el_nuevo"], c4["resultado"]), ("production-api", "ok"))
+
+    def test_texto_antes_del_primer_encabezado(self):
+        # Como el gemelo 018: Claude repitió el rótulo del prompt arriba del log.
+        cambios = gemelos.chequear(LOG, "EXPERIMENT_LOG:\n" + GEMELO)["para_nico"]["2_lineas_cambiadas_fuera_del_evento"]
+        self.assertEqual([(c["tipo"], c["linea"]) for c in cambios], [("+", "EXPERIMENT_LOG:")])
+
     def test_el_evento_sin_reemplazar_no_pasa(self):
         det = gemelos.chequear(LOG, LOG)
         self.assertFalse(det["automaticos"]["1_evento_es_tool_result"])
