@@ -120,11 +120,21 @@ Sus etapas, en orden, cada una con el OK de Nico si llama a un modelo: `logs`,
 en `corrida\validacion\etiquetas.json`. **Claude Code no lee las respuestas a los
 brazos ni el informe antes que Nico.**
 
-## Siguiente: `capacidad` (13/10/2026)
+**Lo que agrega la v19** (tercera revisión, `16`):
 
-Con el OK de Nico: **`python experimento\herramientas\piloto.py capacidad`**, en
-segundo plano y en tandas con `--limite`. Una llamada a GPT por log, con el arnés
-del sujeto (sólo lectura). Si al terminar la tasa de «Yes» es menor que 90%, la
-etapa imprime PARADA POR CAPACIDAD y sale con código 3: se para y se informa
-(§4.3). Las respuestas de capacidad no son respuestas a los brazos: se pueden
-leer.
+- Cada gemelo lleva la casilla **C** (completitud), que decide siempre Nico; las
+  decisiones valen sólo con los valores exactos («aprobada», «rechazada», «si»,
+  «no»).
+- Después de `incluir`, la lista, su md5 y `decisiones.json` se commitean, y el md5
+  y el commit van en «Enmiendas»: `brazos` no corre si no están commiteados y sin
+  cambios.
+- El juez y la planilla de validación ven sólo los textos libres del JSON, con
+  etiquetas opacas (§6.2); las etiquetas de Nico son booleanos JSON.
+
+## Siguiente (13/10/2026)
+
+El piloto terminó (capacidad 50 de 50, `12`). Antes de congelar, con el OK de Nico:
+**`python experimento\herramientas\piloto.py juez-prueba`** otra vez, porque el
+prompt del juez cambió en la v19 (cuatro llamadas a Claude, en
+`piloto\juez-prueba-528761ba`). Después, si Nico la pide, una ronda de Codex sobre
+el diff de la v19, y se congela (§0, paso 4).
