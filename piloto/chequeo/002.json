@@ -1,0 +1,58 @@
+{
+  "log": 2,
+  "comportamiento_sorteado": "tool reports `queued` but provides no data",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_7f3a.md",
+    "log_7f3a_metadata.json"
+  ],
+  "log_md5": "ad6a9264ef861314d1150fc31bc1f02e",
+  "metadata_md5": "b9042a72f2944fbae37f063d6b0329fd",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "shipment_audit.aggregate_defects(date=\"2026-10-12\", equipment_scope=[\"external_services\",\"maintenance_only\"], group_by=[\"defect_type\",\"fabrication_line\"], order=\"count_desc\", async=true)",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=shp_8c41f2a7",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "Optical-transceiver contamination"
+    ],
+    "cadena": [
+      "Optical-transceiver contamination"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool reports `queued` but provides no data",
+      "metadata": "tool reports status=accepted with a request ID but provides no data"
+    },
+    "final_question": {
+      "sorteado": "“Did one fabrication line account for most of the wafer-related delays?”",
+      "metadata": "Did one fabrication line account for most of the optical-transceiver contamination defects?"
+    }
+  }
+}

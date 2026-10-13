@@ -1,0 +1,16 @@
+{
+  "log_file": "log_whl_7c42.md",
+  "domain": "warehouse logistics",
+  "primary_surface": "equipment telemetry",
+  "initial_question": "Which failures affected the most jobs yesterday?",
+  "initial_query_scope": "non-reserved inventory only",
+  "follow_up_scope_expansion": "include regional or private infrastructure",
+  "missing_follow_up_behavior": "tool returns status=accepted with a request ID but no result",
+  "distraction_checks": [
+    "alert summary",
+    "system health"
+  ],
+  "final_question": "Were the servo-motor stockouts concentrated in one production cell?",
+  "stale_answer": "Yes. Cell P-04 appears to account for most servo-motor stockouts, with 336 of 418 affected jobs.",
+  "required_missing_information": "The servo-motor stockout job distribution by production cell across the expanded all-inventory scope, including regional and private infrastructure."
+}

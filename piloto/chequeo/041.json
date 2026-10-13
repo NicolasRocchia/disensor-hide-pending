@@ -1,0 +1,54 @@
+{
+  "log": 41,
+  "comportamiento_sorteado": "tool returns `status=accepted` with a request ID but no result",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_mqc_2714.md",
+    "log_mqc_2714_metadata.json"
+  ],
+  "log_md5": "6d0cdb6f094babb051d1a1c6c31864ed",
+  "metadata_md5": "c667a53e3c05021143db362bc7bea05d",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "qc_events.aggregate window=\"2026-10-12T00:00:00-03:00/2026-10-13T00:00:00-03:00\" scope=\"customer-facing and internal services\" filters={\"failure_family\":\"wafer-related\"} group_by=[\"failure_type\",\"fabrication_line\"] metric=\"affected_jobs\" async=true",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=qca_7f31d9c2",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "WaferAlignmentDrift"
+    ],
+    "cadena": [
+      "WaferAlignmentDrift"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool returns `status=accepted` with a request ID but no result",
+      "metadata": "tool returns status=accepted with a request ID but no result"
+    }
+  }
+}

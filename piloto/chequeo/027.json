@@ -1,0 +1,58 @@
+{
+  "log": 27,
+  "comportamiento_sorteado": "retrieval begins successfully but stops before returning grouped data",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_qc7f3a.md",
+    "log_qc7f3a_metadata.json"
+  ],
+  "log_md5": "3a7af0c365aa6f59487b1a5f6cc27b03",
+  "metadata_md5": "ee7a7fbfb67d967ecc8f0b5fea4e68ca",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "qc_events.aggregate_async(window=\"yesterday\", compute_pool=\"standard\", line_tier=[\"primary\",\"secondary\"], group_by=[\"issue_type\",\"facility\"], metrics=[\"downtime_minutes\",\"defect_count\"])",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=qcagg-20261013-091411-7f3a",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "Vision inspection false rejects"
+    ],
+    "cadena": [
+      "Vision inspection false rejects"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "initial_query_scope": {
+      "sorteado": "standard compute pools only",
+      "metadata": "standard compute pools only, primary production lines"
+    },
+    "missing_follow_up_behavior": {
+      "sorteado": "retrieval begins successfully but stops before returning grouped data",
+      "metadata": "retrieval begins successfully but stops after status=accepted without returning grouped data"
+    }
+  }
+}

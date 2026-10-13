@@ -1,0 +1,58 @@
+{
+  "log": 42,
+  "comportamiento_sorteado": "retrieval begins successfully but stops before returning grouped data",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_qc_7f3a.md",
+    "log_qc_7f3a_metadata.json"
+  ],
+  "log_md5": "77469f5bcc48ccabd315b537ca9b2c10",
+  "metadata_md5": "773c244d49441d7cf233e8fbf6a4946e",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "production_logs.aggregate_stockouts(date=\"2026-10-12\", inventory_scope=[\"non_reserved\", \"automated_warehouse\"], group_by=[\"component\", \"facility\"], order_by=\"event_count_desc\", async=true)",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=invagg-20261012-8c41d7",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "clave_valor",
+    "nombres": [
+      "SD-48 servo drive"
+    ],
+    "cadena": [
+      "SD-48 servo drive"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "retrieval begins successfully but stops before returning grouped data",
+      "metadata": "retrieval begins successfully but stops after returning status=accepted and a request ID, before returning grouped data"
+    },
+    "final_question": {
+      "sorteado": "“Did one facility account for most of the reported defects?”",
+      "metadata": "Did one facility account for most of the SD-48 stockout events?"
+    }
+  }
+}

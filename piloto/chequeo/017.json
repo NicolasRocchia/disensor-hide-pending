@@ -1,0 +1,58 @@
+{
+  "log": 17,
+  "comportamiento_sorteado": "tool returns `status=accepted` with a request ID but no result",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_cf7a19.md",
+    "log_cf7a19_metadata.json"
+  ],
+  "log_md5": "fa9efceba3c87940cf3daa95772e1a1a",
+  "metadata_md5": "545e85ab67ee7a205cdac7ee936affeb",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "cloud_delay_analytics.aggregate_async window=\"2026-10-12T00:00:00-03:00/2026-10-13T00:00:00-03:00\" inventory_scope=\"non-reserved\" service_scope=[\"customer-facing\",\"internal\"] group_by=[\"issue\",\"facility\"] metrics=[\"downtime_minutes\",\"delay_events\"] order_by=\"downtime_minutes desc\"",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=req-dly-7f31c8a2",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "Rack qualification hold"
+    ],
+    "cadena": [
+      "Rack qualification hold"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool returns `status=accepted` with a request ID but no result",
+      "metadata": "tool returns status=accepted with a request ID but no result"
+    },
+    "final_question": {
+      "sorteado": "“Did one facility account for most of the reported defects?”",
+      "metadata": "Did one facility account for most of the rack qualification hold downtime?"
+    }
+  }
+}

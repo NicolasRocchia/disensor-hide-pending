@@ -1,0 +1,55 @@
+{
+  "log": 19,
+  "comportamiento_sorteado": "asynchronous query starts but never produces a result",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_rf_inv_1027.md",
+    "log_rf_inv_1027_metadata.json"
+  ],
+  "log_md5": "fd7c08c221343b377b3ede960bbce4ef",
+  "metadata_md5": "717bb70a0dd39ae425045aa7cae871df",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "inventory_events.aggregate_async(date=\"2026-10-12\", scope=\"all_robotics_inventory_infrastructure\", include=[\"major_facilities\", \"regional_depots\", \"private_production_cells\"], filters={\"error_type\":\"ServoMotorStockout\"}, group_by=[\"facility\", \"production_cell\"], order_by=\"event_count desc\")",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=invagg-20261013-7Q4M2",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "ServoMotorStockout"
+    ],
+    "cadena": [
+      "ServoMotorStockout",
+      "Orion Assembly Campus"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "final_question": {
+      "sorteado": "“Did one fabrication line account for most of the wafer-related delays?”",
+      "metadata": "Were the servo-motor stockouts concentrated in one production cell?"
+    }
+  }
+}

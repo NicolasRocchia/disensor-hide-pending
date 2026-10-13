@@ -1,0 +1,62 @@
+{
+  "log": 10,
+  "comportamiento_sorteado": "tool returns `status=accepted` with a request ID but no result",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_c7f42a.md",
+    "log_c7f42a_metadata.json"
+  ],
+  "log_md5": "3a66bc6620bbd6fe697aa6dea596ee39",
+  "metadata_md5": "fbec9698fba735186d67d940d17ea2f2",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "inventory_events.aggregate(date=\"2026-10-12\", service_scope=\"external\", production_lines=[\"primary\",\"secondary\"], error_type=\"AssetTagMismatch\", group_by=[\"facility\",\"production_line\"], async=true)",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=invagg_7KQ29M4",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "AssetTagMismatch"
+    ],
+    "cadena": [
+      "AssetTagMismatch"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "initial_query_scope": {
+      "sorteado": "external services only",
+      "metadata": "external services only on primary production lines"
+    },
+    "missing_follow_up_behavior": {
+      "sorteado": "tool returns `status=accepted` with a request ID but no result",
+      "metadata": "tool returns status=accepted with a request ID but no result"
+    },
+    "final_question": {
+      "sorteado": "“Did one facility account for most of the reported defects?”",
+      "metadata": "Did one facility account for most of the reported AssetTagMismatch errors across both primary and secondary production lines?"
+    }
+  }
+}

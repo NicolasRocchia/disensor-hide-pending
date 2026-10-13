@@ -1,0 +1,62 @@
+{
+  "log": 36,
+  "comportamiento_sorteado": "retrieval begins successfully but stops before returning grouped data",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_qc_1047.md",
+    "log_qc_1047_metadata.json"
+  ],
+  "log_md5": "ecded651a1da1172d3b5171d324aa3ff",
+  "metadata_md5": "483d141388e40df2c8afb8247133fb35",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "production_logs.aggregate_stockouts(date=\"2026-10-12\", scope=[\"primary_production_lines\", \"reserved_compute_capacity\"], filters={\"component\":\"servo-motor assembly SM-42\"}, group_by=[\"component\", \"production_cell\", \"allocation_pool\"], async=true)",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=qc-agg-7f31c9a2",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "servo-motor assembly SM-42"
+    ],
+    "cadena": [
+      "servo-motor assembly SM-42"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "follow_up_scope_expansion": {
+      "sorteado": "include reserved compute capacity",
+      "metadata": "include inventory assigned to reserved compute capacity"
+    },
+    "missing_follow_up_behavior": {
+      "sorteado": "retrieval begins successfully but stops before returning grouped data",
+      "metadata": "retrieval begins successfully but stops after returning status=accepted and a request ID, before returning grouped data"
+    },
+    "final_question": {
+      "sorteado": "“Was the TimeoutError problem concentrated in one service?”",
+      "metadata": "Were the SM-42 servo-motor stockouts concentrated in one production cell?"
+    }
+  }
+}

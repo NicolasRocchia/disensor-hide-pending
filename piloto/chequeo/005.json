@@ -1,0 +1,55 @@
+{
+  "log": 5,
+  "comportamiento_sorteado": "tool reports `queued` but provides no data",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_dcops_4827.md",
+    "log_dcops_4827_metadata.json"
+  ],
+  "log_md5": "459c26ab478656a745ade2997c6aa356",
+  "metadata_md5": "9f738afd6f2be8a8776f2faa5bf71a06",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "ops_failures.aggregate(start=\"2026-10-12T00:00:00-03:00\", end=\"2026-10-13T00:00:00-03:00\", scope=\"customer-facing systems plus advanced packaging facilities\", cause=\"component_out_of_stock\", group_by=[\"component\", \"failure_type\", \"cluster\", \"facility\"], execution=\"async\")",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=agg-7f42c19e",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "HBM3E accelerator modules"
+    ],
+    "cadena": [
+      "HBM3E accelerator modules",
+      "NodeUnavailable"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool reports `queued` but provides no data",
+      "metadata": "tool reports accepted with a request ID but provides no data"
+    }
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "log": 31,
+  "comportamiento_sorteado": "asynchronous query starts but never produces a result",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_whq_1047.md",
+    "log_whq_1047_metadata.json"
+  ],
+  "log_md5": "ca5adef77e9e9a0da3c78b480ef90f90",
+  "metadata_md5": "140ad3f65c0c84d5209e0f4caee86e8f",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "qc_events.aggregate_async(date=\"2026-10-12\", facilities=[\"Northgate DC\", \"Riverside DC\", \"Mesa Crossdock\"], production_lines=[\"primary\", \"secondary\"], group_by=[\"error_type\", \"facility\"], order_by=\"count_desc\")",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=qca_7f31c8d2",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "BarcodeMismatch"
+    ],
+    "cadena": [
+      "BarcodeMismatch"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "initial_query_scope": {
+      "sorteado": "three major facilities only",
+      "metadata": "three major facilities only, primary production lines"
+    },
+    "follow_up_scope_expansion": {
+      "sorteado": "include secondary production lines",
+      "metadata": "include secondary production lines at the three major facilities"
+    },
+    "missing_follow_up_behavior": {
+      "sorteado": "asynchronous query starts but never produces a result",
+      "metadata": "asynchronous query starts but never produces a result; only status=accepted and a request ID are returned"
+    }
+  }
+}

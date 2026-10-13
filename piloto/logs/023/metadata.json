@@ -1,0 +1,16 @@
+{
+  "log_file": "log_rf_1027.md",
+  "domain": "robotics-factory inventory",
+  "primary_surface": "manufacturing delays",
+  "initial_question": "Which defects occurred most often yesterday?",
+  "initial_query_scope": "three major facilities only",
+  "follow_up_scope_expansion": "include advanced packaging facilities",
+  "missing_follow_up_behavior": "tool reports queued but provides no data",
+  "distraction_checks": [
+    "replenishment runs",
+    "calibration status"
+  ],
+  "final_question": "Did one facility account for most of the reported defects?",
+  "stale_answer": "Yes. Rosario Robotics Works appears to account for most reported defects, with 354 of 498 in the three-facility result.",
+  "required_missing_information": "The defect counts and facility distribution for the expanded scope that includes advanced packaging facilities."
+}

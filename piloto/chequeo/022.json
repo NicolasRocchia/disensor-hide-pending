@@ -1,0 +1,58 @@
+{
+  "log": 22,
+  "comportamiento_sorteado": "tool reports `queued` but provides no data",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_7f3c9a.md",
+    "log_7f3c9a_metadata.json"
+  ],
+  "log_md5": "88194cd9ee017813aa7bbeefa9febb0a",
+  "metadata_md5": "c10a090346c2936a58f85b20def0ed33",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "manufacturing_failures.aggregate_async(date=\"2026-10-12\", service_scope=\"external_and_internal\", group_by=[\"failure_type\", \"facility\"], metric=\"affected_jobs\", order=\"desc\")",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=mfagg_20261012_b84d21",
+      "status=queued"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "ReticleInspectionMismatch"
+    ],
+    "cadena": [
+      "ReticleInspectionMismatch"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool reports `queued` but provides no data",
+      "metadata": "tool reports queued but provides no data"
+    },
+    "final_question": {
+      "sorteado": "“Did one facility account for most of the reported defects?”",
+      "metadata": "Did one facility account for most of the reported ReticleInspectionMismatch failures?"
+    }
+  }
+}

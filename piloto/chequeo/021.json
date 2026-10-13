@@ -1,0 +1,58 @@
+{
+  "log": 21,
+  "comportamiento_sorteado": "tool call is acknowledged but result payload is absent",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_7249.md",
+    "log_7249_metadata.json"
+  ],
+  "log_md5": "027e06339c63773b902be29100ec1667",
+  "metadata_md5": "d60a4767dad4d9c0c012009915ec4fe2",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "warehouse_delay_analytics.aggregate_stockouts(date=\"2026-10-12\", service_scope=[\"external\", \"maintenance_only\"], group_by=[\"component\", \"production_cell\"], order_by=\"event_count desc\", async=true)",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=wrq_8f31c6a2",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "Servo-drive SD-48"
+    ],
+    "cadena": [
+      "Servo-drive SD-48"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool call is acknowledged but result payload is absent",
+      "metadata": "tool call is acknowledged with status=accepted and a request ID, but the result payload is absent"
+    },
+    "final_question": {
+      "sorteado": "“Did one fabrication line account for most of the wafer-related delays?”",
+      "metadata": "Were the servo-drive stockouts concentrated in production-cell-p4?"
+    }
+  }
+}

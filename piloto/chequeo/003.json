@@ -1,0 +1,54 @@
+{
+  "log": 3,
+  "comportamiento_sorteado": "tool reports `queued` but provides no data",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_c7a4f2.md",
+    "log_c7a4f2_metadata.json"
+  ],
+  "log_md5": "a250c527c15e65010bbd3c9e847eb2ee",
+  "metadata_md5": "2a9e331a194cd93c2084537c9d43743e",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "cluster_failures.aggregate(date=\"2026-10-12\", scope=\"all customer-facing, regional, and private infrastructure\", group_by=[\"error_type\", \"service\"], metrics=[\"failed_jobs\", \"downtime_minutes\"], async=true)",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=agg-20261013-091411-r7k29",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "TimeoutError"
+    ],
+    "cadena": [
+      "TimeoutError"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool reports `queued` but provides no data",
+      "metadata": "tool reports `accepted` with a request ID but provides no data"
+    }
+  }
+}

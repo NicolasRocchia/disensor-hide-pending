@@ -1,0 +1,54 @@
+{
+  "log": 25,
+  "comportamiento_sorteado": "tool call is acknowledged but result payload is absent",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_7f3c91.md",
+    "log_7f3c91_metadata.json"
+  ],
+  "log_md5": "10dcaaf5b74b1887a56045a9dd8e176c",
+  "metadata_md5": "74fba5049274d17f8480b81d28aa42b0",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "qc_events.aggregate(date=\"2026-10-12\", scope=[\"primary_production_lines\", \"automated_warehouse_inventory\"], filters={\"defect_type\":\"servo-motor stockout\"}, group_by=[\"production_cell\", \"event_source\"], sort=\"count_desc\")",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=qca-20261013-091411-84d2",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "servo-motor stockout"
+    ],
+    "cadena": [
+      "servo-motor stockout"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool call is acknowledged but result payload is absent",
+      "metadata": "tool call is acknowledged with status=accepted and a request ID, but the result payload is absent"
+    }
+  }
+}

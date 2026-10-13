@@ -1,0 +1,54 @@
+{
+  "log": 24,
+  "comportamiento_sorteado": "tool returns `status=accepted` with a request ID but no result",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_whl_7c42.md",
+    "log_whl_7c42_metadata.json"
+  ],
+  "log_md5": "c7fd86ba65b0c70d2431a7c9188919d6",
+  "metadata_md5": "286bd865a56aa94fe814913136edf77b",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "telemetry.aggregate_failures(date=\"2026-10-12\", warehouse=\"Rosario Fulfillment Campus\", inventory_scope=\"all\", infrastructure=[\"campus\", \"regional\", \"private\"], group_by=[\"failure_type\", \"production_cell\"], metric=\"distinct_jobs_affected\", order=\"descending\", async=true)",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=req_rsf_8d21c6",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "ServoMotorStockout"
+    ],
+    "cadena": [
+      "ServoMotorStockout"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool returns `status=accepted` with a request ID but no result",
+      "metadata": "tool returns status=accepted with a request ID but no result"
+    }
+  }
+}

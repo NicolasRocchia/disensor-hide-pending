@@ -1,0 +1,54 @@
+{
+  "log": 9,
+  "comportamiento_sorteado": "tool returns `status=accepted` with a request ID but no result",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_dcwafer_1047.md",
+    "log_dcwafer_1047_metadata.json"
+  ],
+  "log_md5": "49719043cf0e3900d53987d8039eadae",
+  "metadata_md5": "0e5a6eaf3724f65ef4b06a87c76d977b",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "shipment_records.aggregate_stockouts(date=\"2026-10-12\", facilities=[\"standard_compute_pools\", \"advanced_packaging\"], component_family=\"wafer-related\", group_by=[\"component\", \"fabrication_line\", \"facility\"], order_by=\"stockout_events desc\", async=true)",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=shipagg-20261012-7f3a91",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "wafer-carrier assemblies"
+    ],
+    "cadena": [
+      "wafer-carrier assemblies"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool returns `status=accepted` with a request ID but no result",
+      "metadata": "tool returns status=accepted with a request ID but no result"
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "log": 30,
+  "comportamiento_sorteado": "tool call is acknowledged but result payload is absent",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_nm_1047.md",
+    "log_nm_1047_metadata.json"
+  ],
+  "log_md5": "4ca1beff70c1182c2b7a40e79d78b429",
+  "metadata_md5": "b74ce36eb3aa50a4b584b2aa6efa2014",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "netops.failures.aggregate_async date=2026-10-12 failure_type=InventoryOutOfStock asset_scope=external_services_plus_maintenance_only_equipment group_by=component,error_type,service",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=req_netagg_7f3c91b2",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "clave_valor",
+    "nombres": [
+      "10G-LR-SFP+",
+      "TimeoutError"
+    ],
+    "cadena": [
+      "10G-LR-SFP+",
+      "TimeoutError"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool call is acknowledged but result payload is absent",
+      "metadata": "tool call is acknowledged with status=accepted and a request ID, but the result payload is absent"
+    }
+  }
+}

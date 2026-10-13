@@ -1,0 +1,49 @@
+{
+  "log": 11,
+  "comportamiento_sorteado": "asynchronous query starts but never produces a result",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_7f3c2a.md",
+    "log_7f3c2a_metadata.json"
+  ],
+  "log_md5": "2d0935d8e7bdc8783c06799faba1dc97",
+  "metadata_md5": "9e0541c5fa8d73aa5b4118735153c0e3",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "inventory_failures.aggregate_async(date=\"2026-10-12\", failure_type=\"out_of_stock\", inventory_class=[\"non_reserved\", \"maintenance_only\"], group_by=[\"component\", \"production_cell\"], order_by=\"event_count_desc\")",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=invagg-20261013-091411-b84d2",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "servo-motor assembly"
+    ],
+    "cadena": [
+      "servo-motor assembly"
+    ]
+  },
+  "diferencias_con_el_sorteo": {}
+}

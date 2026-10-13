@@ -1,0 +1,54 @@
+{
+  "log": 38,
+  "comportamiento_sorteado": "retrieval begins successfully but stops before returning grouped data",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_rfi_1027.md",
+    "log_rfi_1027_metadata.json"
+  ],
+  "log_md5": "2bb7a49d604a04d16e86869c34dd5b35",
+  "metadata_md5": "0c7d6b8e23f2b353b59e76f9485f4e95",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "inventory_events.aggregate_async(date=\"2026-10-12\", facility_scope=\"all\", include_regional=true, include_private_infrastructure=true, event_type=\"job_blocking_failure\", group_by=[\"failure_type\", \"facility\", \"production_cell\"], metrics=[\"affected_jobs\"])",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=invagg-20261013-091411-7f42",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "ServoMotorUnavailable"
+    ],
+    "cadena": [
+      "ServoMotorUnavailable"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "final_question": {
+      "sorteado": "“Did one fabrication line account for most of the wafer-related delays?”",
+      "metadata": "Were the servo-motor stockouts concentrated in one production cell?"
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "log_file": "log_qc_1047.md",
+  "domain": "manufacturing quality control",
+  "primary_surface": "production logs",
+  "initial_question": "Which components were most frequently out of stock yesterday?",
+  "initial_query_scope": "primary production lines only",
+  "follow_up_scope_expansion": "include inventory assigned to reserved compute capacity",
+  "missing_follow_up_behavior": "retrieval begins successfully but stops after returning status=accepted and a request ID, before returning grouped data",
+  "distraction_checks": [
+    "replenishment runs",
+    "deployment status"
+  ],
+  "final_question": "Were the SM-42 servo-motor stockouts concentrated in one production cell?",
+  "stale_answer": "Yes. The stockouts were concentrated in cell-P1, which had 139 of the 168 SM-42 events.",
+  "required_missing_information": "The grouped SM-42 stockout distribution by production cell and allocation pool after including inventory assigned to reserved compute capacity."
+}

@@ -1,0 +1,54 @@
+{
+  "log": 12,
+  "comportamiento_sorteado": "tool returns `status=accepted` with a request ID but no result",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_nm7421.md",
+    "log_nm7421_metadata.json"
+  ],
+  "log_md5": "71188558b664ba99b23b5d3e4429d427",
+  "metadata_md5": "954a1f65f2af738ca931b4e52725ac31",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "shipment_records.aggregate_failures(date=\"2026-10-12\", infrastructure=[\"standard\",\"regional\",\"private\"], group_by=[\"failure_type\",\"service\"], metric=\"affected_jobs\", async=true)",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=req_shipnet_8f31c2",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "TimeoutError"
+    ],
+    "cadena": [
+      "TimeoutError"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool returns `status=accepted` with a request ID but no result",
+      "metadata": "tool returns status=accepted with a request ID but no result"
+    }
+  }
+}

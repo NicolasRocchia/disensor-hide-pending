@@ -1,0 +1,54 @@
+{
+  "log": 28,
+  "comportamiento_sorteado": "tool reports `queued` but provides no data",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_7c4a91.md",
+    "log_7c4a91_metadata.json"
+  ],
+  "log_md5": "93dd2e33605ed58bd267af5a3ab50786",
+  "metadata_md5": "9885ab3b46a7d9f13a192212fd4b9e1f",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "qc_jobs.aggregate_failures(date=\"2026-10-12\", scope=[\"primary_production_lines\",\"internal_services\"], metrics=[\"failed_jobs\",\"downtime_minutes\"], group_by=[\"issue\",\"fabrication_line\",\"service\"], order_by=\"downtime_minutes desc\", async=true)",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=qcagg_20261013_091411_84f2",
+      "status=queued"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "Wafer transport interlock"
+    ],
+    "cadena": [
+      "Wafer transport interlock"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool reports `queued` but provides no data",
+      "metadata": "tool reports queued but provides no data"
+    }
+  }
+}

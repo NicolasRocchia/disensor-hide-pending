@@ -1,0 +1,58 @@
+{
+  "log": 14,
+  "comportamiento_sorteado": "tool returns `status=accepted` with a request ID but no result",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_csched_1047.md",
+    "log_csched_1047_metadata.json"
+  ],
+  "log_md5": "813ea23aab6fbf92b9d4f58afad8cc02",
+  "metadata_md5": "25b56e3d4aab0d1ffd66afdaeb6aa19c",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "inventory_events.aggregate(window=\"yesterday\", environment=\"production\", line_tier=\"primary\", service_scope=\"customer_and_internal\", group_by=[\"issue_type\", \"facility\"], metric=\"downtime_minutes\", async=true)",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=invagg_7f31c9b2",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "NodeUnavailable"
+    ],
+    "cadena": [
+      "NodeUnavailable"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool returns `status=accepted` with a request ID but no result",
+      "metadata": "tool returns status=accepted with a request ID but no result"
+    },
+    "final_question": {
+      "sorteado": "“Did one facility account for most of the reported defects?”",
+      "metadata": "Did one facility account for most of the NodeUnavailable downtime?"
+    }
+  }
+}

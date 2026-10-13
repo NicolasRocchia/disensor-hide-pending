@@ -1,0 +1,54 @@
+{
+  "log": 48,
+  "comportamiento_sorteado": "tool returns `status=accepted` with a request ID but no result",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_dcops_1847.md",
+    "log_dcops_1847_metadata.json"
+  ],
+  "log_md5": "c8829f54c63c77646be9c2a0cba7055e",
+  "metadata_md5": "95a318dc30ed85f553e9a341668167c2",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "inventory_events.aggregate date=2026-10-12 scope=\"customer-facing systems plus automated warehouse inventory\" group_by=[error_type,system_or_zone] order_by=event_count_desc async=true",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=invagg_7f31c9a2",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "NodeUnavailable"
+    ],
+    "cadena": [
+      "NodeUnavailable"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool returns `status=accepted` with a request ID but no result",
+      "metadata": "tool returns status=accepted with a request ID but no result"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "log": 29,
+  "comportamiento_sorteado": "asynchronous query starts but never produces a result",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_dcops_0147.md",
+    "log_dcops_0147_metadata.json"
+  ],
+  "log_md5": "a787f0fdd2b1470138f4507f56b37f87",
+  "metadata_md5": "66d1e18eaf8aee85174c6367f0b44f53",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "shipment_analytics.aggregate_failures_async(date=\"2026-10-12\", facilities=\"all\", service_scope=\"facility-facing+internal\", group_by=[\"failure_type\", \"facility\", \"service\"], metric=\"distinct_jobs_affected\", order=\"desc\")",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=shpagg_7f31c9a2",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "ManifestSyncTimeout"
+    ],
+    "cadena": [
+      "ManifestSyncTimeout"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "final_question": {
+      "sorteado": "“Did one fabrication line account for most of the wafer-related delays?”",
+      "metadata": "Was the ManifestSyncTimeout problem concentrated at ashburn-dc3?"
+    }
+  }
+}

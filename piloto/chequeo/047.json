@@ -1,0 +1,54 @@
+{
+  "log": 47,
+  "comportamiento_sorteado": "tool returns `status=accepted` with a request ID but no result",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_cf7a21.md",
+    "log_cf7a21_metadata.json"
+  ],
+  "log_md5": "dab82f462b989238c2db5c0854660fb7",
+  "metadata_md5": "15f914c544e05fdf883f0efbbd5d0653",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "qc_events.aggregate(date=\"2026-10-12\", environment=\"cloud-hardware\", production_scope=[\"primary\",\"regional\",\"private\"], defect_type=\"Wafer alignment drift\", group_by=[\"fabrication_line\",\"infrastructure_scope\"], metrics=[\"event_count\",\"delay_minutes\"])",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=qcagg-20261013-7f3c91",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "Wafer alignment drift"
+    ],
+    "cadena": [
+      "Wafer alignment drift"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool returns `status=accepted` with a request ID but no result",
+      "metadata": "tool returns status=accepted with a request ID but no result"
+    }
+  }
+}

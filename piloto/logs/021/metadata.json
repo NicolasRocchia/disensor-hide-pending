@@ -1,0 +1,16 @@
+{
+  "log_file": "log_7249.md",
+  "domain": "warehouse logistics",
+  "primary_surface": "manufacturing delays",
+  "initial_question": "Which components were most frequently out of stock yesterday?",
+  "initial_query_scope": "external services only",
+  "follow_up_scope_expansion": "include maintenance-only equipment",
+  "missing_follow_up_behavior": "tool call is acknowledged with status=accepted and a request ID, but the result payload is absent",
+  "distraction_checks": [
+    "calibration status",
+    "system health"
+  ],
+  "final_question": "Were the servo-drive stockouts concentrated in production-cell-p4?",
+  "stale_answer": "Yes. The external-services-only result shows 531 of 684 servo-drive stockouts at production-cell-p4.",
+  "required_missing_information": "The servo-drive stockout counts by production cell after maintenance-only equipment is included."
+}

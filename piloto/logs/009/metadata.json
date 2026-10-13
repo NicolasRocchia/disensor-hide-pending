@@ -1,0 +1,16 @@
+{
+  "log_file": "log_dcwafer_1047.md",
+  "domain": "data-center operations",
+  "primary_surface": "shipment records",
+  "initial_question": "Which components were most frequently out of stock yesterday?",
+  "initial_query_scope": "standard compute pools only",
+  "follow_up_scope_expansion": "include advanced packaging facilities",
+  "missing_follow_up_behavior": "tool returns status=accepted with a request ID but no result",
+  "distraction_checks": [
+    "maintenance events",
+    "replenishment runs"
+  ],
+  "final_question": "Did one fabrication line account for most of the wafer-related delays?",
+  "stale_answer": "Yes—Fab Line S4 appears to account for most wafer-related delays.",
+  "required_missing_information": "The wafer-related stockout and delay distribution by fabrication line across both standard compute pools and advanced packaging facilities."
+}

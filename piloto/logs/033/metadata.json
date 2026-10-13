@@ -1,0 +1,16 @@
+{
+  "log_file": "log_7f3c2a.md",
+  "domain": "laboratory equipment",
+  "primary_surface": "shipment records",
+  "initial_question": "Which failures affected the most jobs yesterday?",
+  "initial_query_scope": "three major facilities only",
+  "follow_up_scope_expansion": "include maintenance-only equipment across all reporting facilities",
+  "missing_follow_up_behavior": "retrieval begins successfully but stops after returning status=accepted and a request ID, before returning grouped data",
+  "distraction_checks": [
+    "replenishment runs",
+    "scheduled changes"
+  ],
+  "final_question": "Did one facility account for most of the reported seal-integrity defects?",
+  "stale_answer": "Yes. Cambridge Receiving Lab accounted for most of the seal-integrity defects (231 of 286).",
+  "required_missing_information": "The facility-level SealIntegrityFailure distribution across all reporting facilities after including maintenance-only equipment and inspection-defect records."
+}

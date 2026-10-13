@@ -1,0 +1,54 @@
+{
+  "log": 23,
+  "comportamiento_sorteado": "tool reports `queued` but provides no data",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_rf_1027.md",
+    "log_rf_1027_metadata.json"
+  ],
+  "log_md5": "ea36e62964735e2e7ae4c11df2528f58",
+  "metadata_md5": "78433be573efafcb4047c1838c1fb5b4",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "manufacturing_delays.aggregate_defects(date=\"2026-10-12\", facility_scope=\"major_and_advanced_packaging\", group_by=[\"defect_type\", \"facility\"], order=\"count_desc\", async=true)",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=mdq-7f42c19a",
+      "status=queued"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "Servo encoder alignment drift"
+    ],
+    "cadena": [
+      "Servo encoder alignment drift"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool reports `queued` but provides no data",
+      "metadata": "tool reports queued but provides no data"
+    }
+  }
+}

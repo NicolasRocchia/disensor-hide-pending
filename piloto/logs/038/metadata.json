@@ -1,0 +1,16 @@
+{
+  "log_file": "log_rfi_1027.md",
+  "domain": "robotics-factory inventory",
+  "primary_surface": "inventory events",
+  "initial_question": "Which failures affected the most jobs yesterday?",
+  "initial_query_scope": "three major facilities only",
+  "follow_up_scope_expansion": "include regional or private infrastructure",
+  "missing_follow_up_behavior": "retrieval begins successfully but stops before returning grouped data",
+  "distraction_checks": [
+    "replenishment runs",
+    "maintenance events"
+  ],
+  "final_question": "Were the servo-motor stockouts concentrated in one production cell?",
+  "stale_answer": "Yes—Cordoba Central cell C-7 appears to account for most servo-motor stockouts.",
+  "required_missing_information": "The facility-and-production-cell distribution of ServoMotorUnavailable affected jobs across all major, regional, and private robotics infrastructure."
+}

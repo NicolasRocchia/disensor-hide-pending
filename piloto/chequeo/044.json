@@ -1,0 +1,54 @@
+{
+  "log": 44,
+  "comportamiento_sorteado": "tool call is acknowledged but result payload is absent",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_7c2a91.md",
+    "log_7c2a91_metadata.json"
+  ],
+  "log_md5": "18d38382b8bfd7a066740329859d7b12",
+  "metadata_md5": "5a7ea19956abab58b46a2d065fb16bb6",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "shipment_analytics.aggregate_failures(date=\"2026-10-12\", compute_pool_class=\"standard\", service_visibility=[\"customer-facing\",\"internal\"], group_by=[\"failure_type\",\"service\"], metric=\"affected_jobs\", order=\"desc\", async=true)",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=shipagg_01JAB7N4QX9M2K6RTP3V",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "TimeoutError"
+    ],
+    "cadena": [
+      "TimeoutError"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool call is acknowledged but result payload is absent",
+      "metadata": "tool call is acknowledged with status=accepted and a request ID, but the result payload is absent"
+    }
+  }
+}

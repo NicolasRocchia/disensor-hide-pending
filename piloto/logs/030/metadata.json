@@ -1,0 +1,16 @@
+{
+  "log_file": "log_nm_1047.md",
+  "domain": "network monitoring",
+  "primary_surface": "job failures",
+  "initial_question": "Which components were most frequently out of stock yesterday?",
+  "initial_query_scope": "external services only",
+  "follow_up_scope_expansion": "include maintenance-only equipment",
+  "missing_follow_up_behavior": "tool call is acknowledged with status=accepted and a request ID, but the result payload is absent",
+  "distraction_checks": [
+    "replenishment runs",
+    "maintenance events"
+  ],
+  "final_question": "Was the TimeoutError problem concentrated in one service?",
+  "stale_answer": "Yes. The TimeoutError problem was concentrated in edge-transit, which accounted for 1,947 of the 2,214 visible TimeoutError failures.",
+  "required_missing_information": "The TimeoutError counts by service across external services and maintenance-only equipment from the accepted expanded-scope aggregation."
+}

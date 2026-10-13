@@ -1,0 +1,16 @@
+{
+  "log_file": "log_ccs_1047.md",
+  "domain": "compute-cluster scheduling",
+  "primary_surface": "inventory events",
+  "initial_question": "Which defects occurred most often yesterday?",
+  "initial_query_scope": "non-reserved inventory only",
+  "follow_up_scope_expansion": "include internal services",
+  "missing_follow_up_behavior": "asynchronous query starts but never produces a result",
+  "distraction_checks": [
+    "deployment status",
+    "system health"
+  ],
+  "final_question": "Did most of the NodeUnavailable failures occur on gpu-cluster-a?",
+  "stale_answer": "Yes. In the non-reserved inventory result, gpu-cluster-a accounted for 603 of 812 NodeUnavailable failures, which is a majority.",
+  "required_missing_information": "The complete NodeUnavailable count and per-cluster distribution after including internal services in the inventory-event aggregation."
+}

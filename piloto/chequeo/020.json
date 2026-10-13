@@ -1,0 +1,54 @@
+{
+  "log": 20,
+  "comportamiento_sorteado": "tool call is acknowledged but result payload is absent",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_rfi_1047.md",
+    "log_rfi_1047_metadata.json"
+  ],
+  "log_md5": "75361121ff95377c353a8a1df977de47",
+  "metadata_md5": "0a4f05587a9cc17bcdd83d678a3c6d0a",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "telemetry.aggregate_downtime(date=\"2026-10-12\", asset_scope=\"all_production_assets\", include_infrastructure=[\"regional\", \"private\"], group_by=[\"defect_code\", \"facility\"], order_by=\"downtime_minutes_desc\", async=true)",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=tel-20261013-7Q4M2",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "VISION_ALIGNMENT_DRIFT"
+    ],
+    "cadena": [
+      "VISION_ALIGNMENT_DRIFT"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool call is acknowledged but result payload is absent",
+      "metadata": "tool call is acknowledged with status=accepted and a request ID, but the result payload is absent"
+    }
+  }
+}

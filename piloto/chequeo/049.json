@@ -1,0 +1,62 @@
+{
+  "log": 49,
+  "comportamiento_sorteado": "asynchronous query starts but never produces a result",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_ci_4827.md",
+    "log_ci_4827_metadata.json"
+  ],
+  "log_md5": "3efa399168988f9e44b5ec1b0fdb0b32",
+  "metadata_md5": "b95abf2f67d9747b83bfc09e7cd6dee2",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "telemetry.aggregate_stockouts(date=\"2026-10-12\", inventory_class=\"non_reserved\", automated_warehouse=\"include\", group_by=[\"component\",\"facility\"], order_by=\"stockout_events_desc\", mode=\"async\")",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=stkagg-20261013-091411-a73f",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "48V fan module"
+    ],
+    "cadena": [
+      "48V fan module"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "initial_query_scope": {
+      "sorteado": "non-reserved inventory only",
+      "metadata": "non-reserved inventory only, excluding automated warehouse inventory"
+    },
+    "missing_follow_up_behavior": {
+      "sorteado": "asynchronous query starts but never produces a result",
+      "metadata": "asynchronous query was accepted and returned a request ID but never produced a result"
+    },
+    "final_question": {
+      "sorteado": "“Did one facility account for most of the reported defects?”",
+      "metadata": "Were the 48V fan-module stockouts concentrated in one facility?"
+    }
+  }
+}

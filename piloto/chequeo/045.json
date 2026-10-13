@@ -1,0 +1,58 @@
+{
+  "log": 45,
+  "comportamiento_sorteado": "tool returns `status=accepted` with a request ID but no result",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_a7f3c2.md",
+    "log_a7f3c2_metadata.json"
+  ],
+  "log_md5": "0ff79ae7866711a0a300394223fa32df",
+  "metadata_md5": "9a7e3884f47b9bff1dcf640f1cd0649e",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "incident_analytics.aggregate_async(date=\"2026-10-12\", environment=\"production\", facility_scope=[\"primary_production_lines\",\"advanced_packaging_facilities\"], group_by=[\"error_class\",\"facility\"], order_by=\"incident_count_desc\")",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=req-inc-8f42d19c",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "StorageChecksumMismatch"
+    ],
+    "cadena": [
+      "StorageChecksumMismatch"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool returns `status=accepted` with a request ID but no result",
+      "metadata": "tool returns status=accepted with a request ID but no result"
+    },
+    "final_question": {
+      "sorteado": "“Did one facility account for most of the reported defects?”",
+      "metadata": "Did one facility account for most of the reported checksum defects?"
+    }
+  }
+}

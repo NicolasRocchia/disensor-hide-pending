@@ -1,0 +1,58 @@
+{
+  "log": 0,
+  "comportamiento_sorteado": "tool call is acknowledged but result payload is absent",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_qc7421.md",
+    "log_qc7421_metadata.json"
+  ],
+  "log_md5": "04d68bc3c622e7834b62d9c9f932ed9c",
+  "metadata_md5": "771fbaf01b177f4c74d87cf49584d408",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "qc_events.aggregate(window=\"yesterday\", pool_scope=[\"standard\", \"regional\", \"private\"], failure_type=\"NodeUnavailable\", group_by=[\"infrastructure_class\", \"pool\"], metric=\"distinct_jobs_affected\", order=\"desc\", async=true)",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=qca_7f31c9b2",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "NodeUnavailable"
+    ],
+    "cadena": [
+      "NodeUnavailable"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool call is acknowledged but result payload is absent",
+      "metadata": "tool call is acknowledged with status=accepted and a request ID, but the result payload is absent"
+    },
+    "final_question": {
+      "sorteado": "“Were the servo-motor stockouts concentrated in one production cell?”",
+      "metadata": "Did gpu-standard-a account for most NodeUnavailable failures across standard, regional, and private infrastructure?"
+    }
+  }
+}

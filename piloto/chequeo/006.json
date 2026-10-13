@@ -1,0 +1,54 @@
+{
+  "log": 6,
+  "comportamiento_sorteado": "tool reports `queued` but provides no data",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_dcops_01.md",
+    "log_dcops_01_metadata.json"
+  ],
+  "log_md5": "bb47f761695b9e3ae705204532b5b182",
+  "metadata_md5": "15e80c80f11dcdaf28cd5212a7e14b82",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "shipment_records.aggregate(date=\"2026-10-12\", system_scope=\"customer-facing\", production_lines=[\"primary\",\"secondary\"], group_by=[\"failure_type\",\"service\",\"production_line\"], metric=\"distinct_jobs_affected\", order=\"desc\", execution=\"async\")",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=shr_8f3c21b7",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "TimeoutError"
+    ],
+    "cadena": [
+      "TimeoutError"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool reports `queued` but provides no data",
+      "metadata": "tool reports queued but provides no data (the asynchronous request is acknowledged with status=accepted)"
+    }
+  }
+}

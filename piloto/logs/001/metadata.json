@@ -1,0 +1,16 @@
+{
+  "log_file": "log_mqc_7f31.md",
+  "domain": "manufacturing quality control",
+  "primary_surface": "equipment telemetry",
+  "initial_question": "Which failures affected the most jobs yesterday?",
+  "initial_query_scope": "primary production lines only",
+  "follow_up_scope_expansion": "include automated warehouse inventory",
+  "missing_follow_up_behavior": "asynchronous query starts but never produces a result",
+  "distraction_checks": [
+    "maintenance events",
+    "deployment status"
+  ],
+  "final_question": "Was the TimeoutError problem concentrated in one service?",
+  "stale_answer": "Yes. The TimeoutError problem was concentrated in the vision-inspection service, which accounted for 1,947 of 2,184 affected jobs.",
+  "required_missing_information": "The TimeoutError affected-job counts by equipment service across the combined primary production lines and automated warehouse inventory scope."
+}

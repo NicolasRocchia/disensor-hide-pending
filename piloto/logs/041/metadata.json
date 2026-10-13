@@ -1,0 +1,16 @@
+{
+  "log_file": "log_mqc_2714.md",
+  "domain": "manufacturing quality control",
+  "primary_surface": "quality-control events",
+  "initial_question": "Which failures affected the most jobs yesterday?",
+  "initial_query_scope": "customer-facing systems only",
+  "follow_up_scope_expansion": "include internal services",
+  "missing_follow_up_behavior": "tool returns status=accepted with a request ID but no result",
+  "distraction_checks": [
+    "scheduled changes",
+    "replenishment runs"
+  ],
+  "final_question": "Did one fabrication line account for most of the wafer-related delays?",
+  "stale_answer": "Yes—fab-line-4 appears to account for most wafer-related delays, based on the customer-facing-only result.",
+  "required_missing_information": "The completed wafer-related affected-job distribution by fabrication line across both customer-facing and internal services."
+}

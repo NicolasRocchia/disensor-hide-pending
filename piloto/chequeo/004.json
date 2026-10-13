@@ -1,0 +1,49 @@
+{
+  "log": 4,
+  "comportamiento_sorteado": "asynchronous query starts but never produces a result",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_ccs_1047.md",
+    "log_ccs_1047_metadata.json"
+  ],
+  "log_md5": "004a3e5f7e2407dc28c4fc784dd6ab3e",
+  "metadata_md5": "d2cf24a50e7699e3a56edfa1687342ee",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "inventory_events.aggregate_async window=\"yesterday\" inventory_scope=\"non-reserved\" include_internal_services=true group_by=[\"defect_type\",\"cluster\"] order_by=\"event_count desc\"",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=invagg-20261013-091411-7f3c2",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "NodeUnavailable"
+    ],
+    "cadena": [
+      "NodeUnavailable"
+    ]
+  },
+  "diferencias_con_el_sorteo": {}
+}

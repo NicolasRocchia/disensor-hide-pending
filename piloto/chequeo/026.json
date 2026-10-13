@@ -1,0 +1,58 @@
+{
+  "log": 26,
+  "comportamiento_sorteado": "retrieval begins successfully but stops before returning grouped data",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_nm_qc_1013a.md",
+    "log_nm_qc_1013a_metadata.json"
+  ],
+  "log_md5": "a0bd0c640f9dd7cb62c6c9027d00c523",
+  "metadata_md5": "114dd15cd7790ef49d1a9a5693140b56",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "network_qc.aggregate_events date=2026-10-12 scope=\"all production networks, including regional or private infrastructure\" filters={issue:\"Servo-link packet loss\"} group_by=[production_cell,infrastructure_class,region] metrics=[event_count,downtime_minutes] order_by=\"downtime_minutes desc\" async=true",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=nqc_7F3A91C2",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "Servo-link packet loss"
+    ],
+    "cadena": [
+      "Servo-link packet loss"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "retrieval begins successfully but stops before returning grouped data",
+      "metadata": "retrieval begins successfully but stops after returning status=accepted and a request ID, before returning grouped data"
+    },
+    "final_question": {
+      "sorteado": "“Were the servo-motor stockouts concentrated in one production cell?”",
+      "metadata": "Were the servo-link packet-loss events concentrated in one production cell?"
+    }
+  }
+}

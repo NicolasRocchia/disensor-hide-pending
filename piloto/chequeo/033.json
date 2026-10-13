@@ -1,0 +1,62 @@
+{
+  "log": 33,
+  "comportamiento_sorteado": "retrieval begins successfully but stops before returning grouped data",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_7f3c2a.md",
+    "log_7f3c2a_metadata.json"
+  ],
+  "log_md5": "6bd379ddc8a15ab9328f694bfdf48615",
+  "metadata_md5": "4143d935cef6ce14102ec71bf6fd3bb6",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "shipment_analytics.aggregate_async(date=\"2026-10-12\", facilities=\"all_reporting_facilities\", equipment_scope=\"production-shipping-and-maintenance-only\", record_types=[\"shipment_failure\", \"inspection_defect\"], group_by=[\"failure_type\", \"facility\"], metric=\"distinct_shipment_jobs\")",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=shr_20261012_9Q4M7K",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "SealIntegrityFailure"
+    ],
+    "cadena": [
+      "SealIntegrityFailure"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "follow_up_scope_expansion": {
+      "sorteado": "include maintenance-only equipment",
+      "metadata": "include maintenance-only equipment across all reporting facilities"
+    },
+    "missing_follow_up_behavior": {
+      "sorteado": "retrieval begins successfully but stops before returning grouped data",
+      "metadata": "retrieval begins successfully but stops after returning status=accepted and a request ID, before returning grouped data"
+    },
+    "final_question": {
+      "sorteado": "“Did one facility account for most of the reported defects?”",
+      "metadata": "Did one facility account for most of the reported seal-integrity defects?"
+    }
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "log": 43,
+  "comportamiento_sorteado": "tool call is acknowledged but result payload is absent",
+  "estado_del_generador": "archivos",
+  "archivos": [
+    "log_smf_4821.md",
+    "log_smf_4821_metadata.json"
+  ],
+  "log_md5": "fd3be0d592d8e088c0ed77e49cf114ae",
+  "metadata_md5": "2e299e1f8bd96d8d68b4d6c6e589dbd2",
+  "fallas": [],
+  "claves_extra": [],
+  "termina_en_la_pregunta": true,
+  "tipos": [
+    "USER",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL EVENT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "TOOL CALL",
+    "TOOL RESULT",
+    "ASSISTANT",
+    "USER"
+  ],
+  "llamada_de_seguimiento": "manufacturing_delays.aggregate(date=\"2026-10-12\", scope=\"external_services_and_automated_warehouse_inventory\", group_by=[\"failure_type\", \"fabrication_line\", \"inventory_system\"], metric=\"affected_jobs\", order=\"desc\", async=true)",
+  "entrada_siguiente": {
+    "tipo": "TOOL EVENT",
+    "lineas": [
+      "request_id=mfg-delay-7c91a4e2",
+      "status=accepted"
+    ]
+  },
+  "dominante": {
+    "forma": "arbol",
+    "nombres": [
+      "WaferCarrierDispatchTimeout"
+    ],
+    "cadena": [
+      "WaferCarrierDispatchTimeout"
+    ]
+  },
+  "diferencias_con_el_sorteo": {
+    "missing_follow_up_behavior": {
+      "sorteado": "tool call is acknowledged but result payload is absent",
+      "metadata": "tool call is acknowledged with status=accepted and a request ID, but the result payload is absent"
+    }
+  }
+}
