@@ -1,12 +1,14 @@
 # Protocolo · Fase 1: ¿el esquema de residuo hace que el registro consigne el hueco?
 
-**Estado: v5, NO congelado.** Incorpora lo que midió la primera parte del
+**Estado: v6, NO congelado.** Incorpora lo que midió la primera parte del
 piloto, la del arnés, en la máquina de Nico (`05-PRUEBA-SANDBOX-1.md`,
-`06-PRUEBA-SANDBOX-2.md` y los archivos de `piloto/`): el binario de Codex, el
-sandbox, el contexto que recibe cada modelo, los esfuerzos y los flags de Claude
-Code. Ninguna de esas mediciones vio una respuesta del sujeto a un brazo. El
-mapa de cambios está en §15. Las versiones anteriores quedan archivadas en
-`protocolo-v0-archivo.md` a `protocolo-v4-archivo.md`.
+`06-PRUEBA-SANDBOX-2.md`, `08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md` y los archivos de
+`piloto/`): el binario de Codex, el sandbox, el contexto que recibe cada modelo,
+los esfuerzos y los flags de Claude Code. Ninguna de esas mediciones vio una
+respuesta del sujeto a un brazo. El mapa de cambios está en §15. Las versiones
+v0 a v4 quedan archivadas en `protocolo-v0-archivo.md` a
+`protocolo-v4-archivo.md`; desde la v5, el historial lo lleva el repositorio git
+de esta carpeta.
 
 Fuente de todo el material ajeno: Huang et al., *Language Models Are "Insecure"
 Reporters*, arXiv:2609.36139v1, 28/09/2026. Ver `00-LEEME-procedencia.md`.
@@ -483,9 +485,15 @@ verdad.
 
 ## 7. El arnés
 
-Lo corre Nico en su máquina, con Windows, **desde una terminal común** (no desde
-Claude Code), con un script en Python que se escribe y se revisa antes de
-congelar. **Ninguna clave de API pasa por el diseño ni por Claude:** las dos CLI
+Corre en la máquina de Nico, con Windows, desde una terminal común **o desde una
+sesión de Claude Code**: con 0.153.4, el sandbox rechaza todo con cualquiera de
+los dos como proceso padre (`06-PRUEBA-SANDBOX-2.md`,
+`08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`). Claude Code sigue
+`07-PARA-CLAUDE-CODE.md`: corre las etapas y no edita los scripts. El arnés es un
+conjunto de scripts en Python (`herramientas/`) que se escriben y se revisan
+antes de congelar, y le saca al entorno de cada llamada las variables de una
+sesión de Claude Code o de Codex y las claves de API (`arnes.py`,
+`PREFIJOS_FUERA`). **Ninguna clave de API pasa por el diseño ni por Claude:** las dos CLI
 usan sesiones de Nico.
 
 **Rutas neutras.** Codex y Claude Code le pasan al modelo el directorio de
@@ -576,7 +584,10 @@ plugins recomendados, que depende de la cuenta; y el contexto de entorno
 **Red de seguridad, en toda llamada.** Aunque el sandbox rechaza todo, el flujo
 de `--json` se revisa: un comando que se ejecutó o un archivo que cambió, en
 cualquier ruta, es falla de la llamada, y **si pasa una vez, se para** y se
-revisa el sandbox. Los intentos rechazados se cuentan y se informan por brazo.
+revisa el sandbox. **Los intentos rechazados no aparecen en el flujo de `--json`
+de 0.153.4** (`08`, punto 3): se cuentan en el stderr de cada llamada, una línea
+por intento, y se informan por brazo. Cada intento reenvía el contexto entero,
+así que también pesan en el presupuesto.
 
 ### 7.2 Claude por `claude -p`
 
@@ -656,9 +667,11 @@ comillas curvas y las rayas del generador llegarían como UTF-8 inválido) y cad
   sha256 de `codex.CMD` no sirve de control:** es el lanzador que crea npm, llama
   a `bin/codex.js`, y ése arranca el `codex.exe` del paquete de plataforma. Una
   actualización deja `codex.CMD` idéntico. El control es **el sha256 del
-  `codex.exe`**, `{SHA256_CODEX}`, más `codex --version`, chequeados antes de cada
+  `codex.exe`**, `444a3f0008050605cae73cd9b7a2dcac61294062dfaab56dd20430fd6498518b`,
+  más `codex --version`, chequeados antes de cada
   llamada. El 0.145.0 de fnm no interviene, porque nada se llama por el PATH.
-- **Claude Code 2.1.285**, por la copia de §7.2, con su sha256, `{SHA256_CLAUDE}`,
+- **Claude Code 2.1.285**, por la copia de §7.2, con su sha256,
+  `121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e`,
   chequeado antes de cada llamada.
 
 Si cualquiera cambia, la llamada no sale y el arnés para.
@@ -676,14 +689,14 @@ vea el modelo.
 
 | # | Qué | Estado |
 |---|---|---|
-| 1 | El sandbox, con una sola llamada desde una terminal común | **Hecho** (`06-PRUEBA-SANDBOX-2.md`): rechaza todo |
-| 2 | El contexto de Codex, limpio: cero «disensor», «residuo», «residue», «red-team» y «Dev solo»; ninguna skill; ninguna ruta que nombre el brazo, la condición, el log, «disensor» o «experimento». **Si falla, se para** | **Hecho** por `codex.cmd` (`piloto/contexto-b.json`); falta repetirlo llamando directo al `codex.exe` |
+| 1 | El sandbox, con una sola llamada desde una terminal común | **Hecho** (`06-PRUEBA-SANDBOX-2.md`): rechaza todo. También con Claude Code como proceso padre (`08`), con los tres intentos vistos en el stderr. Desde ahora la etapa `sandbox` da OK sólo si ve los tres; si no, INCONCLUSO |
+| 2 | El contexto de Codex, limpio: cero «disensor», «residuo», «residue», «red-team» y «Dev solo»; ninguna skill; ninguna ruta que nombre el brazo, la condición, el log, «disensor» o «experimento». **Si falla, se para** | **Hecho** por `codex.cmd` (`piloto/contexto-b.json`) y por `codex.exe` (`piloto/arnes/contexto-exe.json`, `08`) |
 | 3 | El contexto de Claude, sin configuración de usuario | **Hecho** (`piloto/claude-e.jsonl`) |
 | 4 | Los esfuerzos | **Hecho:** `low` para GPT (catálogo), `high` para Claude (fijado) |
 | 5 | Los flags contra el `--help` | **Hecho** para Claude (`piloto/claude-help.txt`); falta Codex |
 | 6 | **Prueba de humo del sujeto:** 10 llamadas, 5 logs pendientes del piloto por A2b y por A2. Ninguna ejecución de comando ni cambio de archivo; **si hay alguno, se para.** No se juzgan, y no pueden cambiar ningún prompt, esquema ni umbral | Pendiente |
 | 7 | La extracción de §6.1 encuentra el JSON en esas 10 respuestas, o la regla se ajusta antes de congelar | Pendiente |
-| 8 | `codex debug prompt-input` sobre un mensaje real confirma los bytes (§7.3) | Pendiente |
+| 8 | Los bytes del mensaje llegan exactos (§7.3) | **Por argumento, hecho** (`08`): el prompt generador lleno llega idéntico. **Por stdin, pendiente:** `debug prompt-input` no lee la entrada estándar |
 | 9 | Tokens y tiempo por tipo de llamada, para el presupuesto y el cupo | Pendiente |
 
 ### 7.7 Orden, cupo y cortes
@@ -891,12 +904,14 @@ su propia ventana, o declara la confusión.
 - [x] Esfuerzos: `low` para GPT, el del catálogo; `high` para Claude, fijado
       porque Claude Code no tiene un valor por defecto fijo (§7.1, §7.2).
 - [x] Versiones: Codex CLI 0.153.4 y Claude Code 2.1.285 (§7.4).
-- [ ] `{CODEX_EXE}`, `{SHA256_CODEX}` y `{SHA256_CLAUDE}`: la ruta del `codex.exe`
-      y los sha256 de los dos binarios, que el arnés imprime y registra.
+- [x] `{CODEX_EXE}` y los sha256 de los dos binarios, fijados en
+      `piloto/arnes/binarios.json` (§7.4, `08`). `{CODEX_EXE}` es
+      `%APPDATA%\npm\node_modules\@openai\codex\node_modules\@openai\codex-win32-x64\vendor\x86_64-pc-windows-msvc\bin\codex.exe`.
 - [x] `CODEX_HOME` aislado en `%USERPROFILE%\ch`, con su `codex login`; skills
       fuera con `skills.include_instructions=false` (§7.1).
 - [x] Sandbox de sólo lectura, sin contingencia (§7.6, punto 1).
-- [x] Contexto limpio por `codex.cmd` y en Claude (§7.6, puntos 2 y 3).
+- [x] Contexto limpio por `codex.cmd`, por `codex.exe` y en Claude (§7.6, puntos 2
+      y 3).
 - [ ] Lo que queda pendiente de §7.6: contexto por `codex.exe`, flags de Codex,
       humo, extracción, bytes, tokens y tiempo.
 - [ ] **Presupuesto y cupo**, medidos en el piloto por tipo de llamada. Según la
@@ -919,6 +934,20 @@ su propia ventana, o declara la confusión.
       etiquetar los JSON de los logs decisivos y 30 más.
 
 ## 15. Cambios
+
+### De la v5 a la v6
+
+Responde a `08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`: las etapas `sandbox` y
+`contexto` del arnés, corridas por Claude Code el 13/10/2026, y los cambios 1 y 2
+que propuso, que Nico aprobó.
+
+| # | Qué se midió | Qué se hizo | Dónde |
+|---|---|---|---|
+| 6.1 | El sandbox rechaza todo también con Claude Code como proceso padre | El arnés puede correr desde Claude Code, siguiendo `07-PARA-CLAUDE-CODE.md` | §7, §7.6 |
+| 6.2 | Los intentos rechazados no aparecen en el flujo de `--json`; sí en el stderr | Se cuentan en el stderr (`arnes.revisar_stderr`) y se informan por brazo | §7.1 |
+| 6.3 | La etapa `sandbox` daba OK aunque el modelo no intentara nada | OK sólo con los tres intentos vistos en el stderr; si falta alguno, INCONCLUSO | §7.6 |
+| 6.4 | El contexto por `codex.exe` es limpio y el mensaje llega idéntico por argumento | Hecho; por stdin, pendiente | §7.6 |
+| 6.5 | Los binarios quedaron fijados | sha256 en §7.4 | §7.4, §14 |
 
 ### De la v4 a la v5
 
