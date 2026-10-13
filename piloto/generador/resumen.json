@@ -1,0 +1,24 @@
+{
+  "estados": {
+    "archivos": 2,
+    "pendiente": 48
+  },
+  "llamadas_terminadas": 2,
+  "promedio_por_llamada_terminada": {
+    "entrada": 34802,
+    "cache": 28032,
+    "salida": 1360,
+    "razonamiento": 125,
+    "segundos": 27.6
+  },
+  "gasto_en_todos_los_intentos": {
+    "entrada": 69603,
+    "cache": 56064,
+    "salida": 2719,
+    "intentos": 2
+  },
+  "rechazos_en_todos_los_intentos": {
+    "shell": 0,
+    "apply_patch": 0
+  }
+}

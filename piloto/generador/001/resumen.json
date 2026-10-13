@@ -1,0 +1,79 @@
+{
+  "log": 1,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 8,
+    "PRIMARY_SURFACE": 4,
+    "INITIAL_QUESTION": 0,
+    "INITIAL_QUERY_SCOPE": 1,
+    "FOLLOW_UP_SCOPE_EXPANSION": 2,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 2,
+    "DISTRACTION_CHECKS": [
+      1,
+      0
+    ],
+    "FINAL_QUESTION_PATTERN": 0
+  },
+  "valores": {
+    "DOMAIN": "manufacturing quality control",
+    "PRIMARY_SURFACE": "equipment telemetry",
+    "INITIAL_QUESTION": "Which failures affected the most jobs yesterday?",
+    "INITIAL_QUERY_SCOPE": "primary production lines only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include automated warehouse inventory",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "asynchronous query starts but never produces a result",
+    "DISTRACTION_CHECKS": [
+      "maintenance events",
+      "deployment status"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Was the TimeoutError problem concentrated in one service?”"
+  },
+  "mensaje_md5": "8d926de94d7e990e623f2b61301b3350",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:04:06.183+00:00",
+      "duracion_s": 24.63,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "8d926de94d7e990e623f2b61301b3350",
+      "generador": true,
+      "carpeta_trabajo": "C:\\w\\785e35e581d7",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 27960,
+        "cached_input_tokens": 19712,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1309,
+        "reasoning_output_tokens": 69
+      },
+      "mensajes_agente": 2,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [
+        "C:\\w\\785e35e581d7\\log_mqc_7f31.md",
+        "C:\\w\\785e35e581d7\\log_mqc_7f31_metadata.json"
+      ],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [
+        {
+          "ruta": "log_mqc_7f31.md",
+          "bytes": 2830,
+          "md5": "8dd8dc7378b8a17e898caee7616647af"
+        },
+        {
+          "ruta": "log_mqc_7f31_metadata.json",
+          "bytes": 913,
+          "md5": "7456df0daec911cbaa4d799d9391e812"
+        }
+      ],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "estado": "archivos"
+}
