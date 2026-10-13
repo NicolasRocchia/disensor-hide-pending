@@ -265,8 +265,9 @@ def frase(r, hay_etiquetas):
         return (f"Con gpt-5.6-sol corriendo por Codex, el esquema de residuo, tal como sale, hizo que el registro "
                 f"consignara el hueco, sin consignarlo cuando no había hueco, más seguido que un listado de hallazgos "
                 f"sin residuo: s_json aumentó en {c['efecto_medio']:.2f} [{lo:.2f}, {hi:.2f}]")
-    return (f"C2 da significativa en contra de A2: s_json disminuyó en {-c['efecto_medio']:.2f} "
-            f"[{lo:.2f}, {hi:.2f}]. §9 no escribió esta frase de antemano")
+    return (f"Con gpt-5.6-sol corriendo por Codex, el esquema de residuo, tal como sale, hizo que el registro "
+            f"consignara el hueco, sin consignarlo cuando no había hueco, menos seguido que un listado de hallazgos "
+            f"sin residuo: s_json disminuyó en {-c['efecto_medio']:.2f} [{-hi:.2f}, {-lo:.2f}]")
 
 
 def main():

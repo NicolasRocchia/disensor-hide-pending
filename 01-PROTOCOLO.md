@@ -1,6 +1,6 @@
 # Protocolo · Fase 1: ¿el esquema de residuo hace que el registro consigne el hueco?
 
-**Estado: v17, NO congelado.** Incorpora lo que midió el piloto en la máquina de
+**Estado: v18, NO congelado.** Incorpora lo que midió el piloto en la máquina de
 Nico (`05-PRUEBA-SANDBOX-1.md`, `06-PRUEBA-SANDBOX-2.md`,
 `08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`, `09-PILOTO-GENERAR-1.md`,
 `10-PRUEBA-SANDBOX-GENERADOR.md`, `11-PILOTO-GENERAR-Y-CHEQUEAR.md`,
@@ -994,6 +994,11 @@ en una planilla (`piloto/gemelos/PARA-NICO.md` en el piloto).
   residuo, tal como sale, hizo que el registro consignara el hueco, sin
   consignarlo cuando no había hueco, más seguido que un listado de hallazgos sin
   residuo: `s_json` aumentó en X [intervalo]».
+- **C2 significativa en contra de A2** (la prueba es bilateral; escrita por
+  decisión de Nico el 13/10/2026): «Con `gpt-5.6-sol` corriendo por Codex, el
+  esquema de residuo, tal como sale, hizo que el registro consignara el hueco, sin
+  consignarlo cuando no había hueco, menos seguido que un listado de hallazgos sin
+  residuo: `s_json` disminuyó en X [intervalo]».
 - **C2 no significativa:** «no detectamos un efecto; con N=n, la potencia para un
   efecto de X puntos era Y».
 - **C2 «sensible al juez» (§8.1):** no se afirma, se informa así.
@@ -1003,11 +1008,7 @@ en una planilla (`piloto/gemelos/PARA-NICO.md` en el piloto).
   cambiaron un archivo, las coincidencias con Nico, y cuántos logs salieron de la
   prueba y por qué.
 
-**La frase la elige el script** (`analisis.frase`), no quien lee los datos. **Un
-hueco, a decidir antes de congelar:** la prueba es bilateral, y si C2 diera
-significativa con A2 por debajo de A2b, §9 no tiene la frase escrita; el script
-dice entonces «C2 da significativa en contra de A2: `s_json` disminuyó en X
-[intervalo]» y avisa que §9 no la escribió.
+**La frase la elige el script** (`analisis.frase`), no quien lee los datos.
 
 **Frases prohibidas.** Ninguna prueba de equivalencia está pre-registrada:
 «cualquier estructura hace lo mismo», «los slots no agregan nada», o cualquier
@@ -1148,6 +1149,12 @@ su propia ventana, o declara la confusión.
       etiquetar los JSON de los logs decisivos y 30 más.
 
 ## 15. Cambios
+
+### De la v17 a la v18
+
+| # | Qué | Qué se hizo | Dónde |
+|---|---|---|---|
+| 18.1 | Nico: la frase de una C2 significativa en contra de A2 | Escrita en §9, al lado de la otra; el script la usa | §9 |
 
 ### De la v16 a la v17
 

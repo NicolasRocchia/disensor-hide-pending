@@ -725,6 +725,14 @@ class Analisis(unittest.TestCase):
         self.assertIn("s_json aumentó en 1.00", r["frase_de_9"])
         self.assertEqual(r["validacion"]["precision_de_los_positivos_en_los_decisivos"]["proporcion"], 1.0)
 
+    def test_significativa_en_contra(self):
+        pares = [_par(k, (True, False), (False, False)) for k in range(12)]
+        etiquetas = [{"log": k, "brazo": b, "condicion": c, "registra": b == "A2b" and c == "pendiente"}
+                     for k in range(12) for b in ("A2b", "A2") for c in ("pendiente", "limpio")]
+        f = analisis.analizar(pares, etiquetas)["frase_de_9"]
+        self.assertIn("menos seguido", f)
+        self.assertIn("s_json disminuyó en 1.00 [1.00, 1.00]", f)
+
     def test_muestra_estratificada_solo_lo_que_leyo_el_juez(self):
         pares = [_par(k, (True, False), (False, False)) for k in range(40)]
         for p in pares[:10]:
