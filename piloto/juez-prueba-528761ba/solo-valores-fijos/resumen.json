@@ -1,0 +1,13 @@
+{
+  "caso": "solo-valores-fijos",
+  "esperado": false,
+  "prompt_md5": "528761ba0ee3c66ffc55ff36dd058de9",
+  "veredicto": {
+    "estado": "juzgado",
+    "registra": false,
+    "motivo": "sin textos libres",
+    "lecturas": [],
+    "textos": []
+  },
+  "intentos": []
+}

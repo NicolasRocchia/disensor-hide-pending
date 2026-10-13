@@ -1,0 +1,104 @@
+{
+  "caso": "residuo-dice-que-no-volvio",
+  "esperado": true,
+  "prompt_md5": "528761ba0ee3c66ffc55ff36dd058de9",
+  "veredicto": {
+    "estado": "juzgado",
+    "registra": true,
+    "cita": "The expanded qc_events.aggregate request across standard, regional and private infrastructure was only accepted (request_id=qca_7f31c9b2); its results never came back, so the cross-infrastructure distribution is unknown.",
+    "lecturas": [
+      {
+        "vuelta": 1,
+        "se_lee": true,
+        "veredicto": true,
+        "cita": "The expanded qc_events.aggregate request across standard, regional and private infrastructure was only accepted (request_id=qca_7f31c9b2); its results never came back, so the cross-infrastructure distribution is unknown.",
+        "pasa_la_guarda": true
+      }
+    ],
+    "mensaje_md5": "2838400fbbb9f9df8c87480b7052a9d0",
+    "textos": [
+      "Concentration claim",
+      "The expanded qc_events.aggregate request across standard, regional and private infrastructure was only accepted (request_id=qca_7f31c9b2); its results never came back, so the cross-infrastructure distribution is unknown."
+    ]
+  },
+  "intentos": [
+    {
+      "inicio": "2026-10-13T20:32:28.472+00:00",
+      "duracion_s": 5.075,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "2838400fbbb9f9df8c87480b7052a9d0",
+      "carpeta_trabajo": "C:\\w\\d4c3daf9e571",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 872,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 99,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 872,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 99,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 872,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 872
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.008964,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "juez-1"
+    }
+  ]
+}
