@@ -84,12 +84,22 @@ def gpt_con_reintentos(fijado, mensaje, carpeta, intentos, tipo, guardar, genera
     Si la historia ya tiene un intento terminado, el proceso se cortó entre la llamada y el
     registro de su resultado: `interrumpido`, terminal, sin volver a llamar."""
     carpeta.mkdir(parents=True, exist_ok=True)
-    if any(i["termino"] and not i["red_de_seguridad"] for i in intentos):
+    # v21, hallazgo 5 de la quinta revisión: la historia se revisa antes de llamar. Una red de
+    # seguridad la hace falla de la llamada (§7.1); los límites alcanzados no habilitan otra.
+    if piloto.cerrar_intentos_en_vuelo(intentos, carpeta):
         return "interrumpido", None, None
+    if any(i["red_de_seguridad"] for i in intentos):
+        return "fallo", None, None
+    if any(i["termino"] for i in intentos):
+        return "interrumpido", None, None
+    if sum(1 for i in intentos if not i["termino"] and not i["sin_cupo"]) >= 3:
+        return "fallo", None, None
     while True:
         n = len(intentos) + 1
+        intentos.append(dict(piloto.INTENTO_EN_VUELO, en_vuelo=True, prefijo=f"intento-{n}", tipo=tipo))
+        guardar()
         reg, texto = piloto.una_llamada_gpt(fijado, mensaje, carpeta, f"intento-{n}", generador=generador_, tipo=tipo)
-        intentos.append(reg)
+        intentos[-1] = reg
         guardar()
         if reg["red_de_seguridad"]:
             return "PARADA", reg, None
@@ -491,8 +501,11 @@ def congelamiento_en_git():
     - El md5 de la lista figura en `01-PROTOCOLO.md` tal como está commiteado («Enmiendas»).
     - El protocolo, el código, los prompts y los esquemas no tienen cambios sin commitear.
 
-    Devuelve (commit de la lista, HEAD). Lo que esto no ve, una historia reescrita, lo cubre
-    el push del commit de la lista antes de los brazos (§4.4)."""
+    - El commit de la lista, entero, también figura en el protocolo commiteado, y está en un
+      remoto (v21, hallazgo 2 de la quinta revisión).
+
+    Devuelve (commit de la lista, HEAD, árbol). Lo que esto no ve, una rama paralela o una
+    historia reescrita, sólo lo cubre un ancla fuera de esta máquina (§4.4)."""
     rutas = {"lista": DIR / "pares-incluidos.json", "md5": DIR / "pares-incluidos.md5",
              "decisiones": DIR / "gemelos" / "decisiones.json"}
     rel, historia = {}, {}
@@ -514,13 +527,66 @@ def congelamiento_en_git():
     if leer(rutas["lista"])["decisiones_md5"] != md5_archivo(rutas["decisiones"]):
         sys.exit("decisiones.json no es el que registró la lista congelada. El arnés para.")
     protocolo = git("show", "HEAD:01-PROTOCOLO.md")
-    if protocolo.returncode != 0 or md5_archivo(rutas["lista"]) not in protocolo.stdout.decode("utf-8"):
-        sys.exit("El md5 de la lista congelada no está en «Enmiendas» del protocolo commiteado (§4.4).")
+    texto = protocolo.stdout.decode("utf-8") if protocolo.returncode == 0 else ""
+    if md5_archivo(rutas["lista"]) not in texto or commit not in texto:
+        sys.exit("El md5 de la lista congelada y su commit, entero, tienen que estar en «Enmiendas» del "
+                 "protocolo commiteado (§4.4).")
+    if not git("branch", "-r", "--contains", commit).stdout.strip():
+        sys.exit("El commit de la lista congelada no está en ningún remoto: pushealo antes de los brazos (§4.4).")
     sucios = git("status", "--porcelain", "--", "01-PROTOCOLO.md", "herramientas", "prompts", "esquemas").stdout
     if sucios.strip():
         sys.exit("Hay cambios sin commitear en el protocolo, herramientas, prompts o esquemas: lo que corre "
                  "tiene que ser un commit (§4.4).")
-    return commit, git("rev-parse", "HEAD").stdout.decode("utf-8").strip()
+    return commit, git("rev-parse", "HEAD").stdout.decode("utf-8").strip(), arbol_normativo()
+
+
+def arbol_normativo():
+    """§4.4 (v21, hallazgo 3 de la quinta revisión): el md5 de lo que corre, los árboles de
+    `herramientas/`, `prompts/` y `esquemas/` en HEAD (sin cambios sueltos, por el chequeo de
+    arriba)."""
+    return hashlib.md5(git("ls-tree", "-r", "HEAD", "--", "herramientas", "prompts", "esquemas").stdout).hexdigest()
+
+
+def revisar_plan(plan, commit, arbol):
+    """§4.4 (v21, hallazgos 2 y 3 de la quinta revisión): el plan de los brazos es de esta
+    lista; lo que corre es el árbol con que empezaron los brazos, o uno que una enmienda anotó
+    en el protocolo commiteado; y todo resultado de los brazos es de esta lista."""
+    if plan["commit_de_la_lista"] != commit:
+        sys.exit("La lista congelada cambió de commit desde que empezaron los brazos. El arnés para.")
+    if arbol != plan["arbol_md5"] and arbol not in git("show", "HEAD:01-PROTOCOLO.md").stdout.decode("utf-8"):
+        sys.exit(f"herramientas, prompts o esquemas cambiaron desde la primera llamada a los brazos (árbol {arbol}) "
+                 "sin una enmienda que lo anote en el protocolo (§4.4). El arnés para.")
+    for f in sorted((DIR / "brazos").glob("*/resumen.json")):
+        if leer(f).get("commit_de_la_lista") != commit:
+            sys.exit(f"{f.parent.name}: es un resultado de otra lista congelada. El arnés para (§4.4).")
+
+
+def verificar_corrida():
+    """§4.4 (v21, hallazgo 1 de la quinta revisión): `juez`, `validacion` y `analizar` vuelven
+    a verificar el congelamiento y el plan de los brazos, no sólo el md5 de la lista."""
+    commit, head, arbol = congelamiento_en_git()
+    fp = DIR / "brazos" / "plan.json"
+    if not fp.exists():
+        sys.exit("No hay plan de los brazos: correr `brazos`.")
+    revisar_plan(leer(fp), commit, arbol)
+    return commit, head, arbol
+
+
+def plan_congelado(pares, commit, arbol):
+    """§7.7 y §4.4 (v21): el plan de los brazos se escribe una sola vez, antes de la primera
+    llamada, con el commit de la lista y el árbol de lo que corre. Si ya hay resultados de los
+    brazos, no se regenera."""
+    plan = plan_de_brazos(pares)
+    fp = DIR / "brazos" / "plan.json"
+    if not fp.exists():
+        if any((DIR / "brazos").glob("*/resumen.json")):
+            sys.exit("Hay resultados de los brazos sin su plan.json: el plan no se regenera (§4.4). El arnés para.")
+        escribir(fp, {"semilla": SEMILLA, "orden": plan, "commit_de_la_lista": commit, "arbol_md5": arbol})
+    guardado = leer(fp)
+    if guardado["orden"] != [list(x) for x in plan]:
+        sys.exit("El plan de los brazos no coincide con el guardado. El arnés para.")
+    revisar_plan(guardado, commit, arbol)
+    return plan
 
 
 def leer_incluidos():
@@ -529,7 +595,10 @@ def leer_incluidos():
         sys.exit("No hay lista congelada: correr `incluir`.")
     if md5_archivo(f) != (DIR / "pares-incluidos.md5").read_bytes().decode("utf-8").strip():
         sys.exit("pares-incluidos.json cambió desde que se congeló (md5). El arnés para.")
-    return leer(f)["pares"]
+    pares = leer(f)["pares"]
+    if len(pares) != PARES:
+        sys.exit(f"La lista congelada tiene {len(pares)} pares, no {PARES}. El arnés para (§4.4).")
+    return pares
 
 
 # --- brazos y juez --------------------------------------------------------------------------
@@ -574,18 +643,11 @@ def etapa_brazos(args):
     import extraccion
     import validador
     sin_parada()
-    commit, head = congelamiento_en_git()
+    commit, head, arbol = congelamiento_en_git()
     fijado = arnes.verificar_binarios(BINARIOS)
     pares = leer_incluidos()
     por_log = {p["log"]: p for p in pares}
-    plan = plan_de_brazos(pares)
-    fp = DIR / "brazos" / "plan.json"
-    if fp.exists() and leer(fp)["orden"] != [list(x) for x in plan]:
-        sys.exit("El plan de los brazos no coincide con el guardado. El arnés para.")
-    if not fp.exists():
-        escribir(fp, {"semilla": SEMILLA, "orden": plan, "commit_de_la_lista": commit})
-    elif leer(fp)["commit_de_la_lista"] != commit:
-        sys.exit("La lista congelada cambió de commit desde que empezaron los brazos. El arnés para.")
+    plan = plan_congelado(pares, commit, arbol)
     esquemas = piloto.leer_esquemas()
     objetos = {b: json.loads(t) for b, t in esquemas.items()}
     sesion = arnes.ahora()
@@ -604,6 +666,8 @@ def etapa_brazos(args):
             r = leer(f) if f.exists() else {"log": k, "brazo": b, "condicion": c, "intentos": []}
             r.setdefault("sesiones", []).append(sesion)
             r.setdefault("commits", []).append(head)
+            r.setdefault("arboles", []).append(arbol)
+            r["commit_de_la_lista"] = commit
             mensaje = piloto.mensaje_brazo(texto_de_entrada(por_log[k], c), esquemas[b]).encode("utf-8")
             r["mensaje_md5"] = arnes.md5_bytes(mensaje)
             carpeta.mkdir(parents=True, exist_ok=True)
@@ -650,7 +714,7 @@ def llamada_de_seguimiento(log):
 def etapa_juez(args):
     import juez
     sin_parada()
-    congelamiento_en_git()
+    _, _, arbol = verificar_corrida()
     fijado = arnes.verificar_binarios(BINARIOS)
     pares = leer_incluidos()
     por_log = {p["log"]: p for p in pares}
@@ -671,6 +735,7 @@ def etapa_juez(args):
             continue
         if args.limite is not None and hechas >= args.limite:
             break
+        r.setdefault("arboles", []).append(arbol)
         br = leer(fb)
         if br["estado"] != "hecho":
             r["veredicto"] = {"estado": "sin_llamada"}
@@ -746,6 +811,7 @@ def etapa_validacion(_):
     que recibió."""
     import analisis
     import juez
+    verificar_corrida()
     pares = armar_pares()
     escribir(DIR / "pares.json", pares)
     por_log = {p["log"]: p for p in leer_incluidos()}
@@ -809,6 +875,7 @@ def leer_etiquetas():
 
 def etapa_analizar(args):
     import analisis
+    verificar_corrida()
     pares = leer(DIR / "pares.json")
     if pares != armar_pares():
         sys.exit("pares.json no coincide con lo que dejaron `brazos` y `juez`. Correr `validacion`.")

@@ -690,6 +690,26 @@ def una_llamada_claude(fijado, mensaje, carpeta, prefijo):
     return registro, (st["resultado"] if termino else None)
 
 
+# §7.7 (v21, hallazgo 5 de la quinta revisión): antes de cada llamada se guarda un intento
+# «en vuelo», que la llamada reemplaza al volver. Con los campos que leen los resúmenes.
+INTENTO_EN_VUELO = {"termino": False, "verificado": False, "sin_cupo": False, "red_de_seguridad": False,
+                    "comandos_ejecutados": [], "archivos_cambiados": [], "mensajes_agente": 0,
+                    "shell_rechazados": 0, "parches_rechazados": 0, "uso": None, "costo_usd": None}
+
+
+def cerrar_intentos_en_vuelo(intentos, carpeta):
+    """§7.7 (v21): un intento que quedó «en vuelo» quiere decir que el proceso se cortó con esa
+    llamada en curso. Si la llamada alcanzó a dejar archivos, devuelve True: el ítem es
+    `interrumpido`, porque su resultado pudo existir sin registrarse. Si no dejó nada, cuenta
+    como un intento que no terminó."""
+    for i in intentos:
+        if i.get("en_vuelo"):
+            if any(carpeta.glob(f"{i['prefijo']}-*")):
+                return True
+            i.update(en_vuelo=False, cortado=True)
+    return False
+
+
 def claude_con_reintentos(fijado, mensaje, carpeta, intentos, etiqueta, guardar=None):
     """§7.2 y §7.7: una llamada a Claude hasta que termina verificada. Una que termina sin
     verificar se repite una vez; una que no termina, hasta tres. Los registros se agregan a
@@ -701,15 +721,30 @@ def claude_con_reintentos(fijado, mensaje, carpeta, intentos, etiqueta, guardar=
     se llama después de cada intento, así un corte abrupto del proceso no pierde la historia
     (v20, hallazgo 8 de la cuarta revisión). Si la historia ya tiene un intento terminado y
     verificado con esta etiqueta, el proceso se cortó entre la llamada y el registro de su
-    resultado: el ítem es `interrumpido`, terminal, y no se vuelve a llamar."""
-    if any(i.get("etiqueta") == etiqueta and i["termino"] and i["verificado"] and not i["red_de_seguridad"]
-           for i in intentos):
+    resultado: el ítem es `interrumpido`, terminal, y no se vuelve a llamar.
+
+    Desde la v21 (hallazgo 5 de la quinta revisión), la historia se revisa antes de llamar:
+    una red de seguridad la hace falla de la llamada (§7.1), y los límites ya alcanzados
+    devuelven su estado sin otra llamada. Cada intento se guarda «en vuelo» antes de llamar."""
+    if cerrar_intentos_en_vuelo(intentos, carpeta):
         return "interrumpido", None
+    propios = [i for i in intentos if i.get("etiqueta") == etiqueta]
+    if any(i["red_de_seguridad"] for i in intentos):
+        return "fallo", None
+    if any(i["termino"] and i["verificado"] for i in propios):
+        return "interrumpido", None
+    if sum(1 for i in propios if i["termino"] and not i["verificado"]) >= 2:
+        return "fallo_verificacion", None
+    if sum(1 for i in propios if not i["termino"] and not i["sin_cupo"]) >= 3:
+        return "fallo", None
     while True:
         n = len(intentos) + 1
+        intentos.append(dict(INTENTO_EN_VUELO, en_vuelo=True, prefijo=f"intento-{n}", etiqueta=etiqueta))
+        if guardar is not None:
+            guardar()
         reg, texto = una_llamada_claude(fijado, mensaje, carpeta, f"intento-{n}")
         reg["etiqueta"] = etiqueta
-        intentos.append(reg)
+        intentos[-1] = reg
         if guardar is not None:
             guardar()
         propios = [i for i in intentos if i.get("etiqueta") == etiqueta]

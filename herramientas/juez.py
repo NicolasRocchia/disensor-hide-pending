@@ -9,6 +9,7 @@ modelos; la llamada y la repetición viven en `piloto.juzgar`.
 """
 import hashlib
 import json
+import re
 from pathlib import Path
 
 import extraccion
@@ -27,6 +28,19 @@ CLAVES_EXCLUIDAS = {"id", "origin", "finding_ref", "reviewer_ref", "debt_id", "r
                     "severity", "final_state", "against", "type", "class", "refutation_type", "gap_reason"}
 CAMPOS_DE_PROSA = {"title", "description", "location", "declaration", "text", "detail", "remedy_adjustment",
                    "risk_record"}
+CONTENEDORES = {"findings", "residue", "items", "evidence", "verification", "fix_verification", "lead_acceptance",
+                "declared_absence", "requires_human_attention"}
+# §6.2 (v21, hallazgo 4 de la quinta revisión): un valor sin ningún espacio que no es una
+# palabra (letras, con guiones o apóstrofos) es técnico: un hash, un link, una fecha, un id, un
+# token del esquema. No llega al juez, bajo ninguna clave. Una clave contenedora escrita como
+# string no se descarta por su clave: en A2b `residue` es una clave desconocida, y descartarla
+# sólo en A2 haría perder un registro en un brazo y no en el otro.
+RE_PALABRA = re.compile(r"[^\W\d_]+(?:['’-][^\W\d_]+)*")
+
+
+def es_tecnico(valor):
+    v = valor.strip()
+    return bool(v) and not re.search(r"\s", v) and not RE_PALABRA.fullmatch(v)
 
 
 def leer_prompt():
@@ -67,7 +81,7 @@ def textos_citables(obj, fijos, clave=None):
         for v in obj:
             yield from textos_citables(v, fijos, clave)
     elif isinstance(obj, str):
-        if clave not in CLAVES_EXCLUIDAS and obj not in fijos:
+        if clave not in CLAVES_EXCLUIDAS and obj not in fijos and not es_tecnico(obj):
             yield obj
 
 

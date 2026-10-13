@@ -92,7 +92,7 @@ def _indices(ents):
     return {"primero": primero, "seguimiento": seg, "evento": siguiente, "final": final}
 
 
-RE_REQUEST_ID = re.compile(r"request[ _-]?id", re.I)
+RE_REQUEST_ID = re.compile(r"request[ _-]?id(?![A-Za-z0-9])", re.I)
 
 
 def bloque_nuevo_con_request_id(gemelo):

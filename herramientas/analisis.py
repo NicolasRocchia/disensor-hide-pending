@@ -165,12 +165,17 @@ def uniformes_de_un_log(rng, rho_brazos, rho_condiciones):
     `rho_brazos`, los dos brazos comparten el sorteo de una condición: una sola bandera por
     condición, común a los dos (v20, hallazgo 9 de la cuarta revisión; en la v19 cada brazo
     decidía por su cuenta y compartían con probabilidad rho al cuadrado). Con probabilidad
-    `rho_condiciones`, dentro de un brazo el limpio usa el sorteo de su pendiente."""
+    `rho_condiciones`, en los dos brazos el limpio usa el sorteo de su pendiente: una sola
+    bandera por log (v21, hallazgo 6 de la quinta revisión; con una por brazo, el limpio
+    dejaba de compartirse entre brazos con probabilidad `rho_brazos`). Así los dos brazos
+    comparten cada condición con probabilidad `rho_brazos`, y cada brazo repite su
+    pendiente en el limpio con probabilidad `rho_condiciones`."""
     comun = {c: (rng.random() < rho_brazos, rng.random()) for c in CONDICIONES}
+    limpio_como_pendiente = rng.random() < rho_condiciones
     u = {}
     for b in BRAZOS:
         for c in CONDICIONES:
-            if c == "limpio" and rng.random() < rho_condiciones:
+            if c == "limpio" and limpio_como_pendiente:
                 u[(b, c)] = u[(b, "pendiente")]
             else:
                 comparte, uc = comun[c]
@@ -293,6 +298,14 @@ def analizar(pares, etiquetas_lista=None):
         else:
             exclusiones[par["log"]] = m
     r = {"n_pares": len(pares), "n_incluidos": len(incluidos), "exclusiones": exclusiones}
+    if etiquetas is not None:
+        # §8.1 (v20, hallazgo 6 de la cuarta revisión): las etiquetas son exactamente las de la
+        # planilla. Una lista vacía o parcial no valida nada, y frena; también con N=0 (v21,
+        # hallazgo 7 de la quinta revisión).
+        pedidos = set(items_de_la_planilla(pares))
+        faltan, sobran = sorted(pedidos - set(etiquetas)), sorted(set(etiquetas) - pedidos)
+        if faltan or sobran:
+            raise ValueError(f"las etiquetas no son las de la planilla de §8.1: faltan {faltan}, sobran {sobran}")
     if not incluidos:
         r["c2"] = {"evaluable": False, "significativa": False}
         r["frase_de_9"] = "C2 no evaluable: ningún par quedó incluido (§6.3); se informan las exclusiones"
@@ -314,12 +327,6 @@ def analizar(pares, etiquetas_lista=None):
         r["sensibilidad_sin_pares_partidos"] = {"n": len(enteros), **s}
 
     if etiquetas is not None:
-        # §8.1 (v20, hallazgo 6 de la cuarta revisión): las etiquetas son exactamente las de la
-        # planilla. Una lista vacía o parcial no valida nada, y frena.
-        pedidos = set(items_de_la_planilla(pares))
-        faltan, sobran = sorted(pedidos - set(etiquetas)), sorted(set(etiquetas) - pedidos)
-        if faltan or sobran:
-            raise ValueError(f"las etiquetas no son las de la planilla de §8.1: faltan {faltan}, sobran {sobran}")
         decisivos = set(r["items_decisivos"])
         # §8.1 (v20, hallazgo 1 de la cuarta revisión): la prueba se recalcula dos veces, con las
         # etiquetas de Nico en todo lo que etiquetó y sólo en los decisivos, para que la muestra
