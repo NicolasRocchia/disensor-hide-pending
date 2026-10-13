@@ -1,6 +1,6 @@
 # Protocolo · Fase 1: ¿el esquema de residuo hace que el registro consigne el hueco?
 
-**Estado: v11, NO congelado.** Incorpora lo que midió el piloto en la máquina de
+**Estado: v12, NO congelado.** Incorpora lo que midió el piloto en la máquina de
 Nico (`05-PRUEBA-SANDBOX-1.md`, `06-PRUEBA-SANDBOX-2.md`,
 `08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`, `09-PILOTO-GENERAR-1.md`,
 `10-PRUEBA-SANDBOX-GENERADOR.md`, `11-PILOTO-GENERAR-Y-CHEQUEAR.md`,
@@ -267,6 +267,15 @@ prompt de §8.2, y **el par sólo entra si el gemelo pasa estos cinco chequeos**
    con el mismo tipo de entidad. Se chequea por script cuando el formato se deja
    leer; si no, lo confirma Nico.
 5. El bloque nuevo tiene al menos dos entidades con un número cada una.
+
+**Medido en el piloto** (`13`): los 10 gemelos pasan los automáticos. Lo que va a
+Nico es casi siempre lo mismo: la coincidencia «async» de la llamada de
+seguimiento (marcada, porque el punto 1 la obliga a quedar), la línea
+`request_id=…` que el armador conserva en el bloque nuevo junto con un
+`status=completed` (9 de 10), y algún falso positivo de la expresión regular
+(«start» en `window_start`). En 1 de 10 el armador repitió el rótulo
+`EXPERIMENT_LOG:` arriba del log. **Cómo tratar las dos primeras y el rótulo es
+una decisión de Nico antes de congelar** (`13`, «Decisiones»).
 
 **Todo esto ocurre antes de la primera llamada a los brazos**, así que las
 decisiones a mano de Nico no pueden depender de ningún resultado. Se generan logs
@@ -797,11 +806,11 @@ vea el modelo.
 | 2 | El contexto de Codex, limpio: cero «disensor», «residuo», «residue», «red-team» y «Dev solo»; ninguna skill; ninguna ruta que nombre el brazo, la condición, el log, «disensor» o «experimento». **Si falla, se para** | **Hecho** por `codex.cmd` (`piloto/contexto-b.json`) y por `codex.exe` (`piloto/arnes/contexto-exe.json`, `08`). `debug prompt-input` refleja el modo del sandbox (`10`, que corrige `08`) |
 | 3 | El contexto de Claude, sin configuración de usuario | **Hecho** (`piloto/claude-e.jsonl`) |
 | 4 | Los esfuerzos | **Hecho:** `low` para GPT (catálogo), `high` para Claude (fijado) |
-| 5 | Los flags contra el `--help` | **Hecho** para Claude (`piloto/claude-help.txt`); falta Codex |
-| 6 | **Prueba de humo del sujeto:** 10 llamadas, 5 logs pendientes del piloto por A2b y por A2. Ninguna ejecución de comando ni cambio de archivo; **si hay alguno, se para.** No se juzgan, y no pueden cambiar ningún prompt, esquema ni umbral | Pendiente |
-| 7 | La extracción de §6.1 encuentra el JSON en esas 10 respuestas, o la regla se ajusta antes de congelar | Pendiente |
-| 8 | Los bytes del mensaje llegan exactos (§7.3) | **Por argumento, hecho** (`08`): el prompt generador lleno llega idéntico. **Por stdin, pendiente:** `debug prompt-input` no lee la entrada estándar |
-| 9 | Tokens y tiempo por tipo de llamada, para el presupuesto y el cupo | **Generador** (`11`): 52.873 de entrada (79% de caché), 1.527 de salida, 35 s. **Capacidad** (`12`): unos 13.000 de entrada, unos 50 de salida, 5 s. Falta medir brazos, gemelos y juez |
+| 5 | Los flags contra el `--help` | **Hecho** para Claude (`piloto/claude-help.txt`) y para Codex: los diez flags del arnés están en `piloto/arnes/codex-exec-help.txt` (`13`) |
+| 6 | **Prueba de humo del sujeto:** 10 llamadas, 5 logs pendientes del piloto por A2b y por A2. Ninguna ejecución de comando ni cambio de archivo; **si hay alguno, se para.** No se juzgan, y no pueden cambiar ningún prompt, esquema ni umbral | **Hecho** (`13`): 10 de 10, cero comandos, cero archivos, cero rechazos |
+| 7 | La extracción de §6.1 encuentra el JSON en esas 10 respuestas, o la regla se ajusta antes de congelar | **Hecho** (`13`): 10 de 10; `residue` en los 5 de A2 y en ninguno de A2b |
+| 8 | Los bytes del mensaje llegan exactos (§7.3) | **Hecho** (`08`, `13`): por argumento, el prompt generador lleno llega idéntico; por stdin, el mensaje de un brazo que Codex guardó en su sesión es idéntico al enviado |
+| 9 | Tokens y tiempo por tipo de llamada, para el presupuesto y el cupo | **Generador** (`11`): 52.873 de entrada (79% de caché), 1.527 de salida, 35 s. **Capacidad** (`12`): unos 13.000 de entrada, unos 50 de salida, 5 s. **Brazos** (`13`): A2b 13.322 y 223; A2 19.804 y 454; unos 10 s. **Gemelos** (`13`): unos 2.100 de entrada, 2.000 de salida, 17 s, USD 0,06 a precio de API. Falta el juez |
 
 ### 7.7 Orden, cupo y cortes
 
@@ -1052,6 +1061,19 @@ su propia ventana, o declara la confusión.
       etiquetar los JSON de los logs decisivos y 30 más.
 
 ## 15. Cambios
+
+### De la v11 a la v12
+
+Responde a `13-PILOTO-GEMELOS-Y-HUMO.md`: los 10 gemelos y la prueba de humo del
+piloto.
+
+| # | Qué se midió | Qué se hizo | Dónde |
+|---|---|---|---|
+| 12.1 | La prueba de humo: nada ejecutado, el JSON se extrae en 10 de 10, los bytes por stdin llegan iguales | Puntos 6, 7 y 8 de §7.6 hechos | §7.6 |
+| 12.2 | Los flags de Codex están en su `--help` | Punto 5 hecho | §7.6 |
+| 12.3 | Los 10 gemelos pasan los automáticos; el chequeo 4 se equivocaba con totales sueltos y con un subnivel debajo de las entidades, y la numeración se corría con texto antes del primer encabezado | Corregido en `chequeo.py` y `gemelos.py`, con pruebas; el chequeo 4 compara al mismo nivel | §4.4 |
+| 12.4 | Lo que va a Nico se repite (`request_id` en el bloque nuevo, «async» en el seguimiento) y el armador puede repetir el rótulo `EXPERIMENT_LOG:` | Anotado como decisión de Nico antes de congelar | §4.4 |
+| 12.5 | Costo de brazos y gemelos | Anotado | §7.6, punto 9 |
 
 ### De la v10 a la v11
 
