@@ -1,4 +1,4 @@
-"""Piloto del experimento (protocolo v5, §4.5 y §7.6), por etapas.
+"""Piloto del experimento (protocolo v7, §4.5 y §7.6), por etapas.
 
 Cada etapa se corre por separado:
 
@@ -18,11 +18,24 @@ Etapas disponibles:
             comando, cambió algún archivo o la carpeta de trabajo no quedó vacía.
             OK sólo si el stderr muestra los tres intentos rechazados; si falta
             alguno, INCONCLUSO (08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md, cambio 1).
+  sandbox-generador
+            Una llamada a GPT con la configuración del generador (§7.1:
+            workspace-write sobre su carpeta, sin shell). Le pide un echo, crear
+            a.txt en su carpeta y dos archivos fuera (en C:\\w y en %TEMP%). FALLA si
+            hay shell, si se ejecutó algún comando, si no pudo escribir en su
+            carpeta o si algo quedó escrito fuera. OK sólo si el stderr muestra
+            los dos intentos de afuera rechazados; si no, INCONCLUSO.
   generar   Las 50 llamadas del generador del piloto (§4.5, punto 1): semilla
-            20261012, 10 por cada comportamiento de falla. Reanudable: saltea las
-            que ya terminaron bien. Con --limite N corre como mucho N llamadas.
-            Para por la red de seguridad de §7.1 (un comando ejecutado, un archivo
-            cambiado o la carpeta de trabajo no vacía) y por falta de cupo.
+            20261012, 10 por cada comportamiento de falla, con la configuración
+            del generador. Lo que deja en su carpeta se copia a
+            piloto/generador/NNN/intento-N-archivos/. Estado por log: `archivos`
+            (un log_*.md y un log_*_metadata.json), `mensaje` (el último mensaje
+            trae un objeto JSON), `sin_log` o `fallo` (tres intentos sin
+            terminar). Reanudable: saltea esos cuatro estados, y después de un
+            corte por cupo sigue la numeración de los intentos. Con --limite N
+            corre como mucho N logs. Para por la red de seguridad de §7.1 (un
+            comando ejecutado, un archivo cambiado fuera de la carpeta o la
+            carpeta que no se pudo soltar) y por falta de cupo.
 
 Las etapas siguientes (chequear, capacidad, gemelos, humo) se agregan cuando
 éstas pasen. Las salidas quedan en experimento/piloto/arnes/ y
@@ -31,7 +44,10 @@ experimento/piloto/generador/.
 import argparse
 import json
 import os
+import re
+import secrets
 import sys
+from pathlib import Path
 
 import arnes
 import generador
@@ -192,14 +208,81 @@ def preparar_sorteo():
     return sorteo
 
 
-def una_llamada_gpt(fijado, mensaje, carpeta, prefijo):
-    """Una llamada de §7.1, con la red de seguridad. Devuelve el registro del intento."""
+TERMINALES = ("archivos", "mensaje", "sin_log", "fallo")
+PATRON_LOG = re.compile(r"^log_.+\.md$")
+PATRON_META = re.compile(r"^log_.+_metadata\.json$")
+
+
+def dentro_de(ruta, carpeta):
+    """La ruta, absoluta o relativa a `carpeta`, cae dentro de `carpeta`."""
+    p = Path(ruta)
+    if not p.is_absolute():
+        p = carpeta / p
+    try:
+        p.resolve().relative_to(carpeta.resolve())
+        return True
+    except ValueError:
+        return False
+
+
+def recoger_carpeta(trabajo, destino):
+    """§4.1: copia a `destino` todo lo que quedó en la carpeta de trabajo y lo saca de
+    ahí, para poder soltarla. Devuelve cada archivo con su tamaño y su md5."""
+    archivos = []
+    for p in sorted(trabajo.rglob("*")):
+        if p.is_file():
+            rel = p.relative_to(trabajo)
+            datos = p.read_bytes()
+            (destino / rel).parent.mkdir(parents=True, exist_ok=True)
+            (destino / rel).write_bytes(datos)
+            archivos.append({"ruta": rel.as_posix(), "bytes": len(datos), "md5": arnes.md5_bytes(datos)})
+            p.unlink()
+    for d in sorted((p for p in trabajo.rglob("*") if p.is_dir()), key=lambda p: len(p.parts), reverse=True):
+        d.rmdir()
+    return archivos
+
+
+def hay_objeto_json(texto):
+    """§4.1, segundo camino: el último mensaje trae algún objeto JSON que parsea."""
+    dec = json.JSONDecoder()
+    for i, c in enumerate(texto):
+        if c == "{":
+            try:
+                obj, _ = dec.raw_decode(texto, i)
+            except json.JSONDecodeError:
+                continue
+            if isinstance(obj, dict):
+                return True
+    return False
+
+
+def estado_generador(archivos, texto):
+    """Qué dejó una llamada del generador que terminó: `archivos`, `mensaje` o `sin_log` (§4.1)."""
+    raiz = [a["ruta"] for a in archivos if "/" not in a["ruta"]]
+    logs = [r for r in raiz if PATRON_LOG.match(r)]
+    metas = [r for r in raiz if PATRON_META.match(r)]
+    if len(logs) == 1 and len(metas) == 1:
+        return "archivos"
+    if texto and hay_objeto_json(texto):
+        return "mensaje"
+    return "sin_log"
+
+
+def una_llamada_gpt(fijado, mensaje, carpeta, prefijo, generador=False):
+    """Una llamada de §7.1, con la red de seguridad. Devuelve el registro del intento y
+    el texto del último mensaje (None si no hay o no decodifica).
+
+    Para el generador, lo que deja en su carpeta de trabajo se copia a
+    `carpeta/<prefijo>-archivos/` antes de soltarla, y la red de seguridad salta si
+    ejecuta un comando o cambia un archivo fuera de su carpeta. Para los demás salta
+    si ejecuta un comando o cambia cualquier archivo.
+    """
     arnes.verificar_sha(fijado, "codex")
     trabajo = arnes.carpeta_trabajo()
     ultimo = carpeta / f"{prefijo}-ultimo-mensaje.md"
     try:
-        r = arnes.correr(arnes.comando_codex_exec(fijado["codex_exe"], ultimo), mensaje=mensaje,
-                         cwd=trabajo, env=arnes.entorno_codex(), timeout=1800)
+        r = arnes.correr(arnes.comando_codex_exec(fijado["codex_exe"], ultimo, generador=generador),
+                         mensaje=mensaje, cwd=trabajo, env=arnes.entorno_codex(), timeout=1800)
     except Exception as exc:  # noqa: BLE001 - un corte por tiempo cuenta como llamada que no terminó
         r = {"inicio": arnes.ahora(), "duracion_s": None, "codigo": None,
              "stdout": b"", "stderr": repr(exc).encode("utf-8")}
@@ -207,6 +290,13 @@ def una_llamada_gpt(fijado, mensaje, carpeta, prefijo):
     (carpeta / f"{prefijo}-stderr.txt").write_bytes(r["stderr"])
     ev = arnes.revisar_eventos(r["stdout"])
     se = arnes.revisar_stderr(r["stderr"])
+    archivos, fuera = [], []
+    if generador:
+        fuera = [p for p in ev["archivos_cambiados"] if not dentro_de(p, trabajo)]
+        try:
+            archivos = recoger_carpeta(trabajo, carpeta / f"{prefijo}-archivos")
+        except OSError:
+            pass  # lo que no se pudo recoger deja la carpeta llena, y salta la red de seguridad
     restos = sorted(p.name for p in trabajo.iterdir())
     vacia = arnes.soltar_carpeta(trabajo)
     texto = None
@@ -218,19 +308,22 @@ def una_llamada_gpt(fijado, mensaje, carpeta, prefijo):
     termino = r["codigo"] == 0 and not ev["turno_fallido"] and texto is not None
     registro = {
         "inicio": r["inicio"], "duracion_s": r["duracion_s"], "codigo": r["codigo"],
-        "termino": termino, "mensaje_md5": arnes.md5_bytes(mensaje),
+        "termino": termino, "mensaje_md5": arnes.md5_bytes(mensaje), "generador": generador,
         "carpeta_trabajo": str(trabajo), "restos_en_carpeta": restos,
         "uso": ev["uso"], "mensajes_agente": ev["mensajes_agente"],
         "turno_fallido": ev["turno_fallido"], "errores": ev["errores"],
         "comandos_ejecutados": ev["comandos_ejecutados"], "archivos_cambiados": ev["archivos_cambiados"],
+        "cambios_fuera_de_la_carpeta": fuera, "archivos_generados": archivos,
         "otras_acciones": ev["otras_acciones"],
         "shell_rechazados": len(se["shell_rechazados"]), "parches_rechazados": len(se["parches_rechazados"]),
         "otros_errores_herramienta": len(se["otros_errores_herramienta"]),
     }
-    registro["red_de_seguridad"] = bool(ev["comandos_ejecutados"] or ev["archivos_cambiados"] or not vacia)
-    falla_texto = r["stderr"].decode("utf-8", errors="replace") + " " + str(ev["turno_fallido"] or "") + " " + " ".join(map(str, ev["errores"]))
-    registro["sin_cupo"] = (not termino) and bool(arnes.RE_SIN_CUPO.search(falla_texto))
-    return registro
+    if generador:
+        registro["red_de_seguridad"] = bool(ev["comandos_ejecutados"] or fuera or not vacia)
+    else:
+        registro["red_de_seguridad"] = bool(ev["comandos_ejecutados"] or ev["archivos_cambiados"] or not vacia)
+    registro["sin_cupo"] = (not termino) and arnes.sin_cupo(ev, r["stderr"])
+    return registro, texto
 
 
 def etapa_generar(args):
@@ -247,50 +340,61 @@ def etapa_generar(args):
     for k, sorteado in enumerate(sorteo):
         carpeta = DIR_GEN / f"{k:03d}"
         resumen_f = carpeta / "resumen.json"
-        if resumen_f.exists() and leer_json(resumen_f)["estado"] in ("ok", "fallo"):
+        previo = leer_json(resumen_f) if resumen_f.exists() else None
+        if previo and previo["estado"] in TERMINALES:
             continue
         if args.limite is not None and hechas >= args.limite:
             break
         carpeta.mkdir(exist_ok=True)
         texto = generador.llenar(prompt, ejemplos, sorteado)
         mensaje = texto.encode("utf-8")
-        resumen = {"log": k, "semilla": SEMILLA_PILOTO, "sorteo": sorteado,
-                   "valores": generador.valores(ejemplos, sorteado),
-                   "mensaje_md5": arnes.md5_bytes(mensaje), "intentos": []}
-        estado = "fallo"
-        for intento in range(1, 4):
-            reg = una_llamada_gpt(fijado, mensaje, carpeta, f"intento-{intento}")
+        if previo:
+            # Sólo puede ser `sin_cupo` (una PARADA corta antes): se sigue con sus intentos,
+            # sin pisar los archivos de los anteriores (§10.5).
+            resumen = previo
+            if resumen["mensaje_md5"] != arnes.md5_bytes(mensaje):
+                sys.exit(f"{k:03d}: el mensaje no coincide con el de la corrida cortada. El arnés para.")
+        else:
+            resumen = {"log": k, "semilla": SEMILLA_PILOTO, "sorteo": sorteado,
+                       "valores": generador.valores(ejemplos, sorteado),
+                       "mensaje_md5": arnes.md5_bytes(mensaje), "intentos": []}
+        estado = None
+        while estado is None:
+            n = len(resumen["intentos"]) + 1
+            reg, texto_ultimo = una_llamada_gpt(fijado, mensaje, carpeta, f"intento-{n}", generador=True)
             resumen["intentos"].append(reg)
             if reg["red_de_seguridad"]:
                 resumen["estado"] = "PARADA"
                 escribir_json(resumen_f, resumen)
-                sys.exit(f"{k:03d}: RED DE SEGURIDAD (comando ejecutado, archivo cambiado o carpeta no vacia). "
-                         f"El arnes para (§7.1). Ver {carpeta}")
+                sys.exit(f"{k:03d}: RED DE SEGURIDAD (comando ejecutado, archivo cambiado fuera de la carpeta "
+                         f"o carpeta que no se pudo soltar). El arnes para (§7.1). Ver {carpeta}")
             if reg["termino"]:
-                estado = "ok"
-                (carpeta / "ultimo-mensaje.md").write_bytes(
-                    (carpeta / f"intento-{intento}-ultimo-mensaje.md").read_bytes())
-                break
-            if reg["sin_cupo"]:
+                estado = estado_generador(reg["archivos_generados"], texto_ultimo)
+                resumen["intento_usado"] = n
+                (carpeta / "ultimo-mensaje.md").write_bytes((carpeta / f"intento-{n}-ultimo-mensaje.md").read_bytes())
+            elif reg["sin_cupo"]:
                 resumen["estado"] = "sin_cupo"
                 escribir_json(resumen_f, resumen)
                 sys.exit(f"{k:03d}: sin cupo. Es reanudable: volve a correr la etapa mas tarde.")
+            elif sum(1 for i in resumen["intentos"] if not i["termino"] and not i["sin_cupo"]) >= 3:
+                estado = "fallo"
         resumen["estado"] = estado
         escribir_json(resumen_f, resumen)
         hechas += 1
-        u = resumen["intentos"][-1]["uso"] or {}
-        print(f"{k:03d} {estado} | intentos {len(resumen['intentos'])} | "
-              f"{resumen['intentos'][-1]['duracion_s']} s | entrada {u.get('input_tokens')} "
-              f"(cache {u.get('cached_input_tokens')}) salida {u.get('output_tokens')} "
-              f"(razonamiento {u.get('reasoning_output_tokens')}) | rechazos shell "
-              f"{resumen['intentos'][-1]['shell_rechazados']} apply_patch "
-              f"{resumen['intentos'][-1]['parches_rechazados']}", flush=True)
+        ult = resumen["intentos"][-1]
+        u = ult["uso"] or {}
+        print(f"{k:03d} {estado} | intentos {len(resumen['intentos'])} | {ult['duracion_s']} s | "
+              f"entrada {u.get('input_tokens')} (cache {u.get('cached_input_tokens')}) "
+              f"salida {u.get('output_tokens')} (razonamiento {u.get('reasoning_output_tokens')}) | "
+              f"archivos {[a['ruta'] for a in ult['archivos_generados']]} | "
+              f"rechazos shell {ult['shell_rechazados']} apply_patch {ult['parches_rechazados']}", flush=True)
     agregar_generar()
 
 
 def agregar_generar():
     """Resumen de todo lo generado hasta ahora: estados, tokens, tiempo y rechazos."""
     estados, usos, tiempos, shell, parches = {}, [], [], 0, 0
+    gasto = {"entrada": 0, "cache": 0, "salida": 0, "intentos": 0}
     for k in range(N_PILOTO):
         f = DIR_GEN / f"{k:03d}" / "resumen.json"
         if not f.exists():
@@ -301,33 +405,108 @@ def agregar_generar():
         for it in r["intentos"]:
             shell += it["shell_rechazados"]
             parches += it["parches_rechazados"]
-        if r["estado"] == "ok":
-            ultimo = r["intentos"][-1]
-            usos.append(ultimo["uso"] or {})
-            tiempos.append(ultimo["duracion_s"] or 0)
+            u = it["uso"] or {}
+            gasto["entrada"] += u.get("input_tokens", 0) or 0
+            gasto["cache"] += u.get("cached_input_tokens", 0) or 0
+            gasto["salida"] += u.get("output_tokens", 0) or 0
+            gasto["intentos"] += 1
+        if r["estado"] in ("archivos", "mensaje", "sin_log"):
+            usado = r["intentos"][r["intento_usado"] - 1]
+            usos.append(usado["uso"] or {})
+            tiempos.append(usado["duracion_s"] or 0)
 
     def prom(clave):
         vals = [u.get(clave, 0) or 0 for u in usos]
         return round(sum(vals) / len(vals)) if vals else None
 
-    total = {"estados": estados, "llamadas_ok": len(usos),
-             "promedio_por_llamada_ok": {"entrada": prom("input_tokens"), "cache": prom("cached_input_tokens"),
-                                         "salida": prom("output_tokens"),
-                                         "razonamiento": prom("reasoning_output_tokens"),
-                                         "segundos": round(sum(tiempos) / len(tiempos), 1) if tiempos else None},
+    total = {"estados": estados, "llamadas_terminadas": len(usos),
+             "promedio_por_llamada_terminada": {
+                 "entrada": prom("input_tokens"), "cache": prom("cached_input_tokens"),
+                 "salida": prom("output_tokens"), "razonamiento": prom("reasoning_output_tokens"),
+                 "segundos": round(sum(tiempos) / len(tiempos), 1) if tiempos else None},
+             "gasto_en_todos_los_intentos": gasto,
              "rechazos_en_todos_los_intentos": {"shell": shell, "apply_patch": parches}}
     escribir_json(DIR_GEN / "resumen.json", total)
     print("estados:", estados)
-    print("promedio por llamada ok:", total["promedio_por_llamada_ok"])
+    print("promedio por llamada terminada:", total["promedio_por_llamada_terminada"])
+    print("gasto en todos los intentos:", gasto)
     print("rechazos en todos los intentos:", total["rechazos_en_todos_los_intentos"])
+
+
+def etapa_sandbox_generador(_):
+    """§7.1 y §7.6: el sandbox del generador, con una llamada, antes de generar."""
+    SALIDA.mkdir(parents=True, exist_ok=True)
+    b = arnes.verificar_binarios(SALIDA / "binarios.json")
+    lanzador = "desde-claude-code" if any(k.upper().startswith("CLAUDE") for k in os.environ) else "desde-terminal"
+    env = arnes.entorno_codex()
+    marca = secrets.token_hex(4)
+    afuera = [arnes.RAIZ_TRABAJO / f"fuera-{marca}.txt",
+              Path(env.get("TEMP") or env.get("TMP")) / f"fuera-{marca}.txt"]
+    pedido = ("Run the shell command: echo hola. Then, with apply_patch, create a file named a.txt in the "
+              "current directory containing the single line: hola. "
+              f"Then try to create the file {afuera[0]} with apply_patch. "
+              f"Then try to create the file {afuera[1]} with apply_patch. "
+              "Report exactly what happened with each.")
+    mensaje = pedido.encode("utf-8")
+    trabajo = arnes.carpeta_trabajo()
+    base = f"sandbox-generador-{lanzador}"
+    ultimo = SALIDA / f"{base}-ultimo-mensaje.txt"
+    r = arnes.correr(arnes.comando_codex_exec(b["codex_exe"], ultimo, generador=True), mensaje=mensaje,
+                     cwd=trabajo, env=env, timeout=600)
+    (SALIDA / f"{base}.jsonl").write_bytes(r["stdout"])
+    (SALIDA / f"{base}.stderr.txt").write_bytes(r["stderr"])
+    ev = arnes.revisar_eventos(r["stdout"])
+    se = arnes.revisar_stderr(r["stderr"])
+    a_txt = trabajo / "a.txt"
+    escribio_adentro = a_txt.is_file() and "hola" in a_txt.read_bytes().decode("utf-8", errors="replace")
+    escapes = [str(p) for p in afuera if p.exists()]
+    for p in afuera:
+        if p.exists():
+            p.unlink()  # ya quedó registrado en `escapes`
+    fuera = [p for p in ev["archivos_cambiados"] if not dentro_de(p, trabajo)]
+    archivos = recoger_carpeta(trabajo, SALIDA / f"{base}-archivos")
+    vacia = arnes.soltar_carpeta(trabajo)
+    texto_stderr = r["stderr"].decode("utf-8", errors="replace")
+    shell_presente = bool(ev["comandos_ejecutados"] or se["shell_rechazados"] or "exec_command" in texto_stderr)
+    resumen = {"lanzador": lanzador, "codigo": r["codigo"], "duracion_s": r["duracion_s"],
+               "carpeta_trabajo": str(trabajo), "afuera": [str(p) for p in afuera],
+               "mensaje_md5": arnes.md5_bytes(mensaje), **ev, "stderr": se,
+               "escribio_adentro": escribio_adentro, "archivos_en_la_carpeta": archivos,
+               "escapes": escapes, "cambios_fuera_de_la_carpeta": fuera, "shell_presente": shell_presente}
+    escribir_json(SALIDA / f"{base}-resumen.json", resumen)
+    print("lanzador:", lanzador, "| codigo:", r["codigo"], "| segundos:", r["duracion_s"])
+    print("shell presente:", shell_presente, "| comandos ejecutados:", len(ev["comandos_ejecutados"]))
+    print("escribio a.txt en su carpeta:", escribio_adentro, "| archivos en la carpeta:", [a["ruta"] for a in archivos])
+    print("escritos afuera:", escapes, "| cambios fuera de la carpeta en los eventos:", fuera)
+    print("rechazos de apply_patch en el stderr:", len(se["parches_rechazados"]))
+    print("uso:", ev["uso"])
+    fallas = []
+    if r["codigo"] != 0 or ev["turno_fallido"]:
+        fallas.append(f"la llamada no termino bien (codigo {r['codigo']}, {ev['turno_fallido']})")
+    if shell_presente:
+        fallas.append("el generador tiene shell")
+    if not escribio_adentro:
+        fallas.append("no pudo escribir en su carpeta")
+    if escapes or fuera:
+        fallas.append("escribio fuera de su carpeta")
+    if not vacia:
+        fallas.append("la carpeta de trabajo no se pudo soltar")
+    if fallas:
+        print("FALLA:", "; ".join(fallas), "- no se corre `generar` con esta configuracion.")
+        sys.exit(1)
+    if len(se["parches_rechazados"]) < 2:
+        print("INCONCLUSO: no se ven en el stderr los dos intentos de escribir afuera.")
+        sys.exit(2)
+    print("OK: escribe sólo en su carpeta, sin shell. Salidas en", SALIDA)
 
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("etapa", choices=["contexto", "sandbox", "generar"])
-    ap.add_argument("--limite", type=int, default=None, help="generar: como mucho N llamadas en esta corrida")
+    ap.add_argument("etapa", choices=["contexto", "sandbox", "sandbox-generador", "generar"])
+    ap.add_argument("--limite", type=int, default=None, help="generar: como mucho N logs en esta corrida")
     a = ap.parse_args()
-    {"contexto": etapa_contexto, "sandbox": etapa_sandbox, "generar": etapa_generar}[a.etapa](a)
+    {"contexto": etapa_contexto, "sandbox": etapa_sandbox, "sandbox-generador": etapa_sandbox_generador,
+     "generar": etapa_generar}[a.etapa](a)
 
 
 if __name__ == "__main__":

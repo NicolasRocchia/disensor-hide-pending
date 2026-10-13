@@ -171,9 +171,23 @@ def prohibidas_en(texto):
     return sorted({p.pattern for p in PROHIBIDAS if p.search(texto)})
 
 
-def comando_codex_exec(codex_exe, salida_ultimo_mensaje):
-    """La llamada de §7.1, igual para generador, capacidad y brazos. El mensaje va por stdin."""
-    return [str(codex_exe), "exec", "-m", MODELO_GPT, "-s", "read-only", "--ephemeral",
+def comando_codex_exec(codex_exe, salida_ultimo_mensaje, generador=False):
+    """La llamada de §7.1. El mensaje va por stdin.
+
+    Capacidad y brazos corren con sandbox de sólo lectura. El generador, por la
+    contingencia de §7.1 (09-PILOTO-GENERAR-1.md), tiene que poder escribir sus dos
+    archivos: `workspace-write` sólo sobre su carpeta de trabajo (sin %TEMP%, sin
+    /tmp, sin red) y sin la herramienta de shell, así que la única forma de escribir
+    es apply_patch y la red de seguridad sigue siendo «ningún comando ejecutado».
+    """
+    if generador:
+        sandbox = ["-s", "workspace-write", "--disable", "shell_tool",
+                   "-c", "sandbox_workspace_write.exclude_tmpdir_env_var=true",
+                   "-c", "sandbox_workspace_write.exclude_slash_tmp=true",
+                   "-c", "sandbox_workspace_write.network_access=false"]
+    else:
+        sandbox = ["-s", "read-only"]
+    return [str(codex_exe), "exec", "-m", MODELO_GPT, *sandbox, "--ephemeral",
             "--ignore-user-config", "--ignore-rules",
             "-c", "project_doc_max_bytes=0",
             "-c", f"model_reasoning_effort={ESFUERZO_GPT}",
@@ -232,6 +246,20 @@ RE_PARCHE_RECHAZADO = re.compile(r"error=patch rejected")
 RE_ERROR_HERRAMIENTA = re.compile(r"codex_core::tools::router: error=")
 # Señales de cupo agotado, para parar sin gastar reintentos (§7.7).
 RE_SIN_CUPO = re.compile(r"usage limit|rate limit|quota|too many requests|\b429\b", re.I)
+
+
+def sin_cupo(ev, stderr_bytes):
+    """§7.7: la llamada falló por cupo.
+
+    Mira el turno fallido, los eventos de error y las líneas del stderr, salvo las de
+    herramientas rechazadas: ésas repiten el texto del comando, y un log que diga
+    «429» o «quota» no es falta de cupo (09, pendientes de la revisión de b816af4).
+    """
+    textos = [str(ev.get("turno_fallido") or ""), *(str(e) for e in ev.get("errores") or [])]
+    for linea in stderr_bytes.decode("utf-8", errors="replace").splitlines():
+        if "codex_core::tools::router" not in linea:
+            textos.append(linea)
+    return any(RE_SIN_CUPO.search(t) for t in textos)
 
 
 def revisar_stderr(stderr_bytes):
