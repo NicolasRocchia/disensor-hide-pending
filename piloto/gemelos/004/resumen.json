@@ -68,6 +68,16 @@
         "final": true
       },
       "1_evento_es_tool_result": true,
+      "3_aceptadas_por_regla": [
+        {
+          "n": 40,
+          "linea": "request_id=invagg-20261013-091411-7f3c2",
+          "coincide": [
+            "request_id"
+          ],
+          "en_la_llamada_de_seguimiento": false
+        }
+      ],
       "4_respuesta_vieja": {
         "categoria": [
           "NodeUnavailable"
@@ -92,19 +102,12 @@
             "async"
           ],
           "en_la_llamada_de_seguimiento": true
-        },
-        {
-          "n": 40,
-          "linea": "request_id=invagg-20261013-091411-7f3c2",
-          "coincide": [
-            "request_id"
-          ],
-          "en_la_llamada_de_seguimiento": false
         }
       ]
     },
     "pasa_automaticos": true,
     "pendiente_de_nico": true
   },
-  "estado": "hecho"
+  "estado": "hecho",
+  "rotulo_sacado": false
 }

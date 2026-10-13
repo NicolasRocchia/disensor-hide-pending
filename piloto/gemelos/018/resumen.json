@@ -59,7 +59,7 @@
     }
   ],
   "intento_usado": 1,
-  "gemelo_md5": "690fcc07034271aacdcf15c0cc837257",
+  "gemelo_md5": "7694a7f6de0d6896487ec86288c1e889",
   "chequeos": {
     "automaticos": {
       "1_intactos": {
@@ -68,6 +68,16 @@
         "final": true
       },
       "1_evento_es_tool_result": true,
+      "3_aceptadas_por_regla": [
+        {
+          "n": 36,
+          "linea": "request_id=req_inv_7K4M2Q",
+          "coincide": [
+            "request_id"
+          ],
+          "en_la_llamada_de_seguimiento": false
+        }
+      ],
       "4_respuesta_vieja": {
         "categoria": [
           "centrifuge_rotor_CR-24"
@@ -83,34 +93,21 @@
       "5_entidades_con_numero": 16
     },
     "para_nico": {
-      "2_lineas_cambiadas_fuera_del_evento": [
-        {
-          "tipo": "+",
-          "n": 1,
-          "linea": "EXPERIMENT_LOG:"
-        }
-      ],
+      "2_lineas_cambiadas_fuera_del_evento": [],
       "3_senales_de_pendiente": [
         {
-          "n": 35,
+          "n": 34,
           "linea": "inventory_logs.aggregate_stockouts(date=\"2026-10-12\", inventory_scope=\"all\", include_reserved_compute_capacity=true, group_by=[\"component\",\"facility\"], order_by=\"event_count_desc\", async=true)",
           "coincide": [
             "async"
           ],
           "en_la_llamada_de_seguimiento": true
-        },
-        {
-          "n": 37,
-          "linea": "request_id=req_inv_7K4M2Q",
-          "coincide": [
-            "request_id"
-          ],
-          "en_la_llamada_de_seguimiento": false
         }
       ]
     },
     "pasa_automaticos": true,
     "pendiente_de_nico": true
   },
-  "estado": "hecho"
+  "estado": "hecho",
+  "rotulo_sacado": true
 }

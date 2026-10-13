@@ -68,6 +68,7 @@
         "final": true
       },
       "1_evento_es_tool_result": true,
+      "3_aceptadas_por_regla": [],
       "4_respuesta_vieja": {
         "categoria": [
           "TimeoutError"
@@ -106,5 +107,6 @@
     "pasa_automaticos": true,
     "pendiente_de_nico": true
   },
-  "estado": "hecho"
+  "estado": "hecho",
+  "rotulo_sacado": false
 }

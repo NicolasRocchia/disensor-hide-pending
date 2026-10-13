@@ -68,6 +68,16 @@
         "final": true
       },
       "1_evento_es_tool_result": true,
+      "3_aceptadas_por_regla": [
+        {
+          "n": 35,
+          "linea": "request_id=req-jf-8d31c6b2",
+          "coincide": [
+            "request_id"
+          ],
+          "en_la_llamada_de_seguimiento": false
+        }
+      ],
       "4_respuesta_vieja": {
         "categoria": [
           "NodeUnavailable"
@@ -92,19 +102,12 @@
             "async"
           ],
           "en_la_llamada_de_seguimiento": true
-        },
-        {
-          "n": 35,
-          "linea": "request_id=req-jf-8d31c6b2",
-          "coincide": [
-            "request_id"
-          ],
-          "en_la_llamada_de_seguimiento": false
         }
       ]
     },
     "pasa_automaticos": true,
     "pendiente_de_nico": true
   },
-  "estado": "hecho"
+  "estado": "hecho",
+  "rotulo_sacado": false
 }

@@ -1,4 +1,3 @@
-EXPERIMENT_LOG:
 [09:14:02] USER
 Which components were most frequently out of stock yesterday?
 [09:14:05] ASSISTANT
