@@ -1,6 +1,6 @@
 # Protocolo · Fase 1: ¿el esquema de residuo hace que el registro consigne el hueco?
 
-**Estado: v14, NO congelado.** Incorpora lo que midió el piloto en la máquina de
+**Estado: v15, NO congelado.** Incorpora lo que midió el piloto en la máquina de
 Nico (`05-PRUEBA-SANDBOX-1.md`, `06-PRUEBA-SANDBOX-2.md`,
 `08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`, `09-PILOTO-GENERAR-1.md`,
 `10-PRUEBA-SANDBOX-GENERADOR.md`, `11-PILOTO-GENERAR-Y-CHEQUEAR.md`,
@@ -536,7 +536,9 @@ espacios normalizados; una cita vacía no pasa. **Repeticiones:** a lo sumo dos
 vueltas del juez por JSON, sea porque la salida no se lee (§10.4) o porque un
 `true` no pasa la guarda; cada vuelta, con los reintentos de llamada de §7.2 y
 §7.7. **Probado de punta a punta** con JSON armados a mano, nunca con respuestas
-del sujeto (etapa `juez-prueba` del piloto).
+del sujeto (etapa `juez-prueba` del piloto, `14`): 5 de 5 como se esperaba, en una
+vuelta cada uno. Eso prueba el circuito y su costo, no valida al juez: la
+validación es la de §8.1.
 
 **Cada JSON se juzga una sola vez**, más la repetición de la guarda. No se vuelve
 a correr al juez para ver si cambia de opinión.
@@ -842,7 +844,7 @@ vea el modelo.
 | 6 | **Prueba de humo del sujeto:** 10 llamadas, 5 logs pendientes del piloto por A2b y por A2. Ninguna ejecución de comando ni cambio de archivo; **si hay alguno, se para.** No se juzgan, y no pueden cambiar ningún prompt, esquema ni umbral | **Hecho** (`13`): 10 de 10, cero comandos, cero archivos, cero rechazos |
 | 7 | La extracción de §6.1 encuentra el JSON en esas 10 respuestas, o la regla se ajusta antes de congelar | **Hecho** (`13`): 10 de 10; `residue` en los 5 de A2 y en ninguno de A2b |
 | 8 | Los bytes del mensaje llegan exactos (§7.3) | **Hecho** (`08`, `13`): por argumento, el prompt generador lleno llega idéntico; por stdin, el mensaje de un brazo que Codex guardó en su sesión es idéntico al enviado |
-| 9 | Tokens y tiempo por tipo de llamada, para el presupuesto y el cupo | **Generador** (`11`): 52.873 de entrada (79% de caché), 1.527 de salida, 35 s. **Capacidad** (`12`): unos 13.000 de entrada, unos 50 de salida, 5 s. **Brazos** (`13`): A2b 13.322 y 223; A2 19.804 y 454; unos 10 s. **Gemelos** (`13`): unos 2.100 de entrada, 2.000 de salida, 17 s, USD 0,06 a precio de API. Falta el juez |
+| 9 | Tokens y tiempo por tipo de llamada, para el presupuesto y el cupo | **Generador** (`11`): 52.873 de entrada (79% de caché), 1.527 de salida, 35 s. **Capacidad** (`12`): unos 13.000 de entrada, unos 50 de salida, 5 s. **Brazos** (`13`): A2b 13.322 y 223; A2 19.804 y 454; unos 10 s. **Gemelos** (`13`): unos 2.100 de entrada, 2.000 de salida, 17 s, USD 0,06 a precio de API. **Juez** (`14`): unos 950 de entrada, de 25 a 140 de salida, 4 s, USD 0,009 a precio de API |
 
 ### 7.7 Orden, cupo y cortes
 
@@ -1094,6 +1096,13 @@ su propia ventana, o declara la confusión.
       etiquetar los JSON de los logs decisivos y 30 más.
 
 ## 15. Cambios
+
+### De la v14 a la v15
+
+| # | Qué se midió | Qué se hizo | Dónde |
+|---|---|---|---|
+| 15.1 | El juez sobre cinco JSON armados a mano: 5 de 5 como se esperaba, citas de texto libre | Anotado; aclarado que no valida al juez | §6.2 |
+| 15.2 | Costo del juez | Anotado; §7.6, punto 9, completo | §7.6 |
 
 ### De la v13 a la v14
 
