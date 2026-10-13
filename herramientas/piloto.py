@@ -37,9 +37,14 @@ Etapas disponibles:
             comando ejecutado, un archivo cambiado fuera de la carpeta o la
             carpeta que no se pudo soltar) y por falta de cupo.
 
-Las etapas siguientes (chequear, capacidad, gemelos, humo) se agregan cuando
-éstas pasen. Las salidas quedan en experimento/piloto/arnes/ y
-experimento/piloto/generador/.
+  chequear  Sin llamar a ningún modelo (§4.1 y §4.2): pasa cada log a forma
+            canónica en piloto/logs/NNN/ y le aplica los chequeos mecánicos. El
+            detalle va a piloto/chequeo/NNN.json, y el resumen, con los descartes
+            por comportamiento de falla sorteado y las diferencias entre el
+            sorteo y la metadata, a piloto/chequeo/resumen.json.
+
+Las etapas siguientes (capacidad, gemelos, humo) se agregan cuando éstas pasen.
+Las salidas quedan en experimento/piloto/.
 """
 import argparse
 import json
@@ -433,6 +438,83 @@ def agregar_generar():
     print("rechazos en todos los intentos:", total["rechazos_en_todos_los_intentos"])
 
 
+DIR_LOGS = arnes.PILOTO / "logs"
+DIR_CHEQUEO = arnes.PILOTO / "chequeo"
+
+
+def etapa_chequear(_):
+    """§4.1 y §4.2, sin llamar a ningún modelo: forma canónica y chequeos mecánicos.
+
+    Cada log en estado `archivos` pasa a `piloto/logs/NNN/` en forma canónica (UTF-8,
+    sin BOM, LF), con su md5; el detalle de cada chequeo queda en
+    `piloto/chequeo/NNN.json` y el resumen en `piloto/chequeo/resumen.json`. Un log en
+    otro estado es descarte por §4.2, punto 1: el piloto fijó el camino de los archivos.
+    """
+    import chequeo
+    DIR_LOGS.mkdir(parents=True, exist_ok=True)
+    DIR_CHEQUEO.mkdir(parents=True, exist_ok=True)
+    claves = chequeo.claves_de_la_metadata(generador.leer_prompt())
+    ejemplos = generador.listas(generador.leer_prompt())
+    comportamientos = ejemplos["MISSING_FOLLOW_UP_BEHAVIOR"]
+    total = {"logs": 0, "pasan": 0, "descartes_por_punto": {}, "descartes_por_comportamiento": {},
+             "logs_por_comportamiento": {}, "diferencias_con_el_sorteo": {}, "forma_del_primer_resultado": {},
+             "entrada_despues_del_seguimiento": {}, "con_bom": 0, "con_crlf": 0, "pasan_lista": []}
+
+    def contar(d, clave):
+        d[clave] = d.get(clave, 0) + 1
+
+    for k in range(N_PILOTO):
+        r = leer_json(DIR_GEN / f"{k:03d}" / "resumen.json")
+        total["logs"] += 1
+        comp = comportamientos[r["sorteo"]["MISSING_FOLLOW_UP_BEHAVIOR"]]
+        contar(total["logs_por_comportamiento"], comp)
+        det = {"log": k, "comportamiento_sorteado": comp, "estado_del_generador": r["estado"]}
+        if r["estado"] != "archivos":
+            det["fallas"] = [f"1: el generador no dejó sus dos archivos (estado {r['estado']})"]
+        else:
+            carpeta = DIR_GEN / f"{k:03d}" / f"intento-{r['intento_usado']}-archivos"
+            logs = [p for p in carpeta.iterdir() if PATRON_LOG.match(p.name)]
+            metas = [p for p in carpeta.iterdir() if PATRON_META.match(p.name)]
+            crudo_log, crudo_meta = logs[0].read_bytes(), metas[0].read_bytes()
+            log, bom_l = chequeo.canonica(crudo_log)
+            meta_txt, bom_m = chequeo.canonica(crudo_meta)
+            total["con_bom"] += int(bom_l or bom_m)
+            total["con_crlf"] += int(b"\r" in crudo_log or b"\r" in crudo_meta)
+            destino = DIR_LOGS / f"{k:03d}"
+            destino.mkdir(exist_ok=True)
+            (destino / "log.md").write_bytes(log.encode("utf-8"))
+            (destino / "metadata.json").write_bytes(meta_txt.encode("utf-8"))
+            det.update({"archivos": [logs[0].name, metas[0].name],
+                        "log_md5": chequeo.md5_texto(log), "metadata_md5": chequeo.md5_texto(meta_txt)})
+            det.update(chequeo.chequear(log, meta_txt, claves))
+            try:
+                meta = json.loads(meta_txt)
+            except json.JSONDecodeError:
+                meta = None
+            det["diferencias_con_el_sorteo"] = chequeo.diferencias_con_el_sorteo(r["valores"], meta)
+            for campo in det["diferencias_con_el_sorteo"]:
+                contar(total["diferencias_con_el_sorteo"], campo)
+            contar(total["forma_del_primer_resultado"], str((det.get("dominante") or {}).get("forma")))
+            contar(total["entrada_despues_del_seguimiento"], str((det.get("entrada_siguiente") or {}).get("tipo")))
+        escribir_json(DIR_CHEQUEO / f"{k:03d}.json", det)
+        if det["fallas"]:
+            for f in det["fallas"]:
+                contar(total["descartes_por_punto"], f.split(":")[0])
+            contar(total["descartes_por_comportamiento"], comp)
+            print(f"{k:03d} DESCARTE | {comp} | " + " ; ".join(det["fallas"]), flush=True)
+        else:
+            total["pasan"] += 1
+            total["pasan_lista"].append(k)
+    escribir_json(DIR_CHEQUEO / "resumen.json", total)
+    print("pasan:", total["pasan"], "de", total["logs"])
+    print("descartes por punto de §4.2:", total["descartes_por_punto"])
+    print("descartes por comportamiento sorteado:", total["descartes_por_comportamiento"])
+    print("diferencias con el sorteo, por campo:", total["diferencias_con_el_sorteo"])
+    print("forma del primer resultado:", total["forma_del_primer_resultado"])
+    print("entrada despues del seguimiento:", total["entrada_despues_del_seguimiento"])
+    print("con BOM:", total["con_bom"], "| con CRLF:", total["con_crlf"])
+
+
 def etapa_sandbox_generador(_):
     """§7.1 y §7.6: el sandbox del generador, con una llamada, antes de generar."""
     SALIDA.mkdir(parents=True, exist_ok=True)
@@ -502,11 +584,11 @@ def etapa_sandbox_generador(_):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("etapa", choices=["contexto", "sandbox", "sandbox-generador", "generar"])
+    ap.add_argument("etapa", choices=["contexto", "sandbox", "sandbox-generador", "generar", "chequear"])
     ap.add_argument("--limite", type=int, default=None, help="generar: como mucho N logs en esta corrida")
     a = ap.parse_args()
     {"contexto": etapa_contexto, "sandbox": etapa_sandbox, "sandbox-generador": etapa_sandbox_generador,
-     "generar": etapa_generar}[a.etapa](a)
+     "generar": etapa_generar, "chequear": etapa_chequear}[a.etapa](a)
 
 
 if __name__ == "__main__":

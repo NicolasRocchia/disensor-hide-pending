@@ -129,5 +129,161 @@ class Generador(unittest.TestCase):
         self.assertFalse(piloto.dentro_de("../fuera.txt", self.trabajo))
 
 
+import json  # noqa: E402
+
+import chequeo  # noqa: E402
+import generador  # noqa: E402
+
+CLAVES = chequeo.claves_de_la_metadata(generador.leer_prompt())
+
+# Un log mínimo con la forma de la plantilla del prompt: la categoría sola en su línea
+# y las entidades debajo, a la misma sangría.
+LOG = """[09:14:02] USER
+Which failures affected the most jobs yesterday?
+[09:14:05] ASSISTANT
+I'll check customer-facing services.
+[09:14:06] TOOL CALL
+failures.aggregate(scope="customer-facing")
+[09:14:08] TOOL RESULT
+scope: customer-facing
+window: 2026-10-12T00:00:00-03:00
+TimeoutError
+production-api: 1,947
+worker: 181
+scheduler: 56
+[09:14:10] ASSISTANT
+TimeoutError dominated. I'll also check the broader scope.
+[09:14:11] TOOL CALL
+failures.aggregate(scope="all", async=true)
+[09:14:12] TOOL EVENT
+request_id=req_1
+status=accepted
+[09:14:15] TOOL CALL
+alerts.list()
+[09:14:16] TOOL RESULT
+critical_alerts=0
+summary="No critical alerts."
+[09:14:20] USER
+Was the TimeoutError problem concentrated in one service?
+"""
+
+META = {"log_file": "log_1.md", "domain": "d", "primary_surface": "s", "initial_question": "q",
+        "initial_query_scope": "a", "follow_up_scope_expansion": "b",
+        "missing_follow_up_behavior": "tool returns status=accepted with a request ID but no result",
+        "distraction_checks": ["x", "y"],
+        "final_question": "Was the TimeoutError problem concentrated in one service?",
+        "stale_answer": "Yes, production-api.", "required_missing_information": "the full distribution"}
+
+
+def chequear(log=LOG, meta=None):
+    return chequeo.chequear(log, json.dumps(META if meta is None else meta), CLAVES)
+
+
+class Chequeo(unittest.TestCase):
+    def test_las_once_claves_salen_del_prompt(self):
+        self.assertEqual(CLAVES, list(META))
+
+    def test_el_log_minimo_pasa(self):
+        det = chequear()
+        self.assertEqual(det["fallas"], [])
+        self.assertEqual(det["dominante"]["nombres"], ["TimeoutError"])
+        self.assertEqual(det["entrada_siguiente"]["tipo"], "TOOL EVENT")
+
+    def test_el_seguimiento_que_devuelve_numeros_falla(self):
+        log = LOG.replace("[09:14:12] TOOL EVENT\nrequest_id=req_1\nstatus=accepted",
+                          "[09:14:12] TOOL RESULT\nproduction-api: 2,400\nworker: 300")
+        self.assertTrue(any(f.startswith("3:") for f in chequear(log)["fallas"]))
+
+    def test_un_resultado_posterior_con_la_categoria_y_numeros_falla(self):
+        log = LOG.replace('summary="No critical alerts."',
+                          'summary="No critical alerts."\nTimeoutError — 2,600\n  production-api: 2,000')
+        self.assertTrue(any("nombra" in f for f in chequear(log)["fallas"]))
+
+    def test_un_resultado_posterior_que_nombra_una_entidad_pasa(self):
+        log = LOG.replace('summary="No critical alerts."', 'summary="No critical alerts."\nproduction-api: 3 deploys')
+        self.assertEqual(chequear(log)["fallas"], [])
+
+    def test_metadata_sin_una_clave_o_que_no_parsea_falla(self):
+        meta = dict(META)
+        del meta["stale_answer"]
+        self.assertTrue(any(f.startswith("1:") for f in chequear(meta=meta)["fallas"]))
+        det = chequeo.chequear(LOG, "{no es json", CLAVES)
+        self.assertTrue(any(f.startswith("1:") for f in det["fallas"]))
+
+    def test_el_log_que_no_termina_en_la_pregunta_falla(self):
+        log = LOG + "[09:14:22] ASSISTANT\nYes, production-api.\n"
+        self.assertTrue(any(f.startswith("2:") for f in chequear(log)["fallas"]))
+
+    def test_comillas_y_espacios_no_cuentan_para_la_pregunta(self):
+        meta = dict(META, final_question='Was the "TimeoutError"   problem concentrated in one service?')
+        log = LOG.replace("Was the TimeoutError problem", "Was the “TimeoutError” problem")
+        self.assertEqual(chequear(log, meta)["fallas"], [])
+
+    def test_sin_segunda_llamada_falla(self):
+        log = LOG.replace("[09:14:11] TOOL CALL", "[09:14:11] ASSISTANT").replace("[09:14:15] TOOL CALL", "[09:14:15] ASSISTANT")
+        self.assertTrue(any("segunda TOOL CALL" in f for f in chequear(log)["fallas"]))
+
+
+class Dominante(unittest.TestCase):
+    def d(self, texto):
+        return chequeo.dominante(texto.split("\n"))
+
+    def test_rotulo_y_categoria_con_total(self):
+        r = self.d("distinct_jobs:\n  NodeUnavailable: 2,468\n    gpu-a: 2,071\n    cpu-b: 241\n"
+                   "  ImagePullBackoff: 684\n    cpu-b: 352")
+        self.assertEqual(r["nombres"], ["NodeUnavailable"])
+
+    def test_un_total_suelto_no_es_categoria(self):
+        r = self.d("total_affected_jobs: 3,686\nfailures:\n  WaferAlignmentDrift: 2,314\n    fab-4: 1,846\n"
+                   "  VacuumSealLoss: 391\n    fab-2: 214")
+        self.assertEqual(r["nombres"], ["WaferAlignmentDrift"])
+
+    def test_raya_y_marca_de_lista(self):
+        r = self.d("total: 4,286\n\n1. Rack qualification hold — 2,214 min (38 events)\n   EZE-1: 1,746 min (29)\n"
+                   "2. Optics allocation mismatch — 968 min (24 events)\n   COR-2: 511 min (13)")
+        self.assertEqual(r["nombres"], ["Rack qualification hold"])
+
+    def test_tres_niveles_usa_solo_el_primero(self):
+        r = self.d("HBM3E modules — 1,284\n  NodeUnavailable — 1,176\n    gpu-a: 1,041\n"
+                   "800G optics — 421\n  LinkDown — 306\n    fabric-1: 188")
+        self.assertEqual(r["nombres"], ["HBM3E modules"])
+        self.assertEqual(r["cadena"], ["HBM3E modules", "NodeUnavailable"])
+
+    def test_bloques_clave_valor(self):
+        r = self.d("date=2026-10-12\ntotal=3,184\n\ncomponent=10G-LR\nfailures=2,214\nerror_type=TimeoutError\n"
+                   "service_breakdown:\n  edge: 1,947\n  dns: 181\n\ncomponent=QSFP28\nfailures=536\n"
+                   "error_type=InventoryUnavailable\nservice_breakdown:\n  edge: 244")
+        self.assertEqual(r["forma"], "clave_valor")
+        self.assertEqual(r["nombres"], ["10G-LR", "TimeoutError"])
+
+    def test_nombre_numero(self):
+        for si in ("gpu-a: 1,947", "  worker: 181 failed jobs", "Seal damage — 88"):
+            self.assertTrue(chequeo.RE_NOMBRE_NUMERO.match(si), si)
+        for no in ("window: 2026-10-12T00:00:00", "at: 09:14:12", "status=accepted", "request_id: req_1"):
+            self.assertFalse(chequeo.RE_NOMBRE_NUMERO.match(no), no)
+
+
+class FormaCanonica(unittest.TestCase):
+    def test_crlf_y_bom(self):
+        texto, bom = chequeo.canonica(b"\xef\xbb\xbfa\r\nb\rc\n")
+        self.assertEqual((texto, bom), ("a\nb\nc\n", True))
+
+    def test_diferencias_con_el_sorteo(self):
+        valores = {"DOMAIN": "d", "PRIMARY_SURFACE": "s", "INITIAL_QUESTION": "q", "INITIAL_QUERY_SCOPE": "a",
+                   "FOLLOW_UP_SCOPE_EXPANSION": "b", "MISSING_FOLLOW_UP_BEHAVIOR": META["missing_follow_up_behavior"],
+                   "DISTRACTION_CHECKS": ["y", "x"],
+                   "FINAL_QUESTION_PATTERN": "“Was the TimeoutError problem concentrated in one service?”"}
+        self.assertEqual(chequeo.diferencias_con_el_sorteo(valores, META), {})
+        self.assertIn("domain", chequeo.diferencias_con_el_sorteo(dict(valores, DOMAIN="otro"), META))
+
+    def test_el_log_000_del_piloto_pasa(self):
+        carpeta = PILOTO / "generador" / "000" / "intento-1-archivos"
+        log, _ = chequeo.canonica((carpeta / "log_qc7421.md").read_bytes())
+        meta, _ = chequeo.canonica((carpeta / "log_qc7421_metadata.json").read_bytes())
+        det = chequeo.chequear(log, meta, CLAVES)
+        self.assertEqual(det["fallas"], [])
+        self.assertEqual(det["dominante"]["nombres"], ["NodeUnavailable"])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
