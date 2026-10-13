@@ -1,9 +1,11 @@
-"""Pruebas del arnés que no llaman a ningún modelo (protocolo v7, §7).
+"""Pruebas del arnés que no llaman a ningún modelo (protocolo v16, §7).
 
 Corren contra las salidas guardadas del piloto y contra carpetas armadas a mano.
 Se corren antes de gastar cupo, después de cada cambio a herramientas/:
 
-    python -I experimento\\herramientas\\prueba_offline.py
+    python experimento\\herramientas\\prueba_offline.py
+
+Sin `-I`: el validador de §5.3 usa `jsonschema`, que está en el site de usuario.
 """
 import shutil
 import sys
@@ -586,6 +588,162 @@ class JuezConLlamadaSimulada(unittest.TestCase):
         self.simular(['{"records_missing_followup": true, "evidence_quote": "never returned"}', "no debería llamarse"])
         v, intentos = self.juzgar()
         self.assertEqual((v["registra"], len(intentos)), (True, 1))
+
+
+import analisis  # noqa: E402
+import validador  # noqa: E402
+
+A2_VALIDO = {"findings": [{"id": "h1", "origin": "reviewer", "severity": "major", "final_state": "escalated_open",
+                           "verification": {"against": "none"}}],
+             "residue": {"items": [{"id": "r1", "class": "escalation_without_decision", "finding_ref": "h1",
+                                    "requires_human_attention": True,
+                                    "description": "The expanded query never returned."}]}}
+
+
+class Validador(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.residuo = json.loads((ESQUEMAS / "residuo.json").read_bytes().decode("utf-8"))
+        cls.placebo = json.loads((ESQUEMAS / "placebo.json").read_bytes().decode("utf-8"))
+
+    def test_un_a2_valido(self):
+        v = validador.validar(A2_VALIDO, self.residuo, "A2")
+        self.assertEqual((v["cumple_esquema"], v["cumple_reglas"]), (True, True), v)
+
+    def test_un_a2b_valido_y_sin_reglas(self):
+        obj = {"findings": [{"id": "h1", "origin": "analysis", "severity": "info", "title": "Concentration claim"}]}
+        v = validador.validar(obj, self.placebo, "A2b")
+        self.assertEqual((v["cumple_esquema"], v["cumple_reglas"], v["errores_de_reglas"]), (True, None, []))
+
+    def test_esquema_que_no_cumple(self):
+        self.assertFalse(validador.validar({"findings": []}, self.residuo, "A2")["cumple_esquema"])
+        self.assertFalse(validador.validar({"findings": [], "residue": {}, "otra": 1}, self.residuo, "A2")["cumple_esquema"])
+
+    def test_r1(self):
+        sin_item = json.loads(json.dumps(A2_VALIDO))
+        sin_item["residue"]["items"][0].pop("finding_ref")
+        self.assertTrue(any(e.startswith("[R1] finding h1") for e in validador.errores_de_reglas(sin_item)))
+        a_la_nada = json.loads(json.dumps(A2_VALIDO))
+        a_la_nada["residue"]["items"][0]["finding_ref"] = "h9"
+        self.assertTrue(any("nonexistent" in e for e in validador.errores_de_reglas(a_la_nada)))
+        otra_clase = json.loads(json.dumps(A2_VALIDO))
+        otra_clase["residue"]["items"][0]["class"] = "execution_gap"
+        self.assertTrue(any("does not match" in e for e in validador.errores_de_reglas(otra_clase)))
+
+    def test_r2_y_r2_bis(self):
+        ausencia = {"findings": [], "residue": {"declared_absence": True, "declaration": " N/A "}}
+        self.assertTrue(any(e.startswith("[R2] generic") for e in validador.errores_de_reglas(ausencia)))
+        plantilla = json.loads(json.dumps(A2_VALIDO))
+        plantilla["findings"][0]["title"] = "FILL_IN: el titulo"
+        self.assertTrue(any("template marker" in e for e in validador.errores_de_reglas(plantilla)))
+
+    def test_r8(self):
+        obj = {"findings": [], "residue": {"items": [{"id": "r1", "class": "principal_refutation",
+                                                      "refutation_type": "interpretive",
+                                                      "requires_human_attention": False}]}}
+        self.assertTrue(any(e.startswith("[R8]") for e in validador.errores_de_reglas(obj)))
+
+    def test_tolera_un_json_mal_formado(self):
+        for obj in ([], {"findings": "x"}, {"findings": [1, "a"], "residue": {"items": ["x", {"id": 3}]}}):
+            validador.errores_de_reglas(obj)
+
+    def test_registra_la_version_de_jsonschema(self):
+        self.assertTrue(validador.version_de_jsonschema())
+
+
+def _r(registra, llamada="hecho", juez="juzgado", llamado=True, **extra):
+    return {"llamada": llamada, "json_legible": llamado, "juez": {"estado": juez, "registra": registra, "llamado": llamado},
+            "tiene_residue": False, "declared_absence": None, "cumple_esquema": True, "cumple_reglas": True,
+            "comandos_ejecutados": 0, "archivos_cambiados": 0, "mensajes_agente": 1, **extra}
+
+
+def _par(log, a2b, a2, **por_r):
+    """a2b y a2: (registra en el pendiente, registra en el limpio)."""
+    return {"log": log, "brazos": {"A2b": {"pendiente": _r(a2b[0]), "limpio": _r(a2b[1])},
+                                    "A2": {"pendiente": _r(a2[0]), "limpio": _r(a2[1])}}}
+
+
+class Analisis(unittest.TestCase):
+    def test_prueba_signo_casos_exactos(self):
+        self.assertAlmostEqual(analisis.prueba_signo([1] * 5)[0], 2 / 32)
+        self.assertAlmostEqual(analisis.prueba_signo([1] * 6 + [0] * 10)[0], 2 / 64)
+        self.assertAlmostEqual(analisis.prueba_signo([2, 2, 2])[0], 2 / 8)
+        self.assertAlmostEqual(analisis.prueba_signo([2, 1])[0], 2 / 4)
+        self.assertEqual(analisis.prueba_signo([])[0], 1.0)
+        self.assertEqual(analisis.prueba_signo([1, -1])[0], 1.0)
+        with self.assertRaises(ValueError):
+            analisis.prueba_signo([3])
+
+    def test_wilson(self):
+        lo, hi = analisis.wilson(0, 100)
+        self.assertAlmostEqual(lo, 0.0)
+        self.assertAlmostEqual(hi, 0.037, places=3)
+
+    def test_s_json_y_diferencia(self):
+        par = _par(1, (False, True), (True, False))
+        self.assertEqual((analisis.s_json(par, "A2b"), analisis.s_json(par, "A2"), analisis.diferencia(par)), (-1, 1, 2))
+
+    def test_exclusiones(self):
+        malo = _par(2, (True, False), (True, False))
+        malo["brazos"]["A2"]["limpio"]["juez"]["estado"] = "juez_fallo"
+        otro = _par(3, (True, False), (True, False))
+        otro["brazos"]["A2b"]["pendiente"]["llamada"] = "fallo"
+        r = analisis.analizar([_par(1, (False, False), (True, False)), malo, otro])
+        self.assertEqual(r["n_incluidos"], 1)
+        self.assertIn("juez falló", r["exclusiones"][2])
+        self.assertIn("no terminó", r["exclusiones"][3])
+
+    def test_efecto_claro_da_significativa_y_pide_la_validacion(self):
+        pares = [_par(k, (False, False), (True, False)) for k in range(12)] + \
+                [_par(k, (False, False), (False, False)) for k in range(12, 30)]
+        r = analisis.analizar(pares)
+        self.assertTrue(r["c2"]["significativa"])
+        self.assertIn("falta la validación", r["frase_de_9"])
+        self.assertEqual(len(r["items_decisivos"]), 12 * 4)
+
+    def test_las_etiquetas_de_nico_solo_pueden_quitar(self):
+        pares = [_par(k, (False, False), (True, False)) for k in range(12)]
+        # Nico dice que en 10 de los 12 decisivos A2 no consignó nada: la prueba cae.
+        etiquetas = [{"log": k, "brazo": "A2", "condicion": "pendiente", "registra": k < 2} for k in range(12)]
+        r = analisis.analizar(pares, etiquetas)
+        self.assertTrue(r["c2"]["significativa"])
+        self.assertTrue(r["c2"]["sensible_al_juez"])
+        self.assertIn("sensible al juez", r["frase_de_9"])
+        # Con un juez que no da significativa, ninguna etiqueta la crea.
+        nulos = [_par(k, (False, False), (False, False)) for k in range(12)]
+        crea = [{"log": k, "brazo": "A2", "condicion": "pendiente", "registra": True} for k in range(12)]
+        r2 = analisis.analizar(nulos, crea)
+        self.assertFalse(r2["c2"]["significativa"])
+        self.assertFalse(r2["c2"]["sensible_al_juez"])
+        self.assertIn("no detectamos un efecto", r2["frase_de_9"])
+
+    def test_confirmada_con_etiquetas(self):
+        pares = [_par(k, (False, False), (True, False)) for k in range(12)]
+        etiquetas = [{"log": k, "brazo": b, "condicion": c, "registra": b == "A2" and c == "pendiente"}
+                     for k in range(12) for b in ("A2b", "A2") for c in ("pendiente", "limpio")]
+        r = analisis.analizar(pares, etiquetas)
+        self.assertIn("s_json aumentó en 1.00", r["frase_de_9"])
+        self.assertEqual(r["validacion"]["precision_de_los_positivos_en_los_decisivos"]["proporcion"], 1.0)
+
+    def test_muestra_estratificada_solo_lo_que_leyo_el_juez(self):
+        pares = [_par(k, (True, False), (False, False)) for k in range(40)]
+        for p in pares[:10]:
+            p["brazos"]["A2b"]["limpio"] = _r(False, llamado=False)
+        m = analisis.muestra_estratificada(pares)
+        self.assertEqual(len(m), 30)
+        self.assertEqual(len(set(m)), 30)
+        self.assertFalse(any(k[0] < 10 and k[1] == "A2b" and k[2] == "limpio" for k in m))
+
+    def test_falso_cierre_y_cierre_correcto(self):
+        pares = [_par(k, (False, False), (False, False)) for k in range(4)]
+        for k, p in enumerate(pares):
+            p["brazos"]["A2"]["pendiente"].update(tiene_residue=True, declared_absence=k < 1)
+            p["brazos"]["A2"]["limpio"].update(tiene_residue=True, declared_absence=k < 3)
+        d = analisis.analizar(pares)["descriptivas"]["por_brazo"]["A2"]
+        self.assertEqual((d["falso_cierre"]["k"], d["cierre_correcto"]["k"], d["falso_cierre"]["n"]), (1, 3, 4))
+
+    def test_potencia_reproduce_la_primera_fila_de_6_4(self):
+        self.assertAlmostEqual(analisis.potencia(100, (0.2, 0.0), (0.4, 0.0), reps=1000), 0.84, delta=0.05)
 
 
 if __name__ == "__main__":
