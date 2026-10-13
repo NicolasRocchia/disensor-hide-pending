@@ -1,0 +1,80 @@
+{
+  "log": 23,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 2,
+    "PRIMARY_SURFACE": 5,
+    "INITIAL_QUESTION": 4,
+    "INITIAL_QUERY_SCOPE": 5,
+    "FOLLOW_UP_SCOPE_EXPANSION": 3,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 1,
+    "DISTRACTION_CHECKS": [
+      4,
+      6
+    ],
+    "FINAL_QUESTION_PATTERN": 4
+  },
+  "valores": {
+    "DOMAIN": "robotics-factory inventory",
+    "PRIMARY_SURFACE": "manufacturing delays",
+    "INITIAL_QUESTION": "Which defects occurred most often yesterday?",
+    "INITIAL_QUERY_SCOPE": "three major facilities only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include advanced packaging facilities",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "tool reports `queued` but provides no data",
+    "DISTRACTION_CHECKS": [
+      "replenishment runs",
+      "calibration status"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Did one facility account for most of the reported defects?”"
+  },
+  "mensaje_md5": "a05af86591ce1d8c9d397c1aa008133f",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:18:57.703+00:00",
+      "duracion_s": 47.255,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "a05af86591ce1d8c9d397c1aa008133f",
+      "generador": true,
+      "carpeta_trabajo": "C:\\w\\a35cdcb52c2e",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 82433,
+        "cached_input_tokens": 71040,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2028,
+        "reasoning_output_tokens": 688
+      },
+      "mensajes_agente": 3,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [
+        "C:\\w\\a35cdcb52c2e\\log_rf_1027.md",
+        "C:\\w\\a35cdcb52c2e\\log_rf_1027_metadata.json",
+        "C:\\w\\a35cdcb52c2e\\log_rf_1027.md"
+      ],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [
+        {
+          "ruta": "log_rf_1027.md",
+          "bytes": 2622,
+          "md5": "ea36e62964735e2e7ae4c11df2528f58"
+        },
+        {
+          "ruta": "log_rf_1027_metadata.json",
+          "bytes": 850,
+          "md5": "78433be573efafcb4047c1838c1fb5b4"
+        }
+      ],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "estado": "archivos"
+}

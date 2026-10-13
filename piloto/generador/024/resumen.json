@@ -1,0 +1,79 @@
+{
+  "log": 24,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 4,
+    "PRIMARY_SURFACE": 4,
+    "INITIAL_QUESTION": 0,
+    "INITIAL_QUERY_SCOPE": 4,
+    "FOLLOW_UP_SCOPE_EXPANSION": 6,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 0,
+    "DISTRACTION_CHECKS": [
+      3,
+      2
+    ],
+    "FINAL_QUESTION_PATTERN": 3
+  },
+  "valores": {
+    "DOMAIN": "warehouse logistics",
+    "PRIMARY_SURFACE": "equipment telemetry",
+    "INITIAL_QUESTION": "Which failures affected the most jobs yesterday?",
+    "INITIAL_QUERY_SCOPE": "non-reserved inventory only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include regional or private infrastructure",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "tool returns `status=accepted` with a request ID but no result",
+    "DISTRACTION_CHECKS": [
+      "alert summary",
+      "system health"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Were the servo-motor stockouts concentrated in one production cell?”"
+  },
+  "mensaje_md5": "250e513af3ed18e1ad6ac307a18fe320",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:19:45.166+00:00",
+      "duracion_s": 31.074,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "250e513af3ed18e1ad6ac307a18fe320",
+      "generador": true,
+      "carpeta_trabajo": "C:\\w\\2f6f30932e33",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 41684,
+        "cached_input_tokens": 36352,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1471,
+        "reasoning_output_tokens": 221
+      },
+      "mensajes_agente": 2,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [
+        "C:\\w\\2f6f30932e33\\log_whl_7c42.md",
+        "C:\\w\\2f6f30932e33\\log_whl_7c42_metadata.json"
+      ],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [
+        {
+          "ruta": "log_whl_7c42.md",
+          "bytes": 2610,
+          "md5": "c7fd86ba65b0c70d2431a7c9188919d6"
+        },
+        {
+          "ruta": "log_whl_7c42_metadata.json",
+          "bytes": 885,
+          "md5": "286bd865a56aa94fe814913136edf77b"
+        }
+      ],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "estado": "archivos"
+}

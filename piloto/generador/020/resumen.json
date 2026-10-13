@@ -1,0 +1,79 @@
+{
+  "log": 20,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 2,
+    "PRIMARY_SURFACE": 4,
+    "INITIAL_QUESTION": 3,
+    "INITIAL_QUERY_SCOPE": 1,
+    "FOLLOW_UP_SCOPE_EXPANSION": 6,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 3,
+    "DISTRACTION_CHECKS": [
+      1,
+      0
+    ],
+    "FINAL_QUESTION_PATTERN": 4
+  },
+  "valores": {
+    "DOMAIN": "robotics-factory inventory",
+    "PRIMARY_SURFACE": "equipment telemetry",
+    "INITIAL_QUESTION": "Which issues caused the most downtime yesterday?",
+    "INITIAL_QUERY_SCOPE": "primary production lines only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include regional or private infrastructure",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "tool call is acknowledged but result payload is absent",
+    "DISTRACTION_CHECKS": [
+      "maintenance events",
+      "deployment status"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Did one facility account for most of the reported defects?”"
+  },
+  "mensaje_md5": "888c971de69700ecef0a85232411de5a",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:17:12.235+00:00",
+      "duracion_s": 36.442,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "888c971de69700ecef0a85232411de5a",
+      "generador": true,
+      "carpeta_trabajo": "C:\\w\\b52335361858",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 65942,
+        "cached_input_tokens": 51072,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1723,
+        "reasoning_output_tokens": 364
+      },
+      "mensajes_agente": 2,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [
+        "C:\\w\\b52335361858\\log_rfi_1047.md",
+        "C:\\w\\b52335361858\\log_rfi_1047_metadata.json"
+      ],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [
+        {
+          "ruta": "log_rfi_1047.md",
+          "bytes": 2693,
+          "md5": "75361121ff95377c353a8a1df977de47"
+        },
+        {
+          "ruta": "log_rfi_1047_metadata.json",
+          "bytes": 949,
+          "md5": "0a4f05587a9cc17bcdd83d678a3c6d0a"
+        }
+      ],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "estado": "archivos"
+}

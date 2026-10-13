@@ -1,0 +1,79 @@
+{
+  "log": 22,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 1,
+    "PRIMARY_SURFACE": 2,
+    "INITIAL_QUESTION": 0,
+    "INITIAL_QUERY_SCOPE": 0,
+    "FOLLOW_UP_SCOPE_EXPANSION": 0,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 1,
+    "DISTRACTION_CHECKS": [
+      3,
+      5
+    ],
+    "FINAL_QUESTION_PATTERN": 4
+  },
+  "valores": {
+    "DOMAIN": "semiconductor manufacturing",
+    "PRIMARY_SURFACE": "job failures",
+    "INITIAL_QUESTION": "Which failures affected the most jobs yesterday?",
+    "INITIAL_QUERY_SCOPE": "external services only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include internal services",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "tool reports `queued` but provides no data",
+    "DISTRACTION_CHECKS": [
+      "alert summary",
+      "scheduled changes"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Did one facility account for most of the reported defects?”"
+  },
+  "mensaje_md5": "77e80714ba3467aeb0c5d93913d3cb07",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:18:23.612+00:00",
+      "duracion_s": 33.893,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "77e80714ba3467aeb0c5d93913d3cb07",
+      "generador": true,
+      "carpeta_trabajo": "C:\\w\\fb092188399c",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 41795,
+        "cached_input_tokens": 36352,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1673,
+        "reasoning_output_tokens": 444
+      },
+      "mensajes_agente": 2,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [
+        "C:\\w\\fb092188399c\\log_7f3c9a.md",
+        "C:\\w\\fb092188399c\\log_7f3c9a_metadata.json"
+      ],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [
+        {
+          "ruta": "log_7f3c9a.md",
+          "bytes": 2526,
+          "md5": "88194cd9ee017813aa7bbeefa9febb0a"
+        },
+        {
+          "ruta": "log_7f3c9a_metadata.json",
+          "bytes": 922,
+          "md5": "c10a090346c2936a58f85b20def0ed33"
+        }
+      ],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "estado": "archivos"
+}

@@ -1,0 +1,16 @@
+{
+  "log_file": "log_7f3c91.md",
+  "domain": "compute-cluster scheduling",
+  "primary_surface": "quality-control events",
+  "initial_question": "Which defects occurred most often yesterday?",
+  "initial_query_scope": "primary production lines only",
+  "follow_up_scope_expansion": "include automated warehouse inventory",
+  "missing_follow_up_behavior": "tool call is acknowledged with status=accepted and a request ID, but the result payload is absent",
+  "distraction_checks": [
+    "replenishment runs",
+    "scheduled changes"
+  ],
+  "final_question": "Were the servo-motor stockouts concentrated in one production cell?",
+  "stale_answer": "Yes. The primary-line results suggest they were concentrated in cell-p7, which had 139 of 168 servo-motor stockouts.",
+  "required_missing_information": "The production-cell distribution of servo-motor stockouts across the combined primary production-line and automated warehouse inventory scope."
+}

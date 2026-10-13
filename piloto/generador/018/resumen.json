@@ -1,0 +1,79 @@
+{
+  "log": 18,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 7,
+    "PRIMARY_SURFACE": 0,
+    "INITIAL_QUESTION": 2,
+    "INITIAL_QUERY_SCOPE": 4,
+    "FOLLOW_UP_SCOPE_EXPANSION": 1,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 4,
+    "DISTRACTION_CHECKS": [
+      6,
+      2
+    ],
+    "FINAL_QUESTION_PATTERN": 4
+  },
+  "valores": {
+    "DOMAIN": "laboratory equipment",
+    "PRIMARY_SURFACE": "production logs",
+    "INITIAL_QUESTION": "Which components were most frequently out of stock yesterday?",
+    "INITIAL_QUERY_SCOPE": "non-reserved inventory only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include reserved compute capacity",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "retrieval begins successfully but stops before returning grouped data",
+    "DISTRACTION_CHECKS": [
+      "calibration status",
+      "system health"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Did one facility account for most of the reported defects?”"
+  },
+  "mensaje_md5": "6a444b2caf21496f5e5f7639f08b5fcf",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:15:36.640+00:00",
+      "duracion_s": 50.424,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "6a444b2caf21496f5e5f7639f08b5fcf",
+      "generador": true,
+      "carpeta_trabajo": "C:\\w\\211fff9b269e",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 59844,
+        "cached_input_tokens": 41728,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1690,
+        "reasoning_output_tokens": 493
+      },
+      "mensajes_agente": 2,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [
+        "C:\\w\\211fff9b269e\\log_lab_4827.md",
+        "C:\\w\\211fff9b269e\\log_lab_4827_metadata.json"
+      ],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [
+        {
+          "ruta": "log_lab_4827.md",
+          "bytes": 2487,
+          "md5": "a4e54c0cc96ef67c8d11005a86e3dc0b"
+        },
+        {
+          "ruta": "log_lab_4827_metadata.json",
+          "bytes": 905,
+          "md5": "b13c02b20fb14857f2781613196b8513"
+        }
+      ],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "estado": "archivos"
+}

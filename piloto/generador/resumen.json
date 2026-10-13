@@ -1,21 +1,21 @@
 {
   "estados": {
-    "archivos": 18,
-    "pendiente": 32
+    "archivos": 34,
+    "pendiente": 16
   },
-  "llamadas_terminadas": 18,
+  "llamadas_terminadas": 34,
   "promedio_por_llamada_terminada": {
-    "entrada": 50541,
-    "cache": 39403,
-    "salida": 1465,
-    "razonamiento": 231,
-    "segundos": 36.0
+    "entrada": 55179,
+    "cache": 43896,
+    "salida": 1551,
+    "razonamiento": 293,
+    "segundos": 36.6
   },
   "gasto_en_todos_los_intentos": {
-    "entrada": 909734,
-    "cache": 709248,
-    "salida": 26374,
-    "intentos": 18
+    "entrada": 1876071,
+    "cache": 1492480,
+    "salida": 52739,
+    "intentos": 34
   },
   "rechazos_en_todos_los_intentos": {
     "shell": 0,

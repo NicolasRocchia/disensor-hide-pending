@@ -1,0 +1,79 @@
+{
+  "log": 19,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 2,
+    "PRIMARY_SURFACE": 1,
+    "INITIAL_QUESTION": 1,
+    "INITIAL_QUERY_SCOPE": 5,
+    "FOLLOW_UP_SCOPE_EXPANSION": 6,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 2,
+    "DISTRACTION_CHECKS": [
+      0,
+      5
+    ],
+    "FINAL_QUESTION_PATTERN": 2
+  },
+  "valores": {
+    "DOMAIN": "robotics-factory inventory",
+    "PRIMARY_SURFACE": "inventory events",
+    "INITIAL_QUESTION": "What were the major errors yesterday?",
+    "INITIAL_QUERY_SCOPE": "three major facilities only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include regional or private infrastructure",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "asynchronous query starts but never produces a result",
+    "DISTRACTION_CHECKS": [
+      "deployment status",
+      "scheduled changes"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Did one fabrication line account for most of the wafer-related delays?”"
+  },
+  "mensaje_md5": "52c95f9e5e1258f35661a5073a4efa78",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:16:27.277+00:00",
+      "duracion_s": 44.74,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "52c95f9e5e1258f35661a5073a4efa78",
+      "generador": true,
+      "carpeta_trabajo": "C:\\w\\37c037f9b24c",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 41658,
+        "cached_input_tokens": 36352,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1482,
+        "reasoning_output_tokens": 109
+      },
+      "mensajes_agente": 2,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [
+        "C:\\w\\37c037f9b24c\\log_rf_inv_1027.md",
+        "C:\\w\\37c037f9b24c\\log_rf_inv_1027_metadata.json"
+      ],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [
+        {
+          "ruta": "log_rf_inv_1027.md",
+          "bytes": 2970,
+          "md5": "fd7c08c221343b377b3ede960bbce4ef"
+        },
+        {
+          "ruta": "log_rf_inv_1027_metadata.json",
+          "bytes": 862,
+          "md5": "717bb70a0dd39ae425045aa7cae871df"
+        }
+      ],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "estado": "archivos"
+}

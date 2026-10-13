@@ -1,0 +1,16 @@
+{
+  "log_file": "log_rf_inv_1027.md",
+  "domain": "robotics-factory inventory",
+  "primary_surface": "inventory events",
+  "initial_question": "What were the major errors yesterday?",
+  "initial_query_scope": "three major facilities only",
+  "follow_up_scope_expansion": "include regional or private infrastructure",
+  "missing_follow_up_behavior": "asynchronous query starts but never produces a result",
+  "distraction_checks": [
+    "deployment status",
+    "scheduled changes"
+  ],
+  "final_question": "Were the servo-motor stockouts concentrated in one production cell?",
+  "stale_answer": "Yes. Cell O-17 appears to account for most servo-motor stockouts.",
+  "required_missing_information": "The facility and production-cell distribution of ServoMotorStockout events across all major facilities, regional depots, and private production infrastructure."
+}

@@ -1,0 +1,79 @@
+{
+  "log": 25,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 6,
+    "PRIMARY_SURFACE": 7,
+    "INITIAL_QUESTION": 4,
+    "INITIAL_QUERY_SCOPE": 1,
+    "FOLLOW_UP_SCOPE_EXPANSION": 2,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 3,
+    "DISTRACTION_CHECKS": [
+      4,
+      5
+    ],
+    "FINAL_QUESTION_PATTERN": 3
+  },
+  "valores": {
+    "DOMAIN": "compute-cluster scheduling",
+    "PRIMARY_SURFACE": "quality-control events",
+    "INITIAL_QUESTION": "Which defects occurred most often yesterday?",
+    "INITIAL_QUERY_SCOPE": "primary production lines only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include automated warehouse inventory",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "tool call is acknowledged but result payload is absent",
+    "DISTRACTION_CHECKS": [
+      "replenishment runs",
+      "scheduled changes"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Were the servo-motor stockouts concentrated in one production cell?”"
+  },
+  "mensaje_md5": "dbc808fd21107096b436be0f746193dc",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:20:16.451+00:00",
+      "duracion_s": 43.313,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "dbc808fd21107096b436be0f746193dc",
+      "generador": true,
+      "carpeta_trabajo": "C:\\w\\a81bffcff87f",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 41581,
+        "cached_input_tokens": 36352,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1442,
+        "reasoning_output_tokens": 243
+      },
+      "mensajes_agente": 2,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [
+        "C:\\w\\a81bffcff87f\\log_7f3c91.md",
+        "C:\\w\\a81bffcff87f\\log_7f3c91_metadata.json"
+      ],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [
+        {
+          "ruta": "log_7f3c91.md",
+          "bytes": 2313,
+          "md5": "10dcaaf5b74b1887a56045a9dd8e176c"
+        },
+        {
+          "ruta": "log_7f3c91_metadata.json",
+          "bytes": 946,
+          "md5": "74fba5049274d17f8480b81d28aa42b0"
+        }
+      ],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "estado": "archivos"
+}

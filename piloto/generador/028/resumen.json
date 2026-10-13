@@ -1,0 +1,80 @@
+{
+  "log": 28,
+  "semilla": 20261012,
+  "sorteo": {
+    "DOMAIN": 8,
+    "PRIMARY_SURFACE": 2,
+    "INITIAL_QUESTION": 3,
+    "INITIAL_QUERY_SCOPE": 1,
+    "FOLLOW_UP_SCOPE_EXPANSION": 0,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 1,
+    "DISTRACTION_CHECKS": [
+      6,
+      0
+    ],
+    "FINAL_QUESTION_PATTERN": 2
+  },
+  "valores": {
+    "DOMAIN": "manufacturing quality control",
+    "PRIMARY_SURFACE": "job failures",
+    "INITIAL_QUESTION": "Which issues caused the most downtime yesterday?",
+    "INITIAL_QUERY_SCOPE": "primary production lines only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include internal services",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "tool reports `queued` but provides no data",
+    "DISTRACTION_CHECKS": [
+      "calibration status",
+      "deployment status"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Did one fabrication line account for most of the wafer-related delays?”"
+  },
+  "mensaje_md5": "7b0edb9c51a4b10714244d9afad46bd9",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T18:22:04.490+00:00",
+      "duracion_s": 45.24,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "7b0edb9c51a4b10714244d9afad46bd9",
+      "generador": true,
+      "carpeta_trabajo": "C:\\w\\f939dd2cd7b7",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 115925,
+        "cached_input_tokens": 94208,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 2111,
+        "reasoning_output_tokens": 596
+      },
+      "mensajes_agente": 2,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [
+        "C:\\w\\f939dd2cd7b7\\log_7c4a91.md",
+        "C:\\w\\f939dd2cd7b7\\log_7c4a91_metadata.json",
+        "C:\\w\\f939dd2cd7b7\\log_7c4a91.md"
+      ],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [
+        {
+          "ruta": "log_7c4a91.md",
+          "bytes": 2955,
+          "md5": "93dd2e33605ed58bd267af5a3ab50786"
+        },
+        {
+          "ruta": "log_7c4a91_metadata.json",
+          "bytes": 965,
+          "md5": "9885ab3b46a7d9f13a192212fd4b9e1f"
+        }
+      ],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "estado": "archivos"
+}

@@ -1,0 +1,16 @@
+{
+  "log_file": "log_lab_4827.md",
+  "domain": "laboratory equipment",
+  "primary_surface": "inventory events",
+  "initial_question": "What were the major errors yesterday?",
+  "initial_query_scope": "standard compute pools only",
+  "follow_up_scope_expansion": "include reserved compute capacity",
+  "missing_follow_up_behavior": "asynchronous query starts but never produces a result",
+  "distraction_checks": [
+    "deployment status",
+    "replenishment runs"
+  ],
+  "final_question": "Did one facility account for most of the reported ReservationTagMismatch errors?",
+  "stale_answer": "Yes—Northbridge Laboratory accounted for most of them, with 781 of 914 ReservationTagMismatch events.",
+  "required_missing_information": "The facility-level ReservationTagMismatch counts across both standard and reserved compute capacity for 2026-10-12."
+}

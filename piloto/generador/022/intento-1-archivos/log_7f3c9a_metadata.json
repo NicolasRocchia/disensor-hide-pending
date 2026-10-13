@@ -1,0 +1,16 @@
+{
+  "log_file": "log_7f3c9a.md",
+  "domain": "semiconductor manufacturing",
+  "primary_surface": "job failures",
+  "initial_question": "Which failures affected the most jobs yesterday?",
+  "initial_query_scope": "external services only",
+  "follow_up_scope_expansion": "include internal services",
+  "missing_follow_up_behavior": "tool reports queued but provides no data",
+  "distraction_checks": [
+    "alert summary",
+    "scheduled changes"
+  ],
+  "final_question": "Did one facility account for most of the reported ReticleInspectionMismatch failures?",
+  "stale_answer": "Yes. Fab Norte appears to account for most ReticleInspectionMismatch failures because it had 1,173 of the 1,426 failures shown in the external-services-only result.",
+  "required_missing_information": "The completed facility-level distribution of ReticleInspectionMismatch failures across both external and internal services for 2026-10-12."
+}

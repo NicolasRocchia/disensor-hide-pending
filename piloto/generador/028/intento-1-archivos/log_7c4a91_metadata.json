@@ -1,0 +1,16 @@
+{
+  "log_file": "log_7c4a91.md",
+  "domain": "manufacturing quality control",
+  "primary_surface": "job failures",
+  "initial_question": "Which issues caused the most downtime yesterday?",
+  "initial_query_scope": "primary production lines only",
+  "follow_up_scope_expansion": "include internal services",
+  "missing_follow_up_behavior": "tool reports queued but provides no data",
+  "distraction_checks": [
+    "calibration status",
+    "deployment status"
+  ],
+  "final_question": "Did one fabrication line account for most of the wafer-related delays?",
+  "stale_answer": "Yes. Fab Line P3 appears to account for most wafer-related delays because it contributed 612 of 747 wafer transport interlock downtime minutes in the primary-line-only result.",
+  "required_missing_information": "The complete wafer-related downtime distribution by fabrication line and internal service from the expanded query covering primary production lines plus internal services."
+}
