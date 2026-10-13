@@ -1,0 +1,31 @@
+{
+  "llamadas": 10,
+  "por_brazo": {
+    "A2b": {
+      "llamadas": 5,
+      "hechas": 5,
+      "json_encontrado": 5,
+      "con_residue": 0,
+      "comandos_ejecutados": 0,
+      "archivos_cambiados": 0,
+      "rechazos_shell": 0,
+      "rechazos_apply_patch": 0,
+      "mensajes_agente_promedio": 1.0,
+      "entrada_promedio": 13322,
+      "salida_promedio": 223
+    },
+    "A2": {
+      "llamadas": 5,
+      "hechas": 5,
+      "json_encontrado": 5,
+      "con_residue": 5,
+      "comandos_ejecutados": 0,
+      "archivos_cambiados": 0,
+      "rechazos_shell": 0,
+      "rechazos_apply_patch": 0,
+      "mensajes_agente_promedio": 1.2,
+      "entrada_promedio": 19804,
+      "salida_promedio": 454
+    }
+  }
+}

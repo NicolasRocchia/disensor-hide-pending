@@ -1,0 +1,3 @@
+Yes. In standard compute pools, Fab Line S4 accounted for 231 of 286 wafer-carrier stockout events—about 81%, clearly the majority. The advanced-packaging query was still pending, so this conclusion is limited to the available standard-pool data.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Fab Line S4 caused most wafer-related delays","description":"Fab Line S4 recorded 231 of 286 wafer-carrier assembly stockout events (approximately 81%) in standard compute pools on 2026-10-12. Advanced-packaging results were not yet available.","location":"shipment records for 2026-10-12, standard compute pools"}]}

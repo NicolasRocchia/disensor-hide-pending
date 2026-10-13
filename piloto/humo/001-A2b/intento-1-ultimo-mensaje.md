@@ -1,0 +1,3 @@
+Yes. The problem was heavily concentrated in `vision-inspection-service`: 1,947 of 2,184 affected jobs (89.1%). The remaining 237 jobs involved `conveyor-control-service` (181) and `line-scheduler` (56).
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"TimeoutError concentrated in vision inspection","description":"The vision-inspection-service accounted for 1,947 of 2,184 jobs affected by TimeoutError (89.1%) on the primary production lines on 2026-10-12.","location":"primary-production-lines/vision-inspection-service"}]}

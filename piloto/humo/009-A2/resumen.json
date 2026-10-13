@@ -1,0 +1,46 @@
+{
+  "log": 9,
+  "brazo": "A2",
+  "orden": 8,
+  "mensaje_md5": "4ee3c4a80ff7c99ca4086c20befed343",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T19:02:31.387+00:00",
+      "duracion_s": 12.925,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "4ee3c4a80ff7c99ca4086c20befed343",
+      "generador": false,
+      "carpeta_trabajo": "C:\\w\\5d51ff6248fa",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 14876,
+        "cached_input_tokens": 10752,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 511,
+        "reasoning_output_tokens": 344
+      },
+      "mensajes_agente": 1,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "extraccion": {
+    "json_encontrado": true,
+    "en_cerco": true,
+    "tiene_residue": true,
+    "caracteres_respuesta": 706,
+    "caracteres_prosa": 328
+  },
+  "estado": "hecho"
+}

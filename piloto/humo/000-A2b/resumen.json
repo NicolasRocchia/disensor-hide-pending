@@ -1,0 +1,50 @@
+{
+  "log": 0,
+  "brazo": "A2b",
+  "orden": 0,
+  "mensaje_md5": "54a3e283af0a99b14d231cfe25fe1146",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T19:01:04.532+00:00",
+      "duracion_s": 9.183,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "54a3e283af0a99b14d231cfe25fe1146",
+      "generador": false,
+      "carpeta_trabajo": "C:\\w\\672ffe509f94",
+      "restos_en_carpeta": [],
+      "uso": {
+        "input_tokens": 13742,
+        "cached_input_tokens": 11264,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 272,
+        "reasoning_output_tokens": 95
+      },
+      "mensajes_agente": 1,
+      "turno_fallido": null,
+      "errores": [],
+      "comandos_ejecutados": [],
+      "archivos_cambiados": [],
+      "cambios_fuera_de_la_carpeta": [],
+      "archivos_generados": [],
+      "otras_acciones": [],
+      "shell_rechazados": 0,
+      "parches_rechazados": 0,
+      "otros_errores_herramienta": 0,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "bytes_por_stdin": {
+    "resultado": "igual",
+    "archivo": "C:\\Users\\Usuario\\ch\\sessions\\2026\\10\\13\\rollout-2026-10-13T16-01-05-01a136a3-c590-7a11-9a2a-42f2facc17ea.jsonl"
+  },
+  "extraccion": {
+    "json_encontrado": true,
+    "en_cerco": true,
+    "tiene_residue": false,
+    "caracteres_respuesta": 756,
+    "caracteres_prosa": 291
+  },
+  "estado": "hecho"
+}
