@@ -86,11 +86,32 @@ DIR_GEN = arnes.PILOTO / "generador"
 
 
 def escribir_json(ruta, datos):
-    ruta.write_bytes(json.dumps(datos, indent=2, ensure_ascii=False).encode("utf-8") + b"\n")
+    """Atómico (v23, hallazgo 1 de la séptima revisión): se escribe a un temporal hermano y se
+    reemplaza, así un corte deja el JSON anterior entero o el nuevo entero, nunca uno truncado."""
+    import time
+    tmp = ruta.with_name(ruta.name + ".tmp")
+    with open(tmp, "wb") as f:
+        f.write(json.dumps(datos, indent=2, ensure_ascii=False).encode("utf-8") + b"\n")
+        f.flush()
+        os.fsync(f.fileno())
+    for intento in range(10):
+        try:
+            os.replace(tmp, ruta)
+            return
+        except PermissionError:
+            # En Windows, un antivirus o un indexador puede tener el destino abierto un instante.
+            if intento == 9:
+                raise
+            time.sleep(0.2)
 
 
 def leer_json(ruta):
-    return json.loads(ruta.read_bytes().decode("utf-8"))
+    """UTF-8, con o sin BOM (v23, hallazgo 5 de la séptima revisión: un editor de Windows puede
+    guardar las planillas de Nico con BOM). UTF-16 frena con un mensaje claro."""
+    datos = ruta.read_bytes()
+    if datos[:2] in (b"\xff\xfe", b"\xfe\xff"):
+        sys.exit(f"{ruta} está guardado en UTF-16: volvé a guardarlo como UTF-8.")
+    return json.loads(datos.decode("utf-8-sig"))
 
 
 def etapa_contexto(_):

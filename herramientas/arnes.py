@@ -136,35 +136,37 @@ def correr(comando, mensaje=None, cwd=None, env=None, timeout=1800):
     }
 
 
-def verificar_binarios(registro):
-    """§7.4: sha256 y versión de los dos binarios; la primera vez quedan fijados en `registro`."""
-    codex = encontrar_codex_exe()
-    v_codex = correr([str(codex), "--version"], env=entorno_codex(), timeout=120)["stdout"].decode("utf-8").strip()
-    if not CLAUDE_EXE.is_file():
-        sys.exit(f"No existe {CLAUDE_EXE}: corré primero herramientas/prueba_claude.py")
-    v_claude = correr([str(CLAUDE_EXE), "--version"], env=entorno_claude(), timeout=120)["stdout"].decode("utf-8").strip()
-    actual = {
-        "codex_exe": str(codex),
-        "codex_sha256": sha256(codex),
-        "codex_version": v_codex,
-        "claude_exe": str(CLAUDE_EXE),
-        "claude_sha256": sha256(CLAUDE_EXE),
-        "claude_version": v_claude,
-    }
+def verificar_binarios(registro, necesarios=("codex", "claude")):
+    """§7.4: sha256 y versión de los binarios que usa la etapa; la primera vez quedan fijados
+    los dos en `registro`. Desde la v23 (hallazgo 3 de la séptima revisión), una etapa que sólo
+    llama a Claude no exige Codex, y al revés: actualizar Codex después de los brazos no frena
+    al juez."""
+    if not registro.exists():
+        necesarios = ("codex", "claude")
+    actual = {}
+    if "codex" in necesarios:
+        codex = encontrar_codex_exe()
+        v_codex = correr([str(codex), "--version"], env=entorno_codex(), timeout=120)["stdout"].decode("utf-8").strip()
+        if v_codex != CODEX_VERSION:
+            sys.exit(f"Codex es {v_codex!r}, se esperaba {CODEX_VERSION!r}")
+        actual.update(codex_exe=str(codex), codex_sha256=sha256(codex), codex_version=v_codex)
+    if "claude" in necesarios:
+        if not CLAUDE_EXE.is_file():
+            sys.exit(f"No existe {CLAUDE_EXE}: corré primero herramientas/prueba_claude.py")
+        v_claude = correr([str(CLAUDE_EXE), "--version"], env=entorno_claude(), timeout=120)["stdout"].decode("utf-8").strip()
+        if not v_claude.startswith(CLAUDE_VERSION):
+            sys.exit(f"Claude Code es {v_claude!r}, se esperaba {CLAUDE_VERSION}")
+        actual.update(claude_exe=str(CLAUDE_EXE), claude_sha256=sha256(CLAUDE_EXE), claude_version=v_claude)
     print("variables de entorno que no pasan a los modelos:", ", ".join(variables_sacadas()) or "ninguna")
-    if v_codex != CODEX_VERSION:
-        sys.exit(f"Codex es {v_codex!r}, se esperaba {CODEX_VERSION!r}")
-    if not v_claude.startswith(CLAUDE_VERSION):
-        sys.exit(f"Claude Code es {v_claude!r}, se esperaba {CLAUDE_VERSION}")
-    if registro.exists():
-        fijado = json.loads(registro.read_bytes().decode("utf-8"))
-        for k in ["codex_exe", "codex_sha256", "codex_version", "claude_sha256", "claude_version"]:
-            if fijado[k] != actual[k]:
-                sys.exit(f"Cambió {k}: {fijado[k]!r} -> {actual[k]!r}. El arnés para (§7.4).")
-    else:
+    if not registro.exists():
         registro.parent.mkdir(parents=True, exist_ok=True)
         registro.write_bytes(json.dumps(actual, indent=2, ensure_ascii=False).encode("utf-8") + b"\n")
-    return actual
+        return actual
+    fijado = json.loads(registro.read_bytes().decode("utf-8"))
+    for k, v in actual.items():
+        if k != "claude_exe" and fijado[k] != v:
+            sys.exit(f"Cambió {k}: {fijado[k]!r} -> {v!r}. El arnés para (§7.4).")
+    return {**fijado, **actual}
 
 
 def prohibidas_en(texto):

@@ -1219,29 +1219,49 @@ class Corrida(unittest.TestCase):
             # Un registro con otro árbol: no.
             protocolo(enmiendas=registro.replace(arbol, "0" * 32))
             frena("no es esta lista")
+            # El registro con CRLF o con la tilde descompuesta es el mismo registro (v23,
+            # hallazgo 6 de la séptima revisión).
+            import unicodedata
+            texto = f"## Enmiendas\n\n{registro}\n"
+            for variante in (texto.replace("\n", "\r\n"), unicodedata.normalize("NFD", texto)):
+                self.assertEqual(corrida.registro_de_congelamiento(variante)["arbol"], arbol)
             protocolo(enmiendas=registro)
-            # Sin remoto, con uno local sin aceptarlo, o sin el commit pusheado: no (hallazgo 4).
-            frena("No hay remoto")
+            head = g("rev-parse", "HEAD").stdout.decode().strip()
+            self.assertEqual(corrida.congelamiento_en_git(), (commit, head, arbol))
+            # El remoto se verifica al crear el plan, antes de la primera llamada: sin remoto, con
+            # uno local sin aceptarlo, sin poder traerlo, o sin el HEAD con el registro pusheado,
+            # no (v22, hallazgo 4 de la sexta; v23, hallazgo 2 y segunda trampa de la séptima).
+            corrida.PARES = 0
+
+            def crear_plan():
+                return corrida.plan_congelado([], commit, arbol, head)
+            frena("No hay remoto", crear_plan)
             remoto = self.raiz / "remoto.git"
             subprocess.run(["git", "init", "-q", "--bare", str(remoto)], check=True, capture_output=True)
             g("remote", "add", "origin", str(remoto))
-            frena("ruta de esta máquina")
+            frena("ruta de esta máquina", crear_plan)
             corrida.ACEPTAR_REMOTO_LOCAL = True
-            frena("No se pudo traer")
+            frena("No se pudo traer", crear_plan)
+            g("push", "-q", "origin", f"{commit}:refs/heads/main")
+            frena(head, crear_plan)
+            self.assertFalse((repo / "corrida" / "brazos" / "plan.json").exists())
             g("push", "-q", "origin", "HEAD:refs/heads/main")
-            self.assertEqual(corrida.congelamiento_en_git(), (commit, g("rev-parse", "HEAD").stdout.decode().strip(),
-                                                              arbol))
+            crear_plan()
+            self.assertEqual(corrida.leer(repo / "corrida" / "brazos" / "plan.json")["head_anclado"], head)
+            # Después de la primera llamada, un remoto inaccesible es un aviso, no un freno.
+            (self.raiz / "remoto.git").rename(self.raiz / "remoto-movido.git")
+            corrida.verificar_corrida()
+            (self.raiz / "remoto-movido.git").rename(self.raiz / "remoto.git")
             # El plan y los resultados de los brazos y del juez, atados a la lista, al árbol y al
             # JSON (v21; v22, hallazgos 1 y 2).
-            corrida.PARES = 0
-            corrida.plan_congelado([], commit, arbol)
             bueno = {"commit_de_la_lista": commit, "arboles": [arbol], "json_md5": "x"}
             fb = repo / "corrida" / "brazos" / "000-A2-pendiente" / "resumen.json"
             fj = repo / "corrida" / "juez" / "000-A2-pendiente" / "resumen.json"
             corrida.escribir(fb, bueno)
             corrida.escribir(fj, bueno)
             corrida.verificar_corrida()
-            for malo in ({"commit_de_la_lista": "otro"}, {"arboles": [arbol, "0" * 32]}, {"json_md5": "y"}):
+            for malo in ({"commit_de_la_lista": "otro"}, {"arboles": [arbol, "0" * 32]}, {"json_md5": "y"},
+                         {"arboles": []}):
                 corrida.escribir(fj, dict(bueno, **malo))
                 frena("El arnés para", corrida.verificar_corrida)
             corrida.escribir(fj, bueno)
@@ -1252,7 +1272,7 @@ class Corrida(unittest.TestCase):
             frena("otro árbol", corrida.verificar_corrida)
             # Un plan borrado con resultados no se regenera.
             fp.unlink()
-            frena("no se regenera", lambda: corrida.plan_congelado([], commit, arbol))
+            frena("no se regenera", crear_plan)
             corrida.escribir(fp, plan)
             corrida.verificar_corrida()
             # Código cambiado y commiteado a mitad de la corrida: no, y rehacer el registro con el
@@ -1264,6 +1284,72 @@ class Corrida(unittest.TestCase):
             frena("El arnés para", corrida.verificar_corrida)
         finally:
             arnes.EXPERIMENTO, corrida.ACEPTAR_REMOTO_LOCAL = original
+
+    def test_un_error_de_git_no_se_lee_como_un_resultado(self):
+        # v23, hallazgo 4 de la séptima revisión: fuera de un repo, git falla, y se dice así.
+        original = arnes.EXPERIMENTO
+        arnes.EXPERIMENTO, corrida.DIR = self.raiz, self.raiz / "corrida"
+        try:
+            with self.assertRaises(SystemExit) as e:
+                corrida.congelamiento_en_git()
+            self.assertIn("falló", str(e.exception))
+        finally:
+            arnes.EXPERIMENTO = original
+
+    def test_escribir_json_es_atomico(self):
+        # v23, hallazgo 1 de la séptima revisión: si el reemplazo falla, queda el JSON anterior.
+        import os as os_
+        f = self.raiz / "r.json"
+        corrida.escribir(f, {"v": 1})
+        original = os_.replace
+
+        def falla(*a):
+            raise OSError("corte")
+        piloto.os.replace = falla
+        try:
+            with self.assertRaises(OSError):
+                corrida.escribir(f, {"v": 2})
+        finally:
+            piloto.os.replace = original
+        self.assertEqual(corrida.leer(f), {"v": 1})
+        corrida.escribir(f, {"v": 3})
+        self.assertEqual(corrida.leer(f), {"v": 3})
+        self.assertFalse(f.with_name("r.json.tmp").exists())
+
+    def test_leer_json_acepta_bom_y_frena_utf16(self):
+        # v23, hallazgo 5 de la séptima revisión.
+        f = self.raiz / "e.json"
+        f.write_bytes(b"\xef\xbb\xbf" + b'[{"id": "v001", "registra": true}]')
+        self.assertEqual(corrida.leer(f), [{"id": "v001", "registra": True}])
+        f.write_bytes('[{"id": "v001"}]'.encode("utf-16"))
+        with self.assertRaises(SystemExit):
+            corrida.leer(f)
+
+    def test_el_juez_no_exige_codex(self):
+        # v23, hallazgo 3 de la séptima revisión: una etapa que sólo llama a Claude no mira Codex.
+        registro = self.raiz / "binarios.json"
+        exe = self.raiz / "claude.exe"
+        exe.write_bytes(b"x")
+        corrida.escribir(registro, {"codex_exe": "c", "codex_sha256": "s", "codex_version": arnes.CODEX_VERSION,
+                                    "claude_exe": str(exe), "claude_sha256": arnes.sha256(exe),
+                                    "claude_version": arnes.CLAUDE_VERSION})
+        guardado = (arnes.encontrar_codex_exe, arnes.CLAUDE_EXE, arnes.correr)
+        arnes.encontrar_codex_exe = lambda: self.fail("no debería buscar Codex")
+        arnes.CLAUDE_EXE = exe
+        arnes.correr = lambda *a, **k: {"stdout": arnes.CLAUDE_VERSION.encode()}
+        try:
+            fijado = arnes.verificar_binarios(registro, ("claude",))
+            self.assertEqual(fijado["claude_sha256"], arnes.sha256(exe))
+        finally:
+            arnes.encontrar_codex_exe, arnes.CLAUDE_EXE, arnes.correr = guardado
+
+    def test_validacion_pide_terminar_el_juez(self):
+        # v23, hallazgo 7 de la séptima revisión.
+        self.armar_corrida()
+        (self.raiz / "juez" / "001-A2b-limpio" / "resumen.json").unlink()
+        with self.assertRaises(SystemExit) as e:
+            corrida.armar_pares()
+        self.assertIn("terminar `juez`", str(e.exception))
 
     def test_la_lista_rehecha_se_ve(self):
         import subprocess

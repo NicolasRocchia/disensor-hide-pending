@@ -37,6 +37,7 @@ import random
 import re
 import subprocess
 import sys
+import unicodedata
 from pathlib import Path
 
 import arnes
@@ -60,6 +61,7 @@ TERMINALES_GEN = piloto.TERMINALES + ("interrumpido",)
 TERMINALES_CAP = ("si", "no", "fallo", "interrumpido")
 TERMINALES_GEMELO = ("hecho", "fallo", "fallo_verificacion", "interrumpido")
 TERMINALES_BRAZO = ("hecho", "fallo", "interrumpido")
+TERMINALES_JUEZ = ("juzgado", "juez_fallo", "sin_llamada", "fallo", "fallo_verificacion", "interrumpido")
 # §4.4 (v22, hallazgo 4 de la sexta revisión): el ancla externa es una rama concreta de un remoto
 # que no está en esta máquina. Las pruebas usan un remoto local.
 REMOTO, RAMA = "origin", "main"
@@ -162,7 +164,7 @@ def etapa_logs(args):
     # chica, y la regla de §4.3 se aplicaría sobre ella.
     if objetivo < OBJETIVO_LOGS:
         sys.exit(f"--objetivo no puede ser menor que {OBJETIVO_LOGS}: para tandas, usar --limite.")
-    fijado = arnes.verificar_binarios(BINARIOS)
+    fijado = arnes.verificar_binarios(BINARIOS, ("codex",))
     prompt = generador.leer_prompt()
     ejemplos = generador.listas(prompt)
     claves = chequeo.claves_de_la_metadata(prompt)
@@ -330,7 +332,7 @@ def alcance_de(k):
 def etapa_gemelos(args):
     import gemelos
     sin_parada()
-    fijado = arnes.verificar_binarios(BINARIOS)
+    fijado = arnes.verificar_binarios(BINARIOS, ("claude",))
     plantilla = gemelos.leer_prompt()
     hechas = 0
     for k in logs_que_pasan():
@@ -500,24 +502,41 @@ def git(*args):
     return subprocess.run(["git", "-C", str(arnes.EXPERIMENTO), *args], capture_output=True)
 
 
-def congelamiento_en_git():
-    """§4.4 (v19, hallazgo 10 de la tercera revisión; v20, hallazgo 4 de la cuarta): la lista
-    congelada es la que se commiteó una sola vez, y lo que corre es un commit.
+def git_ok(*args):
+    """Un comando de git que tiene que andar: si falla, se para diciendo por qué, en vez de
+    leer su salida vacía como un resultado (v23, hallazgo 4 de la séptima revisión)."""
+    r = git(*args)
+    if r.returncode != 0:
+        sys.exit(f"git {' '.join(args)} falló ({r.returncode}): {r.stderr.decode('utf-8', 'replace').strip()}")
+    return r.stdout.decode("utf-8")
 
+
+def git_si_no(*args):
+    """Un comando de git que contesta sí (0) o no (1); cualquier otro código es un error de git."""
+    r = git(*args)
+    if r.returncode not in (0, 1):
+        sys.exit(f"git {' '.join(args)} falló ({r.returncode}): {r.stderr.decode('utf-8', 'replace').strip()}")
+    return r.returncode == 0
+
+
+def congelamiento_en_git():
+    """§4.4 (v19, hallazgo 10 de la tercera revisión; v20 a v23): la lista congelada es la que se
+    commiteó una sola vez, y lo que corre es un commit.
+
+    - El repo tiene la historia entera, no un clon superficial (v23).
     - La lista, su md5 y las decisiones de Nico están en git, sin cambios en el árbol.
     - La lista y su md5 tienen un solo commit en la historia, el mismo: una lista rehecha y
       vuelta a commitear se ve.
     - Las decisiones no cambiaron después de ese commit, y son las que la lista registró.
-    - El md5 de la lista figura en `01-PROTOCOLO.md` tal como está commiteado («Enmiendas»).
     - El protocolo, el código, los prompts y los esquemas no tienen cambios sin commitear.
-
     - «Enmiendas» del protocolo commiteado tiene un solo registro de congelamiento, y es esta
       lista, su commit entero y el árbol de lo que corre (v22, hallazgos 1 y 3 de la sexta).
-    - El commit está en la rama del remoto, traída en el momento (v21, hallazgo 2 de la
-      quinta; v22, hallazgo 4 de la sexta).
 
-    Devuelve (commit de la lista, HEAD, árbol). Lo que esto no ve, una rama paralela o una
-    historia reescrita, sólo lo cubre un ancla fuera de esta máquina (§4.4)."""
+    El remoto se verifica aparte (`anclar_en_remoto`). Devuelve (commit de la lista, HEAD,
+    árbol). Lo que esto no ve, una rama paralela o una historia reescrita, sólo lo cubre un
+    ancla fuera de esta máquina (§4.4)."""
+    if git_ok("rev-parse", "--is-shallow-repository").strip() == "true":
+        sys.exit("El repo es un clon superficial: traé la historia entera (git fetch --unshallow) (§4.4).")
     rutas = {"lista": DIR / "pares-incluidos.json", "md5": DIR / "pares-incluidos.md5",
              "decisiones": DIR / "gemelos" / "decisiones.json"}
     rel, historia = {}, {}
@@ -526,36 +545,36 @@ def congelamiento_en_git():
             rel[nombre] = ruta.relative_to(arnes.EXPERIMENTO).as_posix()
         except ValueError:
             sys.exit(f"{ruta} no está dentro del repo del experimento: no hay congelamiento que verificar.")
-        en_git = git("ls-files", "--error-unmatch", rel[nombre]).returncode == 0
-        sin_cambios = git("diff", "--quiet", "HEAD", "--", rel[nombre]).returncode == 0
+        en_git = git_si_no("ls-files", "--error-unmatch", rel[nombre])
+        sin_cambios = git_si_no("diff", "--quiet", "HEAD", "--", rel[nombre])
         if not (en_git and sin_cambios):
             sys.exit(f"{rel[nombre]} no está commiteado o cambió desde el último commit: la lista no está congelada (§4.4).")
-        historia[nombre] = git("log", "--format=%H", "--", rel[nombre]).stdout.decode("utf-8").split()
+        historia[nombre] = git_ok("log", "--format=%H", "--", rel[nombre]).split()
     if len(historia["lista"]) != 1 or historia["md5"] != historia["lista"]:
         sys.exit("La lista congelada y su md5 tienen que tener un solo commit, el mismo: la lista se rehízo (§4.4).")
     commit = historia["lista"][0]
-    if git("log", "--format=%H", f"{commit}..HEAD", "--", rel["decisiones"]).stdout.strip():
+    if git_ok("log", "--format=%H", f"{commit}..HEAD", "--", rel["decisiones"]).strip():
         sys.exit("decisiones.json cambió después del commit de la lista congelada. El arnés para (§4.4).")
     if leer(rutas["lista"])["decisiones_md5"] != md5_archivo(rutas["decisiones"]):
         sys.exit("decisiones.json no es el que registró la lista congelada. El arnés para.")
-    sucios = git("status", "--porcelain", "--", "01-PROTOCOLO.md", "herramientas", "prompts", "esquemas").stdout
-    if sucios.strip():
+    if git_ok("status", "--porcelain", "--", "01-PROTOCOLO.md", "herramientas", "prompts", "esquemas").strip():
         sys.exit("Hay cambios sin commitear en el protocolo, herramientas, prompts o esquemas: lo que corre "
                  "tiene que ser un commit (§4.4).")
-    protocolo = git("show", "HEAD:01-PROTOCOLO.md")
-    registro = registro_de_congelamiento(protocolo.stdout.decode("utf-8") if protocolo.returncode == 0 else "")
+    registro = registro_de_congelamiento(git_ok("show", "HEAD:01-PROTOCOLO.md"))
     arbol = arbol_normativo()
     if registro != {"md5": md5_archivo(rutas["lista"]), "commit": commit, "arbol": arbol}:
         sys.exit("El registro de congelamiento de «Enmiendas» no es esta lista, su commit y el árbol de lo que "
                  f"corre (árbol actual {arbol}). Un cambio de código después de congelar descarta la corrida "
                  "(§4.4, §10.1).")
-    remoto_contiene(commit)
-    return commit, git("rev-parse", "HEAD").stdout.decode("utf-8").strip(), arbol
+    return commit, git_ok("rev-parse", "HEAD").strip(), arbol
 
 
 def registro_de_congelamiento(texto):
     """§4.4 (v22, hallazgos 1 y 3 de la sexta revisión): el registro de la sección «Enmiendas»,
-    y sólo de ella, con formato fijo. Tiene que haber exactamente uno."""
+    y sólo de ella, con formato fijo. Tiene que haber exactamente uno. Los finales de línea y la
+    forma Unicode se normalizan antes (v23, hallazgo 6 de la séptima: un CRLF o una tilde
+    descompuesta no son otro registro)."""
+    texto = unicodedata.normalize("NFC", texto.replace("\r\n", "\n").replace("\r", "\n"))
     partes = re.split(r"^## Enmiendas[ \t]*$", texto, flags=re.M)
     if len(partes) != 2:
         sys.exit("El protocolo commiteado no tiene una sección «## Enmiendas» (§4.4).")
@@ -568,39 +587,57 @@ def registro_de_congelamiento(texto):
     return {"md5": md5, "commit": commit, "arbol": arbol}
 
 
-def remoto_contiene(commit):
-    """§4.4 (v22, hallazgo 4 de la sexta revisión): el commit de la lista está en la rama del
-    remoto, traída en el momento (no una referencia local vieja), y el remoto no es una ruta de
-    esta máquina."""
+def anclar_en_remoto(commits, obligatorio):
+    """§4.4 (v22, hallazgo 4 de la sexta revisión; v23, hallazgo 2 y segunda trampa de la
+    séptima): los `commits` están en la rama del remoto, traída en el momento, y el remoto no es
+    una ruta de esta máquina.
+
+    Antes de la primera llamada a los brazos es `obligatorio`: sin red no se empieza, y tienen
+    que estar el commit de la lista y el HEAD de ese momento, que tiene el registro de
+    «Enmiendas». Después, el ancla ya se probó: un remoto inaccesible es un aviso (la corrida
+    sigue), pero un remoto que se puede traer y ya no tiene esos commits frena."""
     url = git("remote", "get-url", REMOTO)
     if url.returncode != 0:
-        sys.exit(f"No hay remoto «{REMOTO}»: configuralo y pusheá el commit de la lista antes de los brazos (§4.4).")
-    if not ACEPTAR_REMOTO_LOCAL and not RE_URL_REMOTA.match(url.stdout.decode("utf-8").strip()):
+        sys.exit(f"No hay remoto «{REMOTO}»: configuralo y pusheá antes de los brazos (§4.4).")
+    url = url.stdout.decode("utf-8").strip()
+    if not ACEPTAR_REMOTO_LOCAL and not RE_URL_REMOTA.match(url):
         sys.exit(f"El remoto «{REMOTO}» es una ruta de esta máquina: el ancla tiene que estar afuera (§4.4).")
-    if git("fetch", "-q", REMOTO, RAMA).returncode != 0:
-        sys.exit(f"No se pudo traer {REMOTO}/{RAMA}: el commit de la lista no se puede verificar (§4.4).")
-    if git("merge-base", "--is-ancestor", commit, "FETCH_HEAD").returncode != 0:
-        sys.exit(f"El commit de la lista no está en {REMOTO}/{RAMA}: pushealo antes de los brazos (§4.4).")
+    traer = git("fetch", "-q", REMOTO, RAMA)
+    if traer.returncode != 0:
+        error = traer.stderr.decode("utf-8", "replace").strip()
+        if obligatorio:
+            sys.exit(f"No se pudo traer {REMOTO}/{RAMA} ({error}): antes de la primera llamada el ancla se "
+                     "verifica sí o sí (§4.4).")
+        print(f"aviso: no se pudo traer {REMOTO}/{RAMA} ({error}); el ancla se verificó antes de la primera "
+              "llamada y la corrida sigue (§4.4).", flush=True)
+        return url
+    for c in commits:
+        if not git_si_no("merge-base", "--is-ancestor", c, "FETCH_HEAD"):
+            sys.exit(f"El commit {c} no está en {REMOTO}/{RAMA}: pushealo, o el remoto se reescribió (§4.4).")
+    return url
 
 
 def arbol_normativo():
     """§4.4 (v21, hallazgo 3 de la quinta revisión): el md5 de lo que corre, los árboles de
     `herramientas/`, `prompts/` y `esquemas/` en HEAD (sin cambios sueltos, por el chequeo de
     arriba)."""
-    return hashlib.md5(git("ls-tree", "-r", "HEAD", "--", "herramientas", "prompts", "esquemas").stdout).hexdigest()
+    return hashlib.md5(git_ok("ls-tree", "-r", "HEAD", "--", "herramientas", "prompts", "esquemas")
+                       .encode("utf-8")).hexdigest()
 
 
 def revisar_plan(plan, commit, arbol):
-    """§4.4 (v21; v22, hallazgos 1 y 2 de la sexta revisión): el plan de los brazos es de esta
-    lista y de este árbol, y todo resultado de los brazos y del juez también: cada uno guarda la
-    lista y los árboles con que corrió, y tienen que ser éstos. Un cambio de código después de
-    la primera llamada no se acepta de ninguna forma: descarta la corrida (§10.1)."""
+    """§4.4 (v21; v22, hallazgos 1 y 2 de la sexta revisión; v23): el plan de los brazos es de
+    esta lista y de este árbol, y todo resultado de los brazos y del juez también: cada uno
+    guarda la lista y los árboles con que corrió, al menos uno (v23, primera trampa de la
+    séptima: una lista vacía no acredita nada), y tienen que ser éstos. Un cambio de código
+    después de la primera llamada no se acepta de ninguna forma: descarta la corrida (§10.1)."""
     if plan["commit_de_la_lista"] != commit or plan["arbol_md5"] != arbol:
         sys.exit("El plan de los brazos es de otra lista o de otro árbol que lo que corre. El arnés para (§4.4).")
     for etapa in ("brazos", "juez"):
         for f in sorted((DIR / etapa).glob("*/resumen.json")):
             r = leer(f)
-            if r.get("commit_de_la_lista") != commit or any(a != arbol for a in r.get("arboles", [])):
+            arboles = r.get("arboles") or []
+            if r.get("commit_de_la_lista") != commit or not arboles or any(a != arbol for a in arboles):
                 sys.exit(f"{etapa} {f.parent.name}: es un resultado de otra lista o de otro árbol. "
                          "El arnés para (§4.4, §10.1).")
             if etapa == "juez":
@@ -611,27 +648,35 @@ def revisar_plan(plan, commit, arbol):
 
 def verificar_corrida():
     """§4.4 (v21, hallazgo 1 de la quinta revisión): `juez`, `validacion` y `analizar` vuelven
-    a verificar el congelamiento, el plan de los brazos y todos los resultados, no sólo el md5
-    de la lista."""
+    a verificar el congelamiento, el plan de los brazos, el ancla y todos los resultados, no
+    sólo el md5 de la lista."""
     commit, head, arbol = congelamiento_en_git()
     fp = DIR / "brazos" / "plan.json"
     if not fp.exists():
         sys.exit("No hay plan de los brazos: correr `brazos`.")
-    revisar_plan(leer(fp), commit, arbol)
+    plan = leer(fp)
+    revisar_plan(plan, commit, arbol)
+    anclar_en_remoto([commit, plan["head_anclado"]], obligatorio=False)
     return commit, head, arbol
 
 
-def plan_congelado(pares, commit, arbol):
-    """§7.7 y §4.4 (v21): el plan de los brazos se escribe una sola vez, antes de la primera
-    llamada, con el commit de la lista y el árbol de lo que corre. Si ya hay resultados de los
-    brazos, no se regenera."""
+def plan_congelado(pares, commit, arbol, head):
+    """§7.7 y §4.4 (v21 a v23): el plan de los brazos se escribe una sola vez, antes de la
+    primera llamada, con el commit de la lista, el árbol de lo que corre y el HEAD anclado en el
+    remoto, que tiene el registro de «Enmiendas». Si ya hay resultados de los brazos, no se
+    regenera."""
     plan = plan_de_brazos(pares)
     fp = DIR / "brazos" / "plan.json"
     if not fp.exists():
         if any((DIR / "brazos").glob("*/resumen.json")):
             sys.exit("Hay resultados de los brazos sin su plan.json: el plan no se regenera (§4.4). El arnés para.")
-        escribir(fp, {"semilla": SEMILLA, "orden": plan, "commit_de_la_lista": commit, "arbol_md5": arbol})
-    guardado = leer(fp)
+        url = anclar_en_remoto([commit, head], obligatorio=True)
+        escribir(fp, {"semilla": SEMILLA, "orden": plan, "commit_de_la_lista": commit, "arbol_md5": arbol,
+                      "head_anclado": head, "remoto": url})
+        guardado = leer(fp)
+    else:
+        guardado = leer(fp)
+        anclar_en_remoto([commit, guardado["head_anclado"]], obligatorio=False)
     if guardado["orden"] != [list(x) for x in plan]:
         sys.exit("El plan de los brazos no coincide con el guardado. El arnés para.")
     revisar_plan(guardado, commit, arbol)
@@ -693,10 +738,10 @@ def etapa_brazos(args):
     import validador
     sin_parada()
     commit, head, arbol = congelamiento_en_git()
-    fijado = arnes.verificar_binarios(BINARIOS)
+    fijado = arnes.verificar_binarios(BINARIOS, ("codex",))
     pares = leer_incluidos()
     por_log = {p["log"]: p for p in pares}
-    plan = plan_congelado(pares, commit, arbol)
+    plan = plan_congelado(pares, commit, arbol, head)
     esquemas = piloto.leer_esquemas()
     objetos = {b: json.loads(t) for b, t in esquemas.items()}
     sesion = arnes.ahora()
@@ -764,14 +809,14 @@ def etapa_juez(args):
     import juez
     sin_parada()
     commit, _, arbol = verificar_corrida()
-    fijado = arnes.verificar_binarios(BINARIOS)
+    fijado = arnes.verificar_binarios(BINARIOS, ("claude",))
     pares = leer_incluidos()
     por_log = {p["log"]: p for p in pares}
     plantilla = juez.leer_prompt()
     fijos = juez.valores_fijos(*juez.objetos_de_esquema([piloto.ESQUEMAS / "residuo.json",
                                                          piloto.ESQUEMAS / "placebo.json"]))
     # v19, hallazgo 4: un ítem terminado no se vuelve a juzgar al reanudar.
-    terminales = ("juzgado", "juez_fallo", "sin_llamada", "fallo", "fallo_verificacion", "interrumpido")
+    terminales = TERMINALES_JUEZ
     hechas = 0
     for k, b, c in plan_del_juez(plan_de_brazos(pares)):
         fb = DIR / "brazos" / f"{k:03d}-{b}-{c}" / "resumen.json"
@@ -823,7 +868,11 @@ def etapa_juez(args):
         hechas += 1
         if hechas % 20 == 0:
             print(f"{hechas:3d} juzgados en esta corrida", flush=True)
-    print("juez: listo para `validacion`")
+    faltan = [x for x in plan_del_juez(plan_de_brazos(pares))
+               if leer_o_nada(DIR / "juez" / "{:03d}-{}-{}".format(*x) / "resumen.json")
+               .get("veredicto", {}).get("estado") not in TERMINALES_JUEZ]
+    # v23, hallazgo 7 de la séptima revisión: «listo» sólo con los 400 veredictos terminados.
+    print("juez: listo para `validacion`" if not faltan else f"juez: faltan {len(faltan)} veredictos; volver a correr `juez`")
 
 
 # --- validación y análisis -----------------------------------------------------------------
@@ -839,7 +888,9 @@ def armar_pares():
             for c in CONDICIONES:
                 br = leer(DIR / "brazos" / f"{k:03d}-{b}-{c}" / "resumen.json")
                 sesiones.add((br.get("sesiones") or [None])[-1])
-                jz = leer(DIR / "juez" / f"{k:03d}-{b}-{c}" / "resumen.json")["veredicto"]
+                jz = leer_o_nada(DIR / "juez" / f"{k:03d}-{b}-{c}" / "resumen.json").get("veredicto", {})
+                if jz.get("estado") not in TERMINALES_JUEZ:
+                    sys.exit(f"Falta el veredicto de {k:03d} {b} {c}: terminar `juez` antes de seguir.")
                 val = br.get("validacion") or {}
                 ult = br["intentos"][-1]
                 brazos[b][c] = {
