@@ -40,7 +40,8 @@ etapa `sandbox` fue una llamada a GPT; `contexto` no llamó a ningún modelo.
    `codex.exe`: 5 ítems; el último es el mensaje (el prompt generador lleno, 8.840
    caracteres), idéntico al enviado. Fuera del mensaje, 8.502 caracteres en
    cuatro ítems: las instrucciones de permisos (con `sandbox_mode` en
-   `read-only`, así que el `-s` antes de `debug` se respetó), dos de multiagente
+   `read-only`~~, así que el `-s` antes de `debug` se respetó~~: ver
+   «Correcciones»), dos de multiagente
    y la lista de plugins recomendados (1.377 caracteres). Ninguna palabra
    prohibida y ningún catálogo de skills.
 7. **Binarios fijados** en `piloto/arnes/binarios.json`: `codex.exe` 0.153.4,
@@ -130,3 +131,16 @@ OK: contexto limpio y mensaje exacto. Salidas en D:\Programacion\Disensor-Docs\e
 | 5 | user | 8.840 | el mensaje, idéntico al enviado |
 
 `contexto-exe.stderr.txt` quedó vacío.
+
+## Correcciones
+
+**13/10/2026, después de 09.** El punto 6 decía que, como los permisos mostraban
+`sandbox_mode` en `read-only`, el `-s read-only` puesto antes de `debug` se había
+respetado. **No prueba eso:** `read-only` es también el valor por defecto, y
+`codex debug prompt-input` muestra `read-only` aunque se le pida
+`workspace-write`, tanto con `-s workspace-write` antes de `debug` como con
+`-c sandbox_mode="workspace-write"` (probado ese día). Esa herramienta no refleja
+el modo del sandbox. Lo que sí vale del punto 6: el contexto no tiene palabras
+prohibidas ni catálogo de skills, y el mensaje llega idéntico por argumento. El
+modo del sandbox sólo se comprueba con una llamada real, como hacen las etapas
+`sandbox` y `sandbox-generador`.
