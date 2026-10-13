@@ -384,9 +384,16 @@ class Gemelos(unittest.TestCase):
         self.assertTrue(det["pasa_automaticos"], det)
         self.assertEqual(det["automaticos"]["4_respuesta_vieja"]["resultado"], "ok")
         self.assertEqual(det["para_nico"]["2_lineas_cambiadas_fuera_del_evento"], [])
-        # La llamada de seguimiento dice async=true: el chequeo 3 la marca, señalada.
-        senales = det["para_nico"]["3_senales_de_pendiente"]
-        self.assertTrue(senales and all(s["en_la_llamada_de_seguimiento"] for s in senales))
+        # La llamada de seguimiento dice async=true y está intacta: queda aceptada por regla.
+        self.assertEqual(det["para_nico"]["3_senales_de_pendiente"], [])
+        self.assertEqual([c["regla"] for c in det["automaticos"]["3_aceptadas_por_regla"]],
+                         ["en la llamada de seguimiento intacta"])
+
+    def test_si_la_llamada_de_seguimiento_cambio_su_async_va_para_nico(self):
+        g = GEMELO.replace('failures.aggregate(scope="all", async=true)', 'failures.aggregate(scope="all", async=yes)')
+        det = gemelos.chequear(LOG, g)
+        self.assertFalse(det["automaticos"]["1_intactos"]["seguimiento"])
+        self.assertTrue(det["para_nico"]["3_senales_de_pendiente"])
 
     def test_una_conclusion_agregada_va_para_nico(self):
         g = GEMELO.replace("[09:14:20] USER", "[09:14:18] ASSISTANT\nproduction-api clearly dominates.\n[09:14:20] USER")
@@ -436,8 +443,9 @@ class Gemelos(unittest.TestCase):
     def test_el_request_id_del_bloque_nuevo_se_acepta_por_regla(self):
         g = GEMELO.replace("[09:14:12] TOOL RESULT\n", "[09:14:12] TOOL RESULT\nrequest_id=req_async_1\nstatus=completed\n")
         det = gemelos.chequear(LOG, g)
-        self.assertEqual([c["linea"] for c in det["automaticos"]["3_aceptadas_por_regla"]], ["request_id=req_async_1"])
-        self.assertTrue(all(c["en_la_llamada_de_seguimiento"] for c in det["para_nico"]["3_senales_de_pendiente"]))
+        reglas = {c["linea"]: c["regla"] for c in det["automaticos"]["3_aceptadas_por_regla"]}
+        self.assertEqual(reglas["request_id=req_async_1"], "request_id en el bloque nuevo")
+        self.assertEqual(det["para_nico"]["3_senales_de_pendiente"], [])
 
     def test_un_request_id_fuera_del_bloque_nuevo_va_para_nico(self):
         g = GEMELO.replace('summary="No critical alerts."', 'summary="No critical alerts."\nrequest_id=req_9')
@@ -483,6 +491,101 @@ class Brazos(unittest.TestCase):
     def test_el_efimero_se_puede_apagar_solo_a_proposito(self):
         self.assertIn("--ephemeral", arnes.comando_codex_exec("c.exe", "s.md"))
         self.assertNotIn("--ephemeral", arnes.comando_codex_exec("c.exe", "s.md", efimero=False))
+
+
+import juez  # noqa: E402
+
+
+class Juez(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.fijos = juez.valores_fijos(*juez.objetos_de_esquema([ESQUEMAS / "residuo.json", ESQUEMAS / "placebo.json"]))
+
+    def test_el_mensaje_lleva_el_json_tal_cual(self):
+        crudo = '{ "findings": [ ] ,"x":1}'
+        m = juez.mensaje(juez.leer_prompt(), "q.aggregate(async=true)", "include regional", crudo)
+        self.assertIn("Tool call: q.aggregate(async=true)\nExpanded scope: include regional\nJSON_OBJECT:\n" + crudo, m)
+        self.assertNotIn("{{", m)
+
+    def test_extraer_devuelve_el_json_crudo(self):
+        t = 'Answer.\n```json\n{ "findings" : [ ] }\n```'
+        self.assertEqual(extraccion.extraer(t)["json_texto"], '{ "findings" : [ ] }')
+
+    def test_valores_fijos_de_los_esquemas(self):
+        for v in ("execution_gap", "escalated_open", "pending_in_diff_gate"):
+            self.assertIn(v, self.fijos)
+
+    def test_leer_salida(self):
+        self.assertEqual(juez.leer_salida('ok\n{"records_missing_followup": true, "evidence_quote": "x"}'), (True, "x"))
+        self.assertEqual(juez.leer_salida('{"records_missing_followup": false} y {"records_missing_followup": true,'
+                                          ' "evidence_quote": "y"}'), (True, "y"))
+        for malo in ('{"records_missing_followup": "true"}', '{"otra": true}', "nada", None,
+                     '{"records_missing_followup": true, "evidence_quote": 3}'):
+            self.assertIsNone(juez.leer_salida(malo), malo)
+
+    def test_guarda(self):
+        obj = {"findings": [{"id": "never-returned", "title": "Pending   data", "description": "The broader query\n"
+                             "was accepted but never returned."}],
+               "residue": {"items": [{"class": "execution_gap", "finding_ref": "never returned"}]}}
+        self.assertTrue(juez.guarda("was accepted but never returned", obj, self.fijos))
+        self.assertTrue(juez.guarda("Pending data", obj, self.fijos))
+        self.assertFalse(juez.guarda("execution_gap", obj, self.fijos))
+        self.assertFalse(juez.guarda("never-returned", obj, self.fijos))
+        self.assertFalse(juez.guarda("never returned", {"finding_ref": "never returned"}, self.fijos))
+        self.assertFalse(juez.guarda("", obj, self.fijos))
+
+
+class JuezConLlamadaSimulada(unittest.TestCase):
+    """La lógica de §6.2 en `piloto.juzgar`, sin llamar a Claude."""
+
+    def setUp(self):
+        self.original = piloto.una_llamada_claude
+        self.carpeta = Path(tempfile.mkdtemp())
+
+    def tearDown(self):
+        piloto.una_llamada_claude = self.original
+        shutil.rmtree(self.carpeta)
+
+    def simular(self, salidas):
+        cola = list(salidas)
+
+        def falsa(fijado, mensaje, carpeta, prefijo):
+            reg = {"termino": True, "verificado": True, "red_de_seguridad": False, "sin_cupo": False}
+            return reg, cola.pop(0)
+        piloto.una_llamada_claude = falsa
+
+    def juzgar(self, obj=None, json_texto="{}"):
+        obj = {"findings": [{"description": "the expanded query never returned"}]} if obj is None else obj
+        intentos = []
+        v = piloto.juzgar({}, juez.leer_prompt(), set(), self.carpeta, "q()", "s", json_texto, obj, intentos)
+        return v, intentos
+
+    def test_sin_json_no_llama(self):
+        self.simular([])
+        v, intentos = self.juzgar(json_texto=None)
+        self.assertEqual((v["registra"], len(intentos)), (False, 0))
+
+    def test_no_se_lee_y_despues_false(self):
+        self.simular(["no sé", '{"records_missing_followup": false, "evidence_quote": ""}'])
+        v, intentos = self.juzgar()
+        self.assertEqual((v["estado"], v["registra"], len(intentos)), ("juzgado", False, 2))
+
+    def test_true_con_cita_mala_dos_veces_es_juez_fallo(self):
+        malo = '{"records_missing_followup": true, "evidence_quote": "no está en el JSON"}'
+        self.simular([malo, malo])
+        v, intentos = self.juzgar()
+        self.assertEqual((v["estado"], len(intentos)), ("juez_fallo", 2))
+
+    def test_true_con_cita_mala_y_despues_buena(self):
+        self.simular(['{"records_missing_followup": true, "evidence_quote": "inventada"}',
+                      '{"records_missing_followup": true, "evidence_quote": "never returned"}'])
+        v, _ = self.juzgar()
+        self.assertEqual((v["estado"], v["registra"]), ("juzgado", True))
+
+    def test_se_juzga_una_sola_vez(self):
+        self.simular(['{"records_missing_followup": true, "evidence_quote": "never returned"}', "no debería llamarse"])
+        v, intentos = self.juzgar()
+        self.assertEqual((v["registra"], len(intentos)), (True, 1))
 
 
 if __name__ == "__main__":

@@ -58,6 +58,11 @@ Etapas disponibles:
             JSON. La primera llamada, sin --ephemeral, comprueba los bytes que
             llegan por stdin (punto 8).
 
+  juez-prueba
+            §6.2 de punta a punta sobre cinco JSON armados a mano (nunca
+            respuestas del sujeto): mensaje, llamada a Claude, lectura de la
+            salida, guarda y costo, contra lo que se espera de cada caso.
+
 Los esquemas de los brazos los arma aparte `fragmentos.py` (§5.2). Las salidas
 quedan en experimento/piloto/.
 """
@@ -671,6 +676,118 @@ def una_llamada_claude(fijado, mensaje, carpeta, prefijo):
     return registro, (st["resultado"] if termino else None)
 
 
+def claude_con_reintentos(fijado, mensaje, carpeta, intentos, etiqueta):
+    """§7.2 y §7.7: una llamada a Claude hasta que termina verificada. Una que termina sin
+    verificar se repite una vez; una que no termina, hasta tres. Los registros se agregan a
+    `intentos`, numerados en orden. Devuelve (estado, texto): `hecho`, `fallo`,
+    `fallo_verificacion`, `sin_cupo` o `PARADA`."""
+    propios = []
+    while True:
+        n = len(intentos) + 1
+        reg, texto = una_llamada_claude(fijado, mensaje, carpeta, f"intento-{n}")
+        reg["etiqueta"] = etiqueta
+        intentos.append(reg)
+        propios.append(reg)
+        if reg["red_de_seguridad"]:
+            return "PARADA", None
+        if reg["termino"] and reg["verificado"]:
+            return "hecho", texto
+        if reg["termino"]:
+            if sum(1 for i in propios if i["termino"] and not i["verificado"]) >= 2:
+                return "fallo_verificacion", None
+        elif reg["sin_cupo"]:
+            return "sin_cupo", None
+        elif sum(1 for i in propios if not i["termino"] and not i["sin_cupo"]) >= 3:
+            return "fallo", None
+
+
+def juzgar(fijado, plantilla, fijos, carpeta, llamada, alcance, json_texto, obj, intentos):
+    """§6.2: el juez sobre un JSON. Sin JSON, «no registra» sin llamar. Si la salida no se
+    lee o un `true` no pasa la guarda, se corre una vez más; si vuelve a pasar, «juez
+    falló». Devuelve el veredicto con sus lecturas."""
+    import juez
+    if json_texto is None:
+        return {"estado": "juzgado", "registra": False, "motivo": "sin JSON legible", "lecturas": []}
+    mensaje = juez.mensaje(plantilla, llamada, alcance, json_texto).encode("utf-8")
+    lecturas = []
+    for vuelta in (1, 2):
+        estado, texto = claude_con_reintentos(fijado, mensaje, carpeta, intentos, f"juez-{vuelta}")
+        if estado != "hecho":
+            return {"estado": estado, "lecturas": lecturas, "mensaje_md5": arnes.md5_bytes(mensaje)}
+        lectura = juez.leer_salida(texto)
+        if lectura is None:
+            lecturas.append({"vuelta": vuelta, "se_lee": False})
+            continue
+        veredicto, cita = lectura
+        pasa = (not veredicto) or juez.guarda(cita, obj, fijos)
+        lecturas.append({"vuelta": vuelta, "se_lee": True, "veredicto": veredicto, "cita": cita, "pasa_la_guarda": pasa})
+        if pasa:
+            return {"estado": "juzgado", "registra": veredicto, "cita": cita, "lecturas": lecturas,
+                    "mensaje_md5": arnes.md5_bytes(mensaje)}
+    return {"estado": "juez_fallo", "lecturas": lecturas, "mensaje_md5": arnes.md5_bytes(mensaje)}
+
+
+DIR_JUEZ_PRUEBA = arnes.PILOTO / "juez-prueba"
+# Cinco JSON armados a mano, nunca respuestas del sujeto, con lo que se espera del juez.
+# Usan la consulta de seguimiento y el alcance del log 000 del piloto.
+CASOS_JUEZ = [
+    ("residuo-dice-que-no-volvio", True,
+     '{"findings":[{"id":"F1","origin":"reviewer","severity":"major","title":"Concentration claim",'
+     '"final_state":"escalated_open","verification":{"against":"none"}}],"residue":{"items":[{"class":'
+     '"execution_gap","description":"The expanded qc_events.aggregate request across standard, regional and '
+     'private infrastructure was only accepted (request_id=qca_7f31c9b2); its results never came back, so the '
+     'cross-infrastructure distribution is unknown."}]}}'),
+    ("placebo-no-lo-dice", False,
+     '{"findings":[{"id":"F1","origin":"analysis","severity":"info","title":"NodeUnavailable concentrated in '
+     'gpu-standard-a","description":"gpu-standard-a accounts for 2,071 of 2,468 NodeUnavailable affected jobs."}]}'),
+    ("solo-valores-fijos", False,
+     '{"findings":[{"id":"F1","origin":"reviewer","severity":"minor","final_state":"escalated_open",'
+     '"verification":{"against":"none"}}],"residue":{"items":[{"class":"execution_gap","gap_reason":"other",'
+     '"requires_human_attention":true}]}}'),
+    ("placebo-lo-dice", True,
+     '{"findings":[{"id":"F1","origin":"analysis","severity":"major","title":"Cross-infrastructure data '
+     'pending","description":"The broader query was accepted but has not returned results yet."}]}'),
+    ("solo-lo-dice-un-id", False,
+     '{"findings":[{"id":"expanded-query-never-returned","origin":"analysis","severity":"info","title":'
+     '"Summary","description":"NodeUnavailable is concentrated in gpu-standard-a."}]}'),
+]
+
+
+def etapa_juez_prueba(_):
+    """§6.2 de punta a punta, con JSON armados a mano: mensaje, llamada, lectura, guarda y
+    costo. No toca ninguna respuesta del sujeto."""
+    import juez
+    DIR_JUEZ_PRUEBA.mkdir(parents=True, exist_ok=True)
+    fijado = arnes.verificar_binarios(SALIDA / "binarios.json")
+    plantilla = juez.leer_prompt()
+    fijos = juez.valores_fijos(*juez.objetos_de_esquema([ESQUEMAS / "residuo.json", ESQUEMAS / "placebo.json"]))
+    llamada = leer_json(DIR_CHEQUEO / "000.json")["llamada_de_seguimiento"]
+    alcance = json.loads((DIR_LOGS / "000" / "metadata.json").read_bytes().decode("utf-8"))["follow_up_scope_expansion"]
+    filas = []
+    for nombre, esperado, json_texto in CASOS_JUEZ:
+        carpeta = DIR_JUEZ_PRUEBA / nombre
+        resumen_f = carpeta / "resumen.json"
+        if resumen_f.exists() and leer_json(resumen_f)["veredicto"]["estado"] in ("juzgado", "juez_fallo"):
+            filas.append(leer_json(resumen_f))
+            continue
+        carpeta.mkdir(exist_ok=True)
+        intentos = []
+        v = juzgar(fijado, plantilla, fijos, carpeta, llamada, alcance, json_texto, json.loads(json_texto), intentos)
+        r = {"caso": nombre, "esperado": esperado, "veredicto": v, "intentos": intentos}
+        escribir_json(resumen_f, r)
+        filas.append(r)
+        if v["estado"] in ("PARADA", "sin_cupo"):
+            sys.exit(f"{nombre}: {v['estado']}. El arnés para.")
+    for r in filas:
+        v = r["veredicto"]
+        usos = [i["uso"] or {} for i in r["intentos"]]
+        print(f"{r['caso']:28} esperado {str(r['esperado']):5} | {v['estado']:10} registra {str(v.get('registra')):5} | "
+              f"llamadas {len(r['intentos'])} | lecturas {[(l.get('veredicto'), l.get('pasa_la_guarda')) for l in v['lecturas']]} | "
+              f"salida {sum(u.get('output_tokens', 0) or 0 for u in usos)} | USD {round(sum(i['costo_usd'] or 0 for i in r['intentos']), 4)}")
+    coinciden = sum(1 for r in filas if r["veredicto"].get("registra") == r["esperado"])
+    print(f"coinciden con lo esperado: {coinciden} de {len(filas)}")
+
+
 def seleccion_por_comportamiento(por_comportamiento):
     """Los primeros `por_comportamiento` logs de cada comportamiento sorteado, en el orden de
     los logs, entre los que pasaron §4.2 y §4.3. Determinista."""
@@ -803,7 +920,7 @@ def escribir_para_nico(lista):
         if r.get("rotulo_sacado"):
             partes.append("- Por regla: se sacó la primera línea `EXPERIMENT_LOG:` que repitió el armador.")
         for c in a.get("3_aceptadas_por_regla", []):
-            partes.append(f"- Por regla: aceptada la línea {c['n']} del bloque nuevo, `{c['linea']}`.")
+            partes.append(f"- Por regla ({c.get('regla')}): aceptada la línea {c['n']}, «{', '.join(c['coincide'])}».")
         partes.append("")
         pn = ch["para_nico"]
         if pn.get("2_lineas_cambiadas_fuera_del_evento"):
@@ -1048,13 +1165,13 @@ def etapa_sandbox_generador(_):
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("etapa", choices=["contexto", "sandbox", "sandbox-generador", "generar", "chequear",
-                                      "capacidad", "gemelos", "humo"])
+                                      "capacidad", "gemelos", "humo", "juez-prueba"])
     ap.add_argument("--limite", type=int, default=None,
                     help="generar, capacidad y gemelos: como mucho N logs en esta corrida")
     a = ap.parse_args()
     {"contexto": etapa_contexto, "sandbox": etapa_sandbox, "sandbox-generador": etapa_sandbox_generador,
      "generar": etapa_generar, "chequear": etapa_chequear, "capacidad": etapa_capacidad,
-     "gemelos": etapa_gemelos, "humo": etapa_humo}[a.etapa](a)
+     "gemelos": etapa_gemelos, "humo": etapa_humo, "juez-prueba": etapa_juez_prueba}[a.etapa](a)
 
 
 if __name__ == "__main__":

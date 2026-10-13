@@ -133,6 +133,12 @@ def chequear(pendiente, gemelo):
         fila = {"n": k + 1, "linea": linea, "coincide": hallado,
                 "en_la_llamada_de_seguimiento": ent == ig["seguimiento"] and linea in seg_texto}
         if ent == ig["evento"] and RE_ID_EN_EL_BLOQUE_NUEVO.fullmatch(linea.strip()):
+            fila["regla"] = "request_id en el bloque nuevo"
+            aceptadas.append(fila)
+        elif fila["en_la_llamada_de_seguimiento"] and intactos["seguimiento"]:
+            # Regla de Nico del 13/10/2026: la llamada de seguimiento está intacta, textual
+            # del pendiente (punto 1), así que lo que coincida en ella no se puede rechazar.
+            fila["regla"] = "en la llamada de seguimiento intacta"
             aceptadas.append(fila)
         else:
             coincidencias.append(fila)
