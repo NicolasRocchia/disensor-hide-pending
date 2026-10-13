@@ -1,6 +1,6 @@
 # Protocolo · Fase 1: ¿el esquema de residuo hace que el registro consigne el hueco?
 
-**Estado: v22, NO congelado.** Incorpora lo que midió el piloto en la máquina de
+**Estado: v23, NO congelado.** Incorpora lo que midió el piloto en la máquina de
 Nico (`05-PRUEBA-SANDBOX-1.md`, `06-PRUEBA-SANDBOX-2.md`,
 `08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`, `09-PILOTO-GENERAR-1.md`,
 `10-PRUEBA-SANDBOX-GENERADOR.md`, `11-PILOTO-GENERAR-Y-CHEQUEAR.md`,
@@ -39,8 +39,11 @@ El orden es parte del diseño: cada paso que necesita una decisión humana ocurr
    hallazgos; lo que se hizo, en §15, v20. **Quinta, sobre el diff de la v20**,
    por decisión de Nico (`21-REVISION-CODEX-3.md`): 8 hallazgos; lo que se hizo,
    en §15, v21. **Sexta, una ronda corta sobre el diff de la v21**
-   (`22-REVISION-CODEX-4.md`): 5 hallazgos; lo que se hizo, en §15, v22. Con eso,
-   **se congela el protocolo.** Desde ahí,
+   (`22-REVISION-CODEX-4.md`): 5 hallazgos; lo que se hizo, en §15, v22.
+   **Séptima, enfocada en los falsos frenos** (`23-REVISION-CODEX-5.md`): si el
+   código de verificación puede frenar una corrida legítima; 7 hallazgos y 2
+   trampas; lo que se hizo, en §15, v23. Con eso, **se congela el protocolo.**
+   Desde ahí,
    todo cambio va en «Enmiendas» con fecha y motivo, y si toca un prompt o un
    umbral después de haber visto un resultado, la corrida se descarta entera.
 5. **Logs y gemelos limpios** (§4.1 a §4.4): se generan, se chequean y se
@@ -379,10 +382,17 @@ miraban el md5):
 - «Enmiendas» del protocolo commiteado no tiene exactamente un registro de
   congelamiento, o el registro no es esta lista, su commit y el árbol de lo que
   corre;
-- el commit de la lista no está en `origin/main`, traída en el momento, o
-  `origin` es una ruta de esta máquina (v21, hallazgo 2 de la quinta; v22,
-  hallazgo 4 de la sexta: antes se miraban referencias locales, que pueden estar
-  viejas);
+- `origin` no está configurado o es una ruta de esta máquina; o, al crear el plan
+  de los brazos, antes de la primera llamada, no se puede traer `origin/main` o no
+  tiene el commit de la lista **y el HEAD de ese momento, que tiene el registro de
+  «Enmiendas»** (v21, hallazgo 2 de la quinta; v22, hallazgo 4 de la sexta; v23,
+  segunda trampa de la séptima: antes bastaba el commit de la lista, y el registro
+  podía no estar pusheado). El plan guarda ese HEAD. **Después de la primera
+  llamada**, un remoto inaccesible (sin red, credenciales vencidas) es un aviso y
+  la corrida sigue, porque el ancla ya se probó; un remoto que se puede traer y ya
+  no tiene esos commits frena (v23, hallazgo 2 de la séptima);
+- el repo es un clon superficial, o un comando de git falla: se para diciendo el
+  error de git, en vez de leer su salida vacía como un resultado (v23, hallazgo 4);
 - la lista no tiene exactamente 100 pares;
 - hay cambios sin commitear en el protocolo, `herramientas/`, `prompts/` o
   `esquemas/`: lo que corre es siempre un commit, y cada llamada a un brazo guarda
@@ -396,8 +406,13 @@ miraban el md5):
   el árbol con que corrieron, y no coinciden;
 - el plan de los brazos falta habiendo resultados (no se regenera), o algún
   resultado de los brazos o del juez es de otra lista (cada uno guarda el commit
-  de la suya), o un veredicto del juez no es del JSON que dejó `brazos` (v22,
+  de la suya), o no acredita al menos un árbol (v23, primera trampa de la
+  séptima), o un veredicto del juez no es del JSON que dejó `brazos` (v22,
   hallazgo 2 de la sexta: cada veredicto guarda el md5 del JSON que juzgó).
+
+El registro se lee con los finales de línea y la forma Unicode normalizados: un
+protocolo guardado con CRLF o una tilde descompuesta no lo vuelven otro registro
+(v23, hallazgo 6 de la séptima).
 
 **Lo que esto no ve.** Una rama paralela, armada desde antes del congelamiento con
 otra lista y su propio protocolo, o una historia reescrita, pasan estos chequeos en
@@ -1030,7 +1045,11 @@ comillas curvas y las rayas del generador llegarían como UTF-8 inválido) y cad
   `121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e`,
   chequeado antes de cada llamada.
 
-Si cualquiera cambia, la llamada no sale y el arnés para.
+Si cualquiera cambia, la llamada no sale y el arnés para. **Cada etapa verifica
+sólo el binario que usa** (v23, hallazgo 3 de la séptima revisión): `logs` y
+`brazos`, Codex; `gemelos` y `juez`, Claude. Actualizar Codex para otro trabajo
+después de los brazos no frena al juez; durante `logs` o `brazos`, sí, y se
+resuelve volviendo a instalar la 0.153.4 en la misma ruta, sin tocar el código.
 
 ### 7.5 Lo que se registra en cada llamada
 
@@ -1094,6 +1113,13 @@ revisión), también el tipo de llamada en los de GPT (`generador`, `capacidad`,
   los límites ya alcanzados (tres sin terminar, dos sin verificar) devuelven su
   estado sin otra llamada, y una red de seguridad deja el ítem en `fallo`, porque
   es falla de la llamada (§7.1), no un intento más después de la revisión.
+- **Escrituras atómicas** (v23, hallazgo 1 de la séptima revisión): todo JSON del
+  arnés se escribe a un temporal y se reemplaza, así un corte deja el anterior
+  entero o el nuevo entero, nunca uno truncado que no se pueda leer al reanudar.
+  Los JSON que edita Nico se leen con o sin BOM; uno en UTF-16 frena pidiendo
+  guardarlo como UTF-8 (hallazgo 5).
+- **El juez incompleto** (v23, hallazgo 7): `juez --limite` dice cuántos
+  veredictos faltan en vez de «listo», y `validacion` frena pidiendo terminarlo.
 - **Cortes a mitad de un par** (v19, hallazgo 11): `--limite` cuenta pares
   enteros, nunca llamadas sueltas. Un corte por cupo sí puede caer a mitad de un
   par: cada llamada registra la sesión en que terminó, un par con llamadas en
@@ -1411,6 +1437,28 @@ su propia ventana, o declara la confusión.
       cada log decisivo y la muestra de 30.
 
 ## 15. Cambios
+
+### De la v22 a la v23
+
+Responde a la séptima revisión, una ronda de Codex enfocada en la pregunta inversa
+a las anteriores: si el código de verificación puede frenar una corrida legítima,
+que desde la v22 obliga a descartarla (`23-REVISION-CODEX-5.md`). Claude Code
+verificó los siete hallazgos y las dos trampas contra el código: todos se
+confirmaron. El sexto lo había visto también Claude Code mientras corría la ronda
+(un registro guardado con CRLF). **El prompt del juez no cambió**, y `juez-prueba`
+reutilizó los cinco resúmenes sin llamar. `prueba_offline.py`: 142 de 142.
+
+| # | Hallazgo | Gravedad | Qué se hizo | Dónde |
+|---|---|---|---|---|
+| 1 | Un corte durante una escritura dejaba un JSON truncado | Bloqueante | Escrituras atómicas (temporal y reemplazo) | §7.7 |
+| 2 | El `fetch` frenaba todas las etapas sin red | Debería | Obligatorio antes de la primera llamada; después, aviso si no hay red y freno si el remoto perdió los commits | §4.4 |
+| 3 | El juez exigía Codex | Debería | Cada etapa verifica sólo su binario | §7.4 |
+| 4 | Errores de git y clones superficiales leídos como resultados | Debería | Comandos de git verificados, con su error; clon superficial, frenado con instrucciones | §4.4 |
+| 5 | Un JSON con BOM frenaba | Debería | Se lee con o sin BOM; UTF-16, con mensaje | §7.7 |
+| 6 | CRLF o tilde descompuesta en el registro | Debería | Se normalizan antes de leerlo | §4.4 |
+| 7 | `juez --limite` decía «listo» | Nota | Dice cuántos faltan; `validacion` pide terminar | §7.7 |
+| T1 | Un resultado sin árboles pasaba | Trampa | Al menos un árbol, y todos el congelado | §4.4 |
+| T2 | El commit con el registro podía no estar pusheado | Trampa | El HEAD con el registro, en el remoto, antes de la primera llamada | §4.4 |
 
 ### De la v21 a la v22
 

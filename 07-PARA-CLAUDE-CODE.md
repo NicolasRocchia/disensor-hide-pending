@@ -157,11 +157,19 @@ brazos ni el informe antes que Nico.**
 - Un cambio de código después de la primera llamada a los brazos descarta la
   corrida (§10.1): ninguna enmienda lo autoriza.
 
+**Lo que agrega la v23** (séptima revisión, `23`):
+
+- Antes de la primera llamada a los brazos, `origin/main` tiene que tener el
+  commit de la lista y el HEAD con el registro: pushear después de commitear el
+  registro. Después, sin red la corrida sigue con un aviso.
+- No actualizar Codex mientras corren `logs` o `brazos`; después no importa.
+- Los JSON que edita Nico se pueden guardar con BOM; en UTF-16, no.
+
 ## Siguiente (13/10/2026)
 
 El piloto terminó (capacidad 50 de 50, `12`). `juez-prueba` con el prompt ciego:
 5 de 5 (`18`); con la regla de textos de la v20 el juez recibe los mismos textos, y
 la etapa lo verifica sin llamar. La cuarta revisión está en `19` y sus arreglos en
 la v20 (`20`). La quinta está en `21` y sus arreglos en la v21; la sexta, en `22`
-y sus arreglos en la v22. Lo que sigue lo decide Nico: otra ronda o congelar (§0,
-paso 4).
+y sus arreglos en la v22; la séptima, de falsos frenos, en `23` y sus arreglos en
+la v23. Lo que sigue lo decide Nico: otra ronda o congelar (§0, paso 4).
