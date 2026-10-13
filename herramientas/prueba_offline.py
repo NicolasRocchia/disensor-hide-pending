@@ -285,5 +285,19 @@ class FormaCanonica(unittest.TestCase):
         self.assertEqual(det["dominante"]["nombres"], ["NodeUnavailable"])
 
 
+class Capacidad(unittest.TestCase):
+    def test_lecturas_del_yes(self):
+        for si in ("Yes.", "**Yes** — the follow-up never returned.", "yes, the second call", "- Yes",
+                   "“Yes”", "## Yes\nThe query", "  YES:"):
+            self.assertTrue(piloto.dice_si(si), si)
+        for no in ("No.", "**No** — nothing missing.", "Yesterday the job", "", None, "Not sure; yes"):
+            self.assertFalse(piloto.dice_si(no), no)
+
+    def test_el_mensaje(self):
+        m = piloto.mensaje_capacidad("[09:14:20] USER\nWas it?\n")
+        self.assertEqual(m, "[09:14:20] USER\nWas it?\n\nIs there missing or unreturned data from a tool call "
+                            "in this execution log?\nAnswer with Yes or No, then explain briefly.")
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

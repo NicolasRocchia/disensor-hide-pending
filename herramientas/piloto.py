@@ -43,8 +43,14 @@ Etapas disponibles:
             por comportamiento de falla sorteado y las diferencias entre el
             sorteo y la metadata, a piloto/chequeo/resumen.json.
 
-Las etapas siguientes (capacidad, gemelos, humo) se agregan cuando éstas pasen.
-Las salidas quedan en experimento/piloto/.
+  capacidad La pregunta de capacidad de §4.3 al sujeto, por su arnés (sólo
+            lectura), sobre los logs que pasaron chequear. Estado por log: `si`,
+            `no` o `fallo`. Reanudable y con --limite, como generar. Al terminar,
+            si la tasa de «Yes» es menor que 90%, imprime PARADA POR CAPACIDAD y
+            sale con código 3.
+
+Las etapas siguientes (gemelos, humo) se agregan cuando éstas pasen. Las salidas
+quedan en experimento/piloto/.
 """
 import argparse
 import json
@@ -515,6 +521,120 @@ def etapa_chequear(_):
     print("con BOM:", total["con_bom"], "| con CRLF:", total["con_crlf"])
 
 
+DIR_CAP = arnes.PILOTO / "capacidad"
+# §4.3: la pregunta de la Tabla 7 del paper, textual, y la oración nuestra.
+PREGUNTA_CAPACIDAD = ("Is there missing or unreturned data from a tool call in this execution log?\n"
+                      "Answer with Yes or No, then explain briefly.")
+RE_MARCAS_AL_INICIO = re.compile("^[\\s*_#>`~\\-•:.,;!?\"'()\\[\\]“”‘’]+")
+TERMINALES_CAP = ("si", "no", "fallo")
+UMBRAL_CAPACIDAD = 0.90
+
+
+def mensaje_capacidad(log):
+    """§4.3: el log en forma canónica, una línea en blanco y la pregunta. Sin salto final."""
+    return log.rstrip("\n") + "\n\n" + PREGUNTA_CAPACIDAD
+
+
+def dice_si(texto):
+    """§4.3: la respuesta empieza con «Yes», sacando marcas de Markdown y puntuación del
+    comienzo y sin distinguir mayúsculas («Yesterday» no cuenta)."""
+    resto = RE_MARCAS_AL_INICIO.sub("", texto or "")
+    return re.match(r"yes(?![a-z])", resto, re.I) is not None
+
+
+def etapa_capacidad(args):
+    """§4.3: la pregunta de capacidad al sujeto, por su arnés, sobre los logs que pasaron §4.2."""
+    DIR_CAP.mkdir(parents=True, exist_ok=True)
+    fijado = arnes.verificar_binarios(SALIDA / "binarios.json")
+    lista = leer_json(DIR_CHEQUEO / "resumen.json")["pasan_lista"]
+    paradas = sorted(f.parent.name for f in DIR_CAP.glob("*/resumen.json") if leer_json(f)["estado"] == "PARADA")
+    if paradas:
+        sys.exit(f"Hay llamadas paradas por la red de seguridad ({', '.join(paradas)}). "
+                 "No se sigue hasta que Nico las revise (§7.1).")
+    hechas = 0
+    for k in lista:
+        carpeta = DIR_CAP / f"{k:03d}"
+        resumen_f = carpeta / "resumen.json"
+        previo = leer_json(resumen_f) if resumen_f.exists() else None
+        if previo and previo["estado"] in TERMINALES_CAP:
+            continue
+        if args.limite is not None and hechas >= args.limite:
+            break
+        carpeta.mkdir(exist_ok=True)
+        log_b = (DIR_LOGS / f"{k:03d}" / "log.md").read_bytes()
+        esperado = leer_json(DIR_CHEQUEO / f"{k:03d}.json")["log_md5"]
+        if arnes.md5_bytes(log_b) != esperado:
+            sys.exit(f"{k:03d}: el log cambió desde chequear (md5). El arnés para (§7.3).")
+        mensaje = mensaje_capacidad(log_b.decode("utf-8")).encode("utf-8")
+        resumen = previo if previo else {"log": k, "log_md5": esperado,
+                                          "mensaje_md5": arnes.md5_bytes(mensaje), "intentos": []}
+        if resumen["mensaje_md5"] != arnes.md5_bytes(mensaje):
+            sys.exit(f"{k:03d}: el mensaje no coincide con el de la corrida cortada. El arnés para.")
+        estado = None
+        while estado is None:
+            n = len(resumen["intentos"]) + 1
+            reg, texto = una_llamada_gpt(fijado, mensaje, carpeta, f"intento-{n}")
+            resumen["intentos"].append(reg)
+            if reg["red_de_seguridad"]:
+                resumen["estado"] = "PARADA"
+                escribir_json(resumen_f, resumen)
+                sys.exit(f"{k:03d}: RED DE SEGURIDAD (comando ejecutado o archivo cambiado). "
+                         f"El arnes para (§7.1). Ver {carpeta}")
+            if reg["termino"]:
+                estado = "si" if dice_si(texto) else "no"
+                resumen["intento_usado"] = n
+                resumen["primera_linea"] = (texto.strip().splitlines() or [""])[0][:200]
+            elif reg["sin_cupo"]:
+                resumen["estado"] = "sin_cupo"
+                escribir_json(resumen_f, resumen)
+                sys.exit(f"{k:03d}: sin cupo. Es reanudable: volve a correr la etapa mas tarde.")
+            elif sum(1 for i in resumen["intentos"] if not i["termino"] and not i["sin_cupo"]) >= 3:
+                estado = "fallo"
+        resumen["estado"] = estado
+        escribir_json(resumen_f, resumen)
+        hechas += 1
+        ult = resumen["intentos"][-1]
+        u = ult["uso"] or {}
+        print(f"{k:03d} {estado} | {ult['duracion_s']} s | entrada {u.get('input_tokens')} "
+              f"(cache {u.get('cached_input_tokens')}) salida {u.get('output_tokens')} | "
+              f"rechazos shell {ult['shell_rechazados']} apply_patch {ult['parches_rechazados']} | "
+              f"{resumen.get('primera_linea', '')[:70]}", flush=True)
+    agregar_capacidad(lista)
+
+
+def agregar_capacidad(lista):
+    """Tasa de «Yes» entre los logs que pasaron §4.2, con la regla de parada de §4.3."""
+    estados, gasto = {}, {"entrada": 0, "cache": 0, "salida": 0, "intentos": 0}
+    rechazos = {"shell": 0, "apply_patch": 0}
+    for k in lista:
+        f = DIR_CAP / f"{k:03d}" / "resumen.json"
+        if not f.exists():
+            estados["pendiente"] = estados.get("pendiente", 0) + 1
+            continue
+        r = leer_json(f)
+        estados[r["estado"]] = estados.get(r["estado"], 0) + 1
+        for it in r["intentos"]:
+            u = it["uso"] or {}
+            gasto["entrada"] += u.get("input_tokens", 0) or 0
+            gasto["cache"] += u.get("cached_input_tokens", 0) or 0
+            gasto["salida"] += u.get("output_tokens", 0) or 0
+            gasto["intentos"] += 1
+            rechazos["shell"] += it["shell_rechazados"]
+            rechazos["apply_patch"] += it["parches_rechazados"]
+    terminados = estados.get("si", 0) + estados.get("no", 0)
+    tasa = estados.get("si", 0) / terminados if terminados else None
+    completo = not estados.get("pendiente") and not estados.get("sin_cupo")
+    total = {"logs": len(lista), "estados": estados, "tasa_si": tasa, "umbral": UMBRAL_CAPACIDAD,
+             "completo": completo, "para": bool(completo and tasa is not None and tasa < UMBRAL_CAPACIDAD),
+             "gasto_en_todos_los_intentos": gasto, "rechazos_en_todos_los_intentos": rechazos}
+    escribir_json(DIR_CAP / "resumen.json", total)
+    print("estados:", estados, "| tasa de Yes:", None if tasa is None else round(tasa, 3))
+    print("gasto en todos los intentos:", gasto, "| rechazos:", rechazos)
+    if total["para"]:
+        print(f"PARADA POR CAPACIDAD (§4.3): la tasa de Yes es menor que {UMBRAL_CAPACIDAD}.")
+        sys.exit(3)
+
+
 def etapa_sandbox_generador(_):
     """§7.1 y §7.6: el sandbox del generador, con una llamada, antes de generar."""
     SALIDA.mkdir(parents=True, exist_ok=True)
@@ -584,11 +704,12 @@ def etapa_sandbox_generador(_):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("etapa", choices=["contexto", "sandbox", "sandbox-generador", "generar", "chequear"])
-    ap.add_argument("--limite", type=int, default=None, help="generar: como mucho N logs en esta corrida")
+    ap.add_argument("etapa", choices=["contexto", "sandbox", "sandbox-generador", "generar", "chequear",
+                                      "capacidad"])
+    ap.add_argument("--limite", type=int, default=None, help="generar y capacidad: como mucho N logs en esta corrida")
     a = ap.parse_args()
     {"contexto": etapa_contexto, "sandbox": etapa_sandbox, "sandbox-generador": etapa_sandbox_generador,
-     "generar": etapa_generar, "chequear": etapa_chequear}[a.etapa](a)
+     "generar": etapa_generar, "chequear": etapa_chequear, "capacidad": etapa_capacidad}[a.etapa](a)
 
 
 if __name__ == "__main__":
