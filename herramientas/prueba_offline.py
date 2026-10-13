@@ -65,6 +65,12 @@ class Comando(unittest.TestCase):
         self.assertEqual(c[c.index("--disable") + 1], "shell_tool")
         for clave in ("exclude_tmpdir_env_var=true", "exclude_slash_tmp=true", "network_access=false"):
             self.assertIn(f"sandbox_workspace_write.{clave}", c)
+        # Sin modo de sandbox de Windows, workspace-write queda en sólo lectura (10).
+        self.assertIn("windows.sandbox=unelevated", c)
+
+    def test_el_sujeto_no_lleva_modo_de_windows(self):
+        c = arnes.comando_codex_exec("codex.exe", "salida.md")
+        self.assertFalse(any(a.startswith("windows.") for a in c))
 
     def test_lo_comun_no_cambia(self):
         a = arnes.comando_codex_exec("codex.exe", "salida.md")

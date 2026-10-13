@@ -179,9 +179,16 @@ def comando_codex_exec(codex_exe, salida_ultimo_mensaje, generador=False):
     archivos: `workspace-write` sólo sobre su carpeta de trabajo (sin %TEMP%, sin
     /tmp, sin red) y sin la herramienta de shell, así que la única forma de escribir
     es apply_patch y la red de seguridad sigue siendo «ningún comando ejecutado».
+
+    `windows.sandbox=unelevated` hace falta: sin un modo de sandbox de Windows, que el
+    home aislado no trae, Codex 0.153.4 deja `workspace-write` en sólo lectura
+    (10-PRUEBA-SANDBOX-GENERADOR.md). `unelevated` no necesita la instalación con
+    permisos de administrador que pide `elevated`. El sujeto no lo lleva: sin modo de
+    Windows, todo comando se le rechaza, que es lo que se quiere.
     """
     if generador:
         sandbox = ["-s", "workspace-write", "--disable", "shell_tool",
+                   "-c", "windows.sandbox=unelevated",
                    "-c", "sandbox_workspace_write.exclude_tmpdir_env_var=true",
                    "-c", "sandbox_workspace_write.exclude_slash_tmp=true",
                    "-c", "sandbox_workspace_write.network_access=false"]
