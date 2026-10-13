@@ -1,10 +1,11 @@
 # Protocolo · Fase 1: ¿el esquema de residuo hace que el registro consigne el hueco?
 
-**Estado: v6, NO congelado.** Incorpora lo que midió la primera parte del
+**Estado: v7, NO congelado.** Incorpora lo que midió la primera parte del
 piloto, la del arnés, en la máquina de Nico (`05-PRUEBA-SANDBOX-1.md`,
-`06-PRUEBA-SANDBOX-2.md`, `08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md` y los archivos de
-`piloto/`): el binario de Codex, el sandbox, el contexto que recibe cada modelo,
-los esfuerzos y los flags de Claude Code. Ninguna de esas mediciones vio una
+`06-PRUEBA-SANDBOX-2.md`, `08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`,
+`09-PILOTO-GENERAR-1.md` y los archivos de `piloto/`): el binario de Codex, el
+sandbox, el contexto que recibe cada modelo, los esfuerzos, los flags de Claude
+Code y la configuración del generador. Ninguna de esas mediciones vio una
 respuesta del sujeto a un brazo. El mapa de cambios está en §15. Las versiones
 v0 a v4 quedan archivadas en `protocolo-v0-archivo.md` a
 `protocolo-v4-archivo.md`; desde la v5, el historial lo lleva el repositorio git
@@ -148,7 +149,10 @@ de Codex, el generador puede imprimirlos o intentar escribirlos.
   sin los rótulos de archivo («File 1…», «File 2…») ni cercos de código.
 
 El piloto (§4.5) fija cuál de los dos caminos se usa y con qué sandbox corre el
-generador (§7.1).
+generador (§7.1). **Medido** (`09-PILOTO-GENERAR-1.md`): con sandbox de sólo
+lectura, el generador intenta escribir los dos archivos, se lo rechazan y no los
+imprime (dos de dos). Por eso el generador corre con la contingencia de §7.1 y
+escribe sus archivos en su carpeta de trabajo.
 
 **Forma canónica.** Al ingresar, el log y la metadata se decodifican como UTF-8 y
 los finales de línea se pasan a LF. Recién después se calcula el md5 que se
@@ -488,8 +492,11 @@ verdad.
 Corre en la máquina de Nico, con Windows, desde una terminal común **o desde una
 sesión de Claude Code**: con 0.153.4, el sandbox rechaza todo con cualquiera de
 los dos como proceso padre (`06-PRUEBA-SANDBOX-2.md`,
-`08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`). Claude Code sigue
-`07-PARA-CLAUDE-CODE.md`: corre las etapas y no edita los scripts. El arnés es un
+`08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`). **Desde la v7, Claude Code escribe y corre
+el arnés** (decisión de Nico, 13/10/2026, §15): la sesión de difusión, que lo
+escribía sin poder ejecutarlo, queda fuera de ese circuito. Cada cambio a
+`herramientas/` pasa `herramientas/prueba_offline.py`, que no llama a ningún
+modelo, antes de gastar una llamada, y va en su propio commit. El arnés es un
 conjunto de scripts en Python (`herramientas/`) que se escriben y se revisan
 antes de congelar, y le saca al entorno de cada llamada las variables de una
 sesión de Claude Code o de Codex y las claves de API (`arnes.py`,
@@ -573,11 +580,28 @@ plugins recomendados, que depende de la cuenta; y el contexto de entorno
 - **La respuesta** es el último mensaje del agente, el que escribe `-o`. Si el
   flujo de eventos tiene mensajes del agente anteriores, se cuentan y se informan
   por brazo.
-- **El generador** corre igual. Si en el piloto intenta escribir sus dos archivos
-  en vez de imprimirlos, el sandbox se lo rechaza; si entonces no los imprime
-  completos, el generador, **y sólo el generador**, pasa a `-s workspace-write`
-  dentro de su carpeta de trabajo, y se repite el piloto del generador con esa
-  configuración.
+- **El generador**, con la contingencia aplicada. Con sólo lectura intentó
+  escribir sus dos archivos, se lo rechazaron y no los imprimió (`09`, dos de
+  dos). Por eso el generador, **y sólo el generador**, corre con
+  `-s workspace-write` sobre su carpeta de trabajo, y se repite su piloto con esa
+  configuración. Dos cosas más, decididas por Nico el 13/10 y declaradas:
+  - **Sin shell: `--disable shell_tool`.** Con permiso de escritura, el shell
+    podría ejecutar comandos dentro de la carpeta (uno de los dos anunció que iba
+    a «validar» los archivos). Sin shell, la única forma de escribir es
+    `apply_patch`.
+  - **Sólo su carpeta:** `-c sandbox_workspace_write.exclude_tmpdir_env_var=true`,
+    `-c sandbox_workspace_write.exclude_slash_tmp=true` y
+    `-c sandbox_workspace_write.network_access=false`, para que `%TEMP%` y `/tmp`
+    no sean raíces escribibles y no haya red.
+
+  Lo comprueba, con una llamada real, la etapa `sandbox-generador` (§7.6, punto
+  1b): `codex debug prompt-input` muestra `read-only` aunque se le pida otro modo
+  (`08`, «Correcciones»), así que no sirve para esto. Todo lo que el generador deja
+  en su carpeta se copia a `piloto/generador/NNN/intento-N-archivos/` antes de
+  soltarla. Cada log queda en uno de cuatro estados: `archivos` (exactamente un
+  `log_*.md` y un `log_*_metadata.json`), `mensaje` (sin esos archivos, pero el
+  último mensaje trae un objeto JSON), `sin_log` o `fallo` (tres intentos sin
+  terminar). Un `sin_log` no se reintenta: es un descarte de §4.2, punto 1.
 - **Los flags** se comprueban en el piloto contra `codex exec --help` de 0.153.4,
   y cualquier diferencia se escribe acá antes de congelar.
 
@@ -587,7 +611,10 @@ cualquier ruta, es falla de la llamada, y **si pasa una vez, se para** y se
 revisa el sandbox. **Los intentos rechazados no aparecen en el flujo de `--json`
 de 0.153.4** (`08`, punto 3): se cuentan en el stderr de cada llamada, una línea
 por intento, y se informan por brazo. Cada intento reenvía el contexto entero,
-así que también pesan en el presupuesto.
+así que también pesan en el presupuesto. **Para el generador**, la red de
+seguridad salta si ejecuta un comando, si cambia un archivo fuera de su carpeta
+o si la carpeta no se puede soltar después de recoger lo que dejó; escribir en su
+carpeta es lo esperado.
 
 ### 7.2 Claude por `claude -p`
 
@@ -690,7 +717,8 @@ vea el modelo.
 | # | Qué | Estado |
 |---|---|---|
 | 1 | El sandbox, con una sola llamada desde una terminal común | **Hecho** (`06-PRUEBA-SANDBOX-2.md`): rechaza todo. También con Claude Code como proceso padre (`08`), con los tres intentos vistos en el stderr. Desde ahora la etapa `sandbox` da OK sólo si ve los tres; si no, INCONCLUSO |
-| 2 | El contexto de Codex, limpio: cero «disensor», «residuo», «residue», «red-team» y «Dev solo»; ninguna skill; ninguna ruta que nombre el brazo, la condición, el log, «disensor» o «experimento». **Si falla, se para** | **Hecho** por `codex.cmd` (`piloto/contexto-b.json`) y por `codex.exe` (`piloto/arnes/contexto-exe.json`, `08`) |
+| 1b | El sandbox del generador (§7.1): escribe en su carpeta, no tiene shell y no puede escribir en `C:\w` ni en `%TEMP%`. Una llamada, etapa `sandbox-generador`. **Si falla, no se genera** | Pendiente |
+| 2 | El contexto de Codex, limpio: cero «disensor», «residuo», «residue», «red-team» y «Dev solo»; ninguna skill; ninguna ruta que nombre el brazo, la condición, el log, «disensor» o «experimento». **Si falla, se para** | **Hecho** por `codex.cmd` (`piloto/contexto-b.json`) y por `codex.exe` (`piloto/arnes/contexto-exe.json`, `08`). `debug prompt-input` no refleja el modo del sandbox (`08`, «Correcciones»): el bloque de permisos del generador no se mide así |
 | 3 | El contexto de Claude, sin configuración de usuario | **Hecho** (`piloto/claude-e.jsonl`) |
 | 4 | Los esfuerzos | **Hecho:** `low` para GPT (catálogo), `high` para Claude (fijado) |
 | 5 | Los flags contra el `--help` | **Hecho** para Claude (`piloto/claude-help.txt`); falta Codex |
@@ -708,7 +736,11 @@ vea el modelo.
 - **El arnés es reanudable:** cada llamada se guarda con su identificador, y al
   volver a correr se saltean las que ya están.
 - **Quedarse sin cupo no es una falla:** se espera y se sigue, y se registra el
-  corte.
+  corte. La señal de cupo se busca en el turno fallido, en los eventos de error y
+  en el stderr, salvo en las líneas de herramientas rechazadas, que repiten el
+  texto del comando. Al retomar, los intentos siguen numerándose y no se pisa
+  ningún archivo de los anteriores; un intento cortado por cupo no cuenta entre
+  los tres reintentos.
 - **Una llamada que no termina** (código de salida distinto de cero, sin último
   mensaje, o salida que no decodifica) se reintenta hasta 3 veces. Si sigue sin
   terminar, el log sale de C2 para los dos brazos.
@@ -909,7 +941,10 @@ su propia ventana, o declara la confusión.
       `%APPDATA%\npm\node_modules\@openai\codex\node_modules\@openai\codex-win32-x64\vendor\x86_64-pc-windows-msvc\bin\codex.exe`.
 - [x] `CODEX_HOME` aislado en `%USERPROFILE%\ch`, con su `codex login`; skills
       fuera con `skills.include_instructions=false` (§7.1).
-- [x] Sandbox de sólo lectura, sin contingencia (§7.6, punto 1).
+- [x] Sandbox de sólo lectura para capacidad y brazos (§7.6, punto 1).
+- [x] Generador con la contingencia de §7.1: `workspace-write` sobre su carpeta,
+      sin shell (`09`, decisión de Nico).
+- [ ] Sandbox del generador, comprobado con una llamada (§7.6, punto 1b).
 - [x] Contexto limpio por `codex.cmd`, por `codex.exe` y en Claude (§7.6, puntos 2
       y 3).
 - [ ] Lo que queda pendiente de §7.6: contexto por `codex.exe`, flags de Codex,
@@ -934,6 +969,21 @@ su propia ventana, o declara la confusión.
       etiquetar los JSON de los logs decisivos y 30 más.
 
 ## 15. Cambios
+
+### De la v6 a la v7
+
+Responde a `09-PILOTO-GENERAR-1.md` (las dos primeras llamadas del generador,
+con sólo lectura) y a dos decisiones de Nico del 13/10/2026: Claude Code escribe
+y corre el arnés, y el generador va sin shell.
+
+| # | Qué se midió o decidió | Qué se hizo | Dónde |
+|---|---|---|---|
+| 7.1 | Con sólo lectura, el generador intenta escribir sus archivos y no los imprime (dos de dos) | Contingencia aplicada: el generador corre con `workspace-write` sobre su carpeta; las dos llamadas quedan en `piloto/generador-solo-lectura/` y su piloto se repite | §4.1, §7.1 |
+| 7.2 | Nico: el generador, sin shell | `--disable shell_tool`, y sin `%TEMP%`, `/tmp` ni red como raíces escribibles | §7.1 |
+| 7.3 | `debug prompt-input` muestra `read-only` con cualquier modo pedido | Corregido el punto 6 de `08`; el sandbox del generador se comprueba con una llamada real, etapa `sandbox-generador` | §7.1, §7.6 |
+| 7.4 | El arnés marcaba `ok` una llamada del generador sin log | Estados `archivos`, `mensaje`, `sin_log` y `fallo`; lo que deja en su carpeta se copia antes de soltarla; red de seguridad propia del generador | §7.1 |
+| 7.5 | La señal de cupo podía salir del texto de un comando rechazado, y retomar pisaba los intentos anteriores | Se busca fuera de las líneas de herramientas; los intentos siguen numerándose y el cortado por cupo no cuenta | §7.7 |
+| 7.6 | Nico: Claude Code escribe y corre el arnés | Difusión sale del circuito del arnés; cada cambio pasa `prueba_offline.py` antes de gastar cupo | §7, `07` |
 
 ### De la v5 a la v6
 
