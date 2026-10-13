@@ -939,7 +939,7 @@ así un intento se puede auditar solo.
 | 6 | **Prueba de humo del sujeto:** 10 llamadas, 5 logs pendientes del piloto por A2b y por A2. Ninguna ejecución de comando ni cambio de archivo; **si hay alguno, se para.** No se juzgan, y no pueden cambiar ningún prompt, esquema ni umbral | **Hecho** (`13`): 10 de 10, cero comandos, cero archivos, cero rechazos |
 | 7 | La extracción de §6.1 encuentra el JSON en esas 10 respuestas, o la regla se ajusta antes de congelar | **Hecho** (`13`): 10 de 10; `residue` en los 5 de A2 y en ninguno de A2b |
 | 8 | Los bytes del mensaje llegan exactos (§7.3) | **Hecho** (`08`, `13`): por argumento, el prompt generador lleno llega idéntico; por stdin, el mensaje de un brazo que Codex guardó en su sesión es idéntico al enviado |
-| 9 | Tokens y tiempo por tipo de llamada, para el presupuesto y el cupo | **Generador** (`11`): 52.873 de entrada (79% de caché), 1.527 de salida, 35 s. **Capacidad** (`12`): unos 13.000 de entrada, unos 50 de salida, 5 s. **Brazos** (`13`): A2b 13.322 y 223; A2 19.804 y 454; unos 10 s. **Gemelos** (`13`): unos 2.100 de entrada, 2.000 de salida, 17 s, USD 0,06 a precio de API. **Juez** (`14`): unos 950 de entrada, de 25 a 140 de salida, 4 s, USD 0,009 a precio de API |
+| 9 | Tokens y tiempo por tipo de llamada, para el presupuesto y el cupo | **Generador** (`11`): 52.873 de entrada (79% de caché), 1.527 de salida, 35 s. **Capacidad** (`12`): unos 13.000 de entrada, unos 50 de salida, 5 s. **Brazos** (`13`): A2b 13.322 y 223; A2 19.804 y 454; unos 10 s. **Gemelos** (`13`): unos 2.100 de entrada, 2.000 de salida, 17 s, USD 0,06 a precio de API. **Juez** (`14`): unos 950 de entrada, de 25 a 140 de salida, 4 s, USD 0,009 a precio de API; con el prompt ciego de la v19 (`18`), de 821 a 874 de entrada, de 28 a 99 de salida, de 3 a 5 s, unos USD 0,007 |
 
 ### 7.7 Orden, cupo y cortes
 
@@ -1258,7 +1258,8 @@ cada hallazgo que se podía reproducir; todos se confirmaron. **El prompt del ju
 cambió:** `prompts/juez.txt`, 767 caracteres, md5
 `528761ba0ee3c66ffc55ff36dd058de9`. `prueba_offline.py`: 114 de 114. `juez-prueba`
 escribe en una carpeta por prompt (`piloto/juez-prueba-528761ba`), así la prueba
-del prompt viejo (`14`) no se reutiliza con el nuevo.
+del prompt viejo (`14`) no se reutiliza con el nuevo. Repetida con el prompt nuevo
+(`18`): 5 de 5 como se esperaba, con cuatro llamadas.
 
 | # | Hallazgo | Gravedad | Qué se hizo | Dónde |
 |---|---|---|---|---|
