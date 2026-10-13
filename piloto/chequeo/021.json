@@ -43,7 +43,8 @@
     ],
     "cadena": [
       "Servo-drive SD-48"
-    ]
+    ],
+    "entidad": "production-cell-p4"
   },
   "diferencias_con_el_sorteo": {
     "missing_follow_up_behavior": {

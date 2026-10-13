@@ -43,7 +43,8 @@
     ],
     "cadena": [
       "wafer-carrier assemblies"
-    ]
+    ],
+    "entidad": "Fab Line S4"
   },
   "diferencias_con_el_sorteo": {
     "missing_follow_up_behavior": {

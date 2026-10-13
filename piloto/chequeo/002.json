@@ -43,7 +43,8 @@
     ],
     "cadena": [
       "Optical-transceiver contamination"
-    ]
+    ],
+    "entidad": "line-photon-3"
   },
   "diferencias_con_el_sorteo": {
     "missing_follow_up_behavior": {

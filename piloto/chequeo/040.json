@@ -43,7 +43,8 @@
     ],
     "cadena": [
       "servo_motor_stockout"
-    ]
+    ],
+    "entidad": "cell-alpha-04"
   },
   "diferencias_con_el_sorteo": {
     "missing_follow_up_behavior": {

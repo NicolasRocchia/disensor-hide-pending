@@ -45,7 +45,8 @@
     "cadena": [
       "10G-LR-SFP+",
       "TimeoutError"
-    ]
+    ],
+    "entidad": "edge-transit"
   },
   "diferencias_con_el_sorteo": {
     "missing_follow_up_behavior": {

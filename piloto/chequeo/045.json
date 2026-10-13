@@ -43,7 +43,8 @@
     ],
     "cadena": [
       "StorageChecksumMismatch"
-    ]
+    ],
+    "entidad": "fab-east-1"
   },
   "diferencias_con_el_sorteo": {
     "missing_follow_up_behavior": {

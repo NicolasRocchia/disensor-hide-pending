@@ -43,7 +43,8 @@
     ],
     "cadena": [
       "Wafer alignment drift"
-    ]
+    ],
+    "entidad": "fab-line-aurora"
   },
   "diferencias_con_el_sorteo": {
     "missing_follow_up_behavior": {

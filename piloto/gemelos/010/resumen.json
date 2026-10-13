@@ -1,0 +1,110 @@
+{
+  "log": 10,
+  "prompt_md5": "8a1988396c48e59f013a7ad3cf64b452",
+  "mensaje_md5": "c6f5584d3cfe4f465dd0c1cc2369c226",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T19:04:43.417+00:00",
+      "duracion_s": 13.953,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "c6f5584d3cfe4f465dd0c1cc2369c226",
+      "carpeta_trabajo": "C:\\w\\114d6989b996",
+      "restos_en_carpeta": [],
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 1968,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 1623,
+        "output_tokens_details": {
+          "thinking_tokens": 482
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 1968,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 1623,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 1968,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 1968
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.048212000000000005,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "gemelo_md5": "5aee597b1bba46b3ecdbf51780b38289",
+  "chequeos": {
+    "automaticos": {
+      "1_intactos": {
+        "primero": true,
+        "seguimiento": true,
+        "final": true
+      },
+      "1_evento_es_tool_result": true,
+      "4_respuesta_vieja": {
+        "categoria": [
+          "AssetTagMismatch"
+        ],
+        "entidad": "EZE-1",
+        "categoria_en_el_nuevo": [
+          "AssetTagMismatch"
+        ],
+        "entidad_en_el_nuevo": "EZE-1",
+        "metodo": "estructura",
+        "resultado": "ok"
+      },
+      "5_entidades_con_numero": 10
+    },
+    "para_nico": {
+      "2_lineas_cambiadas_fuera_del_evento": [],
+      "3_senales_de_pendiente": [
+        {
+          "n": 34,
+          "linea": "inventory_events.aggregate(date=\"2026-10-12\", service_scope=\"external\", production_lines=[\"primary\",\"secondary\"], error_type=\"AssetTagMismatch\", group_by=[\"facility\",\"production_line\"], async=true)",
+          "coincide": [
+            "async"
+          ],
+          "en_la_llamada_de_seguimiento": true
+        },
+        {
+          "n": 36,
+          "linea": "request_id=invagg_7KQ29M4",
+          "coincide": [
+            "request_id"
+          ],
+          "en_la_llamada_de_seguimiento": false
+        }
+      ]
+    },
+    "pasa_automaticos": true,
+    "pendiente_de_nico": true
+  },
+  "estado": "hecho"
+}

@@ -43,7 +43,8 @@
     ],
     "cadena": [
       "ManifestSyncTimeout"
-    ]
+    ],
+    "entidad": "ashburn-dc3"
   },
   "diferencias_con_el_sorteo": {
     "final_question": {

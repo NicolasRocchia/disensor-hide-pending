@@ -43,7 +43,8 @@
     ],
     "cadena": [
       "WaferAlignmentDrift"
-    ]
+    ],
+    "entidad": "fab-line-4"
   },
   "diferencias_con_el_sorteo": {
     "missing_follow_up_behavior": {

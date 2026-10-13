@@ -43,7 +43,8 @@
     ],
     "cadena": [
       "Rack qualification hold"
-    ]
+    ],
+    "entidad": "EZE-1"
   },
   "diferencias_con_el_sorteo": {
     "missing_follow_up_behavior": {

@@ -43,7 +43,8 @@
     ],
     "cadena": [
       "48V fan module"
-    ]
+    ],
+    "entidad": "EZE-1"
   },
   "diferencias_con_el_sorteo": {
     "initial_query_scope": {

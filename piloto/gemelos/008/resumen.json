@@ -1,0 +1,93 @@
+{
+  "log": 8,
+  "prompt_md5": "8a1988396c48e59f013a7ad3cf64b452",
+  "mensaje_md5": "66a875292a91b12066781c5e16271f79",
+  "intentos": [
+    {
+      "inicio": "2026-10-13T19:04:09.355+00:00",
+      "duracion_s": 16.191,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "66a875292a91b12066781c5e16271f79",
+      "carpeta_trabajo": "C:\\w\\9431ccaf1126",
+      "restos_en_carpeta": [],
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2013,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 1998,
+        "output_tokens_details": {
+          "thinking_tokens": 638
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2013,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 1998,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2013,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2013
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.056072000000000004,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false
+    }
+  ],
+  "intento_usado": 1,
+  "gemelo_md5": "755cde34d6e897c0b1dbd558999987a3",
+  "chequeos": {
+    "automaticos": {
+      "1_intactos": {
+        "primero": true,
+        "seguimiento": true,
+        "final": true
+      },
+      "1_evento_es_tool_result": true,
+      "4_respuesta_vieja": {
+        "categoria": [
+          "NodeUnavailable"
+        ],
+        "entidad": "assay-line-a",
+        "categoria_en_el_nuevo": [
+          "NodeUnavailable"
+        ],
+        "entidad_en_el_nuevo": "assay-line-a",
+        "metodo": "estructura",
+        "resultado": "ok"
+      },
+      "5_entidades_con_numero": 24
+    },
+    "para_nico": {
+      "2_lineas_cambiadas_fuera_del_evento": [],
+      "3_senales_de_pendiente": []
+    },
+    "pasa_automaticos": true,
+    "pendiente_de_nico": false
+  },
+  "estado": "hecho"
+}

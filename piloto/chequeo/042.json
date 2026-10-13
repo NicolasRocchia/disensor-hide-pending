@@ -43,7 +43,8 @@
     ],
     "cadena": [
       "SD-48 servo drive"
-    ]
+    ],
+    "entidad": "Cordoba Assembly"
   },
   "diferencias_con_el_sorteo": {
     "missing_follow_up_behavior": {

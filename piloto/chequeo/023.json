@@ -43,7 +43,8 @@
     ],
     "cadena": [
       "Servo encoder alignment drift"
-    ]
+    ],
+    "entidad": "Rosario Robotics Works"
   },
   "diferencias_con_el_sorteo": {
     "missing_follow_up_behavior": {

@@ -43,7 +43,8 @@
     ],
     "cadena": [
       "servo-motor assembly SM-42"
-    ]
+    ],
+    "entidad": "cell-P1"
   },
   "diferencias_con_el_sorteo": {
     "follow_up_scope_expansion": {

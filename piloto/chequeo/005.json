@@ -44,7 +44,8 @@
     "cadena": [
       "HBM3E accelerator modules",
       "NodeUnavailable"
-    ]
+    ],
+    "entidad": "gpu-cluster-a"
   },
   "diferencias_con_el_sorteo": {
     "missing_follow_up_behavior": {

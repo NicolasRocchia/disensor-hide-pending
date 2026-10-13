@@ -43,7 +43,8 @@
     ],
     "cadena": [
       "servo-motor stockout"
-    ]
+    ],
+    "entidad": "cell-p7"
   },
   "diferencias_con_el_sorteo": {
     "missing_follow_up_behavior": {
