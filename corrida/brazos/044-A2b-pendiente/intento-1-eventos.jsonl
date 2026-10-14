@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a80-6c87-7f40-b8a4-94ac040016f6"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Servo-motor stockouts were heavily concentrated in **cell-alpha**, which recorded **598 of 672 incidents (89.0%)**. Cell-delta had 51 (7.6%) and cell-foxtrot had 23 (3.4%).\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"major\",\n      \"title\": \"Stockouts concentrated in cell-alpha\",\n      \"description\": \"Cell-alpha accounted for 598 of 672 servo-motor stockouts (89.0%); cell-delta had 51 and cell-foxtrot had 23.\",\n      \"location\": \"customer-facing systems / cell-alpha\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13153,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":252,"reasoning_output_tokens":86}}

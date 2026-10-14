@@ -1,0 +1,1 @@
+Yes. On October 12, **sa-east-1a accounted for 2,627 of 4,259 defects (61.7%)**, so it alone represented most reported defects. The remaining defects came from sa-east-1b (909; 21.3%) and sa-east-1c (723; 17.0%).

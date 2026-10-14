@@ -1,0 +1,1 @@
+Yes. Including primary and secondary lines, **241 of 322 SM-48 stockouts (74.8%)** occurred in **CELL-P1-07**. The remaining 81 events were spread across four cells, so the stockouts were strongly concentrated in that cell.

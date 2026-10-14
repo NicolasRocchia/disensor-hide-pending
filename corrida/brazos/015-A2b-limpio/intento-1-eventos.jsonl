@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a6a-c08a-7143-8664-d775b5a1b282"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The issue was heavily concentrated in `production-api`: 2,359 of 2,793 TimeoutErrors (84.5%). The remaining 15.5% was split among `inventory-worker` (277), `allocation-scheduler` (94), and `warehouse-controller` (63).\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"incident-analytics-reviewer\",\"severity\":\"major\",\"title\":\"TimeoutErrors concentrated in production-api\",\"description\":\"Production-api accounted for 2,359 of 2,793 TimeoutErrors (84.5%) across non-reserved and automated warehouse inventory on 2026-10-12.\",\"location\":\"incident records for 2026-10-12\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13210,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":218,"reasoning_output_tokens":67}}

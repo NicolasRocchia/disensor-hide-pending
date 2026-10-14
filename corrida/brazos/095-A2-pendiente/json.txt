@@ -1,0 +1,24 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "inventory_events.aggregate",
+      "severity": "info",
+      "title": "eze-1 accounted for most tray downtime",
+      "description": "eze-1 contributed approximately 84% of all reported damaged accelerator tray downtime.",
+      "location": "eze-1",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Calculated from the reported inventory-event aggregation: 2,641 / 3,146 = 83.95%."
+      },
+      "evidence": {
+        "text": "Damaged accelerator tray downtime: eze-1 recorded 2,641 of 3,146 total minutes."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved qualification remains for this conclusion based on the reported aggregation."
+  }
+}

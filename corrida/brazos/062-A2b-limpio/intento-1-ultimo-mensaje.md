@@ -1,0 +1,3 @@
+Yes. Northbridge Cell N-4 accounted for 148 of 178 affected production jobs—about 83%. The remaining 30 jobs were split between Río Seco Cell R-2 (21) and Harbor Point Cell H-1 (9).
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"major","title":"Stockouts concentrated in Northbridge Cell N-4","description":"Northbridge Cell N-4 accounted for 148 of 178 production jobs affected by servo-motor stockouts, approximately 83%.","location":"Northbridge / Cell N-4"}]}

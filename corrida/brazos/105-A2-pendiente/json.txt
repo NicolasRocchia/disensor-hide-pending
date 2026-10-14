@@ -1,0 +1,31 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "inventory_events",
+      "severity": "major",
+      "title": "TimeoutErrors concentrated in inventory-sync-gateway",
+      "description": "inventory-sync-gateway generated 1,947 of 2,184 TimeoutError events, representing 89.1% of the total in the completed scope.",
+      "location": "External services; primary production lines; 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the completed inventory-events aggregation."
+      },
+      "evidence": {
+        "text": "TimeoutError totals: inventory-sync-gateway 1,947; supplier-stock-adapter 181; parts-reservation-scheduler 56."
+      }
+    }
+  ],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "execution_gap",
+        "requires_human_attention": false,
+        "description": "The asynchronous aggregation including secondary production lines had been accepted but no completed result was available, so concentration across both line groups remains unconfirmed.",
+        "gap_reason": "other"
+      }
+    ]
+  }
+}

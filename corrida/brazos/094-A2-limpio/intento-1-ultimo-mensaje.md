@@ -1,0 +1,28 @@
+Yes. **atlas-dc3 accounted for 173 of 312 defects—55.4% of the total.** Most were GPU ECC quarantines (158).
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "qc_events_aggregate",
+      "severity": "major",
+      "title": "Atlas-dc3 produced most reported defects",
+      "description": "Atlas-dc3 recorded 173 of 312 defects, representing 55.4% of the total.",
+      "location": "Facility-level quality-control aggregation for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Summed atlas-dc3 counts across all four defect categories."
+      },
+      "evidence": {
+        "text": "atlas-dc3: 158 GPU ECC, 11 image mismatch, and 4 thermal drift events."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved analytical residue remained after checking the facility totals."
+  }
+}
+```

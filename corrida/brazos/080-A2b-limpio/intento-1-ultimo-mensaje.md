@@ -1,0 +1,3 @@
+Yes. Ezeiza Fulfillment Center reported 1,264 of 2,229 defects—56.7% of the total—so it accounted for a majority. It also led every defect category.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Ezeiza accounted for most defects","description":"Ezeiza Fulfillment Center reported 1,264 of 2,229 defects (56.7%) and led every defect category.","location":"Ezeiza Fulfillment Center"}]}

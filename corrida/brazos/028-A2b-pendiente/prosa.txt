@@ -1,0 +1,1 @@
+Yes—within the available stockout data, North Materials Lab’s Line N‑W2 accounted for 31 of 43 wafer-handler end-effector stockouts (72%), so it represented a clear majority. The broader wafer-related delay rollup was still processing, so this does not yet confirm a majority across every type of wafer-related delay.

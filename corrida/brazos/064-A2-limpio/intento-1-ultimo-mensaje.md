@@ -1,0 +1,11 @@
+Yes. Cell L-04 accounted for 729 of the 942 affected jobs—77.4%. The remainder was split between L-07 (115; 12.2%) and L-02 (98; 10.4%).
+
+```json
+{
+  "findings": [],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified conclusions remain from this analysis."
+  }
+}
+```

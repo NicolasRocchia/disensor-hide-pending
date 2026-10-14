@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a64-197a-7221-9023-5fe66b94b4e6"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Cell-P3 accounted for 612 of 742 downtime minutes (82%) and 33 of 41 events (80%) caused by servo-motor stockouts. The remaining 130 minutes were split between cell-P1 (84) and cell-P2 (46).\n\n```json\n{\n  \"findings\": [],\n  \"residue\": {\n    \"declared_absence\": true,\n    \"declaration\": \"No unresolved residue remains from this factual comparison of the supplied manufacturing-delay records.\"\n  }\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":15073,"cached_input_tokens":3712,"cache_write_input_tokens":0,"output_tokens":242,"reasoning_output_tokens":130}}

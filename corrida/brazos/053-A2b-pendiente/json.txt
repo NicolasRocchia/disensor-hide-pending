@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Most failures occurred on gpu-cluster-a",
+      "description": "gpu-cluster-a produced 80.3% of NodeUnavailable events and 83.6% of the associated delayed jobs.",
+      "location": "inventory_delays aggregate for 2026-10-12"
+    }
+  ]
+}

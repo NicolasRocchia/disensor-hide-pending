@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a81-55d9-7e92-848f-e26bfef2a9b7"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. TimeoutError was heavily concentrated in **dispatch-api**, which recorded **1,947 of 2,184 events (89.1%)**. Customer-tracking had 181 (8.3%), and label-scheduler had 56 (2.6%).\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"assistant\",\"severity\":\"major\",\"title\":\"TimeoutErrors concentrated in dispatch-api\",\"description\":\"Dispatch-api accounted for 1,947 of 2,184 TimeoutError events (89.1%) in the customer-facing systems on 2026-10-12.\",\"location\":\"shipment quality records for 2026-10-12\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13166,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":218,"reasoning_output_tokens":79}}

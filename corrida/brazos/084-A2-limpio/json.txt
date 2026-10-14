@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "TimeoutErrors concentrated in pallet-vision-api",
+      "description": "The service accounted for 1602 of 1972 TimeoutError downtime minutes and 2559 of 3127 TimeoutError events.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Verified against the supplied quality-control aggregation for primary and secondary production lines."
+      },
+      "evidence": {
+        "text": "pallet-vision-api: 2,559 events and 1,602 downtime minutes out of 3,127 events and 1,972 minutes."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved interpretive, verification, or execution residue remains for this calculation."
+  }
+}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a63-3636-71c1-b9ae-c6180ee6c1b5"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The NodeUnavailable failures were heavily concentrated in **cell-orion**:\n\n- All production lines: **2,341 of 2,751** failures (**85.1%**)\n- Primary lines only: **1,936 of 2,214** failures (**87.4%**)\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"major\",\n      \"title\": \"NodeUnavailable concentrated in cell-orion\",\n      \"description\": \"Cell-orion accounted for 2,341 of 2,751 NodeUnavailable failures across primary and secondary production lines (85.1%).\",\n      \"location\": \"production/cell-orion\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13322,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":261,"reasoning_output_tokens":95}}

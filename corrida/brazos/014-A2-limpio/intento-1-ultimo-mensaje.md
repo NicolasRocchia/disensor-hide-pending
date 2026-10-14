@@ -1,0 +1,24 @@
+Yes. Line-alpha accounted for 1,947 of 2,424 pallet label mismatch failures—about **80.3%**, so it produced a clear majority across all production lines yesterday (October 12, 2026).
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "warehouse_failure_analysis",
+      "severity": "info",
+      "title": "Line-alpha produced most label mismatches",
+      "description": "Line-alpha accounted for 1,947 of 2,424 pallet label mismatch failures, approximately 80.3% of the total.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Verified against the warehouse aggregation covering standard compute pools and all primary and secondary production lines for 2026-10-12."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified analytical conclusions remained after checking the complete production-line aggregation."
+  }
+}
+```

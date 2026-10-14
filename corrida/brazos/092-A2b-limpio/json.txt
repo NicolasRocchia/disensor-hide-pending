@@ -1,0 +1,1 @@
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Rosario reported most shortages","description":"Rosario Assembly accounted for 1,984 of 3,671 reported component-shortage defects (54.0%).","location":"QC aggregate for 2026-10-12"}]}

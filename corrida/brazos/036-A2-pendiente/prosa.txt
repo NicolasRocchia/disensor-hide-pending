@@ -1,0 +1,1 @@
+Yes—within the completed external-services data, Northgate reported 401 of 689 defects (58.2%), so it accounted for most. The broader query including automated warehouse inventory had not completed, so an all-inventory majority is not yet confirmed.

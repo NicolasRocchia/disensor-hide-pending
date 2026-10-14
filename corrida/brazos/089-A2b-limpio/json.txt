@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Pilar accounted for most defects",
+      "description": "Pilar Assembly Works reported 545 of 927 defects (58.8%) across customer-facing primary and secondary production lines.",
+      "location": "Pilar Assembly Works"
+    }
+  ]
+}

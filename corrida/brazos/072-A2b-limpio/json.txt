@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "inventory-reviewer",
+      "severity": "major",
+      "title": "Servo-motor stockouts concentrated in one cell",
+      "description": "Río-North rack-handling-cell-4 generated 143 of 199 servo-motor stockouts across all monitored facilities, approximately 72% of the total.",
+      "location": "Río-North / rack-handling-cell-4"
+    }
+  ]
+}

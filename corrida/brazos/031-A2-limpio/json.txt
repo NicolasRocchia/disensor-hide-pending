@@ -1,0 +1,21 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Servo stockouts concentrated in CELL-P1-07",
+      "description": "CELL-P1-07 accounted for 241 of 322 SM-48 stockout events, or 74.8%, across primary and secondary production lines.",
+      "location": "Customer-facing production logs for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied production-log aggregation."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified conclusions remain from this analysis."
+  }
+}

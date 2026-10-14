@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "North Hub dominated packet-loss downtime",
+      "description": "North Hub accounted for 780 of 914 packet-loss downtime minutes in the full production scope (85.3%), and 684 of 788 minutes in the customer-facing scope (86.8%).",
+      "location": "North Hub"
+    }
+  ]
+}

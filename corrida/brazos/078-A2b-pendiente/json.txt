@@ -1,0 +1,1 @@
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"FAB-L3 dominated wafer-related delays","description":"FAB-L3 accounted for 143 of 184 jobs affected by WaferAlignTimeout in standard compute pools, approximately 78%.","location":"FAB-L3"}]}

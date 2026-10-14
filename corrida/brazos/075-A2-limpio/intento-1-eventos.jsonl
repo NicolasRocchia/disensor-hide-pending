@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a96-da62-75f3-9444-533042fa9e70"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. CELL-F12 accounted for 94 of 118 servo-motor stockouts (79.7%) across the expanded scope. In customer-facing systems alone, it had 78 of 96 events (81.3%).\n\n```json\n{\n  \"findings\": [],\n  \"residue\": {\n    \"declared_absence\": true,\n    \"declaration\": \"No unresolved questions or unverified conclusions remain from this analysis.\"\n  }\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":15035,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":214,"reasoning_output_tokens":115}}

@@ -1,0 +1,1 @@
+Yes. Ezeiza Fulfillment Center accounted for 970 of 1,486 defects—65.3% of the external-service reports. Rosario had 309 (20.8%), and Córdoba had 207 (13.9%). The broader all-infrastructure query had not yet completed, so this conclusion is limited to the available external-service data.

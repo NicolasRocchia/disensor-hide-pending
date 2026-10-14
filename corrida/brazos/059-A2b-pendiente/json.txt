@@ -1,0 +1,1 @@
+{"findings":[{"id":"h1","origin":"assistant","severity":"major","title":"Wafer delays concentrated on Line F3","description":"Cordoba Foundry Line F3 accounted for approximately 80% of wafer transfer alignment failures yesterday.","location":"Cordoba Foundry / Line F3"}]}

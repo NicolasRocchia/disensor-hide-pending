@@ -1,0 +1,1 @@
+Yes. Including warehouse workflows, gpu-cluster-a accounted for 2,512 of 3,293 NodeUnavailable-affected jobs—about 76.3%. Across only the three facilities, it was 2,319 of 2,846 jobs—about 81.5%.

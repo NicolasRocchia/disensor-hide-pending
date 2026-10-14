@@ -1,0 +1,1 @@
+Yes. FAB-A/CELL-ETCH-04 accounted for 731 of 842 servo-motor stockouts—86.8%. The remaining 111 occurred in CELL-ETCH-02 (64) and FAB-B/CELL-CMP-01 (47).

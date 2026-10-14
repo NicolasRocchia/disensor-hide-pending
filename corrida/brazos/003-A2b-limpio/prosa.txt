@@ -1,0 +1,4 @@
+Yes. The NodeUnavailable failures were heavily concentrated in **cell-orion**:
+
+- All production lines: **2,341 of 2,751** failures (**85.1%**)
+- Primary lines only: **1,936 of 2,214** failures (**87.4%**)

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13aaa-7339-7f11-808f-1d874f55f638"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Fab Line P3 accounted for 611 of 742 wafer-edge-chipping incidents on the fabrication lines—82.3%, clearly the majority.\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"assistant\",\"severity\":\"info\",\"title\":\"Fab Line P3 dominated wafer defects\",\"description\":\"Fab Line P3 recorded 611 of 742 wafer-edge-chipping incidents across the primary fabrication lines (82.3%).\",\"location\":\"Fab Line P3\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13463,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":240,"reasoning_output_tokens":139}}

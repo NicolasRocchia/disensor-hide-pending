@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Northbridge reported most defects",
+      "description": "Northbridge Analytical Center accounted for 418 of 555 reported facility-equipment defects, approximately 75% of the total.",
+      "location": "Incident records for 2026-10-12"
+    }
+  ]
+}

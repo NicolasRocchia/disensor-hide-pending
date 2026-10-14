@@ -1,0 +1,3 @@
+Yes. FAB-A/CELL-ETCH-04 recorded 731 of 960 servo-motor stockouts across all manufacturing lines—about 76%. The next-highest cell had only 64, so the stockouts were strongly concentrated there.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"major","title":"Stockouts concentrated in FAB-A etch cell 04","description":"FAB-A/CELL-ETCH-04 accounted for 731 of 960 servo-motor stockout events (76%) across wafer fabrication and advanced packaging.","location":"FAB-A/CELL-ETCH-04"}]}

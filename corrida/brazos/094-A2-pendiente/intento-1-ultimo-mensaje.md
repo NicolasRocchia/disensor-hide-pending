@@ -1,0 +1,37 @@
+Yes. Within the completed **non-reserved inventory** report, **atlas-dc3 accounted for 165 of 252 defects—65.5%**, so it represented nearly two-thirds of all reported defects. Most were GPU ECC quarantines (151).
+
+The broader all-infrastructure query had not yet returned, so this conclusion does not include regional/private inventory.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "qc_events.aggregate",
+      "severity": "major",
+      "title": "Atlas-dc3 produced most defects",
+      "description": "Atlas-dc3 accounted for 165 of 252 reported defects in non-reserved inventory, or approximately 65.5%.",
+      "location": "2026-10-12 non-reserved compute-cluster quality-control events",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Counts were calculated from the completed QC aggregation: 151 GPU ECC quarantine, 10 node image mismatch, and 4 thermal sensor drift events at atlas-dc3."
+      },
+      "evidence": {
+        "text": "The completed aggregation reported 252 total defects and 165 at atlas-dc3."
+      }
+    }
+  ],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "execution_gap",
+        "requires_human_attention": false,
+        "description": "The asynchronous all-infrastructure aggregation had not returned, so regional and private inventory could not be included in this conclusion.",
+        "gap_reason": "other"
+      }
+    ]
+  }
+}
+```

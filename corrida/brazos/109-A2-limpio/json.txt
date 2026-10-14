@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "inventory_event_analysis",
+      "severity": "info",
+      "title": "ReticleSyncTimeout concentrated in litho-dispatch",
+      "description": "Lithio-dispatch accounted for 2198 of 2496 ReticleSyncTimeout events, or 88.1 percent, on 2026-10-12.",
+      "final_state": "refuted_verifiable",
+      "verification": {
+        "against": "execution",
+        "detail": "Verified against the inventory event aggregation including reserved compute capacity."
+      },
+      "evidence": {
+        "text": "ReticleSyncTimeout: 2,496 total; litho-dispatch: 2,198; wafer-routing: 201; mask-catalog: 97."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved analytical questions or unverified execution gaps remained after reviewing the supplied aggregation results."
+  }
+}

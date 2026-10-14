@@ -1,0 +1,28 @@
+Yes. North Hub accounted for 684 of 788 packet-loss downtime minutes—about **86.8%**, clearly the majority.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "North Hub caused most packet-loss downtime",
+      "description": "North Hub represented approximately 86.8% of packet-loss downtime.",
+      "location": "Production downtime aggregation for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Calculated 684 divided by 788 from the reported downtime aggregation."
+      },
+      "evidence": {
+        "text": "PacketLoss totaled 788 minutes, including 684 minutes at North Hub."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified conclusions remain from this calculation."
+  }
+}
+```

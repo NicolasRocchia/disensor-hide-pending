@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a83-b2ab-7f21-8b29-00cd5226402b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **184 of 257 NodeUnavailable incidents (71.6%)** occurred on `gpu-cluster-a`. It also accounted for **2,213 of 2,823 downtime minutes (78.4%)**.\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"assistant\",\"severity\":\"info\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13421,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":159,"reasoning_output_tokens":88}}

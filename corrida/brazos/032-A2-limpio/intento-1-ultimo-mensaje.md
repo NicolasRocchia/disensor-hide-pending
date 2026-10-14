@@ -1,0 +1,28 @@
+Yes. Ashburn accounted for 731 of 1,062 SFP-25G-SR stockout events—about **68.8%**, so a clear majority.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "inventory-analysis",
+      "severity": "info",
+      "title": "Most stockouts occurred in Ashburn",
+      "description": "Ashburn recorded 731 of 1,062 SFP-25G-SR stockout events, approximately 68.8% of the total.",
+      "location": "ashburn-dc2",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Verified against the aggregated production stockout results."
+      },
+      "evidence": {
+        "text": "SFP-25G-SR: 1,062 total events; ashburn-dc2: 731 events."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified conclusions remain from this calculation."
+  }
+}
+```

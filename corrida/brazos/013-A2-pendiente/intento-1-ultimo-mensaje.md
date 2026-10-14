@@ -1,0 +1,27 @@
+Yes. **dal-04 accounted for 137 of 184 NVMe SSD stockouts—74.5%**, so it represented nearly three-quarters of the reported incidents.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "incident_records",
+      "severity": "info",
+      "title": "NVMe stockouts concentrated at dal-04",
+      "description": "dal-04 recorded 137 of 184 NVMe U.2 7.68 TB SSD stockout incidents, equivalent to 74.5%.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Calculated from the facility-level incident aggregation for 2026-10-12."
+      },
+      "evidence": {
+        "text": "NVMe U.2 7.68 TB SSD: 184 total incidents; dal-04: 137 incidents."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified interpretive judgments remain for this calculation."
+  }
+}
+```

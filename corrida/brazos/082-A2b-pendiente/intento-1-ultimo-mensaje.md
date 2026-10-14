@@ -1,0 +1,3 @@
+Yes. FAB-L3 accounted for 428 of the 522 minutes from wafer-carrier dispatch holds—about 82%. It also represented 505 of all 846 reported shipment-delay minutes, roughly 60%.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"major","title":"FAB-L3 dominated wafer-carrier delays","description":"FAB-L3 caused 428 of 522 minutes of wafer-carrier dispatch-hold downtime (82%).","location":"FAB-L3"}]}

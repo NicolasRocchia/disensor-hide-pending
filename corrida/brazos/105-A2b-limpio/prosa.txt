@@ -1,0 +1,1 @@
+Yes. TimeoutError was heavily concentrated in **inventory-sync-gateway**, which accounted for **2,359 of 2,683 events (87.9%)** across primary and secondary lines. The other services contributed 324 events (12.1%).

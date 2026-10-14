@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a88-245e-7530-9774-d596c6d249b0"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. gpu-cluster-a accounted for 75 of 97 NodeUnavailable events (77.3%) and 448 of 556 delayed jobs (80.6%) across non-reserved and reserved capacity.\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"assistant\",\"severity\":\"major\",\"title\":\"Most NodeUnavailable failures occurred on gpu-cluster-a\",\"description\":\"gpu-cluster-a produced 75 of 97 events and affected 448 of 556 delayed jobs.\",\"location\":\"Inventory delay records for 2026-10-12\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13602,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":226,"reasoning_output_tokens":109}}

@@ -1,0 +1,24 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Most failures occurred at West Annex",
+      "description": "West Annex recorded 70 of 101 BarcodeReadTimeout failures when automated warehouse inventory was included.",
+      "location": "LabOps aggregate for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Verified against the completed LabOps aggregation result."
+      },
+      "evidence": {
+        "text": "West Annex: 70 failed jobs; overall: 101 failed jobs."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified conclusions remain from this comparison."
+  }
+}

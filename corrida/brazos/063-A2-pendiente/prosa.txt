@@ -1,0 +1,1 @@
+Yes. The TimeoutError problem was heavily concentrated in `shipment-gateway`: 1,947 of 2,184 records (89.1%). `carrier-worker` accounted for 181 (8.3%), and `dispatch-scheduler` for 56 (2.6%).

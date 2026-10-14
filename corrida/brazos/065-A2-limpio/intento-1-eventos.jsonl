@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a90-bef2-72f0-a473-68524cd29b14"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Rosario accounted for:\n\n- **141 of 177 total incidents (79.7%)** across non-reserved and automated-warehouse inventory.\n- **119 of 146 non-reserved incidents (81.5%)**.\n\nSo roughly four out of five servo-motor SM-42 stockouts occurred at the Rosario Assembly Plant.\n\n```json\n{\n  \"findings\": [],\n  \"residue\": {\n    \"declared_absence\": true,\n    \"declaration\": \"No unresolved questions or unverified conclusions remain from this analysis.\"\n  }\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":15104,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":326,"reasoning_output_tokens":205}}

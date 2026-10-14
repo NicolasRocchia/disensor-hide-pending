@@ -1,0 +1,16 @@
+Yes. The stockouts were heavily concentrated in **weld-cell-P3**, which accounted for **318 of 392 minutes (81%)** of servo-motor-stockout downtime. Assembly-cell-P1 had 49 minutes and paint-cell-P2 had 25 minutes.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "Servo-motor stockouts concentrated in weld-cell-P3",
+      "description": "Weld-cell-P3 accounted for 318 of 392 minutes (81%) of servo-motor-stockout downtime.",
+      "location": "weld-cell-P3"
+    }
+  ]
+}
+```

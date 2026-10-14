@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "ReticleSyncTimeout concentrated in litho-dispatch",
+      "description": "Litho-dispatch recorded 2,198 of 2,496 ReticleSyncTimeout events (88.1%), indicating that the problem was strongly concentrated in one service.",
+      "location": "inventory_events aggregate for 2026-10-12, all inventory"
+    }
+  ]
+}

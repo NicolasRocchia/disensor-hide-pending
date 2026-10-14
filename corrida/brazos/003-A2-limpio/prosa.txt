@@ -1,0 +1,1 @@
+Yes. Across primary and secondary production lines, **cell-orion accounted for 2,341 of 2,751 NodeUnavailable failures—85.1%**. On primary lines alone, it represented **1,936 of 2,214—87.4%**. The problem was therefore heavily concentrated in cell-orion.

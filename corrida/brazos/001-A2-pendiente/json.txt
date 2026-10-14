@@ -1,0 +1,24 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Most defects originated in sa-east-1a",
+      "description": "sa-east-1a recorded 2,185 of 3,482 external-service defects, representing 62.8% of the total.",
+      "location": "Incident records for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Facility totals were calculated by summing all four reported defect categories."
+      },
+      "evidence": {
+        "text": "sa-east-1a: 1,746 + 212 + 139 + 88 = 2,185; total records: 3,482."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified conclusions remain from this calculation."
+  }
+}

@@ -1,0 +1,1 @@
+Yes. Checkout-api accounted for **421 of 544 minutes (77.4%)** of connection-pool-exhaustion downtime across all production systems. Among customer-facing systems alone, it represented **421 of 486 minutes (86.6%)**. The issue was therefore strongly concentrated in checkout-api.

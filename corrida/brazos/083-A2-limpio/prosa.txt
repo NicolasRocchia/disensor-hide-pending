@@ -1,0 +1,6 @@
+Yes. Dock-gateway accounted for:
+
+- **2,086 of 2,412 external-service cases: 86.5%**
+- **2,086 of 2,594 cases including internal services: 80.4%**
+
+So the problem was strongly concentrated in dock-gateway, although the data does not establish that dock-gateway was the root cause.

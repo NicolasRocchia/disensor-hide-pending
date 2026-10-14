@@ -1,0 +1,38 @@
+Yes. Weld-cell-P3 accounted for 318 of 392 stockout-related downtime minutes on production lines—about 81%. The other production cells had 49 minutes at assembly-cell-P1 and 25 minutes at paint-cell-P2.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "production_logs",
+      "severity": "major",
+      "title": "Stockouts concentrated at weld-cell-P3",
+      "description": "Weld-cell-P3 represented approximately 81% of servo-motor stockout downtime on primary production lines.",
+      "location": "weld-cell-P3",
+      "final_state": "escalated_open",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied production downtime aggregation for 2026-10-12."
+      },
+      "evidence": {
+        "text": "ServoMotorStockout totaled 392 minutes on primary lines, including 318 minutes at weld-cell-P3."
+      }
+    }
+  ],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "escalation_without_decision",
+        "finding_ref": "h1",
+        "requires_human_attention": true,
+        "description": "The downtime concentration is established, but the logs do not establish the underlying cause or a corrective-action decision.",
+        "evidence": {
+          "text": "The aggregation reports downtime distribution but provides no root-cause or remediation record."
+        }
+      }
+    ]
+  }
+}
+```

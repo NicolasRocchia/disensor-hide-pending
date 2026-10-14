@@ -1,0 +1,3 @@
+Yes. Transit-gateway accounted for 1,872 of 2,504 affected jobs—74.8%—after internal services were included. It remained strongly concentrated there, though its share fell from 87.2% in the external-only view.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"PacketDropBurst remained transit-gateway concentrated","description":"Transit-gateway represented 1,872 of 2,504 affected jobs (74.8%) after internal services were included.","location":"Network inventory summary for 2026-10-12"}]}

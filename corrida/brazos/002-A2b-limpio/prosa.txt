@@ -1,0 +1,1 @@
+Yes. Including reserved compute capacity, gpu-cluster-a accounted for 699 of 914 NodeUnavailable failures—about 76.5%. In non-reserved inventory alone, it was 611 of 742—about 82.3%.

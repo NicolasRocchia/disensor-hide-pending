@@ -1,0 +1,1 @@
+Yes. Across all infrastructure, **cell-atlas-3 accounted for 1,912 of 2,382 servo-motor stockout delays—80.3%**. The next-largest cell, atlas-1, had only 204 (8.6%). Within customer-facing systems alone, atlas-3’s concentration was even higher: **1,566 of 1,842, or 85.0%**.

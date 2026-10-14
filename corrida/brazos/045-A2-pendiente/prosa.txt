@@ -1,0 +1,1 @@
+Yes. Of 2,184 `TimeoutError` events, 1,947 occurred in `dispatch-api`—about **89.1%**. `customer-tracking` had 181 (8.3%), and `label-scheduler` had 56 (2.6%). This confirms strong concentration in `dispatch-api` within the customer-facing systems reviewed. The broader regional/private-infrastructure query had not completed.

@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "Stockouts concentrated in FAB-A etch cell 04",
+      "description": "FAB-A/CELL-ETCH-04 recorded 731 of 842 servo-motor stockouts (86.8%).",
+      "location": "FAB-A/CELL-ETCH-04"
+    }
+  ]
+}

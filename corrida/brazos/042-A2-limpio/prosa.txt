@@ -1,0 +1,1 @@
+Yes. Production-cell-e4 accounted for 392 of 561 fleet-wide servo-motor stockouts—about 70%. The next-highest cell, e2, had only 61. Within external services alone, e4 represented about 81% (392 of 486), confirming a strong concentration there.

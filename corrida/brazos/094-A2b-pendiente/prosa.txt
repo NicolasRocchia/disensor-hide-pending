@@ -1,0 +1,1 @@
+Yes. **atlas-dc3 accounted for 165 of 252 reported defects (65.5%)** in non-reserved inventory. Most were GPU ECC quarantines: 151 events.

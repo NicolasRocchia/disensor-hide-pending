@@ -1,0 +1,1 @@
+{"findings":[{"id":"h1","origin":"assistant","severity":"major","title":"Fab-Line-3 caused most wafer delays","description":"Fab-Line-3 accounted for 3,179 of 4,587 wafer-related delay minutes (69%) and 154 of 229 incidents (67%), primarily involving quartz wafer carriers.","location":"Fab-Line-3"}]}

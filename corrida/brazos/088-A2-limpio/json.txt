@@ -1,0 +1,24 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "telemetry_review",
+      "severity": "major",
+      "title": "Rosario produced most reported defects",
+      "description": "Rosario Fulfillment Center accounted for 1,858 of 3,184 non-reserved equipment error events (58.4%). It also remained the majority source when maintenance-only equipment was included, with 2,016 of 3,573 events (56.4%).",
+      "location": "Warehouse equipment telemetry for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Facility totals were calculated from the supplied telemetry aggregation results."
+      },
+      "evidence": {
+        "text": "Rosario counts sum to 1,858 non-reserved events and 2,016 events when maintenance-only equipment is included."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved ambiguity, execution gap, or interpretive dispute remained after calculating the facility totals."
+  }
+}

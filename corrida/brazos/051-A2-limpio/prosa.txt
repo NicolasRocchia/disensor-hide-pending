@@ -1,0 +1,4 @@
+Yes. **FAB-A/CELL-ETCH-04 recorded 731 stockouts**:
+
+- 76.1% of all 960 stockouts across wafer fabs and advanced packaging.
+- 86.8% of the 842 events initially reported on primary wafer-fab lines.

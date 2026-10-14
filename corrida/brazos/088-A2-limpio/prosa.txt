@@ -1,0 +1,1 @@
+Yes. Rosario Fulfillment Center accounted for 1,858 of 3,184 reported defects in non-reserved equipment—58.4%, a clear majority. Including maintenance-only equipment, Rosario still represented 2,016 of 3,573 defects, or 56.4%. Most were `BarcodeReadFailure` events.

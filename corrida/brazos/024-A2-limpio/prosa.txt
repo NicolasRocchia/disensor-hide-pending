@@ -1,0 +1,1 @@
+Yes. **inventory-sync accounted for 2,739 of 3,288 downtime minutes—83.3% of all TimeoutError downtime.** The next-largest service, cell-replenisher, contributed 298 minutes (9.1%). This includes both non-reserved and automated-warehouse inventory for October 12.

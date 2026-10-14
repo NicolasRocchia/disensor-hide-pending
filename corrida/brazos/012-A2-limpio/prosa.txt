@@ -1,0 +1,1 @@
+Yes. Edge-gateway-03 accounted for **608 of 844 minutes—72.0%** of packet-loss downtime across all reported infrastructure. Within customer-facing systems alone, it represented **608 of 742 minutes—81.9%**. So the downtime was strongly concentrated there.

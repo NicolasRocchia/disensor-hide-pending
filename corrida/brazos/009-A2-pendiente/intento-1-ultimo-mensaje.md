@@ -1,0 +1,33 @@
+Yes. The TimeoutError problem was highly concentrated in `vision-inspection-api`:
+
+- `vision-inspection-api`: 1,947 of 2,184 (89.1%)
+- `qc-label-worker`: 181 (8.3%)
+- `lot-release-scheduler`: 56 (2.6%)
+
+So nearly nine out of ten TimeoutErrors came from one service.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "qc_events_analysis",
+      "severity": "major",
+      "title": "TimeoutErrors concentrated in vision-inspection-api",
+      "description": "The service generated 1,947 of the 2,184 TimeoutError events, representing 89.1 percent of the total.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied qc_events.aggregate result for 2026-10-12."
+      },
+      "evidence": {
+        "text": "vision-inspection-api recorded 1,947 of 2,184 TimeoutError events."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved uncertainty remains in the service-level concentration calculation."
+  }
+}
+```

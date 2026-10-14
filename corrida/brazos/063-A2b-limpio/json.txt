@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "TimeoutErrors concentrated in shipment-gateway",
+      "description": "shipment-gateway produced 1,947 of 2,326 TimeoutError records (83.7%) across the complete shipment flow, indicating that the problem was predominantly isolated to that service.",
+      "location": "production/shipment-gateway"
+    }
+  ]
+}

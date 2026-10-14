@@ -1,0 +1,3 @@
+Yes. gpu-cluster-a accounted for 1,087 of 1,656 NodeUnavailable downtime minutes—about 65.6%, so a clear majority.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Most NodeUnavailable downtime occurred on gpu-cluster-a","description":"gpu-cluster-a contributed 1,087 of 1,656 NodeUnavailable downtime minutes (65.6%) across all included infrastructure.","location":"shipment_qc aggregate for 2026-10-12"}]}

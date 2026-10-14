@@ -1,0 +1,1 @@
+Yes. **FAB-LINE-07 accounted for 2,335 of 3,502 affected wafer jobs—66.7% of the total.** FAB-LINE-03 accounted for 674 (19.2%), and FAB-LINE-11 for 493 (14.1%). WarehouseLinkTimeout drove most of FAB-LINE-07’s impact.

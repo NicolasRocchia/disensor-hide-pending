@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a88-9158-7992-817f-7baee1afd15b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. North Hub accounted for 684 of 788 packet-loss downtime minutes—about 86.8%.\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"assistant\",\"severity\":\"info\",\"title\":\"North Hub dominated packet-loss downtime\",\"description\":\"North Hub accounted for 684 of 788 packet-loss downtime minutes, approximately 86.8%.\",\"location\":\"Production customer-facing systems, North Hub, 2026-10-12\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13195,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":155,"reasoning_output_tokens":58}}

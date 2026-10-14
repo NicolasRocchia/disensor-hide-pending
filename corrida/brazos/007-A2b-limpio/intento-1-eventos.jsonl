@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a66-4b8d-74f0-9d61-76364d92e175"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Rosario Final Assembly accounted for **612 of 824 minutes**, about **74%**, of VacuumInterlock downtime on October 12, 2026.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"info\",\n      \"title\": \"Rosario had most VacuumInterlock downtime\",\n      \"description\": \"Rosario Final Assembly recorded 612 of 824 total VacuumInterlock downtime minutes, approximately 74%.\",\n      \"location\": \"Rosario Final Assembly\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13547,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":207,"reasoning_output_tokens":77}}

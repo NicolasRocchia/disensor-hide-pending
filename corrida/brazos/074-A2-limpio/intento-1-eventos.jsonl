@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a96-11a0-7802-8bd1-985ec457c852"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. On primary production lines, gpu-cluster-a accounted for 512 of 684 NodeUnavailable failures—74.9%. Including internal services, it accounted for 549 of 741—74.1%. So, in either scope, nearly three-quarters occurred there.\n\n```json\n{\n  \"findings\": [],\n  \"residue\": {\n    \"declared_absence\": true,\n    \"declaration\": \"No unresolved findings, judgment-dependent conclusions, or verification gaps remain.\"\n  }\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":14951,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":245,"reasoning_output_tokens":135}}

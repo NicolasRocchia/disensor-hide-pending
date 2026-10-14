@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "inventory_failure_analysis",
+      "severity": "major",
+      "title": "Timeouts concentrated in fleet-inventory-api",
+      "description": "The fleet-inventory-api accounted for 4,404 of 5,061 TimeoutError downtime minutes and 2,259 of 2,567 associated failed jobs.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the complete inventory job-failure aggregation, including external services and reserved compute capacity."
+      },
+      "evidence": {
+        "text": "fleet-inventory-api: 2,259 failed jobs and 4,404 downtime minutes out of 2,567 jobs and 5,061 minutes."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved analytical residue remains from this concentration assessment."
+  }
+}

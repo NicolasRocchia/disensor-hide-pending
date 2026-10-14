@@ -1,0 +1,1 @@
+Yes. Including automated warehouse inventory, **2,512 of 3,293 NodeUnavailable-affected jobs (76.3%)** were on `gpu-cluster-a`, so it accounted for a clear majority.

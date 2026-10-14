@@ -1,0 +1,1 @@
+Yes. **eze-1 accounted for 3,053 of 3,725 minutes—82%—of damaged accelerator tray downtime** across primary and secondary production lines. cor-2 contributed 414 minutes and ros-1 258 minutes.

@@ -1,0 +1,27 @@
+Yes. EZE-1 accounted for 1,824 of 2,146 reported InventoryPickMismatch delays—about 85%. COR-2 and ROS-1 combined accounted for 322, or 15%.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "delay_analytics",
+      "severity": "info",
+      "title": "EZE-1 dominated InventoryPickMismatch delays",
+      "description": "EZE-1 accounted for approximately 85% of the reported InventoryPickMismatch delays in the customer-facing scope.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied delay analytics aggregation for 2026-10-12."
+      },
+      "evidence": {
+        "text": "EZE-1: 1,824 of 2,146 reported InventoryPickMismatch delays."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved residue remains for this facility-share calculation."
+  }
+}
+```

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13aa7-2052-7493-9465-fcb21e3ca4fb"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **metrology-dispatch accounted for 1,947 of 2,184 affected jobs (89.1%)**, so the TimeoutError problem was heavily concentrated there. Lot-tracker had 181 jobs (8.3%), and recipe-scheduler had 56 (2.6%).\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"major\",\n      \"title\": \"TimeoutErrors concentrated in metrology-dispatch\",\n      \"description\": \"Metrology-dispatch accounted for 1,947 of 2,184 jobs affected by TimeoutError (89.1%) on 2026-10-12.\",\n      \"location\": \"Fab-Aurora, Fab-Cascade, and Fab-Mesa\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13233,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":280,"reasoning_output_tokens":102}}

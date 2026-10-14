@@ -1,0 +1,28 @@
+Yes. Cell L-04 accounted for 571 of 684 affected jobs—about 83.5%. The remaining 113 jobs were split between L-02 (67) and L-07 (46).
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "delay_analytics",
+      "severity": "info",
+      "title": "Servo-motor stockouts concentrated in Cell L-04",
+      "description": "Cell L-04 represented approximately 83.5% of all jobs affected by servo-motor stockouts on 2026-10-12.",
+      "location": "Production cells L-04, L-02, and L-07",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied delay analytics aggregation."
+      },
+      "evidence": {
+        "text": "L-04: 571 jobs; L-02: 67 jobs; L-07: 46 jobs; total: 684 jobs."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved residue remains from this concentration analysis."
+  }
+}
+```

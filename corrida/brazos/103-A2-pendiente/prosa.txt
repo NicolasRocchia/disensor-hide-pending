@@ -1,0 +1,3 @@
+Yes. For the available external-service data, Rosario Assembly accounted for 888 of 1,486 reported defects—59.8%, driven mainly by 701 SurfaceFinishReject cases. Córdoba had 351 (23.6%) and Santa Fe had 247 (16.6%).
+
+The all-services query had not returned, so this majority is confirmed only for external-service records.

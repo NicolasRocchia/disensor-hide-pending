@@ -1,0 +1,6 @@
+Yes. In the reported October 12 data, West Annex accounted for:
+
+- **70 of 101 failures (69%)** when warehouse inventory was included.
+- **61 of 84 failures (73%)** for lab equipment alone.
+
+It also contributed 786 of 1,082 downtime minutes (73%) for this issue.

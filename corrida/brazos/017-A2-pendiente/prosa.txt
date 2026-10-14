@@ -1,0 +1,1 @@
+Yes. On October 12, fab-line-l3 accounted for 391 of 486 WaferStageTimeout failures—80.5%—so it clearly represented most wafer-related delays in the standard compute pools. The warehouse-inclusive query had not yet returned, so that broader conclusion remains unverified.

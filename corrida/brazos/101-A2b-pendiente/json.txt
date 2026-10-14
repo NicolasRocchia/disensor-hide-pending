@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "TimeoutErrors concentrated in metrology-dispatch",
+      "description": "Metrology-dispatch accounted for 1,947 of 2,184 jobs affected by TimeoutError (89.1%) on 2026-10-12.",
+      "location": "Fab-Aurora, Fab-Cascade, and Fab-Mesa"
+    }
+  ]
+}

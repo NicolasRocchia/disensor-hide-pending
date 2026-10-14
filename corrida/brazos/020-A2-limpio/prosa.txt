@@ -1,0 +1,3 @@
+Yes. Assembly-cell-A3 accounted for 487 of 612 SM-42 stockout incidents on primary production lines—79.6%. The remaining incidents were in B1 (79) and P2 (46), so the stockouts were strongly concentrated in A3.
+
+Including maintenance-only equipment, A3 still represented 74.8% of all 651 incidents.

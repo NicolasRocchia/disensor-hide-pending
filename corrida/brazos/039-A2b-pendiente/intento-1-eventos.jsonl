@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a79-1ad9-7823-806e-2ac826e01f54"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **production-api accounted for 1,947 of 2,184 TimeoutErrors (89.1%)**. Worker had 181 (8.3%), and scheduler had 56 (2.6%), so the problem was strongly concentrated in production-api.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"major\",\n      \"title\": \"TimeoutErrors concentrated in production-api\",\n      \"description\": \"Production-api generated 1,947 of 2,184 TimeoutError events (89.1%); worker generated 181 and scheduler generated 56.\",\n      \"location\": \"Cloud standard compute pools, 2026-10-12\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13191,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":251,"reasoning_output_tokens":85}}

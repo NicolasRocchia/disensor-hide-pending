@@ -1,0 +1,1 @@
+Yes. Cell P-04 accounted for **611 of 742 minutes (82.3%)** of servo-motor-stockout downtime. The remaining 131 minutes occurred in P-02 (79) and P-07 (52), so the issue was strongly concentrated in P-04.

@@ -1,0 +1,28 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "warehouse_qc_analysis",
+      "severity": "info",
+      "title": "TimeoutError concentrated in pallet-vision-api",
+      "description": "The service accounted for 1,218 of 1,436 TimeoutError downtime minutes, or 84.8%, across externally operated services on primary production lines.",
+      "location": "Warehouse quality-control events for 2026-10-12, primary production lines",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the completed qc_events aggregation supplied in the conversation."
+      }
+    }
+  ],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "execution_gap",
+        "requires_human_attention": false,
+        "description": "The asynchronous aggregation covering both primary and secondary production lines had been accepted but had not returned, so the broader concentration could not be confirmed.",
+        "gap_reason": "other"
+      }
+    ]
+  }
+}

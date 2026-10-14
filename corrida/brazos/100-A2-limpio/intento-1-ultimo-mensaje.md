@@ -1,0 +1,32 @@
+Yes. Servo-motor stockouts were heavily concentrated in **cell-pack-04**:
+
+- Expanded scope: **1,038 of 1,329 jobs (78.1%)**
+- Customer-facing systems only: **914 of 1,126 jobs (81.2%)**
+
+So roughly four out of five affected jobs were in that production cell.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Stockouts concentrated in cell-pack-04",
+      "description": "Cell-pack-04 accounted for 1,038 of 1,329 affected jobs in the expanded scope and 914 of 1,126 in the customer-facing scope.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied quality-control aggregation results for 2026-10-12."
+      },
+      "evidence": {
+        "text": "ServoMotorStockout: cell-pack-04 had 1,038 of 1,329 affected jobs in the expanded scope."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved interpretation, execution gap, or escalation remains for this concentration calculation."
+  }
+}
+```

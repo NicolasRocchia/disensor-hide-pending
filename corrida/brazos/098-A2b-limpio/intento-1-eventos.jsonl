@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13aa4-9886-7202-918f-5b62d973f002"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Córdoba Assembly accounted for 493 of 650 SD-48 stockout events—75.8%. Rosario Robotics had 101 (15.5%), and Pilar Integration had 56 (8.6%).\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"major\",\n      \"title\": \"SD-48 stockouts concentrated at Córdoba\",\n      \"description\": \"Córdoba Assembly recorded 493 of 650 SD-48 stockout events (75.8%), indicating a strong facility-level concentration.\",\n      \"location\": \"Córdoba Assembly\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13487,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":208,"reasoning_output_tokens":64}}

@@ -1,0 +1,6 @@
+Yes. The TimeoutError problem was heavily concentrated in `fleet-inventory-api`:
+
+- **4,404 of 5,061 downtime minutes (87%)**
+- **2,259 of 2,567 failed jobs (88%)**
+
+The remaining downtime came from `supplier-sync-worker` (480 minutes) and `allocation-scheduler` (177 minutes). This includes external services and reserved compute capacity.

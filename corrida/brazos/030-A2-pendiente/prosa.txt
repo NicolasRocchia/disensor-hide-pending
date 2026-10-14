@@ -1,0 +1,1 @@
+Not yet—the wafer-delay aggregation was still pending. The stockout data suggests Fab-Line-3 may dominate because it had 139 of 184 quartz wafer-carrier stockouts (76%), but stockout counts do not establish its share of delay incidents or minutes.

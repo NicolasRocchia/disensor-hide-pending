@@ -1,0 +1,1 @@
+Yes. FAB-L3 accounted for 428 of the 522 minutes attributed to wafer carrier dispatch holds—about 82%. FAB-L1 had 61 minutes and FAB-L2 had 33 minutes. Thus, among the reported primary production-line data, FAB-L3 clearly caused most wafer-related delay. The broader warehouse-inclusive query had not yet returned, so this conclusion does not include automated warehouse inventory.

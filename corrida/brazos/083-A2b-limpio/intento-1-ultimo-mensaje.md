@@ -1,0 +1,21 @@
+Yes. CarrierLabelTimeout was strongly concentrated in **dock-gateway**:
+
+- Including internal services: **2,086 of 2,594 cases (80.4%)**
+- External services only: **2,086 of 2,412 cases (86.5%)**
+
+So dock-gateway was the dominant source regardless of service scope.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "CarrierLabelTimeout concentrated in dock-gateway",
+      "description": "Dock-gateway accounted for 2,086 of 2,594 CarrierLabelTimeout cases (80.4%) when internal services were included, and 86.5% of externally handled cases.",
+      "location": "shipment records for 2026-10-12"
+    }
+  ]
+}
+```

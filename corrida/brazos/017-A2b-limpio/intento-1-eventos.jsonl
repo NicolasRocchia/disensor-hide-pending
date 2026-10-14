@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a6b-ea6d-75d2-a3d1-289c775a0ef4"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **fab-line-l3 accounted for 443 of 560 WaferStageTimeout failures—79.1%**, making it the dominant source of wafer-related delays. Across all wafer-related failure types, it represented 494 of 849 failures (58.2%).\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"major\",\n      \"title\": \"Wafer delays concentrated on fab-line-l3\",\n      \"description\": \"Fab-line-l3 produced 443 of 560 WaferStageTimeout failures (79.1%) and 494 of 849 total wafer-related failures (58.2%).\",\n      \"location\": \"fab-line-l3\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13640,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":296,"reasoning_output_tokens":129}}

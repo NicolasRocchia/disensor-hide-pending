@@ -1,0 +1,1 @@
+Yes. In non-reserved inventory, Rosario accounted for 119 of 146 servo-motor SM-42 stockouts—about 81.5%. Córdoba had 18 and Santa Fe had 9. The broader automated-warehouse query had not yet returned, so this conclusion is limited to non-reserved inventory.

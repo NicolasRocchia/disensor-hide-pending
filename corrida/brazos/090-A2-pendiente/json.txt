@@ -1,0 +1,24 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "inventory_delay.aggregate",
+      "severity": "info",
+      "title": "Servo-motor stockouts concentrated in cell-orion-3",
+      "description": "Cell-orion-3 generated 392 of 486 servo-motor assembly out-of-stock events, representing 80.7% of the total.",
+      "location": "Production inventory events for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Verified against the inventory aggregation results grouped by component and production cell."
+      },
+      "evidence": {
+        "text": "servo-motor assembly: 486 total; cell-orion-3: 392; cell-orion-1: 61; cell-lyra-2: 33"
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved interpretive questions, execution gaps, or unverified findings remain for this comparison."
+  }
+}

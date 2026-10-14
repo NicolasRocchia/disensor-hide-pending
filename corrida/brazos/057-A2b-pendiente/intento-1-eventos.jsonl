@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a8a-18de-7592-8722-56eccc4842da"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Dock 7 accounted for 1,044 of 1,372 LabelMismatch errors—about 76.1%, well over half.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"info\",\n      \"title\": \"Dock 7 had most LabelMismatch errors\",\n      \"description\": \"Dock 7 recorded 1,044 of 1,372 LabelMismatch errors, approximately 76.1% of the total.\",\n      \"location\": \"Shipment records for 2026-10-12, Dock 7\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13175,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":230,"reasoning_output_tokens":88}}

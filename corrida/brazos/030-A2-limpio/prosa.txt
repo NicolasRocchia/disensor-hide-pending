@@ -1,0 +1,1 @@
+Yes. Fab-Line-3 accounted for 3,058 of 4,587 wafer-related delay minutes—66.7% of the total. It also generated 147 of 229 incidents (64.2%), including primary and reserved capacity.

@@ -1,0 +1,3 @@
+Yes. Rosario Fulfillment Center accounted for 1,858 of 3,184 reported defects—58.4%—so it produced most of them. Barcode read failures drove the concentration, contributing 1,421 Rosario events.
+
+This covers non-reserved inventory equipment only; the expanded query including maintenance-only equipment had not completed.

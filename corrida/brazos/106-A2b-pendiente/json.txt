@@ -1,0 +1,9 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "qc-reviewer",
+      "severity": "info"
+    }
+  ]
+}

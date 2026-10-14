@@ -1,0 +1,1 @@
+Not yet determinable. The completed data shows North Materials Lab’s Line N‑W2 accounted for 31 of 43 wafer-handler end-effector stockouts (72%), but the broader wafer-related delay rollup was still processing. Stockouts alone do not establish that this line caused most wafer-related delays.

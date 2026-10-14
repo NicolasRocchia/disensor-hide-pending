@@ -1,0 +1,1 @@
+Yes. Cell-pack-04 accounted for 781 of 934 servo-motor stockout failures—about 83.6%. The other two cells accounted for 153 combined, so the failures were heavily concentrated in cell-pack-04.

@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Stockouts concentrated in cell-pack-04",
+      "description": "Cell-pack-04 accounted for 914 of 1,126 jobs affected by servo-motor stockouts (81.2%).",
+      "location": "cell-pack-04"
+    }
+  ]
+}

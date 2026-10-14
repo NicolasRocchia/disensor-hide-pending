@@ -1,0 +1,1 @@
+Not yet confirmed across **all** production lines—the all-lines query was accepted but no result was returned. In the available standard-pool data, line-alpha caused **1,947 of 2,184** pallet label mismatches (**89.1%**), so it clearly accounted for most among the reported lines.

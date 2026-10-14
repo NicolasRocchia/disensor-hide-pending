@@ -1,0 +1,3 @@
+Yes. Harbor Point accounted for **755 of 1,072 SFP-25G transceiver stockouts (70.4%)**, nearly 4.7× Northgate’s 159 events. Of Harbor Point’s events, 684 occurred on primary lines and 71 on secondary lines.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Stockouts concentrated at Harbor Point","description":"Harbor Point recorded 755 of 1,072 SFP-25G transceiver stockouts (70.4%): 684 on primary lines and 71 on secondary lines.","location":"Harbor Point"}]}

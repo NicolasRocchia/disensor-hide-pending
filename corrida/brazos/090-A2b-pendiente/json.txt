@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Stockouts concentrated in cell-orion-3",
+      "description": "Cell-orion-3 accounted for 392 of 486 servo-motor assembly stockout events (80.7%) in the customer-facing systems scope.",
+      "location": "cell-orion-3"
+    }
+  ]
+}

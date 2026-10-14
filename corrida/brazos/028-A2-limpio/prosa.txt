@@ -1,0 +1,6 @@
+Yes. North Materials Lab’s Line N-W2 accounted for **43 of 71 wafer-related delays (60.6%)**, so it produced a clear majority:
+
+- Vacuum end effectors: 37
+- Wafer cassette pods: 3
+- Electrostatic-chuck O-ring sets: 2
+- Wafer prealigner sensors: 1

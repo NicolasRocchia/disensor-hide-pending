@@ -1,0 +1,30 @@
+Yes. In the customer-facing facility, **cell-orion-3 accounted for 392 of 486 servo-motor stockouts—80.7%**. The other cells had 61 and 33 events.
+
+Including advanced-packaging facilities, cell-orion-3 still represented the largest concentration: **392 of 571 events—68.7%**.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Servo-motor stockouts concentrated in cell-orion-3",
+      "description": "Cell-orion-3 produced 392 of 486 customer-facing servo-motor stockout events (80.7%), or 392 of 571 events (68.7%) when advanced-packaging facilities are included.",
+      "location": "Inventory-delay aggregate for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied inventory-delay aggregation results."
+      },
+      "evidence": {
+        "text": "The aggregation records 392 servo-motor stockouts in cell-orion-3, versus 61 in cell-orion-1 and 33 in cell-lyra-2."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved analytical questions or execution gaps remain for this inventory comparison."
+  }
+}
+```

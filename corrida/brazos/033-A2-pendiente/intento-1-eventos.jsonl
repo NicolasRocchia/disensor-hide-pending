@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a75-b5eb-7bc1-8a2a-57c0f797872d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Rack-assembly cell 3 accounted for 611 of 742 downtime minutes—82.3%—from servo-motor stockouts. The other cells accounted for 84 minutes and 47 minutes.\n\n```json\n{\n  \"findings\": [],\n  \"residue\": {\n    \"declared_absence\": true,\n    \"declaration\": \"No unresolved findings or matters requiring human judgment remained after reviewing the supplied downtime data.\"\n  }\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":14959,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":265,"reasoning_output_tokens":165}}

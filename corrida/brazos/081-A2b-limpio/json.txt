@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "HBM3 stockouts concentrated at Ezeiza",
+      "description": "Ezeiza Compute Depot recorded 71 of 99 HBM3 accelerator-module stockouts, approximately 72% of the combined total.",
+      "location": "Ezeiza Compute Depot"
+    }
+  ]
+}

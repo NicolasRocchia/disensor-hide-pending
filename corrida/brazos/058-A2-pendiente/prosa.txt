@@ -1,0 +1,1 @@
+Yes. On October 12, checkout-api accounted for **421 of 486 minutes (86.6%)** of database connection-pool exhaustion downtime. The remaining 65 minutes affected account-service (43) and pricing-api (22). This is based on the completed customer-facing systems query; the broader internal-service query had not yet returned.

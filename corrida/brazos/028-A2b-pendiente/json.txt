@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Line N-W2 dominated wafer-handler stockouts",
+      "description": "North Materials Lab Line N-W2 recorded 31 of 43 wafer-handler vacuum end-effector stockouts (72%). The pending broader rollup prevents concluding that it dominated all wafer-related delays.",
+      "location": "North Materials Lab / Line N-W2"
+    }
+  ]
+}

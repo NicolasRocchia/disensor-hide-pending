@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a7c-a6d6-74e2-9a3e-b3df2578d13f"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Northbridge accounted for 421 of 612 SealIntegrityFault defects—about 68.8%, so most occurred there.\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"assistant\",\"severity\":\"info\",\"title\":\"Most faults occurred at Northbridge\",\"description\":\"Northbridge recorded 421 of 612 SealIntegrityFault defects (68.8%).\",\"location\":\"Northbridge primary production lines\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13171,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":161,"reasoning_output_tokens":72}}

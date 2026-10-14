@@ -1,0 +1,1 @@
+Yes. EZE-1 accounted for 765 of 955 reported CoolingSensorDrift defects (80.1%). Among customer-facing systems alone, it accounted for 671 of 812 (82.6%).

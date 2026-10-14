@@ -1,0 +1,27 @@
+Yes. Rack-assembly-p1 accounted for 421 of 536 NIC retention-clip defects—**78.5%**, a clear majority.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Most NIC defects occurred on p1",
+      "description": "Rack-assembly-p1 produced 421 of the 536 reported NIC retention-clip misalignment defects.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Verified against the supplied defect aggregation covering primary and secondary production lines."
+      },
+      "evidence": {
+        "text": "NIC_RETENTION_CLIP_MISALIGNED: 536 total; rack-assembly-p1: 421."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified interpretive judgments remain for this calculation."
+  }
+}
+```

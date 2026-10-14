@@ -1,0 +1,3 @@
+Yes. Including automated warehouse inventory, **2,512 of 3,293 NodeUnavailable-affected jobs (76.3%)** were on `gpu-cluster-a`, so it accounted for a clear majority.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Most failures occurred on gpu-cluster-a","description":"gpu-cluster-a accounted for 2,512 of 3,293 jobs affected by NodeUnavailable failures (76.3%).","location":"QC events for 2026-10-12 across the three facilities and automated warehouse inventory"}]}

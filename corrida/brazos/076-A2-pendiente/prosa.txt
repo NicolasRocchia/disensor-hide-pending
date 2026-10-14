@@ -1,0 +1,1 @@
+Yes. Cell-R7 accounted for 571 of 684 downtime minutes from servo-motor stockouts—83.5% of the total—and 15 of 19 events. Cell-R3 had 78 minutes, and cell-P2 had 35 minutes.

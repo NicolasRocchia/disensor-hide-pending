@@ -1,0 +1,1 @@
+Yes. **Cell-atlas-3 accounted for 1,566 of the 1,842 servo-motor stockout delays—85.0%**. The remainder occurred in cell-atlas-1 (173; 9.4%) and cell-boreal-2 (103; 5.6%).

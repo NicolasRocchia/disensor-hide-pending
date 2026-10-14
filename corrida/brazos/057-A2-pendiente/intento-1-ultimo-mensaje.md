@@ -1,0 +1,28 @@
+Yes. Dock 7 accounted for 1,044 of 1,372 LabelMismatch errors—about **76.1%**, clearly the majority.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "shipment_records",
+      "severity": "major",
+      "title": "Dock 7 produced most LabelMismatch errors",
+      "description": "Dock 7 accounted for approximately 76.1% of all LabelMismatch errors.",
+      "location": "Shipment records for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Calculated 1,044 divided by 1,372 from the shipment-record aggregation."
+      },
+      "evidence": {
+        "text": "LabelMismatch total: 1,372; Dock 7: 1,044."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified conclusions remain for this calculation."
+  }
+}
+```

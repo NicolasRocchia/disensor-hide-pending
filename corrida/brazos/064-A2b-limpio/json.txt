@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Stockouts concentrated in Cell L-04",
+      "description": "Cell L-04 accounted for 729 of 942 jobs affected by servo-motor stockouts, approximately 77%.",
+      "location": "Production cell L-04"
+    }
+  ]
+}

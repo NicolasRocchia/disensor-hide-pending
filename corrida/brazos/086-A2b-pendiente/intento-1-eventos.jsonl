@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a9d-fa13-7171-aa80-b93363ec4c9f"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Northbridge accounted for 401 of 486 pipette-tip stockout failures—82.5%. The remaining 85 occurred on Harborview (58) and West Annex (27).\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"info\",\n      \"title\": \"Stockouts concentrated at Northbridge\",\n      \"description\": \"Northbridge assay line accounted for 401 of 486 sterile 200 µL pipette-tip rack stockout failures (82.5%).\",\n      \"location\": \"Northbridge assay line\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13240,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":221,"reasoning_output_tokens":80}}

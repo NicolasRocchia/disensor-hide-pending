@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a78-60cc-77f0-afc1-0903233e9972"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **Cell-atlas-3 accounted for 1,566 of the 1,842 servo-motor stockout delays—85.0%**. The remainder occurred in cell-atlas-1 (173; 9.4%) and cell-boreal-2 (103; 5.6%).\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"major\",\n      \"title\": \"Stockouts concentrated in cell-atlas-3\",\n      \"description\": \"Cell-atlas-3 accounted for 1,566 of 1,842 delayed jobs caused by ServoMotorStockout, representing 85.0% of the total.\",\n      \"location\": \"cell-atlas-3\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13200,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":244,"reasoning_output_tokens":67}}

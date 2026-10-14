@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Ezeiza reported most defects",
+      "description": "Ezeiza Edge Facility accounted for 1,956 of 3,184 customer-facing defects (61.4%) on 2026-10-12.",
+      "location": "Production defect logs for customer-facing systems, grouped by facility"
+    }
+  ]
+}

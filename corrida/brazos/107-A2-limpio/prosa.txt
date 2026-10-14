@@ -1,0 +1,1 @@
+Yes. On October 12, **fab-line-p1 accounted for 2,167 of 3,168 affected fabrication jobs (68.4%)**. It also produced 1,917 of the 2,426 carrier-route timeout delays across fabrication and packaging facilities (79.0%).

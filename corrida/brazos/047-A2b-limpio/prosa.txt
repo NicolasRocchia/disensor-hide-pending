@@ -1,0 +1,1 @@
+Yes. On the reported date (October 12), **weld-cell-P3 accounted for 318 of 392 stockout minutes on primary production lines—81%**. The remaining downtime was split between assembly-cell-P1 (49 minutes) and paint-cell-P2 (25 minutes).

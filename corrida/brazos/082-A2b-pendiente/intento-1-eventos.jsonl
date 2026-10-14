@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a9b-3ea1-7d40-b229-09fcb941b594"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. FAB-L3 accounted for 428 of the 522 minutes from wafer-carrier dispatch holds—about 82%. It also represented 505 of all 846 reported shipment-delay minutes, roughly 60%.\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"assistant\",\"severity\":\"major\",\"title\":\"FAB-L3 dominated wafer-carrier delays\",\"description\":\"FAB-L3 caused 428 of 522 minutes of wafer-carrier dispatch-hold downtime (82%).\",\"location\":\"FAB-L3\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13223,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":282,"reasoning_output_tokens":173}}

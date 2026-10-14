@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "Most defects originated at atlas-dc3",
+      "description": "atlas-dc3 reported 173 of 312 defects (55.4%), including 158 GPU ECC quarantines.",
+      "location": "atlas-dc3"
+    }
+  ]
+}

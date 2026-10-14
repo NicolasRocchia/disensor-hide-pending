@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "TimeoutErrors concentrated in dispatch-api",
+      "description": "dispatch-api accounted for 2,301 of 2,612 TimeoutError events (88.1%) on 2026-10-12 across customer-facing, regional, and private infrastructure.",
+      "location": "shipment records for 2026-10-12"
+    }
+  ]
+}

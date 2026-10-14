@@ -1,0 +1,28 @@
+Yes. Cell P-04 accounted for 611 of the 742 minutes—82.3%—of servo-motor stockout downtime. The remaining 131 minutes occurred in P-02 (79) and P-07 (52).
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "warehouse_delay_analytics",
+      "severity": "info",
+      "title": "Stockout downtime concentrated in P-04",
+      "description": "Cell P-04 represented 82.3% of all servo-motor stockout downtime.",
+      "location": "Primary production lines, 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Calculated 611 divided by 742 from the warehouse delay aggregation."
+      },
+      "evidence": {
+        "text": "Servo-motor stockout: 742 minutes total; Cell P-04: 611 minutes."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved analytical questions or unverified execution gaps remain for this concentration finding."
+  }
+}
+```

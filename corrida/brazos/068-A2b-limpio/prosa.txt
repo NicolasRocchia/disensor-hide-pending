@@ -1,0 +1,1 @@
+Yes. Line-etch-3 recorded 1,087 of 1,436 VisionAlignmentError events on the primary production lines—about 75.7%. Even including advanced packaging, it accounted for 67.1% (1,087 of 1,621).

@@ -1,0 +1,1 @@
+Yes. Cell-pack-04 accounted for **823 of 1,031 stockout-affected jobs (79.8%)** across all systems. Among customer-facing systems alone, it accounted for **781 of 934 (83.6%)**. The stockouts were therefore heavily concentrated in that cell.

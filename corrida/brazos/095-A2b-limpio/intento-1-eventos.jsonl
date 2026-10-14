@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13aa3-f79f-7640-b281-e42648e3e239"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **eze-1 accounted for 3,053 of 3,725 minutes—about 82%** of the reported damaged accelerator tray downtime across primary and secondary production lines.\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"assistant\",\"severity\":\"major\",\"title\":\"Damaged tray downtime concentrated at eze-1\",\"description\":\"eze-1 recorded 3,053 of 3,725 downtime minutes, approximately 82% of the total reported for damaged accelerator trays.\",\"location\":\"eze-1, primary and secondary production lines\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13501,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":218,"reasoning_output_tokens":96}}

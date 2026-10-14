@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Northbridge dominated temperature downtime",
+      "description": "Northbridge Analytical Campus contributed approximately 71% of reported temperature-excursion downtime.",
+      "location": "Northbridge Analytical Campus"
+    }
+  ]
+}

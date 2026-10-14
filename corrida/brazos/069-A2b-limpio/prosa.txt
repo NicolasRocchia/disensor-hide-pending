@@ -1,0 +1,1 @@
+Yes. In the expanded scope, gpu-cluster-a accounted for 187 of 264 NodeUnavailable failures—about 71%, so a clear majority. Within standard compute pools alone, it was 187 of 246 (76%).

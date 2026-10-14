@@ -1,0 +1,1 @@
+{"findings":[{"id":"h1","origin":"assistant","severity":"major","title":"FAB-L3 dominated wafer-carrier delays","description":"FAB-L3 caused 428 of 522 minutes of wafer-carrier dispatch-hold downtime (82%).","location":"FAB-L3"}]}

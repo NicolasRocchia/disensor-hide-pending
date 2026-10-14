@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a66-ebe6-7f11-8b01-883e5a58495e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. gpu-cluster-a accounted for 873 of 1,454 NodeUnavailable-affected jobs—about 60%. Among standard pools alone, it was 873 of 1,284, or 68%.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"info\",\n      \"title\": \"Most NodeUnavailable impact was on gpu-cluster-a\",\n      \"description\": \"gpu-cluster-a accounted for 873 of 1,454 affected jobs across standard and maintenance-only pools.\",\n      \"location\": \"production compute pools, 2026-10-12\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13565,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":228,"reasoning_output_tokens":78}}

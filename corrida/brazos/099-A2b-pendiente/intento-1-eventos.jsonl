@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13aa5-9ff5-7490-96cb-799104d3d72b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The TimeoutError downtime was highly concentrated in **lithography-dispatch**: **1,947 of 2,184 minutes (89%)**, across **39 of 51 incidents (76%)**. The other services accounted for only 237 minutes combined.\n\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"info\",\n      \"title\": \"TimeoutError concentrated in lithography-dispatch\",\n      \"description\": \"Lithography-dispatch caused 1,947 of 2,184 TimeoutError downtime minutes (89%) and 39 of 51 incidents (76%).\",\n      \"location\": \"Primary production lines, 2026-10-12\"\n    }\n  ]\n}"}}
+{"type":"turn.completed","usage":{"input_tokens":13288,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":235,"reasoning_output_tokens":70}}

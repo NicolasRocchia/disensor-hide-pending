@@ -1,0 +1,1 @@
+Yes. Rack-assembly cell 3 accounted for 611 of 742 downtime minutes—82.3%—from servo-motor stockouts. The other cells accounted for 84 minutes and 47 minutes.

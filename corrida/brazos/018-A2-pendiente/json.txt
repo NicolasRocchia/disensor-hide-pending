@@ -1,0 +1,7 @@
+{
+  "findings": [],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved findings or execution gaps remained for this calculation."
+  }
+}

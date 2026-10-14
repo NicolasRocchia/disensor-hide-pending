@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a84-a931-78b0-9f12-02458c3d37a0"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Phoenix-integration accounted for 853 of 1,092 25GbE NIC module stockouts—about 78.1%, so a clear majority.\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"assistant\",\"severity\":\"info\",\"title\":\"Most NIC stockouts occurred at Phoenix\",\"description\":\"Phoenix-integration recorded 853 of 1,092 25GbE NIC module stockout events (78.1%).\",\"location\":\"phoenix-integration\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13380,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":225,"reasoning_output_tokens":121}}

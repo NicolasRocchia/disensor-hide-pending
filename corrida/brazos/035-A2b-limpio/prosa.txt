@@ -1,0 +1,1 @@
+Yes. Ashburn Assembly accounted for 2,311 of 3,000 ComponentQualificationFailure defects—about **77%**, so it represented a clear majority.

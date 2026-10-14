@@ -1,0 +1,32 @@
+It’s not yet possible to tell. The external-services result showed strong concentration in transit-gateway—1,872 of 2,146 affected jobs (87.2%)—but the internal-services query was only accepted asynchronously; no completed result was retrieved.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Internal-service distribution remains unknown",
+      "description": "The expanded aggregation was accepted but produced no completed result, so transit-gateway concentration after including internal services cannot be confirmed.",
+      "final_state": "escalated_open",
+      "verification": {
+        "against": "none",
+        "detail": "Only an asynchronous request identifier and accepted status were returned."
+      }
+    }
+  ],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "execution_gap",
+        "finding_ref": "h1",
+        "requires_human_attention": true,
+        "description": "Retrieve request ninv-20261013-091411-a83f and compare PacketDropBurst counts across all external and internal services.",
+        "gap_reason": "other"
+      }
+    ]
+  }
+}
+```

@@ -1,0 +1,3 @@
+Yes. Río-North’s `rack-handling-cell-4` accounted for 143 of 184 servo-motor stockouts—about 78%. The remaining 41 were split between two other cells.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"major","title":"Stockouts concentrated in one cell","description":"Río-North rack-handling-cell-4 recorded 143 of 184 servo-motor stockouts (77.7%).","location":"Río-North / rack-handling-cell-4"}]}

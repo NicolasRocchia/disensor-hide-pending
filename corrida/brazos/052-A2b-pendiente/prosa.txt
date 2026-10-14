@@ -1,0 +1,1 @@
+It can’t be determined from the available results. The internal-services query was only accepted asynchronously; no completed result was retrieved. The external-services data did show strong concentration in transit-gateway: 1,872 of 2,146 affected jobs (87.2%).

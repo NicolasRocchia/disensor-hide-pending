@@ -1,0 +1,1 @@
+Yes. `production-api` accounted for 2,161 of 2,525 TimeoutErrors—about **85.6%**. The remainder came from `worker` (277; 11.0%) and `scheduler` (87; 3.4%). In the primary production line alone, concentration was even higher at **89.1%**.

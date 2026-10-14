@@ -1,0 +1,7 @@
+{
+  "findings": [],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved uncertainty or issue requiring human attention remains from this analysis."
+  }
+}

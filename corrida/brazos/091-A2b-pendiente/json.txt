@@ -1,0 +1,1 @@
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Stockouts concentrated in cell A3","description":"Cell A3 accounted for approximately 82% of servo-motor stockout downtime: 1,214 of 1,486 minutes.","location":"Production cell A3"}]}

@@ -1,0 +1,6 @@
+Yes. The TimeoutError problem was heavily concentrated in **pallet-vision-api**:
+
+- **1,602 of 1,972 downtime minutes (81%)**
+- **2,559 of 3,127 events (82%)**
+
+The remaining downtime came from weigh-station-gateway (243 minutes) and label-verification-service (127 minutes).

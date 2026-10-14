@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a7c-c41c-7cb3-bb9d-2be8731e3e7a"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Northbridge accounted for 518 of 779 SealIntegrityFault events across primary and secondary lines—about 66.5%, so a clear majority.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"info\",\n      \"title\": \"Majority occurred at Northbridge\",\n      \"description\": \"Northbridge recorded 518 of 779 SealIntegrityFault events (66.5%) across primary and secondary production lines.\",\n      \"location\": \"Northbridge facility\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13295,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":232,"reasoning_output_tokens":104}}

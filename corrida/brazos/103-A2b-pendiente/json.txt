@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "Rosario Assembly produced most reported defects",
+      "description": "Rosario Assembly accounted for 888 of 1,486 external-service defect reports (59.8%), driven primarily by 701 SurfaceFinishReject reports.",
+      "location": "External-service quality-delay records for 2026-10-12"
+    }
+  ]
+}

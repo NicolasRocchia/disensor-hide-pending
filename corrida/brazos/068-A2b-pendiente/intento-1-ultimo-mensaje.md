@@ -1,0 +1,16 @@
+Yes. On October 12, line-etch-3 accounted for 1,087 of 1,436 VisionAlignmentError events on the primary production lines—about 75.7%.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Most events occurred on line-etch-3",
+      "description": "Line-etch-3 generated 1,087 of 1,436 VisionAlignmentError events, approximately 75.7%.",
+      "location": "primary_production_lines/line-etch-3"
+    }
+  ]
+}
+```

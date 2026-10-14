@@ -1,0 +1,1 @@
+Yes. Including both primary and secondary lines, gpu-cluster-a accounted for **958 of 1,209 NodeUnavailable failures (79.2%)**. On primary lines alone, it accounted for **846 of 1,032 (82.0%)**.

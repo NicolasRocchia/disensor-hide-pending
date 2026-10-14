@@ -1,0 +1,25 @@
+Yes. Northbridge Analytical Campus accounted for 1,047 of the 1,286 minutes—about **81.4%**—of reported temperature-excursion downtime.
+
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "inventory_events",
+      "severity": "info",
+      "title": "Northbridge dominated temperature-excursion downtime",
+      "description": "Northbridge Analytical Campus represented approximately 81.4% of the reported temperature-excursion downtime.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Calculated 1,047 divided by 1,286 from the inventory-events aggregation."
+      },
+      "evidence": {
+        "text": "Northbridge: 1,047 minutes; total temperature-excursion downtime: 1,286 minutes."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved uncertainty or other residue remains from this calculation."
+  }
+}

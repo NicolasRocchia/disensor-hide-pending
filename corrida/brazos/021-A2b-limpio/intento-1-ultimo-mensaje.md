@@ -1,0 +1,3 @@
+Yes. Ezeiza Edge Facility accounted for 2,401 of 4,009 reported defects—about 60%. In the customer-facing-only data, it represented 1,956 of 3,184 defects, or 61%.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Ezeiza accounted for most defects","description":"Ezeiza Edge Facility contributed 2,401 of 4,009 reported defects (approximately 60%).","location":"Production defect logs for 2026-10-12"}]}

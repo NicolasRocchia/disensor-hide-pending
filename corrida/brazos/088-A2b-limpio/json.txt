@@ -1,0 +1,11 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "telemetry-review",
+      "severity": "major",
+      "title": "Most defects originated at Rosario",
+      "description": "Rosario Fulfillment Center produced 2,016 of 3,573 reported errors (56.4%), primarily BarcodeReadFailure events."
+    }
+  ]
+}

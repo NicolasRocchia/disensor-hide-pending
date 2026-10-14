@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "inventory_events.aggregate_async",
+      "severity": "info",
+      "title": "Northbridge caused most temperature-excursion downtime",
+      "description": "Northbridge Analytical Campus recorded 1,047 of 1,472 total minutes of temperature-excursion downtime, approximately 71%.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied inventory-events aggregation for 2026-10-12."
+      },
+      "evidence": {
+        "text": "Northbridge Analytical Campus: 1,047 min; all facilities: 1,472 min."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified analytical gaps remain in this calculation."
+  }
+}

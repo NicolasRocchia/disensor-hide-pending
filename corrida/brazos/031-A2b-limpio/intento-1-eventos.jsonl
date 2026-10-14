@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a74-6abf-7921-9169-73642162ac36"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Servo-motor stockouts were heavily concentrated in **CELL-P1-07**, which recorded **241 of 322 events (74.8%)** across primary and secondary lines. The next-highest cell had only 27 events.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"inventory-reviewer\",\n      \"severity\": \"major\",\n      \"title\": \"Servo stockouts concentrated in CELL-P1-07\",\n      \"description\": \"CELL-P1-07 accounted for 241 of 322 SM-48 servo-motor stockout events (74.8%) on 2026-10-12.\",\n      \"location\": \"CELL-P1-07\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13483,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":241,"reasoning_output_tokens":77}}

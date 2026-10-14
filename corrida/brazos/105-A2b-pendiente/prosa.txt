@@ -1,0 +1,1 @@
+Yes. The TimeoutError problem was heavily concentrated in **inventory-sync-gateway**, which generated **1,947 of 2,184 events (89.1%)**. The remaining events came from supplier-stock-adapter (181; 8.3%) and parts-reservation-scheduler (56; 2.6%).

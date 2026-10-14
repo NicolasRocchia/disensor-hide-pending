@@ -1,0 +1,18 @@
+Yes. In the reported customer-facing primary-line data, Pilar Assembly Works accounted for 460 of 742 defects—about 62%—so it produced a clear majority. Seal-integrity failures made up 371 of Pilar’s reports.
+
+The secondary-line query had not completed, so this conclusion applies only to the available primary-line results.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "Pilar reported most defects",
+      "description": "Pilar Assembly Works accounted for 460 of 742 reported defects (approximately 62%) in the customer-facing primary-line data.",
+      "location": "Pilar Assembly Works, primary production lines"
+    }
+  ]
+}
+```

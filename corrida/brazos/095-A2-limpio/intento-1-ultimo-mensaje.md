@@ -1,0 +1,28 @@
+Yes. **eze-1 accounted for 3,053 of 3,725 minutes—82%—of damaged accelerator tray downtime** across primary and secondary production lines. cor-2 contributed 414 minutes and ros-1 258 minutes.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "eze-1 dominated tray downtime",
+      "description": "eze-1 accounted for approximately 82% of reported damaged accelerator tray downtime.",
+      "location": "Inventory events for 2026-10-12, primary and secondary production lines",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied inventory aggregation: 3,053 of 3,725 minutes."
+      },
+      "evidence": {
+        "text": "Damaged accelerator tray: eze-1 3,053 minutes; total 3,725 minutes."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved uncertainty or unverified execution gap remained in this calculation."
+  }
+}
+```

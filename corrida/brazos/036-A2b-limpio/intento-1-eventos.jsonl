@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a77-3ba8-79e1-ba28-89faddaae28f"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Northgate reported **470 of 837 defects (56.2%)**, so it accounted for a majority. Incorrect shipping labels made up 339 of Northgate’s defects.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"info\",\n      \"title\": \"Northgate accounted for most defects\",\n      \"description\": \"Northgate reported 470 of 837 defects (56.2%) on 2026-10-12.\",\n      \"location\": \"Northgate Fulfillment Center\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13314,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":222,"reasoning_output_tokens":88}}

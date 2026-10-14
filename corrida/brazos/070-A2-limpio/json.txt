@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "shipment_analytics",
+      "severity": "info",
+      "title": "Most label-read failures occurred at carrier-gate-east",
+      "description": "Carrier-gate-east produced 1,742 of the 2,214 LabelReadError records, representing approximately 78.7% of the total.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Calculated from the shipment error aggregation for 2026-10-12."
+      },
+      "evidence": {
+        "text": "LabelReadError total: 2,214; carrier-gate-east: 1,742."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified residual issues remain from this calculation."
+  }
+}

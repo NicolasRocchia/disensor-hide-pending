@@ -1,0 +1,1 @@
+Yes. **fab-line-p1 accounted for 1,917 of 2,284 WaferCarrierRouteTimeout delays—about 84%** across the primary production lines. The advanced-packaging query was still pending, so this conclusion applies only to the completed primary-line results.

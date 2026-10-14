@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "TimeoutErrors concentrated in production-api",
+      "description": "production-api generated 2,161 of 2,525 TimeoutError events (85.6%); worker generated 277 and scheduler generated 87.",
+      "location": "Cloud standard compute pools, primary and secondary production lines, 2026-10-12"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+Yes. Ashburn-dc2 accounted for 731 of 914 SFP-25G-SR stockouts—about 80.0%. The other facilities accounted for 183 combined.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "inventory_log_review",
+      "severity": "info",
+      "title": "Most stockouts occurred in Ashburn",
+      "description": "Ashburn-dc2 recorded 731 of 914 SFP-25G-SR stockouts, approximately 80.0% of the total.",
+      "location": "Production inventory logs for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Verified against the component-by-facility aggregation results."
+      },
+      "evidence": {
+        "text": "SFP-25G-SR: 914 total stockouts; ashburn-dc2: 731."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified conclusions remain from this calculation."
+  }
+}
+```

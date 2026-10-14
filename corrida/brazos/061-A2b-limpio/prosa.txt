@@ -1,0 +1,5 @@
+Yes. Cell RA-07 recorded 438 SM-48 stockout events:
+
+- 64% of all 685 SM-48 events, including warehouse inventory events.
+- 72% of the 612 production-cell events.
+- Far more than any other cell; the next highest was CD-02 with 52.

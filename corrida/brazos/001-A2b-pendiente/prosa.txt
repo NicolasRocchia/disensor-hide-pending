@@ -1,0 +1,1 @@
+Yes. For the external-service records, **sa-east-1a accounted for 2,185 of 3,482 defects (62.8%)**, so it produced a clear majority. HealthProbeTimeout drove most of that concentration.

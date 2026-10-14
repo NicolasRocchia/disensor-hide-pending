@@ -1,0 +1,1 @@
+Yes. **metrology-dispatch accounted for 1,947 of 2,297 affected jobs—84.8%** of the TimeoutError impact. The remainder came from lot-tracker (181), inventory-sync (113), and recipe-scheduler (56).

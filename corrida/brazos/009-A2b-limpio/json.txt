@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "TimeoutErrors concentrated in vision-inspection-api",
+      "description": "The service accounted for 89.1% of TimeoutErrors in non-reserved inventory and 86.0% when automated warehouse inventory was included.",
+      "location": "quality-control events for 2026-10-12"
+    }
+  ]
+}

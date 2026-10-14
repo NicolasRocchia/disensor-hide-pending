@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "Ezeiza accounted for most defects",
+      "description": "Ezeiza Edge Facility reported 2,058 of 3,184 external-services defects (64.6%), primarily PacketIntegrityMismatch events.",
+      "location": "Production external-services QC events for 2026-10-12"
+    }
+  ]
+}

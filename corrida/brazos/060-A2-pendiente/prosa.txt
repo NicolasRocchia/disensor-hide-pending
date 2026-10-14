@@ -1,0 +1,3 @@
+Preliminarily, yes: **FAB-LINE-07** accounted for 1,962 of the 2,380 jobs affected by `WarehouseLinkTimeout`—about **82%**.
+
+However, the warehouse-inclusive query specifically filtered to wafer material was still pending, so this does **not yet establish** that FAB-LINE-07 caused most wafer-related delays overall.

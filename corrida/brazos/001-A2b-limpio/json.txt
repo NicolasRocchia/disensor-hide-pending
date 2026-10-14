@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Most defects originated in sa-east-1a",
+      "description": "sa-east-1a accounted for 2,627 of 4,259 reported defects (61.7%), driven primarily by HealthProbeTimeout.",
+      "location": "Incident records for 2026-10-12"
+    }
+  ]
+}

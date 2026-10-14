@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a62-742e-70b1-ac89-c45b55826593"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Including reserved compute capacity, gpu-cluster-a accounted for 699 of 914 NodeUnavailable failures—about 76.5%. In non-reserved inventory alone, it was 611 of 742—about 82.3%.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"major\",\n      \"title\": \"NodeUnavailable concentrated on gpu-cluster-a\",\n      \"description\": \"gpu-cluster-a produced 699 of 914 NodeUnavailable failures (76.5%) across the complete inventory scope on 2026-10-12.\",\n      \"location\": \"inventory events / gpu-cluster-a\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13346,"cached_input_tokens":0,"cache_write_input_tokens":0,"output_tokens":236,"reasoning_output_tokens":77}}

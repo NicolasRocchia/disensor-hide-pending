@@ -1,0 +1,1 @@
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"SFP-25G stockouts concentrated at Harbor Point","description":"Harbor Point recorded 684 of 903 SFP-25G transceiver stockout events (75.7%), compared with 137 at Northgate and 82 at Mesa Ridge.","location":"Harbor Point"}]}

@@ -1,0 +1,1 @@
+Yes. Northgate reported **470 of 837 defects (56.2%)**, so it accounted for a majority. Incorrect shipping labels made up 339 of Northgate’s defects.

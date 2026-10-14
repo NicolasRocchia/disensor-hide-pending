@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13aa1-1f64-7bb3-92eb-63bb044b345d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Cell A3 accounted for 1,214 of the 1,486 downtime minutes—about 82%. Cell B1 contributed 164 minutes (11%) and C2 108 minutes (7%).\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"assistant\",\"severity\":\"info\",\"title\":\"Stockouts concentrated in cell A3\",\"description\":\"Cell A3 accounted for approximately 82% of servo-motor stockout downtime: 1,214 of 1,486 minutes.\",\"location\":\"Production cell A3\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13201,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":212,"reasoning_output_tokens":97}}

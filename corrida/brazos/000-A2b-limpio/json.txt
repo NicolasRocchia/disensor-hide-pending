@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Northbridge accounted for most defects",
+      "description": "Northbridge Analytical Center reported 490 of 676 defects, representing 72.5% of the total.",
+      "location": "Incident records for 2026-10-12"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+Yes. Fab Line P3 accounted for 611 of 742 wafer-edge-chipping incidents—82.3%, a clear majority. The records do not define a broader “wafer-related” category.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant_analysis",
+      "severity": "info",
+      "title": "Fab Line P3 dominated wafer edge chipping",
+      "description": "Fab Line P3 recorded 611 of 742 wafer-edge-chipping incidents, representing 82.3 percent.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Calculated from the supplied quality-control aggregation for 2026-10-12."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved analytical issues remain within the supplied incident data."
+  }
+}
+```

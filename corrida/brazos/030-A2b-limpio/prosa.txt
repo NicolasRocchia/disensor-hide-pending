@@ -1,0 +1,1 @@
+Yes. Fab-Line-3 accounted for 3,179 of 4,587 wafer-related delay minutes—about 69%—and 154 of 229 incidents (67%). Most of its delays involved quartz wafer carriers.

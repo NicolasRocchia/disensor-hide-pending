@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "netqc.aggregate_events",
+      "severity": "major",
+      "title": "Packet-loss downtime concentrated on edge-gateway-03",
+      "description": "Edge-gateway-03 contributed 608 of 844 packet-loss downtime minutes across all reported infrastructure, and 608 of 742 minutes in the customer-facing scope.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Calculated directly from the supplied NetQC aggregation results."
+      },
+      "evidence": {
+        "text": "PacketLossThresholdExceeded: 844 total minutes; edge-gateway-03: 608 minutes."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved interpretation, execution gap, escalation, or reviewer-related residue remains."
+  }
+}

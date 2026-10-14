@@ -1,0 +1,28 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "telemetry-reviewer",
+      "severity": "major",
+      "title": "Stockout downtime concentrated in cell A3",
+      "description": "Cell A3 generated 81.7% of servo-motor stockout downtime.",
+      "location": "Production cell A3",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Verified against the downtime aggregation for 2026-10-12."
+      },
+      "fix_verification": {
+        "type": "specific_test",
+        "reference": "telemetry.aggregate_downtime:2026-10-12:non_reserved"
+      },
+      "evidence": {
+        "text": "Cell A3 recorded 1,214 of the total 1,486 downtime minutes."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved interpretive, execution, escalation, or reviewer-related residue remains."
+  }
+}

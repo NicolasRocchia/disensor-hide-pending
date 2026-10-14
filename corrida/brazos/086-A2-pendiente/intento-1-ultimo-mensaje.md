@@ -1,0 +1,27 @@
+Yes. Northbridge accounted for 401 of 486 pipette-tip stockout failures—82.5%. Harborview had 58 (11.9%), and West Annex had 27 (5.6%). So the failures were strongly concentrated on the Northbridge assay line.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Pipette-tip stockouts concentrated at Northbridge",
+      "description": "Northbridge accounted for 401 of 486 sterile 200 µL pipette-tip rack stockout failures, or 82.5%.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied laboratory operations aggregation for 2026-10-12."
+      },
+      "evidence": {
+        "text": "Sterile 200 µL pipette-tip racks: 486 total failures; Northbridge assay line: 401."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved residue remains from this calculation based on the supplied aggregation."
+  }
+}
+```

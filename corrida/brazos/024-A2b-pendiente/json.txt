@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "TimeoutError concentrated in inventory-sync",
+      "description": "inventory-sync caused 2,421 of 2,764 TimeoutError downtime minutes (87.6%) on 2026-10-12.",
+      "location": "robotics-inventory/inventory-sync"
+    }
+  ]
+}

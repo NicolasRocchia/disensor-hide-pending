@@ -1,0 +1,8 @@
+Yes. The TimeoutError problem was heavily concentrated in `shipment-gateway`:
+
+- `shipment-gateway`: 1,947 of 2,326 errors (83.7%)
+- `carrier-worker`: 181 (7.8%)
+- `inventory-sync`: 142 (6.1%)
+- `dispatch-scheduler`: 56 (2.4%)
+
+Within customer-facing systems alone, `shipment-gateway` accounted for 89.1% of TimeoutErrors.

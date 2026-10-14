@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "TimeoutError concentrated in inventory-sync",
+      "description": "Inventory-sync accounted for 2,739 of 3,288 TimeoutError downtime minutes (83.3%) across non-reserved and automated warehouse inventory.",
+      "location": "robotics-inventory/inventory-sync"
+    }
+  ]
+}

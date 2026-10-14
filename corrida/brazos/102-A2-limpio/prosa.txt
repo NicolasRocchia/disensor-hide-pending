@@ -1,0 +1,1 @@
+Yes. Harbor Point accounted for **755 of 1,072 SFP-25G stockout events (70.4%)** across all facilities—about **4.7×** Northgate’s 159 events. The concentration was even higher on primary lines: **684 of 903 events (75.7%)**.

@@ -1,0 +1,1 @@
+Yes. FAB-3 accounted for 1,307 minutes—49.3% of all wafer-fabrication downtime, the largest share but not an outright majority. It dominated the top issue, wafer-stage vacuum instability, with 1,196 of 1,486 minutes (80.5%).

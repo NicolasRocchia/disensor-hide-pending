@@ -1,0 +1,34 @@
+Yes. Pilar Assembly Works accounted for 460 of 742 reported defects—about 62%—so it produced a clear majority in the completed primary-line data. The broader query including secondary lines had not yet returned, so the all-lines result remains unconfirmed.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Pilar accounted for most defects",
+      "description": "Pilar Assembly Works reported 460 of 742 defects, approximately 62 percent of the completed primary-line total.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Calculated by summing the supplied telemetry counts by facility."
+      },
+      "evidence": {
+        "text": "Pilar counts: 371 + 44 + 27 + 18 = 460; overall reported defects = 742."
+      }
+    }
+  ],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "execution_gap",
+        "requires_human_attention": false,
+        "description": "The expanded telemetry request covering primary and secondary lines was accepted but no result was provided, so the conclusion is limited to primary lines.",
+        "gap_reason": "other"
+      }
+    ]
+  }
+}
+```

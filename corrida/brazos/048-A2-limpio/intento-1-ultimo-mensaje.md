@@ -1,0 +1,27 @@
+Yes. In the broader non-reserved inventory, **gpu-cluster-a had 236 of 335 NodeUnavailable incidents (70.4%)**, accounting for **2,817 of 3,652 downtime minutes (77.1%)**.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "incident_analytics",
+      "severity": "info",
+      "title": "Most NodeUnavailable failures affected gpu-cluster-a",
+      "description": "Gpu-cluster-a accounted for 236 of 335 NodeUnavailable incidents and 2,817 of 3,652 associated downtime minutes.",
+      "final_state": "refuted_verifiable",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied incident analytics aggregation for non-reserved external and internal services."
+      },
+      "evidence": {
+        "text": "gpu-cluster-a: 236 incidents, 2,817 downtime minutes"
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified execution gaps remain for this calculation."
+  }
+}
+```

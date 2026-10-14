@@ -1,0 +1,1 @@
+Yes. Motion-control-east accounted for 401 of 512 ServoDrive-X9 stockouts across all infrastructure—78.3%. Within standard compute pools, it accounted for 349 of 418—83.5%. The stockouts were therefore strongly concentrated there.

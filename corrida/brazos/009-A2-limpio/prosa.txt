@@ -1,0 +1,1 @@
+Yes. Including automated-warehouse inventory, **vision-inspection-api accounted for 2,259 of 2,628 TimeoutErrors (86.0%)**. The remaining 14.0% was split among qc-label-worker (228), lot-release-scheduler (77), and agv-dispatch-controller (64).

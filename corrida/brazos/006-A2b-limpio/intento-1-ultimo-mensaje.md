@@ -1,0 +1,3 @@
+Yes. On October 12, gpu-cluster-a accounted for **2,087 of 2,862 NodeUnavailable minutes (72.9%)** when internal services were included. For production equipment alone, it represented **79.8%** (2,087 of 2,614 minutes).
+
+{"findings":[{"id":"h1","origin":"downtime-reviewer","severity":"major","title":"NodeUnavailable concentrated on gpu-cluster-a","description":"gpu-cluster-a caused 2,087 minutes, or 72.9%, of all NodeUnavailable downtime across production equipment and internal services.","location":"Fab-Orion, Fab-Laguna, and Fab-Pilar production logs for 2026-10-12"}]}

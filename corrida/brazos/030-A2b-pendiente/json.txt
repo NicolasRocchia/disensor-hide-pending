@@ -1,0 +1,11 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Wafer-delay distribution remains undetermined",
+      "description": "The asynchronous delay query has no reported result. Fab-Line-3 dominated quartz wafer carrier stockouts, but that alone does not establish that it accounted for most wafer-related delays."
+    }
+  ]
+}

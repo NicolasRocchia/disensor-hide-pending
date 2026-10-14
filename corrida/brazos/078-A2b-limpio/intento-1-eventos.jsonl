@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a98-9c62-7522-87b2-2bdbc795472b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. FAB-L3 accounted for 143 of 184 jobs affected by `WaferAlignTimeout` in standard compute pools—about 78%. Including maintenance-only equipment, it was still dominant at 151 of 197 jobs, or about 77%.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"info\",\n      \"title\": \"FAB-L3 dominated wafer-related delays\",\n      \"description\": \"FAB-L3 accounted for approximately 78% of jobs affected by WaferAlignTimeout on 2026-10-12.\",\n      \"location\": \"FAB-L3\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13359,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":262,"reasoning_output_tokens":111}}

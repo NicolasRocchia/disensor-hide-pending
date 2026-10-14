@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Stockouts concentrated at Northbridge",
+      "description": "Northbridge assay line accounted for 401 of 486 sterile 200 µL pipette-tip rack stockout failures (82.5%).",
+      "location": "Northbridge assay line"
+    }
+  ]
+}

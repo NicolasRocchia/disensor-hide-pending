@@ -1,0 +1,1 @@
+Yes. In the October 12 combined inventory records, **production-api accounted for 2,359 of 2,793 TimeoutErrors—84.5%**. The remaining 15.5% was split among inventory-worker (277), allocation-scheduler (94), and warehouse-controller (63).

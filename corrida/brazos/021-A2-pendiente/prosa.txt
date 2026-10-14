@@ -1,0 +1,3 @@
+Yes. The **Ezeiza Edge Facility** accounted for **1,956 of 3,184 defects (61.4%)**, so it alone produced most reported customer-facing defects yesterday. Córdoba reported 700 (22.0%) and Rosario 528 (16.6%).
+
+The broader query including automated warehouse inventory had not yet returned, so this conclusion applies only to the completed customer-facing-systems data.

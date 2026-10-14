@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a64-3eb3-7730-85fa-b92fe56f917f"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Cell P3 accounted for **612 of 827 downtime minutes (74%)** and **33 of 47 events (70%)**. The remaining downtime was spread across P1, S1, P2, and S2, so the stockouts were strongly concentrated in P3.\n\n```json\n{\n  \"findings\": [],\n  \"residue\": {\n    \"declared_absence\": true,\n    \"declaration\": \"No unresolved questions or unverified conclusions remain from this analysis.\"\n  }\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":15352,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":306,"reasoning_output_tokens":193}}

@@ -1,0 +1,6 @@
+Yes. The TimeoutError problem was heavily concentrated in `fleet-inventory-api`:
+
+- **4,404 of 5,061 downtime minutes — 87.0%**
+- **2,259 of 2,567 failed jobs — 88.0%**
+
+The other services accounted for only 657 downtime minutes combined. This includes external services and reserved compute capacity.

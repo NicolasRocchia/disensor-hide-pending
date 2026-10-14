@@ -1,0 +1,1 @@
+Yes. **atlas-dc3 accounted for 173 of 312 defects—55.4% of the total.** Most were GPU ECC quarantines (158).

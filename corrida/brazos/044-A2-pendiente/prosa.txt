@@ -1,0 +1,1 @@
+Yes. Of 672 servo-motor stockouts, 598 occurred in cell-alpha—about 89%. Cell-delta had 51 (7.6%) and cell-foxtrot 23 (3.4%). The available data therefore shows a strong concentration in cell-alpha; the broader secondary-line query was still pending.

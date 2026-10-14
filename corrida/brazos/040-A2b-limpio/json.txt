@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Most NodeUnavailable failures occurred on gpu-cluster-a",
+      "description": "gpu-cluster-a accounted for approximately 79% of NodeUnavailable failures across all services.",
+      "location": "gpu-cluster-a"
+    }
+  ]
+}

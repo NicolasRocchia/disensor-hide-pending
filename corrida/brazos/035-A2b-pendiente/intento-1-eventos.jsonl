@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a76-26ab-7101-8a57-4f663e6b583c"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Ashburn Assembly accounted for 2,311 of 2,846 affected jobs—about 81.2%—so it represented a clear majority of ComponentQualificationFailure defects.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"info\",\n      \"title\": \"Ashburn accounted for most defects\",\n      \"description\": \"Ashburn Assembly accounted for 2,311 of 2,846 jobs affected by ComponentQualificationFailure, approximately 81.2%.\",\n      \"location\": \"Manufacturing-delay records for 2026-10-12\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13215,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":213,"reasoning_output_tokens":66}}

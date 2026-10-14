@@ -1,0 +1,20 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "qc_events.aggregate",
+      "severity": "info",
+      "title": "TimeoutError concentrated in metrology-dispatch",
+      "description": "Metrology-dispatch represented 1,947 of the 2,184 jobs affected by TimeoutError, approximately 89.1 percent.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied quality-control aggregation result for 2026-10-12."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved uncertainty remains within the supplied quality-control aggregation data."
+  }
+}

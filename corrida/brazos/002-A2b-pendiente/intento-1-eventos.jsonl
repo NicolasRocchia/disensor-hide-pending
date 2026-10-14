@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a63-0099-7a90-aebd-effa335b671c"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. gpu-cluster-a accounted for 611 of 742 NodeUnavailable failures—about 82.3%.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"major\",\n      \"title\": \"NodeUnavailable concentrated on gpu-cluster-a\",\n      \"description\": \"gpu-cluster-a produced 611 of 742 NodeUnavailable failures (82.3%).\",\n      \"location\": \"inventory events for 2026-10-12\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13172,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":227,"reasoning_output_tokens":104}}

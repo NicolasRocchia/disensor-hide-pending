@@ -1,0 +1,1 @@
+Yes. **Cell-orion accounted for 1,936 of 2,214 NodeUnavailable failures—87.4%**. The remainder occurred in cell-polaris (187; 8.4%) and cell-vega (91; 4.1%), so the problem was strongly concentrated in cell-orion.

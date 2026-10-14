@@ -1,0 +1,1 @@
+Yes. The NodeUnavailable failures were heavily concentrated in **cell-orion**: 1,936 of 2,214 affected jobs (**87.4%**). Cell-polaris had 187 and cell-vega had 91.

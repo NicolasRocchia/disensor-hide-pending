@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Rosario had most VacuumInterlock downtime",
+      "description": "Rosario Final Assembly recorded 612 of 824 total VacuumInterlock downtime minutes, approximately 74%.",
+      "location": "Rosario Final Assembly"
+    }
+  ]
+}

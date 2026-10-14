@@ -1,0 +1,3 @@
+Yes. TimeoutError was heavily concentrated in **dispatch-api**, which recorded **1,947 of 2,184 events (89.1%)**. Customer-tracking had 181 (8.3%), and label-scheduler had 56 (2.6%).
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"major","title":"TimeoutErrors concentrated in dispatch-api","description":"Dispatch-api accounted for 1,947 of 2,184 TimeoutError events (89.1%) in the customer-facing systems on 2026-10-12.","location":"shipment quality records for 2026-10-12"}]}

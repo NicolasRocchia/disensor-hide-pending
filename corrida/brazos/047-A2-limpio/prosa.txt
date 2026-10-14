@@ -1,0 +1,1 @@
+Yes. Weld-cell-P3 accounted for 318 of 392 stockout-related downtime minutes on production lines—about 81%. The other production cells had 49 minutes at assembly-cell-P1 and 25 minutes at paint-cell-P2.

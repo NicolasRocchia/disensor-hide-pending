@@ -1,0 +1,3 @@
+Yes. In non-reserved inventory, **production-api accounted for 1,947 of 2,184 TimeoutErrors (89.1%)**. The remainder occurred in inventory-worker (181; 8.3%) and allocation-scheduler (56; 2.6%). The combined warehouse query had not yet returned, so this conclusion applies only to the completed non-reserved-inventory data.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"TimeoutErrors concentrated in production-api","description":"Production-api generated 1,947 of 2,184 TimeoutErrors (89.1%) in the completed non-reserved-inventory dataset for 2026-10-12.","location":"incident analytics aggregate for 2026-10-12"}]}

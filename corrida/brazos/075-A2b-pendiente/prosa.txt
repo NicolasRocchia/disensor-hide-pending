@@ -1,0 +1,1 @@
+Yes. CELL-F12 accounted for 78 of 96 servo-motor stockouts (81.25%). The remainder occurred in CELL-F07 (11) and CELL-F03 (7).

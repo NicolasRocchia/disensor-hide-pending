@@ -1,0 +1,31 @@
+Yes—within the completed external-services data, Northgate reported 401 of 689 defects (58.2%), so it accounted for most. The broader query including automated warehouse inventory had not completed, so an all-inventory majority is not yet confirmed.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Northgate held an external-services majority",
+      "description": "Northgate accounted for 401 of 689 reported external-service defects, or 58.2%.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Calculated from the completed shipment-record aggregation for 2026-10-12."
+      }
+    }
+  ],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "execution_gap",
+        "requires_human_attention": false,
+        "description": "The broader aggregation including automated warehouse inventory was accepted asynchronously but no completed result was provided, so Northgate's majority across that full scope remains unverified.",
+        "gap_reason": "other"
+      }
+    ]
+  }
+}
+```

@@ -1,0 +1,1 @@
+Yes. Pilar Assembly Works accounted for **545 of 927 defects (58.8%)**, more than Rosario and Córdoba combined (382). Seal-integrity failures drove most of Pilar’s total.

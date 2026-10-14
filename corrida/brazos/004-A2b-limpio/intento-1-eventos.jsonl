@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a63-f9ef-7dd1-9929-4d036c842b35"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Servo-motor stockouts were concentrated in **cell-P3**, which accounted for **612 of 827 downtime minutes (74%)** and **33 of 47 events (70%)** across primary and secondary lines.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"operations-reviewer\",\n      \"severity\": \"major\",\n      \"title\": \"Servo-motor stockouts concentrated in cell-P3\",\n      \"description\": \"Cell-P3 represented 612 of 827 downtime minutes (74%) and 33 of 47 servo-motor stockout events (70%).\",\n      \"location\": \"production/cell-P3\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13681,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":231,"reasoning_output_tokens":75}}

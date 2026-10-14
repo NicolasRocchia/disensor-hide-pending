@@ -1,0 +1,28 @@
+Yes. **CELL-P1-07 accounted for 241 of 286 servo-motor SM-48 stockouts—84.3%**. The remaining events occurred in CELL-P1-03 (27) and CELL-P2-02 (18).
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "production_logs",
+      "severity": "info",
+      "title": "Servo-motor stockouts concentrated in CELL-P1-07",
+      "description": "CELL-P1-07 generated 241 of 286 SM-48 stockout events, representing 84.3% of the total.",
+      "location": "Customer-facing primary production lines, 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Verified against the component-by-production-cell stockout aggregation."
+      },
+      "evidence": {
+        "text": "SM-48 stockouts: CELL-P1-07 241, CELL-P1-03 27, CELL-P2-02 18; total 286."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved ambiguity or unverified conclusion remains for this concentration analysis."
+  }
+}
+```

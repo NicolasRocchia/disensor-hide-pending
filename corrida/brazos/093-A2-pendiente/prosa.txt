@@ -1,0 +1,1 @@
+Yes. DC-S1 accounted for 151 of 184 servo-motor stockouts—about **82%**. The remaining events occurred in DC-S2 (21; 11%) and DC-S4 (12; 7%).

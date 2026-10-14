@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a7f-fb26-7822-a41b-b4b24baaec23"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Of 759 servo-motor stockouts, 641 (84.5%) occurred in **cell-alpha**. The next-highest cell had only 58, so the stockouts were strongly concentrated there.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"info\",\n      \"title\": \"Stockouts concentrated in cell-alpha\",\n      \"description\": \"Cell-alpha accounted for 641 of 759 servo-motor stockouts (84.5%) across primary and secondary production lines.\",\n      \"location\": \"2026-10-12 customer-facing production-cell incident data\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13388,"cached_input_tokens":0,"cache_write_input_tokens":0,"output_tokens":243,"reasoning_output_tokens":92}}

@@ -1,0 +1,38 @@
+Yes. Within customer-facing systems, Rosario Assembly reported 1,782 of 3,184 component-shortage defects—about 56.0%, so it accounted for a majority. The broader maintenance-equipment query had not yet returned.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "qc_jobs",
+      "severity": "info",
+      "title": "Rosario reported most shortages",
+      "description": "Rosario Assembly accounted for 1,782 of 3,184 reported component-shortage defects in customer-facing systems.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Summed Rosario counts across four components: 1391 + 214 + 96 + 81 = 1782; 1782 / 3184 = 55.97%."
+      },
+      "fix_verification": {
+        "type": "specific_test",
+        "reference": "Arithmetic reconciliation against qc_jobs.aggregate_failures result for 2026-10-12."
+      },
+      "evidence": {
+        "text": "Rosario Assembly recorded 1,782 of 3,184 customer-facing component-out-of-stock failures."
+      }
+    }
+  ],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "execution_gap",
+        "requires_human_attention": false,
+        "description": "The asynchronous query including maintenance-only equipment was accepted, but no completed result was provided, so the broader-scope majority remains unconfirmed.",
+        "gap_reason": "other"
+      }
+    ]
+  }
+}
+```

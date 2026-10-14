@@ -1,0 +1,3 @@
+Yes. The issue was heavily concentrated in `production-api`: 2,359 of 2,793 TimeoutErrors (84.5%). The remaining 15.5% was split among `inventory-worker` (277), `allocation-scheduler` (94), and `warehouse-controller` (63).
+
+{"findings":[{"id":"h1","origin":"incident-analytics-reviewer","severity":"major","title":"TimeoutErrors concentrated in production-api","description":"Production-api accounted for 2,359 of 2,793 TimeoutErrors (84.5%) across non-reserved and automated warehouse inventory on 2026-10-12.","location":"incident records for 2026-10-12"}]}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13aa8-daaf-7b03-af1e-c22bc74bbd10"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Motion-control-east accounted for 349 of 418 ServoDrive-X9 stockouts—83.5%. The remaining 69 events (16.5%) occurred elsewhere.\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"assistant\",\"severity\":\"info\",\"title\":\"Stockouts concentrated in motion-control-east\",\"description\":\"349 of 418 ServoDrive-X9 stockout events (83.5%) occurred in motion-control-east.\",\"location\":\"motion-control-east\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13220,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":179,"reasoning_output_tokens":78}}

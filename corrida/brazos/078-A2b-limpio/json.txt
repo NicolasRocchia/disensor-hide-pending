@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "FAB-L3 dominated wafer-related delays",
+      "description": "FAB-L3 accounted for approximately 78% of jobs affected by WaferAlignTimeout on 2026-10-12.",
+      "location": "FAB-L3"
+    }
+  ]
+}

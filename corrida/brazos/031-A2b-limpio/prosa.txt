@@ -1,0 +1,1 @@
+Yes. Servo-motor stockouts were heavily concentrated in **CELL-P1-07**, which recorded **241 of 322 events (74.8%)** across primary and secondary lines. The next-highest cell had only 27 events.

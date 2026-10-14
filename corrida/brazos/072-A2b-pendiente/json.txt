@@ -1,0 +1,1 @@
+{"findings":[{"id":"h1","origin":"assistant","severity":"major","title":"Stockouts concentrated in one cell","description":"Río-North rack-handling-cell-4 recorded 143 of 184 servo-motor stockouts (77.7%).","location":"Río-North / rack-handling-cell-4"}]}

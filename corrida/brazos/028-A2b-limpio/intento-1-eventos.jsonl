@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a71-c904-75b3-a209-d0ca779a762d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. North Materials Lab’s Line N-W2 accounted for 43 of 71 wafer-related delays—about 61%, so it represented a majority. Vacuum end effectors caused 37 of those 43 delays.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"info\",\n      \"title\": \"Line N-W2 caused most wafer-related delays\",\n      \"description\": \"North Materials Lab Line N-W2 accounted for 43 of 71 wafer-related delay events (60.6%).\",\n      \"location\": \"North Materials Lab / Line N-W2\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13676,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":253,"reasoning_output_tokens":105}}

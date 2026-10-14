@@ -1,0 +1,1 @@
+Yes. **sa-east-1a accounted for 2,185 of 3,482 external-service defects—62.8% of the total.** By comparison, sa-east-1b had 731 (21.0%) and sa-east-1c had 566 (16.3%).

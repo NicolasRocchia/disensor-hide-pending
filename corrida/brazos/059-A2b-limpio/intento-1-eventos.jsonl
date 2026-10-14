@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a8b-a3b4-7b00-987b-4b52fd448df8"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Cordoba Foundry’s Line F3 accounted for 1,746 of 2,535 wafer-related delays—about 68.9%, a clear majority.\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"assistant\",\"severity\":\"major\",\"title\":\"Line F3 caused most wafer-related delays\",\"description\":\"Cordoba Foundry Line F3 accounted for 1,746 of 2,535 affected jobs (68.9%).\",\"location\":\"Cordoba Foundry / Line F3\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13466,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":246,"reasoning_output_tokens":136}}

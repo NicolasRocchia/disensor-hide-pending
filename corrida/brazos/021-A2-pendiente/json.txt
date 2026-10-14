@@ -1,0 +1,31 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Ezeiza accounted for most defects",
+      "description": "Ezeiza reported 1,956 of 3,184 customer-facing defects, representing 61.4% of the total.",
+      "location": "Production defect aggregate for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Calculated by summing all five reported defect categories by facility and comparing the result with the reported total."
+      },
+      "evidence": {
+        "text": "Ezeiza 1,956; Córdoba 700; Rosario 528; overall total 3,184."
+      }
+    }
+  ],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "execution_gap",
+        "requires_human_attention": false,
+        "description": "The asynchronous aggregate including automated warehouse inventory had not returned, so the expanded facility distribution could not be verified.",
+        "gap_reason": "other"
+      }
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+Yes. On October 12, 2026, cell-alpha accounted for 641 of 759 servo-motor stockouts—84.5%. The next-highest cell had only 58, so the incidents were strongly concentrated in cell-alpha.

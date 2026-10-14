@@ -1,0 +1,1 @@
+Yes. Production-cell-e4 accounted for 392 of 486 servo-motor stockout events—about 80.7%. The remainder occurred in e2 (61; 12.6%) and e7 (33; 6.8%).

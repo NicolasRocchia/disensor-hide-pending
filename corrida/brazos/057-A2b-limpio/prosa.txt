@@ -1,0 +1,1 @@
+Yes. Dock 7 accounted for 1,044 of 1,372 customer-facing LabelMismatch errors—76.1%, clearly the majority. Including maintenance-only equipment, it was 1,079 of 1,431—75.4%.

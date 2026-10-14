@@ -1,0 +1,7 @@
+Yes. The TimeoutError downtime was heavily concentrated in **pallet-vision-api**:
+
+- pallet-vision-api: **1,218 minutes (84.8%)**
+- weigh-station-gateway: **146 minutes (10.2%)**
+- label-verification-service: **72 minutes (5.0%)**
+
+This is based on the completed query for external services on primary production lines. The broader primary-and-secondary query had not returned yet, so this conclusion is limited to primary lines.

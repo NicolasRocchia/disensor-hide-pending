@@ -1,0 +1,1 @@
+Yes. On October 12, gpu-cluster-a accounted for **2,087 of 2,862 NodeUnavailable minutes (72.9%)** when internal services were included. For production equipment alone, it represented **79.8%** (2,087 of 2,614 minutes).

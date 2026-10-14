@@ -1,0 +1,28 @@
+Yes. On October 12, 2026, cell-alpha accounted for 641 of 759 servo-motor stockouts—84.5%. The next-highest cell had only 58, so the incidents were strongly concentrated in cell-alpha.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "incident_analytics",
+      "severity": "major",
+      "title": "Stockouts concentrated in cell-alpha",
+      "description": "Cell-alpha recorded 641 of 759 servo-motor stockouts, representing 84.5% of the total.",
+      "location": "Customer-facing systems, including secondary production lines",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied incident aggregation for 2026-10-12."
+      },
+      "evidence": {
+        "text": "ServoMotorStockout: 759 total; cell-alpha: 641."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved analytical questions remain in the supplied incident data."
+  }
+}
+```

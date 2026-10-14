@@ -1,0 +1,3 @@
+Yes. Including automated warehouse inventory, **941 of 1,396 NodeUnavailable failures (67.4%)** occurred on `gpu-cluster-a`, so it accounted for a clear majority.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Most NodeUnavailable failures affected gpu-cluster-a","description":"gpu-cluster-a recorded 941 of 1,396 NodeUnavailable events (67.4%) on 2026-10-12, including automated warehouse inventory.","location":"gpu-cluster-a"}]}

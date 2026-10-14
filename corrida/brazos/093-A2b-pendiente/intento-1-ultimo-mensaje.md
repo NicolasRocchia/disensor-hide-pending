@@ -1,0 +1,16 @@
+Yes. Servo-motor stockouts were heavily concentrated in **DC-S1**, which recorded **151 of 184 events (82.1%)**. The remainder occurred in DC-S2 (21) and DC-S4 (12).
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Servo-motor stockouts concentrated in DC-S1",
+      "description": "DC-S1 accounted for 151 of 184 servo-motor stockout events (82.1%); DC-S2 had 21 and DC-S4 had 12.",
+      "location": "Production cell DC-S1"
+    }
+  ]
+}
+```

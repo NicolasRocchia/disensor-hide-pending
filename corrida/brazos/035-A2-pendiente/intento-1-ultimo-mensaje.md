@@ -1,0 +1,27 @@
+Yes. Ashburn Assembly accounted for 2,311 of the 2,846 affected jobs—about **81.2%**, clearly the majority.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "manufacturing_delays",
+      "severity": "info",
+      "title": "Ashburn represented the majority",
+      "description": "Ashburn Assembly accounted for approximately 81.2% of jobs affected by ComponentQualificationFailure.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Calculated as 2,311 divided by 2,846 using the supplied manufacturing-delay aggregate."
+      },
+      "evidence": {
+        "text": "Ashburn Assembly: 2,311 of 2,846 affected jobs."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified conclusions remain from this calculation."
+  }
+}
+```

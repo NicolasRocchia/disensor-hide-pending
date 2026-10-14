@@ -1,0 +1,6 @@
+Yes. The problem was heavily concentrated in **pallet-vision-api**:
+
+- **1,602 of 1,972 downtime minutes (81.2%)**
+- **2,559 of 3,127 TimeoutError events (81.8%)**
+
+The remaining downtime came from weigh-station-gateway (12.3%) and label-verification-service (6.4%). This uses the previously reported October 12 scope covering primary and secondary lines.

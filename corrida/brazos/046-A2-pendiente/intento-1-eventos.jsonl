@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a81-b1e7-7420-8761-7fbe1a477c4b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. `production-api` accounted for 1,947 of 2,184 TimeoutErrors—about **89.1%**. The remainder came from `async-worker` (181; 8.3%) and `job-scheduler` (56; 2.6%).\n\n```json\n{\n  \"findings\": [],\n  \"residue\": {\n    \"declared_absence\": true,\n    \"declaration\": \"No unresolved residue remained from this concentration analysis.\"\n  }\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":14893,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":205,"reasoning_output_tokens":97}}

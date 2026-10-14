@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a76-47ef-7ba3-b65f-3c072c0bd6be"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Ashburn Assembly accounted for 2,311 of 3,000 ComponentQualificationFailure defects—about **77%**, so it represented a clear majority.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"codex\",\n      \"severity\": \"info\",\n      \"title\": \"Ashburn accounted for most defects\",\n      \"description\": \"Ashburn Assembly contributed 2,311 of 3,000 ComponentQualificationFailure defects, approximately 77%.\",\n      \"location\": \"Manufacturing-delay records for 2026-10-12\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13398,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":199,"reasoning_output_tokens":61}}

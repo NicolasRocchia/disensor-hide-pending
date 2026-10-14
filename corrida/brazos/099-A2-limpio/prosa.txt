@@ -1,0 +1,1 @@
+Yes. **Lithography-dispatch accounted for 2,159 of 2,430 TimeoutError downtime minutes—88.8%—and 44 of 58 incidents (75.9%).** The remainder came from etch-control (215 minutes) and lot-scheduler (56 minutes).

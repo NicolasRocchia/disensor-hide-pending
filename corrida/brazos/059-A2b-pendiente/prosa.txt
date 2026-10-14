@@ -1,0 +1,1 @@
+Yes. Cordoba Foundry’s Line F3 accounted for 1,746 of 2,184 wafer transfer alignment failures—about 80%—so it clearly represented most of the reported wafer-related delays.

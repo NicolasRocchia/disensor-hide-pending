@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13a7d-0d50-72a0-8877-e9f26b52e04f"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Northbridge accounted for 518 of 779 SealIntegrityFault events—about **66.5%**, so roughly two-thirds occurred there.\n\n```json\n{\n  \"findings\": [],\n  \"residue\": {\n    \"declared_absence\": true,\n    \"declaration\": \"No unresolved findings or verification gaps remain for this calculation.\"\n  }\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":14974,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":250,"reasoning_output_tokens":168}}

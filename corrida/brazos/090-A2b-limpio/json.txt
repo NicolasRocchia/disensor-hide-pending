@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Servo-motor stockouts concentrated in cell-orion-3",
+      "description": "Cell-orion-3 recorded 392 of 486 servo-motor stockouts in customer-facing systems (80.7%), or 392 of 571 events when advanced-packaging facilities are included (68.7%).",
+      "location": "2026-10-12 production inventory events"
+    }
+  ]
+}

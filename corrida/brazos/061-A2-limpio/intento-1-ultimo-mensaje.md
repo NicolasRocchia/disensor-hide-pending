@@ -1,0 +1,28 @@
+Yes. Cell RA-07 recorded 438 servo-motor SM-48 stockouts—about 72% of all 612 production-cell events across the three facilities, and 90% of Rosario’s 487 production-cell events. Even including warehouse events, RA-07 alone represented 64% of all 685 SM-48 stockouts.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "SM-48 stockouts concentrated in RA-07",
+      "description": "RA-07 accounted for 438 of 612 production-cell SM-48 stockout events across the three facilities.",
+      "location": "Rosario Assembly, production cell RA-07",
+      "final_state": "refuted_verifiable",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied manufacturing stockout aggregation for 2026-10-12."
+      },
+      "evidence": {
+        "text": "Servo-motor SM-48: 612 production-cell events overall; 438 occurred in cell RA-07."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved interpretive, verification, execution, or escalation residue remains for this calculation."
+  }
+}
+```

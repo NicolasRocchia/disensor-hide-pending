@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Santa Clara reported most defects",
+      "description": "Santa Clara Fab 4 accounted for 1,369 of 2,448 reported defects, or 55.9% of the total.",
+      "location": "Manufacturing delay records for 2026-10-12"
+    }
+  ]
+}

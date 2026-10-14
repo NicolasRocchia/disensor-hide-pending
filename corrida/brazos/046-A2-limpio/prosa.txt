@@ -1,0 +1,6 @@
+Yes. TimeoutErrors were heavily concentrated in `production-api`:
+
+- Customer-facing systems: 1,947 of 2,184 TimeoutErrors (89.1%).
+- Including advanced packaging facilities: 1,947 of 2,470 (78.8%).
+
+No other service exceeded 212 TimeoutErrors, so `production-api` was clearly the principal source.

@@ -1,0 +1,1 @@
+Yes. gpu-cluster-a accounted for 75 of 97 NodeUnavailable events (77.3%) and 448 of 556 delayed jobs (80.6%) across non-reserved and reserved capacity.

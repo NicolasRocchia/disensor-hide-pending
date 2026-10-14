@@ -1,0 +1,24 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "job_failure_analytics",
+      "severity": "info",
+      "title": "EZE-1 dominated NodeUnavailable failures",
+      "description": "EZE-1 accounted for 2,071 of 2,486 affected jobs, approximately 83.3% of the total.",
+      "location": "Standard compute pools, 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied job_failure_analytics aggregate result."
+      },
+      "evidence": {
+        "text": "NodeUnavailable: EZE-1 2,071; COR-2 274; SCL-1 141; total 2,486."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved interpretive, execution, escalation, or reviewer-related residue remains."
+  }
+}

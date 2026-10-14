@@ -1,0 +1,3 @@
+Yes for the reported standard pools: line-alpha accounted for 1,947 of 2,184 pallet-label mismatches—89.1%.
+
+However, the all-production-lines query was still pending, so this is not yet confirmed across every production line.

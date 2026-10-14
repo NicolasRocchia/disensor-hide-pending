@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Most failures occurred on gpu-cluster-a",
+      "description": "gpu-cluster-a produced roughly three-quarters of yesterday's NodeUnavailable failures.",
+      "location": "gpu-cluster-a"
+    }
+  ]
+}
