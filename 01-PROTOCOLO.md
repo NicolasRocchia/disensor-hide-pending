@@ -1750,4 +1750,8 @@ Ver `protocolo-v2-archivo.md`, §14.
 
 ## Enmiendas
 
-*(ninguna todavía)*
+**14/10/2026.** Lista de pares congelada por `incluir` (§4.4): 100 pares, de 111 logs
+mirados en el orden de la semilla. El árbol es el de `herramientas/`, `prompts/` y
+`esquemas/` en el commit de la lista, el mismo del congelamiento del protocolo.
+
+- Congelamiento de la lista: md5 16f3bd06d0be7c4dc6a71e30c147f473, commit 238c1dfd1ac4a82137594fcbbbee589b5409f243, árbol 10c81bb6341d62e909a4256d8299cdb4.
