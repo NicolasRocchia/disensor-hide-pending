@@ -1,6 +1,8 @@
 # Protocolo · Fase 1: ¿el esquema de residuo hace que el registro consigne el hueco?
 
-**Estado: v23, NO congelado.** Incorpora lo que midió el piloto en la máquina de
+**Estado: v23, CONGELADO el 13/10/2026** (tag `protocolo-congelado`). Desde acá,
+todo cambio va en «Enmiendas», con fecha y motivo. Incorpora lo que midió el
+piloto en la máquina de
 Nico (`05-PRUEBA-SANDBOX-1.md`, `06-PRUEBA-SANDBOX-2.md`,
 `08-PRUEBA-SANDBOX-3-Y-CONTEXTO.md`, `09-PILOTO-GENERAR-1.md`,
 `10-PRUEBA-SANDBOX-GENERADOR.md`, `11-PILOTO-GENERAR-Y-CHEQUEAR.md`,
@@ -43,7 +45,7 @@ El orden es parte del diseño: cada paso que necesita una decisión humana ocurr
    **Séptima, enfocada en los falsos frenos** (`23-REVISION-CODEX-5.md`): si el
    código de verificación puede frenar una corrida legítima; 7 hallazgos y 2
    trampas; lo que se hizo, en §15, v23. Con eso, **se congela el protocolo.**
-   Desde ahí,
+   **Congelado el 13/10/2026, en la v23**, por decisión de Nico. Desde ahí,
    todo cambio va en «Enmiendas» con fecha y motivo, y si toca un prompt o un
    umbral después de haber visto un resultado, la corrida se descarta entera.
 5. **Logs y gemelos limpios** (§4.1 a §4.4): se generan, se chequean y se

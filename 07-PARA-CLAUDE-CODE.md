@@ -172,4 +172,13 @@ El piloto terminó (capacidad 50 de 50, `12`). `juez-prueba` con el prompt ciego
 la etapa lo verifica sin llamar. La cuarta revisión está en `19` y sus arreglos en
 la v20 (`20`). La quinta está en `21` y sus arreglos en la v21; la sexta, en `22`
 y sus arreglos en la v22; la séptima, de falsos frenos, en `23` y sus arreglos en
-la v23. Lo que sigue lo decide Nico: otra ronda o congelar (§0, paso 4).
+la v23. **El protocolo quedó congelado el 13/10/2026, en la v23** (tag
+`protocolo-congelado`); desde acá, todo cambio va en «Enmiendas».
+
+**Siguiente: `logs`** (§0, paso 5), con el OK de Nico:
+**`python experimento\herramientas\corrida.py logs --limite N`**, en segundo plano
+y en tandas, hasta que 110 logs pasen §4.2 y §4.3. Unas 120 generaciones con su
+capacidad: unos 8 millones de tokens de entrada de GPT, del orden de 6 puntos de la
+semana de Nico. Al terminar aplica la regla de parada de §4.3. Después, `gemelos`
+(Claude) y la hoja de Nico. Antes de `brazos` hace falta el remoto en GitHub
+(`origin`, rama `main`) con el commit de la lista y el del registro.
