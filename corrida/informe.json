@@ -1,0 +1,995 @@
+{
+  "n_pares": 100,
+  "n_incluidos": 100,
+  "exclusiones": {},
+  "c2": {
+    "p": 1.1920928955078125e-07,
+    "suma": 24,
+    "discordantes_1": 24,
+    "discordantes_2": 0,
+    "efecto_medio": 0.24,
+    "significativa": true,
+    "evaluable": true,
+    "ic95_bootstrap": [
+      0.16,
+      0.33
+    ],
+    "sensible_al_juez": false
+  },
+  "descriptivas": {
+    "por_brazo": {
+      "A2b": {
+        "registra_en_el_pendiente": {
+          "k": 5,
+          "n": 100,
+          "proporcion": 0.05,
+          "ic95": [
+            0.02154367915436796,
+            0.11175046923191913
+          ]
+        },
+        "falso_positivo_en_el_limpio": {
+          "k": 0,
+          "n": 100,
+          "proporcion": 0.0,
+          "ic95": [
+            3.469446951953614e-18,
+            0.03699349820698568
+          ]
+        },
+        "falso_positivo_gemelo_con_request_id": {
+          "k": 0,
+          "n": 67,
+          "proporcion": 0.0,
+          "ic95": [
+            0.0,
+            0.05422613939130178
+          ]
+        },
+        "falso_positivo_gemelo_sin_request_id": {
+          "k": 0,
+          "n": 33,
+          "proporcion": 0.0,
+          "ic95": [
+            0.0,
+            0.10426999754245206
+          ]
+        },
+        "pendiente": {
+          "llamadas": 100,
+          "no_terminaron": 0,
+          "json_ilegible": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "cumple_esquema": {
+            "k": 100,
+            "n": 100,
+            "proporcion": 1.0,
+            "ic95": [
+              0.9630065017930143,
+              1.0
+            ]
+          },
+          "con_comandos_ejecutados": 0,
+          "con_archivos_cambiados": 0,
+          "con_mas_de_un_mensaje_del_agente": 0
+        },
+        "limpio": {
+          "llamadas": 100,
+          "no_terminaron": 0,
+          "json_ilegible": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "cumple_esquema": {
+            "k": 100,
+            "n": 100,
+            "proporcion": 1.0,
+            "ic95": [
+              0.9630065017930143,
+              1.0
+            ]
+          },
+          "con_comandos_ejecutados": 0,
+          "con_archivos_cambiados": 0,
+          "con_mas_de_un_mensaje_del_agente": 0
+        }
+      },
+      "A2": {
+        "registra_en_el_pendiente": {
+          "k": 29,
+          "n": 100,
+          "proporcion": 0.29,
+          "ic95": [
+            0.2101483574912227,
+            0.3853889117557111
+          ]
+        },
+        "falso_positivo_en_el_limpio": {
+          "k": 0,
+          "n": 100,
+          "proporcion": 0.0,
+          "ic95": [
+            3.469446951953614e-18,
+            0.03699349820698568
+          ]
+        },
+        "falso_positivo_gemelo_con_request_id": {
+          "k": 0,
+          "n": 67,
+          "proporcion": 0.0,
+          "ic95": [
+            0.0,
+            0.05422613939130178
+          ]
+        },
+        "falso_positivo_gemelo_sin_request_id": {
+          "k": 0,
+          "n": 33,
+          "proporcion": 0.0,
+          "ic95": [
+            0.0,
+            0.10426999754245206
+          ]
+        },
+        "pendiente": {
+          "llamadas": 100,
+          "no_terminaron": 0,
+          "json_ilegible": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "cumple_esquema": {
+            "k": 100,
+            "n": 100,
+            "proporcion": 1.0,
+            "ic95": [
+              0.9630065017930143,
+              1.0
+            ]
+          },
+          "con_comandos_ejecutados": 0,
+          "con_archivos_cambiados": 0,
+          "con_mas_de_un_mensaje_del_agente": 0,
+          "cumple_reglas": {
+            "k": 96,
+            "n": 100,
+            "proporcion": 0.96,
+            "ic95": [
+              0.9016292856411208,
+              0.9843366960084523
+            ]
+          }
+        },
+        "limpio": {
+          "llamadas": 100,
+          "no_terminaron": 0,
+          "json_ilegible": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "cumple_esquema": {
+            "k": 100,
+            "n": 100,
+            "proporcion": 1.0,
+            "ic95": [
+              0.9630065017930143,
+              1.0
+            ]
+          },
+          "con_comandos_ejecutados": 0,
+          "con_archivos_cambiados": 0,
+          "con_mas_de_un_mensaje_del_agente": 0,
+          "cumple_reglas": {
+            "k": 93,
+            "n": 100,
+            "proporcion": 0.93,
+            "ic95": [
+              0.8625048526092651,
+              0.9656807389327273
+            ]
+          }
+        },
+        "falso_cierre": {
+          "k": 71,
+          "n": 100,
+          "proporcion": 0.71,
+          "ic95": [
+            0.6146110882442888,
+            0.7898516425087772
+          ]
+        },
+        "cierre_correcto": {
+          "k": 99,
+          "n": 100,
+          "proporcion": 0.99,
+          "ic95": [
+            0.9455138038212946,
+            0.9982325679358593
+          ]
+        }
+      }
+    }
+  },
+  "items_decisivos": [
+    [
+      0,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      0,
+      "A2b",
+      "limpio"
+    ],
+    [
+      0,
+      "A2",
+      "pendiente"
+    ],
+    [
+      0,
+      "A2",
+      "limpio"
+    ],
+    [
+      15,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      15,
+      "A2b",
+      "limpio"
+    ],
+    [
+      15,
+      "A2",
+      "pendiente"
+    ],
+    [
+      15,
+      "A2",
+      "limpio"
+    ],
+    [
+      16,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      16,
+      "A2b",
+      "limpio"
+    ],
+    [
+      16,
+      "A2",
+      "pendiente"
+    ],
+    [
+      16,
+      "A2",
+      "limpio"
+    ],
+    [
+      17,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      17,
+      "A2b",
+      "limpio"
+    ],
+    [
+      17,
+      "A2",
+      "pendiente"
+    ],
+    [
+      17,
+      "A2",
+      "limpio"
+    ],
+    [
+      21,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      21,
+      "A2b",
+      "limpio"
+    ],
+    [
+      21,
+      "A2",
+      "pendiente"
+    ],
+    [
+      21,
+      "A2",
+      "limpio"
+    ],
+    [
+      36,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      36,
+      "A2b",
+      "limpio"
+    ],
+    [
+      36,
+      "A2",
+      "pendiente"
+    ],
+    [
+      36,
+      "A2",
+      "limpio"
+    ],
+    [
+      44,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      44,
+      "A2b",
+      "limpio"
+    ],
+    [
+      44,
+      "A2",
+      "pendiente"
+    ],
+    [
+      44,
+      "A2",
+      "limpio"
+    ],
+    [
+      45,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      45,
+      "A2b",
+      "limpio"
+    ],
+    [
+      45,
+      "A2",
+      "pendiente"
+    ],
+    [
+      45,
+      "A2",
+      "limpio"
+    ],
+    [
+      59,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      59,
+      "A2b",
+      "limpio"
+    ],
+    [
+      59,
+      "A2",
+      "pendiente"
+    ],
+    [
+      59,
+      "A2",
+      "limpio"
+    ],
+    [
+      65,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      65,
+      "A2b",
+      "limpio"
+    ],
+    [
+      65,
+      "A2",
+      "pendiente"
+    ],
+    [
+      65,
+      "A2",
+      "limpio"
+    ],
+    [
+      67,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      67,
+      "A2b",
+      "limpio"
+    ],
+    [
+      67,
+      "A2",
+      "pendiente"
+    ],
+    [
+      67,
+      "A2",
+      "limpio"
+    ],
+    [
+      78,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      78,
+      "A2b",
+      "limpio"
+    ],
+    [
+      78,
+      "A2",
+      "pendiente"
+    ],
+    [
+      78,
+      "A2",
+      "limpio"
+    ],
+    [
+      80,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      80,
+      "A2b",
+      "limpio"
+    ],
+    [
+      80,
+      "A2",
+      "pendiente"
+    ],
+    [
+      80,
+      "A2",
+      "limpio"
+    ],
+    [
+      82,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      82,
+      "A2b",
+      "limpio"
+    ],
+    [
+      82,
+      "A2",
+      "pendiente"
+    ],
+    [
+      82,
+      "A2",
+      "limpio"
+    ],
+    [
+      83,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      83,
+      "A2b",
+      "limpio"
+    ],
+    [
+      83,
+      "A2",
+      "pendiente"
+    ],
+    [
+      83,
+      "A2",
+      "limpio"
+    ],
+    [
+      84,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      84,
+      "A2b",
+      "limpio"
+    ],
+    [
+      84,
+      "A2",
+      "pendiente"
+    ],
+    [
+      84,
+      "A2",
+      "limpio"
+    ],
+    [
+      88,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      88,
+      "A2b",
+      "limpio"
+    ],
+    [
+      88,
+      "A2",
+      "pendiente"
+    ],
+    [
+      88,
+      "A2",
+      "limpio"
+    ],
+    [
+      89,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      89,
+      "A2b",
+      "limpio"
+    ],
+    [
+      89,
+      "A2",
+      "pendiente"
+    ],
+    [
+      89,
+      "A2",
+      "limpio"
+    ],
+    [
+      92,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      92,
+      "A2b",
+      "limpio"
+    ],
+    [
+      92,
+      "A2",
+      "pendiente"
+    ],
+    [
+      92,
+      "A2",
+      "limpio"
+    ],
+    [
+      94,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      94,
+      "A2b",
+      "limpio"
+    ],
+    [
+      94,
+      "A2",
+      "pendiente"
+    ],
+    [
+      94,
+      "A2",
+      "limpio"
+    ],
+    [
+      103,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      103,
+      "A2b",
+      "limpio"
+    ],
+    [
+      103,
+      "A2",
+      "pendiente"
+    ],
+    [
+      103,
+      "A2",
+      "limpio"
+    ],
+    [
+      105,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      105,
+      "A2b",
+      "limpio"
+    ],
+    [
+      105,
+      "A2",
+      "pendiente"
+    ],
+    [
+      105,
+      "A2",
+      "limpio"
+    ],
+    [
+      107,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      107,
+      "A2b",
+      "limpio"
+    ],
+    [
+      107,
+      "A2",
+      "pendiente"
+    ],
+    [
+      107,
+      "A2",
+      "limpio"
+    ],
+    [
+      109,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      109,
+      "A2b",
+      "limpio"
+    ],
+    [
+      109,
+      "A2",
+      "pendiente"
+    ],
+    [
+      109,
+      "A2",
+      "limpio"
+    ]
+  ],
+  "muestra_estratificada": [
+    [
+      14,
+      "A2",
+      "pendiente"
+    ],
+    [
+      7,
+      "A2",
+      "limpio"
+    ],
+    [
+      88,
+      "A2",
+      "pendiente"
+    ],
+    [
+      41,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      80,
+      "A2",
+      "pendiente"
+    ],
+    [
+      44,
+      "A2",
+      "pendiente"
+    ],
+    [
+      105,
+      "A2",
+      "limpio"
+    ],
+    [
+      21,
+      "A2",
+      "limpio"
+    ],
+    [
+      67,
+      "A2",
+      "pendiente"
+    ],
+    [
+      94,
+      "A2",
+      "pendiente"
+    ],
+    [
+      52,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      103,
+      "A2",
+      "pendiente"
+    ],
+    [
+      14,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      22,
+      "A2b",
+      "limpio"
+    ],
+    [
+      45,
+      "A2",
+      "pendiente"
+    ],
+    [
+      38,
+      "A2",
+      "pendiente"
+    ],
+    [
+      77,
+      "A2",
+      "limpio"
+    ],
+    [
+      89,
+      "A2b",
+      "limpio"
+    ],
+    [
+      24,
+      "A2",
+      "pendiente"
+    ],
+    [
+      2,
+      "A2b",
+      "limpio"
+    ],
+    [
+      72,
+      "A2",
+      "pendiente"
+    ],
+    [
+      60,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      28,
+      "A2",
+      "pendiente"
+    ],
+    [
+      84,
+      "A2",
+      "pendiente"
+    ],
+    [
+      35,
+      "A2",
+      "pendiente"
+    ],
+    [
+      17,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      86,
+      "A2b",
+      "pendiente"
+    ],
+    [
+      15,
+      "A2",
+      "pendiente"
+    ],
+    [
+      65,
+      "A2",
+      "pendiente"
+    ],
+    [
+      93,
+      "A2",
+      "pendiente"
+    ]
+  ],
+  "c2_con_etiquetas_de_nico": {
+    "p": 2.384185791015625e-07,
+    "suma": 24,
+    "discordantes_1": 22,
+    "discordantes_2": 1,
+    "efecto_medio": 0.24,
+    "significativa": true
+  },
+  "c2_con_etiquetas_de_nico_solo_en_los_decisivos": {
+    "p": 2.384185791015625e-07,
+    "suma": 24,
+    "discordantes_1": 22,
+    "discordantes_2": 1,
+    "efecto_medio": 0.24,
+    "significativa": true
+  },
+  "validacion": {
+    "precision_de_los_positivos_en_los_decisivos": {
+      "k": 23,
+      "n": 24,
+      "proporcion": 0.9583333333333334,
+      "ic95": [
+        0.7975819352134406,
+        0.9926065438344942
+      ]
+    },
+    "coincidencia_estratificada": {
+      "True": {
+        "k": 15,
+        "n": 15,
+        "proporcion": 1.0,
+        "ic95": [
+          0.7961166989641515,
+          1.0
+        ],
+        "suficiente": true
+      },
+      "False": {
+        "k": 14,
+        "n": 15,
+        "proporcion": 0.9333333333333333,
+        "ic95": [
+          0.7018347012621998,
+          0.9881331045067315
+        ],
+        "suficiente": true
+      }
+    },
+    "juez_no_confiable": false
+  },
+  "potencia_con_el_n_real": [
+    {
+      "a2b": [
+        0.2,
+        0.0
+      ],
+      "a2": [
+        0.4,
+        0.0
+      ],
+      "escrita_n100": 0.84,
+      "con_n_real": 0.84375
+    },
+    {
+      "a2b": [
+        0.3,
+        0.0
+      ],
+      "a2": [
+        0.5,
+        0.0
+      ],
+      "escrita_n100": 0.79,
+      "con_n_real": 0.79225
+    },
+    {
+      "a2b": [
+        0.4,
+        0.0
+      ],
+      "a2": [
+        0.6,
+        0.0
+      ],
+      "escrita_n100": 0.77,
+      "con_n_real": 0.7765
+    },
+    {
+      "a2b": [
+        0.4,
+        0.0
+      ],
+      "a2": [
+        0.7,
+        0.0
+      ],
+      "escrita_n100": 0.99,
+      "con_n_real": 0.98875
+    },
+    {
+      "a2b": [
+        0.3,
+        0.05
+      ],
+      "a2": [
+        0.5,
+        0.1
+      ],
+      "escrita_n100": 0.44,
+      "con_n_real": 0.44875
+    },
+    {
+      "a2b": [
+        0.4,
+        0.05
+      ],
+      "a2": [
+        0.7,
+        0.1
+      ],
+      "escrita_n100": 0.86,
+      "con_n_real": 0.86875
+    }
+  ],
+  "frase_de_9": "Con gpt-5.6-sol corriendo por Codex, el esquema de residuo, tal como sale, hizo que el registro consignara el hueco, sin consignarlo cuando no había hueco, más seguido que un listado de hallazgos sin residuo: s_json aumentó en 0.24 [0.16, 0.33]",
+  "provisional": false
+}
