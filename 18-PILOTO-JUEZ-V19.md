@@ -1,6 +1,6 @@
 # Piloto: el juez ciego de la v19, de punta a punta
 
-**13/10/2026, 20:30 ART.** `python experimento\herramientas\piloto.py
+**13/10/2026, 17:30 ART.** `python experimento\herramientas\piloto.py
 juez-prueba`, con el OK de Nico, sobre el commit `cc90ad2` (protocolo v19), con el
 prompt nuevo (`prompts/juez.txt`, md5 `528761ba`). Los mismos cinco JSON armados a
 mano que en `14`, **nunca respuestas del sujeto**, con la consulta de seguimiento

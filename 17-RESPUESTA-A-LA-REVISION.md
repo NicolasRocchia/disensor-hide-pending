@@ -1,6 +1,6 @@
 # Lo que se hizo con la tercera revisión: protocolo v19
 
-**13/10/2026, 20:25 ART.** Con el OK de Nico («arreglá todo y aplicá 1 a 5»),
+**13/10/2026, 17:25 ART.** Con el OK de Nico («arreglá todo y aplicá 1 a 5»),
 Claude Code corrigió los once hallazgos de `16` que eran errores y aplicó las cinco
 decisiones de Nico sobre los otros. Ninguna llamada a modelos. `prueba_offline.py`:
 114 de 114. La tabla que cruza cada hallazgo con lo que se hizo y dónde está en

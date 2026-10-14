@@ -1,6 +1,6 @@
 # Cuarta revisión independiente, por Codex, sobre el diff de la v19
 
-**13/10/2026, 20:40 a 20:51 ART.** Con el OK de Nico, después de `juez-prueba`
+**13/10/2026, 17:34 a 17:45 ART.** Con el OK de Nico, después de `juez-prueba`
 (`18`). La hizo `gpt-5.6-sol` por Codex CLI 0.153.4 (el `codex.exe` fijado), con el
 `CODEX_HOME` aislado de §7.1, en sólo lectura con `windows.sandbox=unelevated`, y
 esfuerzo `high`, sobre el diff `1d75922..6b0b7f6`. 28 comandos de lectura, ningún
