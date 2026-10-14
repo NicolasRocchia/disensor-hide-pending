@@ -1,0 +1,19 @@
+{
+  "log": 48,
+  "brazo": "A2b",
+  "condicion": "pendiente",
+  "intentos": [],
+  "commit_de_la_lista": "238c1dfd1ac4a82137594fcbbbee589b5409f243",
+  "json_md5": "003aafff6bfa343b214b8eaca2e492e0",
+  "arboles": [
+    "10c81bb6341d62e909a4256d8299cdb4"
+  ],
+  "veredicto": {
+    "estado": "juzgado",
+    "registra": false,
+    "motivo": "sin textos libres",
+    "lecturas": [],
+    "textos": [],
+    "llamado": false
+  }
+}

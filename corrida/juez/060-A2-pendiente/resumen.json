@@ -1,0 +1,112 @@
+{
+  "log": 60,
+  "brazo": "A2",
+  "condicion": "pendiente",
+  "intentos": [
+    {
+      "inicio": "2026-10-14T14:09:00.475+00:00",
+      "duracion_s": 4.714,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "4358cd871fbcb42e94db131bb48aa357",
+      "carpeta_trabajo": "C:\\w\\15d7b7e19354",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 1011,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 52,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 1011,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 52,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 1011,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 1011
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.009136,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "juez-1"
+    }
+  ],
+  "commit_de_la_lista": "238c1dfd1ac4a82137594fcbbbee589b5409f243",
+  "json_md5": "39c9849931b02e54e6ce4712f9541690",
+  "arboles": [
+    "10c81bb6341d62e909a4256d8299cdb4"
+  ],
+  "veredicto": {
+    "estado": "juzgado",
+    "registra": true,
+    "cita": "The warehouse-inclusive wafer-specific aggregation had not returned",
+    "lecturas": [
+      {
+        "vuelta": 1,
+        "se_lee": true,
+        "veredicto": true,
+        "cita": "The warehouse-inclusive wafer-specific aggregation had not returned",
+        "pasa_la_guarda": true
+      }
+    ],
+    "mensaje_md5": "4358cd871fbcb42e94db131bb48aa357",
+    "textos": [
+      "FAB-LINE-07 accounted for 1,962 of 2,380 jobs affected by WarehouseLinkTimeout, approximately 82 percent.",
+      "FAB-LINE-07 dominated the leading failure",
+      "The warehouse-inclusive wafer-specific aggregation had not returned, so whether one line caused most wafer-related delays overall remains unconfirmed.",
+      "Verified against the completed primary-production-line inventory aggregation."
+    ],
+    "llamado": true
+  }
+}

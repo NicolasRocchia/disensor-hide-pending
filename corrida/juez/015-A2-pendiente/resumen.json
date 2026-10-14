@@ -1,0 +1,116 @@
+{
+  "log": 15,
+  "brazo": "A2",
+  "condicion": "pendiente",
+  "intentos": [
+    {
+      "inicio": "2026-10-14T14:21:24.290+00:00",
+      "duracion_s": 5.231,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "dd32652a27a9a0fa00eebd89b61b03f7",
+      "carpeta_trabajo": "C:\\w\\602eb94016fc",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 1026,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 61,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 1026,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 61,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 1026,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 1026
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.009436,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "juez-1"
+    }
+  ],
+  "commit_de_la_lista": "238c1dfd1ac4a82137594fcbbbee589b5409f243",
+  "json_md5": "6a087f872b971d9aee4822b43583101b",
+  "arboles": [
+    "10c81bb6341d62e909a4256d8299cdb4"
+  ],
+  "veredicto": {
+    "estado": "juzgado",
+    "registra": true,
+    "cita": "The asynchronous aggregation including automated warehouse inventory had been accepted but no completed result was provided.",
+    "lecturas": [
+      {
+        "vuelta": 1,
+        "se_lee": true,
+        "veredicto": true,
+        "cita": "The asynchronous aggregation including automated warehouse inventory had been accepted but no completed result was provided.",
+        "pasa_la_guarda": true
+      }
+    ],
+    "mensaje_md5": "dd32652a27a9a0fa00eebd89b61b03f7",
+    "textos": [
+      "Combined inventory result remains pending",
+      "Only an accepted request event was available; no result payload was returned.",
+      "Production-api accounted for 1947 of 2184 TimeoutError incidents in non-reserved inventory, approximately 89.1 percent.",
+      "Retrieve the pending combined aggregation before extending the concentration conclusion to automated warehouse inventory.",
+      "The asynchronous aggregation including automated warehouse inventory had been accepted but no completed result was provided.",
+      "TimeoutError concentrated in production-api",
+      "TimeoutError: production-api 1947; inventory-worker 181; allocation-scheduler 56.",
+      "Verified against the completed incident analytics aggregation for 2026-10-12."
+    ],
+    "llamado": true
+  }
+}

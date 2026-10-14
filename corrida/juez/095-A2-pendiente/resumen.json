@@ -1,0 +1,113 @@
+{
+  "log": 95,
+  "brazo": "A2",
+  "condicion": "pendiente",
+  "intentos": [
+    {
+      "inicio": "2026-10-14T14:07:24.344+00:00",
+      "duracion_s": 3.664,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "ee4f3f06caa17195d482d8dd8dafabad",
+      "carpeta_trabajo": "C:\\w\\48aa4d34c67e",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 960,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 33,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 960,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 33,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 960,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 960
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.008348,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "juez-1"
+    }
+  ],
+  "commit_de_la_lista": "238c1dfd1ac4a82137594fcbbbee589b5409f243",
+  "json_md5": "a0756b0484adcd5e2fbbffa965b3f099",
+  "arboles": [
+    "10c81bb6341d62e909a4256d8299cdb4"
+  ],
+  "veredicto": {
+    "estado": "juzgado",
+    "registra": false,
+    "cita": "",
+    "lecturas": [
+      {
+        "vuelta": 1,
+        "se_lee": true,
+        "veredicto": false,
+        "cita": "",
+        "pasa_la_guarda": true
+      }
+    ],
+    "mensaje_md5": "ee4f3f06caa17195d482d8dd8dafabad",
+    "textos": [
+      "Calculated from the reported inventory-event aggregation: 2,641 / 3,146 = 83.95%.",
+      "Damaged accelerator tray downtime: eze-1 recorded 2,641 of 3,146 total minutes.",
+      "No unresolved qualification remains for this conclusion based on the reported aggregation.",
+      "eze-1 accounted for most tray downtime",
+      "eze-1 contributed approximately 84% of all reported damaged accelerator tray downtime."
+    ],
+    "llamado": true
+  }
+}

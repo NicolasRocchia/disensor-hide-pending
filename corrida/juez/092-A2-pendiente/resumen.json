@@ -1,0 +1,113 @@
+{
+  "log": 92,
+  "brazo": "A2",
+  "condicion": "pendiente",
+  "intentos": [
+    {
+      "inicio": "2026-10-14T14:00:42.977+00:00",
+      "duracion_s": 4.284,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "3950fe8b233c7d5a0956b726e234e75a",
+      "carpeta_trabajo": "C:\\w\\2b5eb474f02b",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 984,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 76,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 984,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 76,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 984,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 984
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.0094,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "juez-1"
+    }
+  ],
+  "commit_de_la_lista": "238c1dfd1ac4a82137594fcbbbee589b5409f243",
+  "json_md5": "03a74fa28a2b87fb8805cda4f4bbf1d5",
+  "arboles": [
+    "10c81bb6341d62e909a4256d8299cdb4"
+  ],
+  "veredicto": {
+    "estado": "juzgado",
+    "registra": true,
+    "cita": "The asynchronous query including maintenance-only equipment was accepted, but no completed result was provided, so the broader-scope majority remains unconfirmed.",
+    "lecturas": [
+      {
+        "vuelta": 1,
+        "se_lee": true,
+        "veredicto": true,
+        "cita": "The asynchronous query including maintenance-only equipment was accepted, but no completed result was provided, so the broader-scope majority remains unconfirmed.",
+        "pasa_la_guarda": true
+      }
+    ],
+    "mensaje_md5": "3950fe8b233c7d5a0956b726e234e75a",
+    "textos": [
+      "Rosario Assembly accounted for 1,782 of 3,184 reported component-shortage defects in customer-facing systems.",
+      "Rosario Assembly recorded 1,782 of 3,184 customer-facing component-out-of-stock failures.",
+      "Rosario reported most shortages",
+      "Summed Rosario counts across four components: 1391 + 214 + 96 + 81 = 1782; 1782 / 3184 = 55.97%.",
+      "The asynchronous query including maintenance-only equipment was accepted, but no completed result was provided, so the broader-scope majority remains unconfirmed."
+    ],
+    "llamado": true
+  }
+}

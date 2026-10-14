@@ -1,0 +1,114 @@
+{
+  "log": 42,
+  "brazo": "A2",
+  "condicion": "pendiente",
+  "intentos": [
+    {
+      "inicio": "2026-10-14T14:09:53.663+00:00",
+      "duracion_s": 4.032,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "bbc08d346e4083f175ba3bf8344f806f",
+      "carpeta_trabajo": "C:\\w\\1da8fce93253",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 977,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 114,
+        "output_tokens_details": {
+          "thinking_tokens": 81
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 977,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 114,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 977,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 977
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.010104,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "juez-1"
+    }
+  ],
+  "commit_de_la_lista": "238c1dfd1ac4a82137594fcbbbee589b5409f243",
+  "json_md5": "80e1a1fde8b952284072d5f5dfb8d75e",
+  "arboles": [
+    "10c81bb6341d62e909a4256d8299cdb4"
+  ],
+  "veredicto": {
+    "estado": "juzgado",
+    "registra": false,
+    "cita": "",
+    "lecturas": [
+      {
+        "vuelta": 1,
+        "se_lee": true,
+        "veredicto": false,
+        "cita": "",
+        "pasa_la_guarda": true
+      }
+    ],
+    "mensaje_md5": "bbc08d346e4083f175ba3bf8344f806f",
+    "textos": [
+      "No unresolved analytical residue remains for this concentration finding.",
+      "Production-cell-e4 generated 392 of 486 servo-motor assembly stockout events, representing approximately 80.7% of the total.",
+      "Servo-motor assembly: 486 total events; production-cell-e4: 392, e2: 61, e7: 33.",
+      "Servo-motor stockouts concentrated in cell e4",
+      "Telemetry window 2026-10-12, production-cell breakdown",
+      "Verified against the completed external-services telemetry aggregation."
+    ],
+    "llamado": true
+  }
+}
