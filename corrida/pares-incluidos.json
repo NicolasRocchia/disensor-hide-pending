@@ -1,0 +1,720 @@
+{
+  "semilla": 20261013,
+  "pares": [
+    {
+      "log": 0,
+      "log_md5": "c83f913bfd690826a5e1ea2c367d52c9",
+      "metadata_md5": "4fb8c79482e329949651acd1baca69e9",
+      "gemelo_md5": "b3480a111d0e0be9a5b38e456d887925",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 1,
+      "log_md5": "ddf6b744fec0d981b5a3594139855fa3",
+      "metadata_md5": "be2a16ade53e1f0d26b02b04f033dfc4",
+      "gemelo_md5": "bc90664cc1564a05ce49281a8d612f81",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 2,
+      "log_md5": "75e84545859ef6858676a9c3ae5220f5",
+      "metadata_md5": "f5a8e8746a75a00ba92768d28cd1da3d",
+      "gemelo_md5": "417a58824cfc5a1c94f158db5e48ca43",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 3,
+      "log_md5": "43d0eace4afdab6a84c4f97bf3c3a8af",
+      "metadata_md5": "355f6f9913ca2d959debe8da172c2b3a",
+      "gemelo_md5": "b4f9e09c30919f9541b50d59bd109eef",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 4,
+      "log_md5": "aa40e12b410c7417382e4b8c14a4537e",
+      "metadata_md5": "bd249bebedd4b61db477b04171014936",
+      "gemelo_md5": "2b0f013325e0c393468a582e9b10d0fb",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 6,
+      "log_md5": "fb46e05e70b26a32e7facf3cfdb33dc7",
+      "metadata_md5": "590f0c889e651001ce2b7e549791ebec",
+      "gemelo_md5": "c93655e26121f89ae410c4b789032ae6",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 7,
+      "log_md5": "09a44e5d3165832559138b609e51af09",
+      "metadata_md5": "dcc394527e09e0d8388119fbd78135f3",
+      "gemelo_md5": "705deb1d846d963461e68ef53b9c446a",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 8,
+      "log_md5": "e42c0a5ab2747d296bedd5d1ffdc3bb3",
+      "metadata_md5": "eb2f8ac6f0b77ecbd02dc4f173551437",
+      "gemelo_md5": "4e677e9ae668497af5ebfc6c0e9a330f",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 9,
+      "log_md5": "fb2530614ad7e23b01cddec24fbbcd36",
+      "metadata_md5": "ed1dcd213b1934935d79e54612cc2e48",
+      "gemelo_md5": "700bf5c86e74f8d71369834efdc2ee3b",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 12,
+      "log_md5": "84a4fd73c03217eb1068a5297d45fab2",
+      "metadata_md5": "4d95aa0f4e385532996c2864919f728c",
+      "gemelo_md5": "a7c3db3442674ef3f052791e26960136",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 13,
+      "log_md5": "d16866cda33900c7376bf236ecbfbd3e",
+      "metadata_md5": "2be30aef6d028435c485e19a3024f933",
+      "gemelo_md5": "b6b94688779f672de0f7a8b23ce6c512",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 14,
+      "log_md5": "00161b27a022c8579022830b45777873",
+      "metadata_md5": "6213a9de788167efa588e4596ee5396e",
+      "gemelo_md5": "e94f84f1a856fa3ba520403b2dc473b2",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 15,
+      "log_md5": "f9977bae3d082cf05e2cec507efa69d8",
+      "metadata_md5": "195fd50f9ab5bffcf7d0a97a8047be36",
+      "gemelo_md5": "1c7676f2dcef5adc287507b60e0e21da",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 16,
+      "log_md5": "9171ee03c1ef9e6819c49f0e3c467388",
+      "metadata_md5": "8b0b71206d85add7da6bf2551117c0fe",
+      "gemelo_md5": "2be1f7d3dceabf532db6258db53a9e65",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 17,
+      "log_md5": "0264e63dd0441d318ff703f76a776427",
+      "metadata_md5": "2db955a23a436e4ca2a15849ba4feb0b",
+      "gemelo_md5": "27128d8cc90e9bd38c6cb7a636b4a7bb",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 18,
+      "log_md5": "a811891dd54cf9f8d7cb15d8cc1922ae",
+      "metadata_md5": "6c861022c2d83256dd6dbb17561c0a60",
+      "gemelo_md5": "1c8d800390870d4f026d00df000fcd1c",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 19,
+      "log_md5": "e8f48d13a2e7ccf0478f8f807fb9ccb7",
+      "metadata_md5": "26d5503a18f1e085b940f6cfc92d607b",
+      "gemelo_md5": "c007ade5b316fc502720068b6e93ed8e",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 20,
+      "log_md5": "42af6bc6f2e1a25d3b0b2c73a9a15d76",
+      "metadata_md5": "fd71d6f4e3569b05b1e33ade5ce2e2b0",
+      "gemelo_md5": "c42587a990dbc843a391690eaa3a8bef",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 21,
+      "log_md5": "30755c8fdb6ef4ae8d23af6113dfa357",
+      "metadata_md5": "f8d64d63b76fba77fa7bdbe393e68285",
+      "gemelo_md5": "bd0ec4224dbea863096127cd9094cd7f",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 22,
+      "log_md5": "d58e4303098ca49b0d7b5ea984f4467a",
+      "metadata_md5": "c28586660dd6bcb7a739e8195516bb42",
+      "gemelo_md5": "036edafba0d2ff8578555d99b03cec4e",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 23,
+      "log_md5": "8e496e24da2e41181d4175b025afc6c2",
+      "metadata_md5": "813fb51ef83fba93107261f68747f660",
+      "gemelo_md5": "df58f808ec439a38874203f39dc84b96",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 24,
+      "log_md5": "ea6e44e967cb996feed448f4503e23fd",
+      "metadata_md5": "231ca8800499a7fde5475f30af799f9d",
+      "gemelo_md5": "c25b225a84aba74a4118958da2e4f0f2",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 28,
+      "log_md5": "113f367b2c73036201c0757fed6761c6",
+      "metadata_md5": "0aeb81fddd4adaa6d864ef9bf923b2e3",
+      "gemelo_md5": "752beeb06aeb11e43e8b562a913d5cb9",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 29,
+      "log_md5": "e39ad2e169045053386743827b08bf3f",
+      "metadata_md5": "75335b93fadd2cb644b91ad64bfa5a0f",
+      "gemelo_md5": "0dc58cc25dbb60f132dbf4e49f1a39b8",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 30,
+      "log_md5": "1b85014417c778782b78bed855ec8a02",
+      "metadata_md5": "b1b548d910b56c02107524585af3fad4",
+      "gemelo_md5": "8cd22d77afa00c31bb2f31a9e5f988c6",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 31,
+      "log_md5": "9c620b40f827032e1ea31977e37b1e4e",
+      "metadata_md5": "a8cc729ba19d1cfb7eefe0a07939179d",
+      "gemelo_md5": "daa8a543a999213557a1ca334973a0c6",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 32,
+      "log_md5": "bff3156c754482fd4a6cd3f7c9b7e309",
+      "metadata_md5": "5ed3298fd6327c79adbd2ca73d97aef0",
+      "gemelo_md5": "fd3d2da9f153f1ccc3af46eb1a8167ef",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 33,
+      "log_md5": "827800f60a1045a15b5344339c5f6dcf",
+      "metadata_md5": "b542cdaeb56254b20e5e275b86d8e4ec",
+      "gemelo_md5": "6dedd20f0dbb0174e1fd21f62c91a014",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 35,
+      "log_md5": "b26b9d3a652db5a51663c085311de9a9",
+      "metadata_md5": "d1fe5b5cb114dfc4b22409a26a0e29fe",
+      "gemelo_md5": "e5fc59f7ffab30463c3931611914c4e9",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 36,
+      "log_md5": "f45ea3a0891bd4ade9b999179f50ffc5",
+      "metadata_md5": "c10aa943a55e9698320b227c8e185412",
+      "gemelo_md5": "9426c9903fd96192a709d2f65de5861b",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 37,
+      "log_md5": "543b7b59af3dcbd16950c597ee0dab2d",
+      "metadata_md5": "82cdca4e5019ee4eeece6d0dd49de54c",
+      "gemelo_md5": "9f33a43c51619332ebc95a9d780c11a8",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 38,
+      "log_md5": "da7a02640a4875a0e116e9f3fc4228ec",
+      "metadata_md5": "8b0932e27f0474d898bc4c9faf96c48d",
+      "gemelo_md5": "16931b3205a6af90dc6f7a057d9269c0",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 39,
+      "log_md5": "8e095ce0fb76c5627a7022ca17a7e68f",
+      "metadata_md5": "7427320871d263abf1684ce402dc63c1",
+      "gemelo_md5": "76efd8db39d1a75c1fa183d946b01568",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 40,
+      "log_md5": "7aa797760ba3773135a21560234f2ef2",
+      "metadata_md5": "7e88f6fa671e7e573042b43d97f98a07",
+      "gemelo_md5": "4cd7d75a07408efccefc58d8105218d4",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 41,
+      "log_md5": "1adf327ec08dcdf8a41c938d1b0564cb",
+      "metadata_md5": "f5adf577b1cc9eacc663b368c1c3c617",
+      "gemelo_md5": "d1abdf39596e35ca6b6bbfbd9cbfd1ac",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 42,
+      "log_md5": "0b4fccecfd92572100a1f84a94c6f255",
+      "metadata_md5": "c33aaa22f16efe1e385019338beceffb",
+      "gemelo_md5": "3559925442337f4bb5e1c2c15c0c019e",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 43,
+      "log_md5": "7c1c479fc160dedfc99d94dd5d6c9151",
+      "metadata_md5": "753e2351b5ee423f1c171269f2b33e7b",
+      "gemelo_md5": "839b5d282b633883e2f90049273dd92a",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 44,
+      "log_md5": "248846fbc15ffb4fdff28c7247ef66a3",
+      "metadata_md5": "efb5209a5896d8b013ea3d502b2e51c0",
+      "gemelo_md5": "a576b7403482501060f060a19a934549",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 45,
+      "log_md5": "a0f275465417e43788371f479349ea0a",
+      "metadata_md5": "75c29e4fdd6480451646f883bb551366",
+      "gemelo_md5": "f78dcfa38f46876ddf62ecd2c0a44ebb",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 46,
+      "log_md5": "e9f6fd8f9b470493acae11259cb1e38e",
+      "metadata_md5": "310f0a5e3d5c8c88db892e7ff3a0a8af",
+      "gemelo_md5": "fb721c490fc305ee4c6e431728ac9318",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 47,
+      "log_md5": "76096da97c2362374159025d0801ad01",
+      "metadata_md5": "a9e76c6e1d394ebdf5a7d7def67f01ee",
+      "gemelo_md5": "571497c56c3d456a1b9324c1fe7b54f1",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 48,
+      "log_md5": "16df4d4ddc0085f84ff5907e15f96398",
+      "metadata_md5": "f703bf424a7c9e24fcad66da28b61b43",
+      "gemelo_md5": "8bc87a6c69726fa7997822f3e90c3966",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 49,
+      "log_md5": "f49db0b3c6919a620f9be0c1b5a8361b",
+      "metadata_md5": "517ae5358a70beea8f0b82a565655c08",
+      "gemelo_md5": "47d2ff3745898d7f0cb841a917a3d210",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 50,
+      "log_md5": "0abfcfbe7cb66c6ca035afb343242eaa",
+      "metadata_md5": "4d215214288883296a5d4be2d511dadb",
+      "gemelo_md5": "1428885fd109899470b8a5522c193227",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 51,
+      "log_md5": "8e6564b94e19ddfbf5678c7c65b64d15",
+      "metadata_md5": "8d00af0fcf1ee0d582743c940c055ff6",
+      "gemelo_md5": "9c6963f7840241013de281a80c38fbcc",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 52,
+      "log_md5": "6fe486101129535817ff8066c0dacb33",
+      "metadata_md5": "faa21ac271c60a33e5e6a0a9260f78d3",
+      "gemelo_md5": "902df8b9671e880ad97ac423e14267a2",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 53,
+      "log_md5": "c17b639415334da7f8681fb5c7456e52",
+      "metadata_md5": "bb0b68a8c7eff91f1425b85ea482f280",
+      "gemelo_md5": "adb72e17d5032b0680afc456aee84736",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 54,
+      "log_md5": "138fbae94cbe9f416567b10416f18bb1",
+      "metadata_md5": "fdc556265a34897c91c839c5f7bf4c45",
+      "gemelo_md5": "75ad26631887c777266406598ab7dc7e",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 56,
+      "log_md5": "046b5f976bf5b31a7bd484338f6e33fb",
+      "metadata_md5": "c829826b44bbc8b97590a5cff6a437f5",
+      "gemelo_md5": "cc1954a4117adabe250d930804cca161",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 57,
+      "log_md5": "b365fd49eecc2ff362b8b9107785459f",
+      "metadata_md5": "72a3e434ba09e35b36aec51da9ffbe25",
+      "gemelo_md5": "c9371b62684373b1ca38515ff88ee44d",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 58,
+      "log_md5": "537fb0d4c5ec85259b3059987486e9aa",
+      "metadata_md5": "1dff67f172a1b2e4f62126a3c59c3de3",
+      "gemelo_md5": "45d294189247c6cac2f9320130bdbb5f",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 59,
+      "log_md5": "2cc10e7f112f405773df659ae8d7a1e9",
+      "metadata_md5": "a5c2285d42a978aabf3185fd94e3164b",
+      "gemelo_md5": "b59e16dab4cc420c2cc60678cf9d705e",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 60,
+      "log_md5": "51d545596e412a275ebc3677939e0856",
+      "metadata_md5": "8aec475b03f3bea2f63bb57a4962041d",
+      "gemelo_md5": "588f23fb36c5c8bcaa062d55fa4c3bf3",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 61,
+      "log_md5": "57697323a70289fb9b5b400ab0a5d364",
+      "metadata_md5": "e6f94c91a9b6767a1a2c985bd40da6d2",
+      "gemelo_md5": "06269387acd98fcec3df4d6494e994ad",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 62,
+      "log_md5": "aea67b1b24240f624200810b2d45c247",
+      "metadata_md5": "8cb610b589cd3926a67d002d7dcfcff5",
+      "gemelo_md5": "ee47a7552cbfad588bee3a8c086bba6c",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 63,
+      "log_md5": "5d1da1464d3feea89fe96e7b1992717e",
+      "metadata_md5": "ab2273397429d25daf6c9b00548c3eb3",
+      "gemelo_md5": "d9781893c10cf39a7e0d7f7c04daa464",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 64,
+      "log_md5": "ef654944a416049a241661d2f863a49f",
+      "metadata_md5": "b928002c932984aa3186be9eafe0ed97",
+      "gemelo_md5": "a7ba7b74ae335dc3803b07fde8bde8b3",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 65,
+      "log_md5": "db3a15869c146ed75cdadd6af2c02666",
+      "metadata_md5": "87e5fb9b876d36a677b1ee19f4e3d305",
+      "gemelo_md5": "34592fb3d1cec6d8f3155c4295c7d971",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 66,
+      "log_md5": "81209e059312064e0c107da7bf657e1c",
+      "metadata_md5": "e2487c4315dca462039cbe1d5c8f70a8",
+      "gemelo_md5": "65d4988346dfd5ff3b87352257af3312",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 67,
+      "log_md5": "89dca033c82ab5d31ab87715ecf1a798",
+      "metadata_md5": "3cd694e51272172477dc7d373a1b86f7",
+      "gemelo_md5": "92e5301fcd93f0a122c85be5340910b9",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 68,
+      "log_md5": "514174064d40313be2111218e439b432",
+      "metadata_md5": "6839a8ea218282ea3ca9af437a1bebd7",
+      "gemelo_md5": "365c67fe32a3bdc5e99f094c61a73adc",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 69,
+      "log_md5": "83122110d173e7f4b7f30d65fd0c638b",
+      "metadata_md5": "916e446bfc8c33a929fce15f04a001c1",
+      "gemelo_md5": "5b1fe814cca06d7603f984ea6877c00f",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 70,
+      "log_md5": "021d0b95a99b83a193acb216fc0e3981",
+      "metadata_md5": "90d0068a954db7bd0f04b6eda13b2e87",
+      "gemelo_md5": "29acf6745df8af18c4d0fb430b82a7d7",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 72,
+      "log_md5": "496523c0b137253e5f3e1e3444b5734f",
+      "metadata_md5": "a400e753dc35b1cf1a3a3fdb5d08abd3",
+      "gemelo_md5": "729bcb2ea42a8f309dd0a698aa7b7d04",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 73,
+      "log_md5": "25f9d5c1b4085b4e67a38746e561ac29",
+      "metadata_md5": "73f4bc3147a6c3b8b063a1f414949152",
+      "gemelo_md5": "f410e546076aef470c647feef3c50b09",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 74,
+      "log_md5": "2162e5413d9cd0c13c2af120a0702434",
+      "metadata_md5": "4dd9f2a2cfaa83e67b0511a316b0a7bf",
+      "gemelo_md5": "8cb803e5a7374cce057c68b86f578583",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 75,
+      "log_md5": "bc355c97d158c6fe5df8ab5bcebb2695",
+      "metadata_md5": "4bfd8732b97ba2dd4a60363e782c0ed4",
+      "gemelo_md5": "74b54c179a4d9fc1ead585c9005feed4",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 76,
+      "log_md5": "e833bd6127c6e0bd6a635e0ca0c4a8a7",
+      "metadata_md5": "49a9c0ffdb8385c83875eec0c6e76f59",
+      "gemelo_md5": "af4731c9f41063a1217c60b07f1e1776",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 77,
+      "log_md5": "b7af28eb565db2fc10684a7a59c91e5d",
+      "metadata_md5": "7f9c117f51bfd470e48c6f16b04e4ea6",
+      "gemelo_md5": "dd032893410bcb38940fb3e1d2f411d9",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 78,
+      "log_md5": "dc1bfb348bf33a1a109624322fe42a98",
+      "metadata_md5": "71e39ae5f1916ed19de390f6d25686ef",
+      "gemelo_md5": "674c8061d9c09a77595b461fe0de6cd9",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 79,
+      "log_md5": "14f9362ad4394d6b0d74c248ce7dc8e4",
+      "metadata_md5": "30d6343a4afefc64e750c7dda2d6b4cf",
+      "gemelo_md5": "ca9ecd9dd37e8730004f024f6e1455b7",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 80,
+      "log_md5": "6dc14980aa8f394fdd3c234cd1fb4830",
+      "metadata_md5": "e0a1b54585c532c211c590ec97e1305e",
+      "gemelo_md5": "3b3b0a23a7728fad298c662a86a3732b",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 81,
+      "log_md5": "79e53c3905ed10796f1bcea45ee78430",
+      "metadata_md5": "edb90c62dee695d8f81e02bb3ff1c4c1",
+      "gemelo_md5": "249329aa037a704e50e4b085291b2b16",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 82,
+      "log_md5": "b428e97d7b298658207451dfe37ffa77",
+      "metadata_md5": "d0d874e586c64718734fcc06b1c39419",
+      "gemelo_md5": "04d8aef7e7a27368e8b150702ab04a3b",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 83,
+      "log_md5": "81d365930ed0f5ad0567065181df74e9",
+      "metadata_md5": "d928714ab060b79a343abe3ed07fb742",
+      "gemelo_md5": "0a76175c99f546305587d1ab8da18936",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 84,
+      "log_md5": "2ca68d8879dd6ba602e3689cf32c0dbf",
+      "metadata_md5": "d27e9e361e18c29ad7733fc8632c5cfd",
+      "gemelo_md5": "53a0c024c5fb71cfd4fe89f4fae30edd",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 85,
+      "log_md5": "d6591a31b220ae1ff02fc0b496dac936",
+      "metadata_md5": "ae71139d79ca4a2503790aa09f4ae7ea",
+      "gemelo_md5": "693882b4a030dbe60660ece9404c037d",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 86,
+      "log_md5": "d4c45b3ccd7f358185c6db870470a212",
+      "metadata_md5": "82a3be6a159235632f44dcc28a704e06",
+      "gemelo_md5": "1d60b825c78b3ce364227ab1dfac4f39",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 87,
+      "log_md5": "42289be214749bc1584fb70e7d0b1cb0",
+      "metadata_md5": "b2fe14b4c54d26543f54735ddd4522ab",
+      "gemelo_md5": "1c780afcd186f9ce9e338d4183a44b6a",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 88,
+      "log_md5": "ea25ed191594d2da8b57be535886879f",
+      "metadata_md5": "2525eb1c5704e39b902a745501328789",
+      "gemelo_md5": "61f0d54ad0164ab86c8819ba7bb3ca6d",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 89,
+      "log_md5": "94623571ce5eab552ad4cd7f711e10d0",
+      "metadata_md5": "ec479f8882f9ac3e69c2b0fea92dc890",
+      "gemelo_md5": "60ec6e69d9b9418fc12d353ca665d426",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 90,
+      "log_md5": "c05b801fb0259d6c0ea51e44054771dc",
+      "metadata_md5": "6405ad74022a36141ee012d352d75290",
+      "gemelo_md5": "c5c5d542f61a158e0e029f2cc321c808",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 91,
+      "log_md5": "6713bda57f9d2d5dbc8a2163355c43a6",
+      "metadata_md5": "e91d5ced1240502e515085e9b91473c5",
+      "gemelo_md5": "06a1a4a3de276049575468b2ae28090e",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 92,
+      "log_md5": "ff696a68445bddf87fefc92c677060f2",
+      "metadata_md5": "cfb856e8a4c00d7029264c236960a340",
+      "gemelo_md5": "25dfd4fe544ffdb20ab4790ea7acc220",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 93,
+      "log_md5": "413b79f622e6d8a197e4e19f5fee07ec",
+      "metadata_md5": "aaa20a7163356284b91e2b40fbb370dd",
+      "gemelo_md5": "6c8bb6a38fc21113d98f5259df588612",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 94,
+      "log_md5": "43cec56820f3c20585293066a76529b0",
+      "metadata_md5": "03699554beeb500ef47c52cad1d87e0f",
+      "gemelo_md5": "dbc2eb10d2bdee6cb57a095168d8e10a",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 95,
+      "log_md5": "ec4eb4ef90a1ce17bf6972eb58622994",
+      "metadata_md5": "2c2bf4eb925f97397f060c02c74249e4",
+      "gemelo_md5": "d4ef7a0a51ab2d43c00f524405bbb8ba",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 98,
+      "log_md5": "4bd5ed8655bbc526ff539609960e5c46",
+      "metadata_md5": "99e3ea59750f37c9f7e12bd6d8b6ad86",
+      "gemelo_md5": "5b6de4cfefdf81acfe5a691b90583e3f",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 99,
+      "log_md5": "4fa309fa13afd57450c15d23b8f9a960",
+      "metadata_md5": "17b2e6941540a2bf212370ee165fb77d",
+      "gemelo_md5": "66f0cbf900c560efd7f9bc6bc0ec2303",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 100,
+      "log_md5": "bc1cdd6e9fad122f5665f3e6c75dc32e",
+      "metadata_md5": "01e87794a374032985c920f7a5a6f7ef",
+      "gemelo_md5": "be7f1375f93fc3777c58998a9989d807",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 101,
+      "log_md5": "6b050aeccf2383901c70c62c7edc95fa",
+      "metadata_md5": "78cad8c4ab3b157855650b538c65397a",
+      "gemelo_md5": "b84a7560240dfd7ed799b5e45d9ebe2e",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 102,
+      "log_md5": "b6f8e3efa7f9e38a1bb0091a665b4702",
+      "metadata_md5": "97dea95da461ea91f23144218132000e",
+      "gemelo_md5": "c1065ec50a24efa3d9615da548616231",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 103,
+      "log_md5": "c251c6805ab5de51b336c6ed0412769d",
+      "metadata_md5": "2d944be5a81b3d29e1838e5b48f65adc",
+      "gemelo_md5": "c5aebe2588839ccbb05e71a989c9544e",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 104,
+      "log_md5": "7bf9e035300946547f3065094db2b03e",
+      "metadata_md5": "d2c897c1de3e7551de73ca038d6c0a6c",
+      "gemelo_md5": "ade2df3e63d1506d9e1ef89e97e37071",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 105,
+      "log_md5": "7b8f4cc2688cd569a35cc8dbba8a6282",
+      "metadata_md5": "9517b8f5e207fe5e76f56ef9a2e91947",
+      "gemelo_md5": "8879f6139b849996e45a4b834312cf52",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 106,
+      "log_md5": "143913a0ca547252c9839f0ce2720528",
+      "metadata_md5": "7664b65fa27577e6ac389aef807a6336",
+      "gemelo_md5": "3bf04c3adc11f8ddcc960badaf1f30d1",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 107,
+      "log_md5": "c475c66bda23fece010edabd6c7aa5a9",
+      "metadata_md5": "5e70be98de11c2b592a0f56ef955d0da",
+      "gemelo_md5": "b0fa5023f6c0efb3b068a4b0eacca8d2",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 108,
+      "log_md5": "8990d2bea275a2ab1a0cc7b78424253a",
+      "metadata_md5": "01c7e092b2462b7b07ff9e84d1cc211a",
+      "gemelo_md5": "c092daabdfaf750ca75c616cbf9bc75b",
+      "gemelo_con_request_id": false
+    },
+    {
+      "log": 109,
+      "log_md5": "1c50ca8cc2082877694aebf108bec1b9",
+      "metadata_md5": "25d3ce41a0cb66c16571369636dbd27e",
+      "gemelo_md5": "4dbe51c72912567571ad222596ab5161",
+      "gemelo_con_request_id": true
+    },
+    {
+      "log": 110,
+      "log_md5": "8c6a86593242182382cc9aa8a7b9c184",
+      "metadata_md5": "871c6d15e3c23add0166e832ea82f967",
+      "gemelo_md5": "1f72c9ab5a82108cd688a0b82a34714a",
+      "gemelo_con_request_id": true
+    }
+  ],
+  "descartes": {
+    "005": "descarte §4.2: 3: no se encontró una categoría dominante en el primer resultado",
+    "010": "descarte §4.4: rechazado por Nico",
+    "011": "descarte §4.2: 3: no se encontró una categoría dominante en el primer resultado",
+    "025": "descarte §4.4: rechazado por Nico",
+    "026": "descarte §4.4: rechazado por Nico",
+    "027": "descarte §4.4: automáticos",
+    "034": "descarte §4.4: automáticos",
+    "055": "descarte §4.2: 3: no se encontró una categoría dominante en el primer resultado",
+    "071": "descarte §4.2: 3: no se encontró una categoría dominante en el primer resultado",
+    "096": "descarte §4.4: gemelo fallo_verificacion",
+    "097": "descarte §4.4: automáticos"
+  },
+  "logs_vistos": 111,
+  "decisiones_md5": "b1d885c8443d16fb810935480700e98f"
+}
