@@ -1,0 +1,562 @@
+{
+  "v001": {
+    "log": 89,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v002": {
+    "log": 88,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v003": {
+    "log": 21,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v004": {
+    "log": 21,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v005": {
+    "log": 80,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v006": {
+    "log": 88,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v007": {
+    "log": 89,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v008": {
+    "log": 15,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v009": {
+    "log": 59,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v010": {
+    "log": 15,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v011": {
+    "log": 36,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v012": {
+    "log": 14,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v013": {
+    "log": 65,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v014": {
+    "log": 0,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v015": {
+    "log": 82,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v016": {
+    "log": 109,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v017": {
+    "log": 0,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v018": {
+    "log": 59,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v019": {
+    "log": 21,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v020": {
+    "log": 44,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v021": {
+    "log": 15,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v022": {
+    "log": 88,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v023": {
+    "log": 80,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v024": {
+    "log": 105,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v025": {
+    "log": 44,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v026": {
+    "log": 89,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v027": {
+    "log": 38,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v028": {
+    "log": 82,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v029": {
+    "log": 72,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v030": {
+    "log": 45,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v031": {
+    "log": 44,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v032": {
+    "log": 17,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v033": {
+    "log": 89,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v034": {
+    "log": 60,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v035": {
+    "log": 82,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v036": {
+    "log": 16,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v037": {
+    "log": 107,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v038": {
+    "log": 109,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v039": {
+    "log": 92,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v040": {
+    "log": 78,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v041": {
+    "log": 65,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v042": {
+    "log": 35,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v043": {
+    "log": 80,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v044": {
+    "log": 41,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v045": {
+    "log": 78,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v046": {
+    "log": 82,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v047": {
+    "log": 44,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v048": {
+    "log": 103,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v049": {
+    "log": 2,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v050": {
+    "log": 52,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v051": {
+    "log": 105,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v052": {
+    "log": 67,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v053": {
+    "log": 94,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v054": {
+    "log": 65,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v055": {
+    "log": 92,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v056": {
+    "log": 45,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v057": {
+    "log": 103,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v058": {
+    "log": 16,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v059": {
+    "log": 67,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v060": {
+    "log": 28,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v061": {
+    "log": 59,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v062": {
+    "log": 94,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v063": {
+    "log": 84,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v064": {
+    "log": 0,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v065": {
+    "log": 45,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v066": {
+    "log": 92,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v067": {
+    "log": 94,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v068": {
+    "log": 109,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v069": {
+    "log": 67,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v070": {
+    "log": 83,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v071": {
+    "log": 83,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v072": {
+    "log": 107,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v073": {
+    "log": 107,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v074": {
+    "log": 59,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v075": {
+    "log": 105,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v076": {
+    "log": 65,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v077": {
+    "log": 107,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v078": {
+    "log": 84,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v079": {
+    "log": 21,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v080": {
+    "log": 103,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v081": {
+    "log": 17,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v082": {
+    "log": 7,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v083": {
+    "log": 17,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v084": {
+    "log": 80,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v085": {
+    "log": 77,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v086": {
+    "log": 24,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v087": {
+    "log": 17,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v088": {
+    "log": 103,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v089": {
+    "log": 36,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v090": {
+    "log": 16,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v091": {
+    "log": 83,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v092": {
+    "log": 109,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v093": {
+    "log": 36,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v094": {
+    "log": 0,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v095": {
+    "log": 15,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v096": {
+    "log": 84,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v097": {
+    "log": 36,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v098": {
+    "log": 94,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v099": {
+    "log": 14,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v100": {
+    "log": 84,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v101": {
+    "log": 93,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v102": {
+    "log": 105,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v103": {
+    "log": 88,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v104": {
+    "log": 67,
+    "brazo": "A2",
+    "condicion": "pendiente"
+  },
+  "v105": {
+    "log": 16,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v106": {
+    "log": 78,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v107": {
+    "log": 45,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v108": {
+    "log": 92,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v109": {
+    "log": 83,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  },
+  "v110": {
+    "log": 22,
+    "brazo": "A2b",
+    "condicion": "limpio"
+  },
+  "v111": {
+    "log": 78,
+    "brazo": "A2",
+    "condicion": "limpio"
+  },
+  "v112": {
+    "log": 86,
+    "brazo": "A2b",
+    "condicion": "pendiente"
+  }
+}
