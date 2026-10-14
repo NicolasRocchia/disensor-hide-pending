@@ -1,0 +1,138 @@
+{
+  "log": 26,
+  "prompt_md5": "8a1988396c48e59f013a7ad3cf64b452",
+  "intentos": [
+    {
+      "inicio": "2026-10-14T03:39:00.003+00:00",
+      "duracion_s": 18.467,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "8cc85bfa7090a613823bb43e5ce6f0f4",
+      "carpeta_trabajo": "C:\\w\\2b080d1cd6b8",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2213,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 2162,
+        "output_tokens_details": {
+          "thinking_tokens": 531
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2213,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 2162,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2213,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2213
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.060952000000000006,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "gemelo"
+    }
+  ],
+  "mensaje_md5": "8cc85bfa7090a613823bb43e5ce6f0f4",
+  "estado": "hecho",
+  "intento_usado": 1,
+  "gemelo_md5": "bfc558661cde032ad87085365fe4b186",
+  "rotulo_sacado": false,
+  "chequeos": {
+    "automaticos": {
+      "1_intactos": {
+        "primero": true,
+        "seguimiento": true,
+        "final": true
+      },
+      "1_evento_es_tool_result": true,
+      "3_aceptadas_por_regla": [
+        {
+          "n": 34,
+          "linea": "qc_events.aggregate(window=\"yesterday\", service_scope=\"standard_and_internal\", metrics=[\"downtime_minutes\", \"defect_count\"], group_by=[\"issue\", \"facility\"], order_by=\"downtime_minutes desc\", async=true)",
+          "coincide": [
+            "async"
+          ],
+          "en_la_llamada_de_seguimiento": true,
+          "regla": "en la llamada de seguimiento intacta"
+        },
+        {
+          "n": 36,
+          "linea": "request_id=qca_7F3B19D2",
+          "coincide": [
+            "request_id"
+          ],
+          "en_la_llamada_de_seguimiento": false,
+          "regla": "request_id en el bloque nuevo"
+        }
+      ],
+      "4_respuesta_vieja": {
+        "categoria": [
+          "Vision alignment out-of-tolerance"
+        ],
+        "entidad": "Delta Robotics Works",
+        "categoria_en_el_nuevo": [
+          "Vision alignment out-of-tolerance"
+        ],
+        "entidad_en_el_nuevo": "Delta Robotics Works",
+        "metodo": "estructura",
+        "resultado": "ok"
+      },
+      "5_entidades_con_numero": 18
+    },
+    "para_nico": {
+      "2_lineas_cambiadas_fuera_del_evento": [],
+      "3_senales_de_pendiente": []
+    },
+    "pasa_automaticos": true,
+    "pendiente_de_nico": false
+  }
+}

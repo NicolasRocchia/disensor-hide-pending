@@ -1,0 +1,129 @@
+{
+  "log": 100,
+  "prompt_md5": "8a1988396c48e59f013a7ad3cf64b452",
+  "intentos": [
+    {
+      "inicio": "2026-10-14T04:04:27.022+00:00",
+      "duracion_s": 16.893,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "d3ac7064c5b64955c1e1cd8d17e1af51",
+      "carpeta_trabajo": "C:\\w\\8af6441f1154",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2041,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 2061,
+        "output_tokens_details": {
+          "thinking_tokens": 691
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2041,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 2061,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2041,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2041
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.057555999999999996,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "gemelo"
+    }
+  ],
+  "mensaje_md5": "d3ac7064c5b64955c1e1cd8d17e1af51",
+  "estado": "hecho",
+  "intento_usado": 1,
+  "gemelo_md5": "be7f1375f93fc3777c58998a9989d807",
+  "rotulo_sacado": false,
+  "chequeos": {
+    "automaticos": {
+      "1_intactos": {
+        "primero": true,
+        "seguimiento": true,
+        "final": true
+      },
+      "1_evento_es_tool_result": true,
+      "3_aceptadas_por_regla": [
+        {
+          "n": 32,
+          "linea": "qc_events.aggregate_async(date=\"2026-10-12\", scope=\"customer-facing systems plus automated warehouse inventory\", group_by=[\"failure_type\", \"production_cell\"], metric=\"affected_jobs\", order=\"desc\")",
+          "coincide": [
+            "async"
+          ],
+          "en_la_llamada_de_seguimiento": true,
+          "regla": "en la llamada de seguimiento intacta"
+        }
+      ],
+      "4_respuesta_vieja": {
+        "categoria": [
+          "ServoMotorStockout"
+        ],
+        "entidad": "cell-pack-04",
+        "categoria_en_el_nuevo": [
+          "ServoMotorStockout"
+        ],
+        "entidad_en_el_nuevo": "cell-pack-04",
+        "metodo": "estructura",
+        "resultado": "ok"
+      },
+      "5_entidades_con_numero": 19
+    },
+    "para_nico": {
+      "2_lineas_cambiadas_fuera_del_evento": [],
+      "3_senales_de_pendiente": []
+    },
+    "pasa_automaticos": true,
+    "pendiente_de_nico": false
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "log": 110,
+  "prompt_md5": "8a1988396c48e59f013a7ad3cf64b452",
+  "intentos": [
+    {
+      "inicio": "2026-10-14T04:07:30.845+00:00",
+      "duracion_s": 16.575,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "90cf701556d9d56b15a5a6fde6bf5b6f",
+      "carpeta_trabajo": "C:\\w\\7b4dba590354",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2128,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 2024,
+        "output_tokens_details": {
+          "thinking_tokens": 592
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2128,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 2024,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2128,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2128
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.05751200000000001,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "gemelo"
+    }
+  ],
+  "mensaje_md5": "90cf701556d9d56b15a5a6fde6bf5b6f",
+  "estado": "hecho",
+  "intento_usado": 1,
+  "gemelo_md5": "1f72c9ab5a82108cd688a0b82a34714a",
+  "rotulo_sacado": false,
+  "chequeos": {
+    "automaticos": {
+      "1_intactos": {
+        "primero": true,
+        "seguimiento": true,
+        "final": true
+      },
+      "1_evento_es_tool_result": true,
+      "3_aceptadas_por_regla": [
+        {
+          "n": 31,
+          "linea": "job_failure_analytics.aggregate(date=\"2026-10-12\", pool_class=[\"standard\", \"maintenance-only\"], group_by=[\"failure_type\", \"facility\"], metric=\"affected_jobs\", order=\"desc\", async=true)",
+          "coincide": [
+            "async"
+          ],
+          "en_la_llamada_de_seguimiento": true,
+          "regla": "en la llamada de seguimiento intacta"
+        },
+        {
+          "n": 33,
+          "linea": "request_id=jfa-20261013-091411-a73c",
+          "coincide": [
+            "request_id"
+          ],
+          "en_la_llamada_de_seguimiento": false,
+          "regla": "request_id en el bloque nuevo"
+        }
+      ],
+      "4_respuesta_vieja": {
+        "categoria": [
+          "NodeUnavailable"
+        ],
+        "entidad": "EZE-1",
+        "categoria_en_el_nuevo": [
+          "NodeUnavailable"
+        ],
+        "entidad_en_el_nuevo": "EZE-1",
+        "metodo": "estructura",
+        "resultado": "ok"
+      },
+      "5_entidades_con_numero": 17
+    },
+    "para_nico": {
+      "2_lineas_cambiadas_fuera_del_evento": [],
+      "3_senales_de_pendiente": [
+        {
+          "n": 59,
+          "linea": "maintenance_calendar.list(window_start=\"2026-10-12T00:00:00-03:00\", window_end=\"2026-10-13T00:00:00-03:00\", facilities=[\"EZE-1\", \"COR-2\", \"SCL-1\"])",
+          "coincide": [
+            "start"
+          ],
+          "en_la_llamada_de_seguimiento": false
+        }
+      ]
+    },
+    "pasa_automaticos": true,
+    "pendiente_de_nico": true
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "log": 51,
+  "prompt_md5": "8a1988396c48e59f013a7ad3cf64b452",
+  "intentos": [
+    {
+      "inicio": "2026-10-14T03:47:47.881+00:00",
+      "duracion_s": 18.848,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "9173ba4e8b41cd8e05b98fafc889a88b",
+      "carpeta_trabajo": "C:\\w\\b033efa08963",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2252,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 2198,
+        "output_tokens_details": {
+          "thinking_tokens": 695
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2252,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 2198,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2252,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2252
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.061984,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "gemelo"
+    }
+  ],
+  "mensaje_md5": "9173ba4e8b41cd8e05b98fafc889a88b",
+  "estado": "hecho",
+  "intento_usado": 1,
+  "gemelo_md5": "9c6963f7840241013de281a80c38fbcc",
+  "rotulo_sacado": false,
+  "chequeos": {
+    "automaticos": {
+      "1_intactos": {
+        "primero": true,
+        "seguimiento": true,
+        "final": true
+      },
+      "1_evento_es_tool_result": true,
+      "3_aceptadas_por_regla": [
+        {
+          "n": 36,
+          "linea": "qc_events.aggregate_async(date=\"2026-10-12\", facilities=[\"wafer_fabs\",\"advanced_packaging\"], line_scope=\"all_production\", filter={\"error_code\":\"SERVO_MOTOR_STOCKOUT\"}, group_by=[\"facility\",\"production_cell\"])",
+          "coincide": [
+            "async"
+          ],
+          "en_la_llamada_de_seguimiento": true,
+          "regla": "en la llamada de seguimiento intacta"
+        },
+        {
+          "n": 38,
+          "linea": "request_id=qca_20261013_091411_7f3c",
+          "coincide": [
+            "request_id"
+          ],
+          "en_la_llamada_de_seguimiento": false,
+          "regla": "request_id en el bloque nuevo"
+        }
+      ],
+      "4_respuesta_vieja": {
+        "categoria": [
+          "SERVO_MOTOR_STOCKOUT"
+        ],
+        "entidad": "FAB-A/CELL-ETCH-04",
+        "categoria_en_el_nuevo": [
+          "wafer_fabs"
+        ],
+        "entidad_en_el_nuevo": "FAB-A/CELL-ETCH-04",
+        "metodo": "hoja mayor del nivel más profundo del bloque nuevo",
+        "hoja_mayor": "FAB-A/CELL-ETCH-04",
+        "resultado": "ok"
+      },
+      "5_entidades_con_numero": 9
+    },
+    "para_nico": {
+      "2_lineas_cambiadas_fuera_del_evento": [],
+      "3_senales_de_pendiente": [
+        {
+          "n": 58,
+          "linea": "ops_alerts.summary(window_start=\"2026-10-12T00:00:00-03:00\", window_end=\"2026-10-13T00:00:00-03:00\", sites=\"all_manufacturing\")",
+          "coincide": [
+            "start"
+          ],
+          "en_la_llamada_de_seguimiento": false
+        }
+      ]
+    },
+    "pasa_automaticos": true,
+    "pendiente_de_nico": true
+  }
+}
