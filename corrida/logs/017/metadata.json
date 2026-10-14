@@ -1,0 +1,16 @@
+{
+  "log_file": "log_7c4a19.md",
+  "domain": "laboratory equipment",
+  "primary_surface": "job failures",
+  "initial_question": "What were the major errors yesterday?",
+  "initial_query_scope": "standard compute pools only",
+  "follow_up_scope_expansion": "include automated warehouse inventory",
+  "missing_follow_up_behavior": "retrieval begins successfully but stops after returning status=accepted with a request ID, before grouped data is returned",
+  "distraction_checks": [
+    "calibration status",
+    "maintenance events"
+  ],
+  "final_question": "Did one fabrication line account for most of the wafer-related delays?",
+  "stale_answer": "Yes—fab-line-l3 accounted for most of them.",
+  "required_missing_information": "The complete wafer-related delay distribution by fabrication line across both standard compute pools and automated warehouse inventory."
+}

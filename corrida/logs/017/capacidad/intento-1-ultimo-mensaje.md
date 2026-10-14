@@ -1,0 +1,1 @@
+Yes. The asynchronous failure-distribution request was accepted, but its result was never returned, so the fabrication-line question cannot be fully answered from this log.

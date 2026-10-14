@@ -1,0 +1,1 @@
+Yes. The asynchronous all-production-lines aggregation was only accepted (`request_id=wfagg_7Q2M91KX`); its results were never retrieved, so the line-alpha comparison cannot yet be confirmed across all lines.

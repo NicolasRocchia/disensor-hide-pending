@@ -1,0 +1,1 @@
+Yes. The full primary-and-secondary-line downtime aggregation was accepted, but no result was returned for request `agg-qc-20261012-8f31c`. Therefore, the facility-level defect question cannot be fully answered from this log.

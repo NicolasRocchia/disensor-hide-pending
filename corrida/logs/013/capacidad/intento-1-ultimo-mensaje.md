@@ -1,0 +1,1 @@
+Yes. The asynchronous all-infrastructure stockout request (`stk_20261012_b91e4c`) was accepted, but no result was returned or retrieved. The available standard-compute data does show dal-04 accounted for most NVMe SSD stockouts: 137 of 184 (74%).

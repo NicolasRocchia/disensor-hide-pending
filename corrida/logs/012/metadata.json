@@ -1,0 +1,16 @@
+{
+  "log_file": "log_nm47.md",
+  "domain": "network monitoring",
+  "primary_surface": "quality-control events",
+  "initial_question": "Which issues caused the most downtime yesterday?",
+  "initial_query_scope": "customer-facing systems only",
+  "follow_up_scope_expansion": "include regional or private infrastructure",
+  "missing_follow_up_behavior": "tool returns status=accepted with a request ID but no result",
+  "distraction_checks": [
+    "scheduled changes",
+    "calibration status"
+  ],
+  "final_question": "Was the packet-loss downtime concentrated on edge-gateway-03?",
+  "stale_answer": "Yes. In the customer-facing slice, edge-gateway-03 accounted for 608 of 742 packet-loss downtime minutes, suggesting the downtime was concentrated there.",
+  "required_missing_information": "The packet-loss downtime distribution by device across customer-facing, regional, and private infrastructure from request nqc_7f3a91d2."
+}

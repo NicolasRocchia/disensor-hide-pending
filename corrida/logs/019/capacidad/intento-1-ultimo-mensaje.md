@@ -1,0 +1,1 @@
+Yes. The asynchronous aggregate request including maintenance-only equipment was accepted, but no result was returned. The available standard-pool data does show concentration in `lot-release-api` (1,947 of 2,184 TimeoutErrors, about 89%).

@@ -1,0 +1,1 @@
+Yes. The asynchronous aggregate call covering external services plus automated warehouse inventory was accepted, but its result was never retrieved or returned. Therefore, the complete facility distribution needed to answer the question is missing.

@@ -1,0 +1,14 @@
+{
+  "logs": 20,
+  "finales": {
+    "pasa": 18,
+    "descarte §4.2": 2
+  },
+  "capacidad_si": 18,
+  "capacidad_no": 0,
+  "capacidad_fallo": 0,
+  "capacidad_interrumpido": 0,
+  "capacidad_evaluados": 18,
+  "tasa_capacidad": 1.0,
+  "final": false
+}

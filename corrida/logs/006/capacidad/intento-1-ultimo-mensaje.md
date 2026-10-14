@@ -1,0 +1,1 @@
+Yes. The second `aggregate_downtime` call was accepted asynchronously (`request_id=agg-dt-20261012-7f31c9`), but no result was retrieved or returned. The available first call does show most NodeUnavailable downtime occurred on gpu-cluster-a: 2,087 of 2,614 minutes (about 80%).

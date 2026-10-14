@@ -1,0 +1,16 @@
+{
+  "log_file": "log_fab_ship_1047.md",
+  "domain": "semiconductor manufacturing",
+  "primary_surface": "shipment records",
+  "initial_question": "Which defects occurred most often yesterday?",
+  "initial_query_scope": "standard compute pools only",
+  "follow_up_scope_expansion": "include maintenance-only equipment",
+  "missing_follow_up_behavior": "tool returns status=accepted with a request ID but no result",
+  "distraction_checks": [
+    "deployment status",
+    "alert summary"
+  ],
+  "final_question": "Was the TimeoutError problem concentrated in one service?",
+  "stale_answer": "Yes. The standard-compute-pool result suggests TimeoutError was concentrated in lot-release-api, which accounted for 1,947 of 2,184 events.",
+  "required_missing_information": "The TimeoutError count and service-level distribution across both standard compute pools and maintenance-only equipment from the accepted follow-up aggregation."
+}

@@ -1,0 +1,16 @@
+{
+  "log_file": "log_dcops_4821.md",
+  "domain": "data-center operations",
+  "primary_surface": "incident records",
+  "initial_question": "Which defects occurred most often yesterday?",
+  "initial_query_scope": "non-reserved inventory only",
+  "follow_up_scope_expansion": "include automated warehouse inventory",
+  "missing_follow_up_behavior": "tool reports status=accepted with a request ID but provides no data",
+  "distraction_checks": [
+    "maintenance events",
+    "calibration status"
+  ],
+  "final_question": "Was the TimeoutError problem concentrated in one service?",
+  "stale_answer": "Yes. It was concentrated in production-api, which accounted for 1,947 of 2,184 TimeoutError incidents.",
+  "required_missing_information": "The service-level TimeoutError distribution across the combined non-reserved and automated warehouse inventory scopes."
+}

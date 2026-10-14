@@ -1,0 +1,16 @@
+{
+  "log_file": "log_7f3c2a.md",
+  "domain": "semiconductor manufacturing",
+  "primary_surface": "manufacturing delays",
+  "initial_question": "Which defects occurred most often yesterday?",
+  "initial_query_scope": "external services only",
+  "follow_up_scope_expansion": "include automated warehouse inventory",
+  "missing_follow_up_behavior": "tool call is acknowledged with status=accepted and a request ID, but the result payload is absent",
+  "distraction_checks": [
+    "alert summary",
+    "system health"
+  ],
+  "final_question": "Did one facility account for most of the reported defects?",
+  "stale_answer": "Yes—Santa Clara Fab 4 appears to account for most of the reported defects, based on the dominant photoresist coating nonuniformity count in the external-services-only result.",
+  "required_missing_information": "The defect counts by facility across the expanded scope combining external services with automated warehouse inventory."
+}

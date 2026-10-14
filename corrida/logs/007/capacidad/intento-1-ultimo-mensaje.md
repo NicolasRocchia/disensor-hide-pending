@@ -1,0 +1,1 @@
+Yes. The expanded-footprint `production_logs.aggregate_async` call returned only an “accepted” request ID; no result was retrieved. The available data does show Rosario had 612 of 727 VacuumInterlock downtime minutes (about 84%).

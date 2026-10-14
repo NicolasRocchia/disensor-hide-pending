@@ -1,0 +1,2 @@
+- [log_compute_1047.md](C:\w\6ad7fb440872\log_compute_1047.md)
+- [log_compute_1047_metadata.json](C:\w\6ad7fb440872\log_compute_1047_metadata.json)

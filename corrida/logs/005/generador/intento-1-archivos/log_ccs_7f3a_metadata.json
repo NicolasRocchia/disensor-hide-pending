@@ -1,0 +1,16 @@
+{
+  "log_file": "log_ccs_7f3a.md",
+  "domain": "compute-cluster scheduling",
+  "primary_surface": "incident records",
+  "initial_question": "Which components were most frequently out of stock yesterday?",
+  "initial_query_scope": "external services only",
+  "follow_up_scope_expansion": "include regional or private infrastructure",
+  "missing_follow_up_behavior": "tool reports queued but provides no data",
+  "distraction_checks": [
+    "scheduled changes",
+    "alert summary"
+  ],
+  "final_question": "Did most of the NodeUnavailable failures occur on gpu-cluster-a?",
+  "stale_answer": "Yes. In the external-services result, gpu-cluster-a had 184 of the 264 NodeUnavailable failures, which appears to be a majority.",
+  "required_missing_information": "The completed NodeUnavailable failure counts by cluster across external services, regional infrastructure, and private infrastructure from request irq_8d31f2c7."
+}

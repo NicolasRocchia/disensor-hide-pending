@@ -1,0 +1,1 @@
+Yes. The asynchronous primary-and-secondary line aggregation was accepted (`request_id=mdq_7F3C91A2`), but no result was returned or retrieved. The available primary-line data does show concentration in cell-P3: 612 of 742 minutes and 33 of 41 events.

@@ -1,0 +1,16 @@
+{
+  "log_file": "log_compute_1047.md",
+  "domain": "compute-cluster scheduling",
+  "primary_surface": "inventory events",
+  "initial_question": "Which issues caused the most downtime yesterday?",
+  "initial_query_scope": "three major facilities only",
+  "follow_up_scope_expansion": "include secondary production lines",
+  "missing_follow_up_behavior": "asynchronous query starts but never produces a result",
+  "distraction_checks": [
+    "system health",
+    "scheduled changes"
+  ],
+  "final_question": "Did one facility account for most of the NodeUnavailable downtime?",
+  "stale_answer": "Yes—Northstar appears to account for most of the NodeUnavailable downtime, with 1,096 of 1,284 minutes in the three-major-facility result.",
+  "required_missing_information": "The NodeUnavailable downtime distribution by facility and production line after secondary production lines were included."
+}

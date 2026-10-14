@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1381d-882f-7da2-96e8-df1adb68ce77"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous shipment-records call returned only an “accepted” event (`request_id=shp_7f42c91a`); its final result is missing. However, the available primary-line data does show most NodeUnavailable failures occurred on gpu-cluster-a: 846 of 1,032."}}
+{"type":"turn.completed","usage":{"input_tokens":12999,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":68,"reasoning_output_tokens":0}}

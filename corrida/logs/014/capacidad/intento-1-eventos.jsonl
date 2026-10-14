@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1381a-f9e7-7820-b770-25a0af007609"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous all-production-lines aggregation was only accepted (`request_id=wfagg_7Q2M91KX`); its results were never retrieved, so the line-alpha comparison cannot yet be confirmed across all lines."}}
+{"type":"turn.completed","usage":{"input_tokens":12956,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":50,"reasoning_output_tokens":0}}

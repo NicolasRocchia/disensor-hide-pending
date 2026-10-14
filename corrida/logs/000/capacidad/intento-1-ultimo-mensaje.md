@@ -1,0 +1,1 @@
+Yes. The asynchronous broader-records request (`request_id=irq_8f42c1d7`) was accepted, but no result was returned in the log.

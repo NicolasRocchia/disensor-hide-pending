@@ -1,0 +1,1 @@
+Yes. The asynchronous failure aggregation including maintenance-only pools was accepted (`request_id=qca_8f31d6b2`) but no result was returned or retrieved. The available standard-pool data does show gpu-cluster-a had 873 of 1,284 NodeUnavailable-affected jobs (about 68%), which is a majority.

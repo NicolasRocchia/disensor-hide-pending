@@ -1,0 +1,1 @@
+Yes. The asynchronous shipment-records call returned only an “accepted” event (`request_id=shp_7f42c91a`); its final result is missing. However, the available primary-line data does show most NodeUnavailable failures occurred on gpu-cluster-a: 846 of 1,032.

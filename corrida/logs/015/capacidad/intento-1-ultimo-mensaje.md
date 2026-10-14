@@ -1,0 +1,1 @@
+Yes. The asynchronous combined-inventory aggregation was accepted with request ID `incagg-20261012-7f3c91`, but no result was returned or retrieved. The available partial data does show concentration in `production-api` (1,947 of 2,184 TimeoutErrors, about 89%).

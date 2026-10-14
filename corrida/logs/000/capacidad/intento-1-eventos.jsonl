@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13811-cbee-7722-bf21-05eb78177df4"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous broader-records request (`request_id=irq_8f42c1d7`) was accepted, but no result was returned in the log."}}
+{"type":"turn.completed","usage":{"input_tokens":13054,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":38,"reasoning_output_tokens":0}}

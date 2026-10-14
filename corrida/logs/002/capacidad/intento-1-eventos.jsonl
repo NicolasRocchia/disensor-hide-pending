@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13813-0910-70b1-bdf3-5e5fd0eb7a5e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The aggregate call including reserved compute capacity was asynchronous and only returned an “accepted” request ID; its completed results were never retrieved. Therefore, the available 611-of-742 count supports “most” only for non-reserved inventory."}}
+{"type":"turn.completed","usage":{"input_tokens":12965,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":53,"reasoning_output_tokens":0}}

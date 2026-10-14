@@ -1,0 +1,1 @@
+Yes. The aggregate call including reserved compute capacity was asynchronous and only returned an “accepted” request ID; its completed results were never retrieved. Therefore, the available 611-of-742 count supports “most” only for non-reserved inventory.

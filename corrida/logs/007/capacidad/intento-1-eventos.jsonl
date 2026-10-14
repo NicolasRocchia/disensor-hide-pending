@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13816-af50-70f1-bd96-ed0fb925f3c1"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The expanded-footprint `production_logs.aggregate_async` call returned only an “accepted” request ID; no result was retrieved. The available data does show Rosario had 612 of 727 VacuumInterlock downtime minutes (about 84%)."}}
+{"type":"turn.completed","usage":{"input_tokens":13025,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":53,"reasoning_output_tokens":0}}

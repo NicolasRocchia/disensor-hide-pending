@@ -1,0 +1,1 @@
+Yes. The asynchronous primary-and-secondary-lines aggregation was accepted (`request_id=jfa-7c92e61b`), but no result was returned or retrieved. The available primary-line data does show concentration in cell-orion: 1,936 of 2,214 NodeUnavailable failures (87%).

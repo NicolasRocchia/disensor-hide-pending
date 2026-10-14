@@ -1,0 +1,1 @@
+Yes. The broader-scope `netqc.aggregate_events` call was accepted asynchronously (`request_id=nqc_7f3a91d2`), but no completion result was returned. The available customer-facing data does show edge-gateway-03 accounted for 608 of 742 packet-loss minutes (about 82%).
