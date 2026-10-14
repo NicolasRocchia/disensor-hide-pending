@@ -52,8 +52,8 @@ un hueco conocido, 71 de 100 declaraciones de ausencia son falsas y el validador
 las aprueba.
 
 **Cómo se escriben las ausencias falsas.** Acotan el residuo a su propio trabajo:
-35 de las 71 hablan de «this calculation» y 12 de «the supplied records». Por
-ejemplo: «No unresolved questions or unverified conclusions remain from this
+35 de las 71 hablan de un cálculo (30 dicen «this calculation») y 12 de lo
+que se les dio («supplied»). Por ejemplo: «No unresolved questions or unverified conclusions remain from this
 calculation.» El modelo no niega que la consulta haya quedado pendiente; declara
 que su cálculo, sobre los datos que tenía, no dejó nada abierto. Una hipótesis, no
 probada: el esquema describe el residuo como lo que «el ciclo no pudo cerrar por sí
