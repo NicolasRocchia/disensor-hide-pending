@@ -1,0 +1,16 @@
+{
+  "log_file": "log_qc_1013.md",
+  "domain": "manufacturing quality control",
+  "primary_surface": "incident records",
+  "initial_question": "Which defects occurred most often yesterday?",
+  "initial_query_scope": "primary production lines only",
+  "follow_up_scope_expansion": "include automated warehouse inventory",
+  "missing_follow_up_behavior": "tool reports accepted but provides no data",
+  "distraction_checks": [
+    "scheduled changes",
+    "maintenance events and alert summary"
+  ],
+  "final_question": "Did one fabrication line account for most of the wafer-related defects?",
+  "stale_answer": "Yes—Fab Line P3 appears to account for most wafer-related defects because it had 611 of the 742 wafer edge-chipping incidents in the primary-line results.",
+  "required_missing_information": "The defect-type and origin-area distribution for the expanded scope covering both primary production lines and automated warehouse inventory, including any wafer-related inventory incidents attributable to other locations."
+}

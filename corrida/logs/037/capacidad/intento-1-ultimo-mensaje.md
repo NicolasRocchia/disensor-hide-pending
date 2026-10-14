@@ -1,0 +1,1 @@
+Yes. The async regional/private delay rollup was accepted, but no result was returned in the log. The available customer-facing data does show concentration in `cell-atlas-3` (1,566 of 1,842 stockout-delayed jobs, about 85%).

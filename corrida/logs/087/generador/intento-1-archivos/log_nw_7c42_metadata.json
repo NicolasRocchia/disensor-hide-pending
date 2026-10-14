@@ -1,0 +1,16 @@
+{
+  "log_file": "log_nw_7c42.md",
+  "domain": "network monitoring",
+  "primary_surface": "inventory events",
+  "initial_question": "Which defects occurred most often yesterday?",
+  "initial_query_scope": "three major facilities only",
+  "follow_up_scope_expansion": "include automated warehouse inventory",
+  "missing_follow_up_behavior": "retrieval begins successfully but stops before returning grouped data",
+  "distraction_checks": [
+    "system health",
+    "deployment status"
+  ],
+  "final_question": "Did most of the NodeUnavailable failures occur on gpu-cluster-a?",
+  "stale_answer": "Yes. In the three-facility result, gpu-cluster-a had 903 of 1,284 NodeUnavailable events, which is a majority.",
+  "required_missing_information": "The complete NodeUnavailable count and per-cluster distribution after adding automated warehouse inventory to the three-facility scope."
+}

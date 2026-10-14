@@ -1,0 +1,1 @@
+Yes. The asynchronous aggregation including secondary production lines was accepted, but no result was returned, so the facility comparison may be incomplete.

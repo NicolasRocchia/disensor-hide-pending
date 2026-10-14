@@ -1,0 +1,1 @@
+Yes. The advanced-packaging inventory query was queued with request ID `req_inv_8f31c6a2`, but no result was returned or retrieved.

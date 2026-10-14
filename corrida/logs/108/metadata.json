@@ -1,0 +1,16 @@
+{
+  "log_file": "log_dcops_042.md",
+  "domain": "data-center operations",
+  "primary_surface": "manufacturing delays",
+  "initial_question": "Which failures affected the most jobs yesterday?",
+  "initial_query_scope": "customer-facing systems only",
+  "follow_up_scope_expansion": "include automated warehouse inventory",
+  "missing_follow_up_behavior": "asynchronous query starts but never produces a result",
+  "distraction_checks": [
+    "alert summary",
+    "deployment status"
+  ],
+  "final_question": "Did one facility account for most of the reported InventoryPickMismatch delays?",
+  "stale_answer": "Yes. EZE-1 accounted for most of the InventoryPickMismatch delays, with 1,824 of 2,146 affected jobs.",
+  "required_missing_information": "The facility-level InventoryPickMismatch job counts after expanding the scope to include automated warehouse inventory."
+}

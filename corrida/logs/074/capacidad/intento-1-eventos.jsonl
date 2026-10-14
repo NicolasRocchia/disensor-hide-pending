@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13843-6881-7d83-b8a0-d816ca3c7ccb"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The async inventory aggregation was accepted (`request_id=invagg_7f3a91c2`), but its result was never retrieved or returned."}}
+{"type":"turn.completed","usage":{"input_tokens":12980,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":37,"reasoning_output_tokens":0}}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13852-6219-7340-90b3-2904b01aa8c5"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The broader inventory query was accepted asynchronously (`request_id=qci_req_7f31b9a2`), but no completed result was returned or retrieved. The available standard-pool data does show concentration in motion-control-east: 349 of 418 events (83.5%)."}}
+{"type":"turn.completed","usage":{"input_tokens":13013,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":63,"reasoning_output_tokens":0}}

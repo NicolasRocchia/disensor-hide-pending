@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13845-5635-7193-b818-47a891f28972"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous query including maintenance-only equipment was accepted (`request_id=tel-7Q4M2-1012`), but no result was returned or retrieved."}}
+{"type":"turn.completed","usage":{"input_tokens":12991,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":39,"reasoning_output_tokens":0}}

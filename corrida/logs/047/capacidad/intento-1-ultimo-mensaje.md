@@ -1,0 +1,1 @@
+Yes. The asynchronous downtime query including maintenance-only equipment was accepted (`req_7KQ4M2D9`), but no result was returned in the log.

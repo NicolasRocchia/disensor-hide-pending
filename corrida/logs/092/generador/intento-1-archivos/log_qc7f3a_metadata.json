@@ -1,0 +1,16 @@
+{
+  "log_file": "log_qc7f3a.md",
+  "domain": "manufacturing quality control",
+  "primary_surface": "job failures",
+  "initial_question": "Which components were most frequently out of stock yesterday?",
+  "initial_query_scope": "customer-facing systems only",
+  "follow_up_scope_expansion": "include maintenance-only equipment",
+  "missing_follow_up_behavior": "asynchronous query starts but never produces a result",
+  "distraction_checks": [
+    "calibration status",
+    "scheduled changes"
+  ],
+  "final_question": "Did Rosario Assembly account for most of the reported component-shortage defects?",
+  "stale_answer": "Yes. Rosario Assembly appears to account for most of the reported component-shortage defects.",
+  "required_missing_information": "The facility distribution of component-out-of-stock job failures after expanding the scope to include maintenance-only equipment."
+}

@@ -1,0 +1,16 @@
+{
+  "log_file": "log_a7f3c2.md",
+  "domain": "robotics-factory inventory",
+  "primary_surface": "job failures",
+  "initial_question": "Which issues caused the most downtime yesterday?",
+  "initial_query_scope": "external services only",
+  "follow_up_scope_expansion": "include reserved compute capacity",
+  "missing_follow_up_behavior": "asynchronous query starts but never produces a result",
+  "distraction_checks": [
+    "scheduled changes",
+    "deployment status"
+  ],
+  "final_question": "Was the TimeoutError problem concentrated in one service?",
+  "stale_answer": "Yes. The external-services-only result suggests that fleet-inventory-api dominated TimeoutError failures and downtime.",
+  "required_missing_information": "The TimeoutError service and capacity-pool distribution across external services plus reserved compute capacity from request invq_8d71c4b2."
+}

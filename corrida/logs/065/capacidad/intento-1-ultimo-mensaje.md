@@ -1,0 +1,1 @@
+Yes. The asynchronous query for the complete servo-motor facility distribution was accepted (`request_id=invq-8f31c2a7`), but no result was retrieved or returned.

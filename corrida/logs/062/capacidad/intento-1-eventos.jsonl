@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1383d-5681-7d70-88b5-0308972a508b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous `qc_events.aggregate_async` call returned only an acceptance event (`request_id=qca_7f31c9b2`), with no subsequent result."}}
+{"type":"turn.completed","usage":{"input_tokens":13094,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":40,"reasoning_output_tokens":0}}

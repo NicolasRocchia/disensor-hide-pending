@@ -1,0 +1,16 @@
+{
+  "log_file": "log_c7a4f2.md",
+  "domain": "cloud infrastructure",
+  "primary_surface": "manufacturing delays",
+  "initial_question": "Which components were most frequently out of stock yesterday?",
+  "initial_query_scope": "customer-facing systems only",
+  "follow_up_scope_expansion": "include advanced packaging facilities",
+  "missing_follow_up_behavior": "tool reports `queued` but provides no data",
+  "distraction_checks": [
+    "system health",
+    "deployment status"
+  ],
+  "final_question": "Were the servo-motor stockouts concentrated in one production cell?",
+  "stale_answer": "Yes—cell-orion-3 accounted for 392 of the 486 servo-motor stockouts.",
+  "required_missing_information": "The servo-motor stockout counts by facility and production cell after adding advanced packaging facilities to the customer-facing systems scope."
+}

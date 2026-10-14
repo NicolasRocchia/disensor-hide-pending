@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13835-5903-70f3-a685-bac8bdb93eeb"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The expanded stockout query was accepted asynchronously (`request_id=mdq_01JAB7Q4N8K2X6VPTC9H3RFM5S`), but no result was retrieved. The available customer-facing data does show Phoenix had most NIC stockouts: 641 of 812 (about 79%)."}}
+{"type":"turn.completed","usage":{"input_tokens":13003,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":75,"reasoning_output_tokens":0}}

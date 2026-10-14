@@ -1,0 +1,1 @@
+Yes. The asynchronous query including reserved compute capacity was accepted, but its result was never retrieved, so that data is missing.

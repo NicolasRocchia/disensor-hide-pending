@@ -1,0 +1,1 @@
+Yes. The combined aggregation including automated warehouse inventory was accepted asynchronously, but no result was returned. Based only on the completed external-services query, Ezeiza had 49 of 68 HBM3 stockouts (about 72%), so most were concentrated there.

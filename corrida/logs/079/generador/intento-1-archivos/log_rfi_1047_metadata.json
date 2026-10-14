@@ -1,0 +1,16 @@
+{
+  "log_file": "log_rfi_1047.md",
+  "domain": "robotics-factory inventory",
+  "primary_surface": "quality-control events",
+  "initial_question": "Which failures affected the most jobs yesterday?",
+  "initial_query_scope": "three major facilities only",
+  "follow_up_scope_expansion": "include automated warehouse inventory",
+  "missing_follow_up_behavior": "tool returns status=accepted with a request ID but no result",
+  "distraction_checks": [
+    "alert summary",
+    "scheduled changes"
+  ],
+  "final_question": "Did most of the NodeUnavailable failures occur on gpu-cluster-a?",
+  "stale_answer": "Yes. In the three-facility result, gpu-cluster-a accounted for 2,319 of 2,846 NodeUnavailable-affected jobs.",
+  "required_missing_information": "The completed NodeUnavailable job-count breakdown by compute cluster after automated warehouse inventory workflows are included."
+}

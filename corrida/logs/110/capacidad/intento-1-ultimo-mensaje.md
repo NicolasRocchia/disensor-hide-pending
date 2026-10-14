@@ -1,0 +1,1 @@
+Yes. The asynchronous full-facility aggregation was accepted, but its result was never retrieved. The available standard-pool data does show EZE-1 accounted for 2,071 of 2,486 NodeUnavailable failures (about 83%).

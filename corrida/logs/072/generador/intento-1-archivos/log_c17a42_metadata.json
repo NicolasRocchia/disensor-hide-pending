@@ -1,0 +1,16 @@
+{
+  "log_file": "log_c17a42.md",
+  "domain": "cloud infrastructure",
+  "primary_surface": "inventory events",
+  "initial_question": "What were the major errors yesterday?",
+  "initial_query_scope": "three major facilities only",
+  "follow_up_scope_expansion": "include advanced packaging facilities",
+  "missing_follow_up_behavior": "tool returns status=accepted with a request ID but no result",
+  "distraction_checks": [
+    "calibration status",
+    "alert summary"
+  ],
+  "final_question": "Were the servo-motor stockouts concentrated in one production cell?",
+  "stale_answer": "Yes—Río-North's rack-handling-cell-4 accounted for most servo-motor stockouts.",
+  "required_missing_information": "The servo-motor stockout counts by facility and production cell after advanced packaging facilities were added to the three major facilities."
+}

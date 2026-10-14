@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13843-d534-72e0-befa-31dc4c6aeff4"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The expanded stockout query including internal services was accepted asynchronously (`request_id=stkexp_8f31d6a4`), but no result was retrieved or returned. The available customer-facing data does show concentration in CELL-F12: 78 of 96 servo-motor stockouts (81%)."}}
+{"type":"turn.completed","usage":{"input_tokens":12976,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":67,"reasoning_output_tokens":0}}

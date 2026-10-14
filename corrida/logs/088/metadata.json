@@ -1,0 +1,16 @@
+{
+  "log_file": "log_wh17.md",
+  "domain": "warehouse logistics",
+  "primary_surface": "equipment telemetry",
+  "initial_question": "What were the major errors yesterday?",
+  "initial_query_scope": "non-reserved inventory only",
+  "follow_up_scope_expansion": "include maintenance-only equipment",
+  "missing_follow_up_behavior": "tool returns status=accepted with a request ID but no result",
+  "distraction_checks": [
+    "maintenance events",
+    "deployment status"
+  ],
+  "final_question": "Did one facility account for most of the reported defects?",
+  "stale_answer": "Yes—Rosario Fulfillment Center appears to account for most of the reported defects, driven by 1,421 BarcodeReadFailure events.",
+  "required_missing_information": "The complete facility-by-error distribution for non-reserved inventory plus maintenance-only equipment from request telagg_7f31c9a2."
+}

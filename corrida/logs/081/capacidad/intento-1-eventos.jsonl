@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13846-a48c-7780-980f-b7e2446b9f62"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The combined aggregation including automated warehouse inventory was accepted asynchronously, but no result was returned. Based only on the completed external-services query, Ezeiza had 49 of 68 HBM3 stockouts (about 72%), so most were concentrated there."}}
+{"type":"turn.completed","usage":{"input_tokens":12980,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":57,"reasoning_output_tokens":0}}

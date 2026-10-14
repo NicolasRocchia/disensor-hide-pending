@@ -1,0 +1,1 @@
+Yes. The all-services aggregation was accepted asynchronously (`request_id=qdelay-20261012-7f31c9`), but its result was never retrieved, so the facility comparison is incomplete.

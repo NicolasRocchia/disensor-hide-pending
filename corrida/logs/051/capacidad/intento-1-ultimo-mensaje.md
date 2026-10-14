@@ -1,0 +1,1 @@
+Yes. The asynchronous `qc_events.aggregate_async` call was accepted with request ID `qca_20261013_091411_7f3c`, but no result was subsequently retrieved or returned.

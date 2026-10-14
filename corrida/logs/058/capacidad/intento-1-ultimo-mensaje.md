@@ -1,0 +1,1 @@
+Yes. The asynchronous internal-services query was accepted (`request_id=qry-prod-7f3a91d2`), but no result was returned or retrieved, so the broader distribution needed to answer confidently is missing.

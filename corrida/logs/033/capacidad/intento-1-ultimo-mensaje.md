@@ -1,0 +1,1 @@
+Yes. The asynchronous shipment aggregation for servo-motor stockouts was accepted (`request_id=shpagg-8f42c19d`), but no result was returned or retrieved.

@@ -1,0 +1,1 @@
+Yes. The expanded stockout query including internal services was accepted asynchronously (`request_id=stkexp_8f31d6a4`), but no result was retrieved or returned. The available customer-facing data does show concentration in CELL-F12: 78 of 96 servo-motor stockouts (81%).

@@ -1,0 +1,226 @@
+{
+  "log": 94,
+  "sorteo": {
+    "DOMAIN": 6,
+    "PRIMARY_SURFACE": 7,
+    "INITIAL_QUESTION": 1,
+    "INITIAL_QUERY_SCOPE": 4,
+    "FOLLOW_UP_SCOPE_EXPANSION": 6,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 3,
+    "DISTRACTION_CHECKS": [
+      1,
+      3
+    ],
+    "FINAL_QUESTION_PATTERN": 4
+  },
+  "valores": {
+    "DOMAIN": "compute-cluster scheduling",
+    "PRIMARY_SURFACE": "quality-control events",
+    "INITIAL_QUESTION": "What were the major errors yesterday?",
+    "INITIAL_QUERY_SCOPE": "non-reserved inventory only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include regional or private infrastructure",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "tool call is acknowledged but result payload is absent",
+    "DISTRACTION_CHECKS": [
+      "maintenance events",
+      "alert summary"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Did one facility account for most of the reported defects?”"
+  },
+  "generador": {
+    "intentos": [
+      {
+        "inicio": "2026-10-14T02:45:32.137+00:00",
+        "duracion_s": 28.414,
+        "codigo": 0,
+        "termino": true,
+        "mensaje_md5": "5ef4b5f7d86d89727c5fcbc91130c065",
+        "generador": true,
+        "tipo": "generador",
+        "comando": [
+          "C:\\Users\\Usuario\\AppData\\Roaming\\npm\\node_modules\\@openai\\codex\\node_modules\\@openai\\codex-win32-x64\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+          "exec",
+          "-m",
+          "gpt-5.6-sol",
+          "-s",
+          "workspace-write",
+          "--disable",
+          "shell_tool",
+          "-c",
+          "windows.sandbox=unelevated",
+          "-c",
+          "sandbox_workspace_write.exclude_tmpdir_env_var=true",
+          "-c",
+          "sandbox_workspace_write.exclude_slash_tmp=true",
+          "-c",
+          "sandbox_workspace_write.network_access=false",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "-c",
+          "project_doc_max_bytes=0",
+          "-c",
+          "model_reasoning_effort=low",
+          "-c",
+          "skills.include_instructions=false",
+          "--skip-git-repo-check",
+          "--json",
+          "-o",
+          "D:\\Programacion\\Disensor-Docs\\experimento\\corrida\\logs\\094\\generador\\intento-1-ultimo-mensaje.md"
+        ],
+        "modelo": "gpt-5.6-sol",
+        "esfuerzo": "low",
+        "binario_sha256": "444a3f0008050605cae73cd9b7a2dcac61294062dfaab56dd20430fd6498518b",
+        "binario_version": "codex-cli 0.153.4",
+        "carpeta_trabajo": "C:\\w\\ae6f5b995a35",
+        "restos_en_carpeta": [],
+        "uso": {
+          "input_tokens": 60915,
+          "cached_input_tokens": 45952,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1508,
+          "reasoning_output_tokens": 331
+        },
+        "mensajes_agente": 2,
+        "turno_fallido": null,
+        "errores": [],
+        "comandos_ejecutados": [],
+        "archivos_cambiados": [
+          "C:\\w\\ae6f5b995a35\\log_qc4827.md",
+          "C:\\w\\ae6f5b995a35\\log_qc4827_metadata.json"
+        ],
+        "cambios_fuera_de_la_carpeta": [],
+        "archivos_generados": [
+          {
+            "ruta": "log_qc4827.md",
+            "bytes": 2232,
+            "md5": "43cec56820f3c20585293066a76529b0"
+          },
+          {
+            "ruta": "log_qc4827_metadata.json",
+            "bytes": 932,
+            "md5": "03699554beeb500ef47c52cad1d87e0f"
+          }
+        ],
+        "otras_acciones": [],
+        "shell_rechazados": 0,
+        "parches_rechazados": 0,
+        "otros_errores_herramienta": 0,
+        "red_de_seguridad": false,
+        "sin_cupo": false
+      }
+    ],
+    "mensaje_md5": "5ef4b5f7d86d89727c5fcbc91130c065",
+    "estado": "archivos",
+    "intento_usado": 1
+  },
+  "chequeo": {
+    "fallas": [],
+    "claves_extra": [],
+    "termina_en_la_pregunta": true,
+    "tipos": [
+      "USER",
+      "ASSISTANT",
+      "TOOL CALL",
+      "TOOL RESULT",
+      "ASSISTANT",
+      "TOOL CALL",
+      "TOOL EVENT",
+      "ASSISTANT",
+      "TOOL CALL",
+      "TOOL RESULT",
+      "ASSISTANT",
+      "TOOL CALL",
+      "TOOL RESULT",
+      "ASSISTANT",
+      "USER"
+    ],
+    "llamada_de_seguimiento": "qc_events.aggregate window=\"yesterday\" inventory_scope=\"all\" infrastructure=[\"core\",\"regional\",\"private\"] group_by=[\"defect_type\",\"facility\"] order_by=\"event_count desc\" async=true",
+    "entrada_siguiente": {
+      "tipo": "TOOL EVENT",
+      "lineas": [
+        "request_id=qca_7f3c91b2",
+        "status=accepted"
+      ]
+    },
+    "dominante": {
+      "forma": "arbol",
+      "nombres": [
+        "GPU_ECC_QUARANTINE"
+      ],
+      "cadena": [
+        "GPU_ECC_QUARANTINE"
+      ],
+      "entidad": "atlas-dc3"
+    },
+    "diferencias_con_el_sorteo": {
+      "missing_follow_up_behavior": {
+        "sorteado": "tool call is acknowledged but result payload is absent",
+        "metadata": "tool call is acknowledged with status=accepted and a request ID, but the result payload is absent"
+      }
+    }
+  },
+  "log_md5": "43cec56820f3c20585293066a76529b0",
+  "metadata_md5": "03699554beeb500ef47c52cad1d87e0f",
+  "capacidad": {
+    "intentos": [
+      {
+        "inicio": "2026-10-14T02:46:00.937+00:00",
+        "duracion_s": 4.519,
+        "codigo": 0,
+        "termino": true,
+        "mensaje_md5": "bb0221b7983380e348115b69218b4297",
+        "generador": false,
+        "tipo": "capacidad",
+        "comando": [
+          "C:\\Users\\Usuario\\AppData\\Roaming\\npm\\node_modules\\@openai\\codex\\node_modules\\@openai\\codex-win32-x64\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+          "exec",
+          "-m",
+          "gpt-5.6-sol",
+          "-s",
+          "read-only",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "-c",
+          "project_doc_max_bytes=0",
+          "-c",
+          "model_reasoning_effort=low",
+          "-c",
+          "skills.include_instructions=false",
+          "--skip-git-repo-check",
+          "--json",
+          "-o",
+          "D:\\Programacion\\Disensor-Docs\\experimento\\corrida\\logs\\094\\capacidad\\intento-1-ultimo-mensaje.md"
+        ],
+        "modelo": "gpt-5.6-sol",
+        "esfuerzo": "low",
+        "binario_sha256": "444a3f0008050605cae73cd9b7a2dcac61294062dfaab56dd20430fd6498518b",
+        "binario_version": "codex-cli 0.153.4",
+        "carpeta_trabajo": "C:\\w\\9ee5b2aa86f8",
+        "restos_en_carpeta": [],
+        "uso": {
+          "input_tokens": 12969,
+          "cached_input_tokens": 10752,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 48,
+          "reasoning_output_tokens": 0
+        },
+        "mensajes_agente": 1,
+        "turno_fallido": null,
+        "errores": [],
+        "comandos_ejecutados": [],
+        "archivos_cambiados": [],
+        "cambios_fuera_de_la_carpeta": [],
+        "archivos_generados": [],
+        "otras_acciones": [],
+        "shell_rechazados": 0,
+        "parches_rechazados": 0,
+        "otros_errores_herramienta": 0,
+        "red_de_seguridad": false,
+        "sin_cupo": false
+      }
+    ],
+    "estado": "si"
+  },
+  "final": "pasa"
+}

@@ -1,0 +1,1 @@
+Yes. The asynchronous secondary-line stockout request (`srq_8f31c2a947`) was accepted, but no result was returned. The available primary-line data does show Cambridge Lab accounted for 214 of 271 tubing stockouts (about 79%), but the broader-scope result is missing.

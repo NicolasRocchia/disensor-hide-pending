@@ -1,0 +1,16 @@
+{
+  "log_file": "log_c7f42a.md",
+  "domain": "compute-cluster scheduling",
+  "primary_surface": "shipment records",
+  "initial_question": "Which components were most frequently out of stock yesterday?",
+  "initial_query_scope": "external services only",
+  "follow_up_scope_expansion": "include automated warehouse inventory",
+  "missing_follow_up_behavior": "tool call is acknowledged with status=accepted and a request ID, but the result payload is absent",
+  "distraction_checks": [
+    "scheduled changes",
+    "replenishment runs"
+  ],
+  "final_question": "Were most HBM3 accelerator-module stockouts concentrated at Ezeiza Compute Depot?",
+  "stale_answer": "Yes—49 of the 68 external-service HBM3 accelerator-module stockouts were recorded at Ezeiza Compute Depot.",
+  "required_missing_information": "The facility-level distribution of HBM3 accelerator-module stockouts across the combined external-services and automated-warehouse-inventory scope."
+}

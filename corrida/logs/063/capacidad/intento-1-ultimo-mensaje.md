@@ -1,0 +1,1 @@
+Yes. The broader asynchronous shipment aggregation was accepted (`request_id=shr_8d41c7b2`), but no result was returned or retrieved. The available customer-facing data does show concentration in `shipment-gateway` (1,947 of 2,184 TimeoutErrors, about 89%).

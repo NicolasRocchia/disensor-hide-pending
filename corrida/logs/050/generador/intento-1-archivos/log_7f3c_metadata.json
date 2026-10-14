@@ -1,0 +1,16 @@
+{
+  "log_file": "log_7f3c.md",
+  "domain": "laboratory equipment",
+  "primary_surface": "job failures",
+  "initial_question": "Which issues caused the most downtime yesterday?",
+  "initial_query_scope": "three major facilities only",
+  "follow_up_scope_expansion": "include automated warehouse inventory",
+  "missing_follow_up_behavior": "asynchronous query starts but never produces a result",
+  "distraction_checks": [
+    "deployment status",
+    "alert summary"
+  ],
+  "final_question": "Did most of the BarcodeReadTimeout failures occur at West Annex?",
+  "stale_answer": "Yes. The limited three-facility result shows 61 of 84 BarcodeReadTimeout failures at West Annex.",
+  "required_missing_information": "The complete BarcodeReadTimeout failure counts by facility and asset area after adding automated warehouse inventory."
+}

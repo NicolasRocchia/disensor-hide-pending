@@ -1,0 +1,16 @@
+{
+  "log_file": "log_whl_7f3c.md",
+  "domain": "warehouse logistics",
+  "primary_surface": "shipment records",
+  "initial_question": "Which defects occurred most often yesterday?",
+  "initial_query_scope": "external services only",
+  "follow_up_scope_expansion": "include automated warehouse inventory",
+  "missing_follow_up_behavior": "tool returns status=accepted with a request ID but no result",
+  "distraction_checks": [
+    "calibration status",
+    "replenishment runs"
+  ],
+  "final_question": "Did Northgate account for most of the reported defects?",
+  "stale_answer": "Yes. In the external-services-only result, Northgate accounted for 401 of 689 reported defects, about 58%.",
+  "required_missing_information": "The defect counts and facility distribution after adding automated warehouse inventory to the external-services shipment records."
+}

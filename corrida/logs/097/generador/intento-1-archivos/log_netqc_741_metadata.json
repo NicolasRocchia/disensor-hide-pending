@@ -1,0 +1,16 @@
+{
+  "log_file": "log_netqc_741.md",
+  "domain": "network monitoring",
+  "primary_surface": "quality-control events",
+  "initial_question": "What were the major errors yesterday?",
+  "initial_query_scope": "standard compute pools only",
+  "follow_up_scope_expansion": "include automated warehouse inventory",
+  "missing_follow_up_behavior": "tool returns status=accepted with a request ID but no result",
+  "distraction_checks": [
+    "system health",
+    "deployment status"
+  ],
+  "final_question": "Were the packet-loss quality-control events concentrated on edge-sw-17?",
+  "stale_answer": "Yes. In the standard compute pools, edge-sw-17 produced 1,742 of 2,286 PacketLossThreshold events, so the packet-loss events were concentrated there.",
+  "required_missing_information": "The component and facility distribution of PacketLossThreshold events across both standard compute pools and automated warehouse inventory."
+}

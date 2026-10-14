@@ -1,0 +1,1 @@
+Yes. The expanded-scope `shipment_records.aggregate_async` call was accepted, but no result was returned or retrieved in the log. The available initial data does show Dock 7 had most LabelMismatch errors: 1,044 of 1,372 (about 76%).

@@ -1,0 +1,1 @@
+Yes. The async query including automated warehouse inventory was accepted (`req_qc_8f31c2a7`), but no result was returned, so the complete NodeUnavailable distribution is missing.

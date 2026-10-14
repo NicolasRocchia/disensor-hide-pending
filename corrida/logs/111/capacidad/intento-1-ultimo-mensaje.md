@@ -1,0 +1,1 @@
+Yes. The asynchronous shipment aggregation including secondary production lines was accepted (`request_id=shp_7Q4M2K91`), but no completed result was returned. Therefore, the full fabrication-line distribution needed to answer conclusively is missing.

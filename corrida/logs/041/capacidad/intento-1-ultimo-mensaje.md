@@ -1,0 +1,1 @@
+Yes. The primary-line data shows 421 of 612 SealIntegrityFault events occurred at Northbridge, but the subsequent primary-and-secondary aggregation was accepted and never returned, so the full-scope result is missing.

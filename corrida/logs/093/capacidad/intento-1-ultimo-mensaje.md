@@ -1,0 +1,1 @@
+Yes. The async stockout query including reserved capacity was accepted, but its result was never retrieved or returned. The available standard-pool data does show concentration in DC-S1: 151 of 184 servo-motor stockouts (82%).

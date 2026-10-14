@@ -1,0 +1,1 @@
+Yes. The asynchronous full-distribution query was accepted with request ID `ira_7f29c4b18e`, but no result was returned or retrieved. The available customer-facing data still shows EZE-1 accounted for 671 of 812 CoolingSensorDrift incidents (about 83%).

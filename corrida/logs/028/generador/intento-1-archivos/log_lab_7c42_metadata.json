@@ -1,0 +1,16 @@
+{
+  "log_file": "log_lab_7c42.md",
+  "domain": "laboratory equipment",
+  "primary_surface": "manufacturing delays",
+  "initial_question": "Which components were most frequently out of stock yesterday?",
+  "initial_query_scope": "three major facilities only",
+  "follow_up_scope_expansion": "all facilities and reserved inventory, including reserved compute capacity",
+  "missing_follow_up_behavior": "retrieval begins successfully but stops after status=accepted without returning grouped data",
+  "distraction_checks": [
+    "system health",
+    "alert summary"
+  ],
+  "final_question": "Did one fabrication line account for most of the wafer-related delays?",
+  "stale_answer": "Yes—North Materials Lab's Line N-W2 appears to account for most wafer-related delays.",
+  "required_missing_information": "The all-facility distribution of wafer-related manufacturing delays by fabrication line after including reserved inventory and reserved compute capacity."
+}

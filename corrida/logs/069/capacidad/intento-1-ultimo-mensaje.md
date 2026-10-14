@@ -1,0 +1,1 @@
+Yes. The expanded telemetry query including advanced packaging facilities was queued asynchronously, but no result was returned, so the full-scope NodeUnavailable data is missing.

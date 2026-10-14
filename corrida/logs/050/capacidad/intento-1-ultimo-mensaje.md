@@ -1,0 +1,1 @@
+Yes. The asynchronous warehouse-inclusive query was accepted (`request_id=qry_lab_8d41c7b2`), but no result was returned or retrieved. The available data does show West Annex had 61 of 84 BarcodeReadTimeout failures—about 73%, so most occurred there.

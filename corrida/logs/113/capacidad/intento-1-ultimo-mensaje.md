@@ -1,0 +1,1 @@
+Yes. The asynchronous all-pools aggregation was accepted (`request_id=req_c8f41a72`), but no result was retrieved or returned. The available standard-pool data does show most NodeUnavailable events occurred on gpu-cluster-a: 51 of 74.

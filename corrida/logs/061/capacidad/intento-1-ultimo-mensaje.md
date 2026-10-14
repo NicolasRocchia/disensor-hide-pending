@@ -1,0 +1,1 @@
+Yes. The automated warehouse inventory request was accepted asynchronously (`request_id=stkexp-20261012-7f3c91`), but no completed result was returned or retrieved. The available data does indicate concentration in RA-07: 438 of 612 SM-48 stockouts overall, and 438 of 487 at Rosario Assembly.

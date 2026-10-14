@@ -1,0 +1,1 @@
+Yes. The asynchronous `qc_events.aggregate` request (`qca_7F3B19D2`) was accepted, but no completed result was returned in the log.

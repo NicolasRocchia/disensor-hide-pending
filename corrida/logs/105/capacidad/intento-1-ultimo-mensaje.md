@@ -1,0 +1,1 @@
+Yes. The expanded inventory aggregation was accepted asynchronously (`request_id=invagg_7f3c91b2`), but its result was never retrieved, so the secondary-line data is missing. The available primary-line data does show concentration in `inventory-sync-gateway` (1,947 of 2,184 TimeoutErrors).

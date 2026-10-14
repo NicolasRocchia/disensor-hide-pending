@@ -1,0 +1,1 @@
+Yes. The second `warehouse_delay_analytics.aggregate` call was accepted and assigned a request ID, but no result was returned. However, the first call already shows the stockouts were concentrated in Cell P-04: 611 of 742 minutes (82%).

@@ -1,0 +1,1 @@
+Yes. The all-facilities inventory aggregation was accepted asynchronously (`request_id=invagg_7Q4M2K91`), but its result was never retrieved. The available partial data does show concentration at Harbor Point: 684 of 903 SFP-25G stockouts (about 76%).

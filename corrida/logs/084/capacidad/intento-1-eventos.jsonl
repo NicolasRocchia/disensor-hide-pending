@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13848-4fcd-77b2-a389-39aa1a43767a"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous aggregation across primary and secondary lines was accepted, but its result was never retrieved. The available primary-line data does show TimeoutError was concentrated in `pallet-vision-api` (1,218 of 1,436 downtime minutes), but the broader query remains unreturned."}}
+{"type":"turn.completed","usage":{"input_tokens":13131,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":63,"reasoning_output_tokens":0}}

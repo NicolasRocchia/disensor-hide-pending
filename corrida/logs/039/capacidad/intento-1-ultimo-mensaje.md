@@ -1,0 +1,1 @@
+Yes. The asynchronous telemetry call that included secondary production lines was accepted, but its result was never retrieved. That missing result could affect whether `TimeoutError` was concentrated in `production-api`; the returned standard-pool data alone shows 1,947 of 2,184 events (about 89%) there.

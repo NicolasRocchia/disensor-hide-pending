@@ -1,0 +1,1 @@
+Yes. The asynchronous `inventory_ops.aggregate_job_failures` request (`invagg_7Q4M2K91`) was accepted, but no result was subsequently returned or retrieved.

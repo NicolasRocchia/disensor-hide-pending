@@ -1,0 +1,1 @@
+Yes. The asynchronous QC aggregation that included automated warehouse inventory was accepted (`request_id=qca_7F31C9B2`), but no result was returned or retrieved. The available primary-line data does show P3 accounted for 611 of 742 wafer-edge-chipping incidents.

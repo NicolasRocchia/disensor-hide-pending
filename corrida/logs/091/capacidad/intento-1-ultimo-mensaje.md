@@ -1,0 +1,1 @@
+Yes. The asynchronous downtime query that included automated warehouse inventory was accepted (`request_id=dtq_20261013_091411_f7c42`), but no result was returned or retrieved.

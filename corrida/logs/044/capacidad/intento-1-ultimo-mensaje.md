@@ -1,0 +1,1 @@
+Yes. The asynchronous query including secondary production lines was accepted (`request_id=req-sched-8f31b6`), but no result was returned or retrieved. Therefore, the available data shows concentration in cell-alpha (598 of 672, about 89%), but the complete distribution is missing.

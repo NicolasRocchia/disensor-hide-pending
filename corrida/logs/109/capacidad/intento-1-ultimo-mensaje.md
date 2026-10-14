@@ -1,0 +1,1 @@
+Yes. The reserved-capacity aggregation was accepted asynchronously (`request_id=invagg-rsv-7c42e19a`), but its result was never retrieved, so the concentration question cannot be fully answered from this log.

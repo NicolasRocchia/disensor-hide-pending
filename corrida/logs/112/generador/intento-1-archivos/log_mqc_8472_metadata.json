@@ -1,0 +1,16 @@
+{
+  "log_file": "log_mqc_8472.md",
+  "domain": "manufacturing quality control",
+  "primary_surface": "manufacturing delays",
+  "initial_question": "Which failures affected the most jobs yesterday?",
+  "initial_query_scope": "non-reserved inventory only",
+  "follow_up_scope_expansion": "include secondary production lines",
+  "missing_follow_up_behavior": "tool call is acknowledged but result payload is absent",
+  "distraction_checks": [
+    "alert summary",
+    "scheduled changes"
+  ],
+  "final_question": "Did one facility account for most of the reported dimensional inspection failures?",
+  "stale_answer": "Yes—Rosario Plant accounted for most of the dimensional inspection failures.",
+  "required_missing_information": "The facility-level dimensional inspection failure counts across both primary and secondary production lines for jobs using non-reserved inventory."
+}

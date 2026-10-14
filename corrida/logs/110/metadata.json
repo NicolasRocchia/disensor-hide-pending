@@ -1,0 +1,16 @@
+{
+  "log_file": "log_dcops_1013.md",
+  "domain": "data-center operations",
+  "primary_surface": "job failures",
+  "initial_question": "Which failures affected the most jobs yesterday?",
+  "initial_query_scope": "standard compute pools only",
+  "follow_up_scope_expansion": "include maintenance-only equipment",
+  "missing_follow_up_behavior": "tool call is acknowledged with status=accepted and a request ID, but the result payload is absent",
+  "distraction_checks": [
+    "maintenance events",
+    "deployment status"
+  ],
+  "final_question": "Did one facility account for most of the NodeUnavailable failures?",
+  "stale_answer": "Yes. EZE-1 appears to account for most NodeUnavailable failures, with 2,071 of 2,486 affected jobs.",
+  "required_missing_information": "The NodeUnavailable affected-job counts by facility across both standard compute pools and maintenance-only equipment."
+}

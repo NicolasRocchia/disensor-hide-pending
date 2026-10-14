@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1384c-e783-7381-9f2a-5dba570ba191"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The async stockout query including reserved capacity was accepted, but its result was never retrieved or returned. The available standard-pool data does show concentration in DC-S1: 151 of 184 servo-motor stockouts (82%)."}}
+{"type":"turn.completed","usage":{"input_tokens":13105,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":53,"reasoning_output_tokens":0}}

@@ -1,0 +1,1 @@
+Yes. The expanded packet-loss aggregation returned only an async request ID (`req_qc_8f31c2a7`) and was never polled for results, so the cross-scope concentration on `edge-sw-17` remains unconfirmed.

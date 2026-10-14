@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1382b-d050-7a82-b741-3617fe42fa61"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The `manufacturing_delays.aggregate_async` call was accepted, but its result was never returned. The available data does show Ashburn accounted for 2,311 of 2,846 ComponentQualificationFailure cases (about 81%), which is most of them."}}
+{"type":"turn.completed","usage":{"input_tokens":13004,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":59,"reasoning_output_tokens":0}}

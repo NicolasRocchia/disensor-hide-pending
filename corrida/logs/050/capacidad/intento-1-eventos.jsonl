@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13836-151d-76f1-aae5-86b0ccfef9c5"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous warehouse-inclusive query was accepted (`request_id=qry_lab_8d41c7b2`), but no result was returned or retrieved. The available data does show West Annex had 61 of 84 BarcodeReadTimeout failures—about 73%, so most occurred there."}}
+{"type":"turn.completed","usage":{"input_tokens":13251,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":64,"reasoning_output_tokens":0}}

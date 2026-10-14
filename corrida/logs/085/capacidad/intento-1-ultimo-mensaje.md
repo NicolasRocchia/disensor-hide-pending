@@ -1,0 +1,1 @@
+Yes. The broader asynchronous failure aggregation was accepted (`request_id=agg-qc-8f2c71`), but no result was subsequently returned. The available data does show that most NodeUnavailable failures occurred on gpu-cluster-a: 2,071 of 2,486 (about 83%).

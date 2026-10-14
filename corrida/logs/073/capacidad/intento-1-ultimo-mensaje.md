@@ -1,0 +1,1 @@
+Yes. The async full-distribution call was accepted (`request_id=invq_8d71c4b2`), but no result was retrieved or returned. The available partial data does show TimeoutError was concentrated in `fleet-inventory-api` (3,806 of 4,312 downtime minutes).

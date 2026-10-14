@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13829-c357-7310-a52d-92b6b1a4fe16"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous all-infrastructure stockout query (`request_id=stkq_7f2c91ab`) was accepted, but no result was retrieved or returned."}}
+{"type":"turn.completed","usage":{"input_tokens":13056,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":39,"reasoning_output_tokens":0}}

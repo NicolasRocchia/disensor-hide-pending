@@ -1,0 +1,1 @@
+Yes. The `manufacturing_delays.aggregate_async` call was accepted, but its result was never returned. The available data does show Ashburn accounted for 2,311 of 2,846 ComponentQualificationFailure cases (about 81%), which is most of them.

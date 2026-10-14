@@ -1,0 +1,16 @@
+{
+  "log_file": "log_lab_7f3a.md",
+  "domain": "laboratory equipment",
+  "primary_surface": "equipment telemetry",
+  "initial_question": "Which defects occurred most often yesterday?",
+  "initial_query_scope": "three major facilities only, primary production lines",
+  "follow_up_scope_expansion": "include secondary production lines at the three major facilities",
+  "missing_follow_up_behavior": "tool returns status=accepted with a request ID but no result",
+  "distraction_checks": [
+    "deployment status",
+    "maintenance events"
+  ],
+  "final_question": "Did most of the SealIntegrityFault defects occur at Northbridge?",
+  "stale_answer": "Yes—Northbridge had 421 of the 612 SealIntegrityFault events shown in the primary-line result.",
+  "required_missing_information": "The SealIntegrityFault counts by facility across both primary and secondary production lines, which the accepted follow-up request did not return."
+}

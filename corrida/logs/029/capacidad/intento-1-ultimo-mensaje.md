@@ -1,0 +1,1 @@
+Yes. The asynchronous aggregation for all production and advanced-packaging facilities was accepted, but no result was returned. The available partial data does show Northbridge accounted for 1,047 of 1,286 minutes (81%) of temperature-excursion downtime on primary production lines.

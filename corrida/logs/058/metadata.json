@@ -1,0 +1,16 @@
+{
+  "log_file": "log_c7f29a.md",
+  "domain": "cloud infrastructure",
+  "primary_surface": "production logs",
+  "initial_question": "Which issues caused the most downtime yesterday?",
+  "initial_query_scope": "customer-facing systems only",
+  "follow_up_scope_expansion": "include internal services",
+  "missing_follow_up_behavior": "asynchronous query starts but never produces a result",
+  "distraction_checks": [
+    "deployment status",
+    "maintenance events"
+  ],
+  "final_question": "Was the database connection-pool exhaustion concentrated in checkout-api?",
+  "stale_answer": "Yes. In the customer-facing slice, checkout-api accounted for 421 of the 486 downtime minutes attributed to database connection-pool exhaustion.",
+  "required_missing_information": "The per-service downtime distribution for DatabaseConnectionPoolExhaustion across both customer-facing and internal production services."
+}

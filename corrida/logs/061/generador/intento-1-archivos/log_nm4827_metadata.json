@@ -1,0 +1,16 @@
+{
+  "log_file": "log_nm4827.md",
+  "domain": "network monitoring",
+  "primary_surface": "manufacturing delays",
+  "initial_question": "Which components were most frequently out of stock yesterday?",
+  "initial_query_scope": "three major facilities only",
+  "follow_up_scope_expansion": "include automated warehouse inventory",
+  "missing_follow_up_behavior": "asynchronous query starts but never produces a result",
+  "distraction_checks": [
+    "deployment status",
+    "alert summary"
+  ],
+  "final_question": "Were the servo-motor stockouts concentrated in cell RA-07?",
+  "stale_answer": "Yes. In the three major facilities, 438 of the 612 SM-48 servo-motor stockout events occurred in cell RA-07.",
+  "required_missing_information": "The complete SM-48 servo-motor stockout distribution by production cell and warehouse zone after adding automated warehouse inventory to the three-facility scope."
+}

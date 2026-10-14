@@ -1,0 +1,1 @@
+Yes. The advanced-packaging aggregation was only accepted and returned a request ID; its results were never retrieved. The available primary-line data does show line-etch-3 had most VisionAlignmentError events (1,087 of 1,436).

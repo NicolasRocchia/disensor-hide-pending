@@ -1,0 +1,16 @@
+{
+  "log_file": "log_7c42.md",
+  "domain": "network monitoring",
+  "primary_surface": "production logs",
+  "initial_question": "Which issues caused the most downtime yesterday?",
+  "initial_query_scope": "customer-facing systems only",
+  "follow_up_scope_expansion": "include automated warehouse inventory",
+  "missing_follow_up_behavior": "retrieval begins successfully but stops before returning grouped data",
+  "distraction_checks": [
+    "replenishment runs",
+    "alert summary"
+  ],
+  "final_question": "Did North Hub account for most of the packet-loss downtime?",
+  "stale_answer": "Yes. In the customer-facing-only result, North Hub accounted for 684 of 788 packet-loss downtime minutes (86.8%).",
+  "required_missing_information": "The packet-loss downtime totals grouped by facility across customer-facing systems and automated warehouse inventory, which the accepted follow-up retrieval did not return."
+}

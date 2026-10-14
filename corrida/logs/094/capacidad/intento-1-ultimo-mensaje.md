@@ -1,0 +1,1 @@
+Yes. The asynchronous all-infrastructure `qc_events.aggregate` call was accepted (`request_id=qca_7f3c91b2`), but its result was never retrieved, so the facility comparison is incomplete.

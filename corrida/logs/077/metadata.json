@@ -1,0 +1,16 @@
+{
+  "log_file": "log_labeq_4827.md",
+  "domain": "laboratory equipment",
+  "primary_surface": "shipment records",
+  "initial_question": "Which components were most frequently out of stock yesterday?",
+  "initial_query_scope": "non-reserved inventory on primary production lines only",
+  "follow_up_scope_expansion": "include secondary production lines",
+  "missing_follow_up_behavior": "tool returns status=accepted with a request ID but no result",
+  "distraction_checks": [
+    "replenishment runs",
+    "calibration status"
+  ],
+  "final_question": "Did one facility account for most of the reported peristaltic pump tubing stockouts?",
+  "stale_answer": "Yes—Cambridge Lab appears to account for most of them, with 214 of the 271 stockouts shown in the initial retrieval.",
+  "required_missing_information": "The per-facility distribution of peristaltic pump tubing stockouts across both primary and secondary production lines for non-reserved inventory."
+}

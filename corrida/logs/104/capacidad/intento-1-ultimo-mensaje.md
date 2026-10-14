@@ -1,0 +1,1 @@
+Yes. The broader inventory query was accepted asynchronously (`request_id=qci_req_7f31b9a2`), but no completed result was returned or retrieved. The available standard-pool data does show concentration in motion-control-east: 349 of 418 events (83.5%).

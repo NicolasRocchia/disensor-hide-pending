@@ -1,0 +1,1 @@
+Yes. The expanded aggregation request (`request_id=mdagg_7f42c91b`) was accepted asynchronously, but its result was never retrieved or returned.

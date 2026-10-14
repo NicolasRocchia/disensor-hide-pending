@@ -1,0 +1,1 @@
+Yes. The full-inventory query, including maintenance-only equipment, was accepted asynchronously (`request_id=invq_7f3c91b2`) but no result was retrieved or returned.

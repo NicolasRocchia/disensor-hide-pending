@@ -1,0 +1,1 @@
+Yes. The asynchronous all-infrastructure defect aggregation (`request_id=tel_7f3a91c2`) was accepted, but its result was never retrieved or returned, so the facility question cannot be fully answered from this log.

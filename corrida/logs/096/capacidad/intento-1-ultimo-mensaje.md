@@ -1,0 +1,1 @@
+Yes. The asynchronous all-production-and-fulfillment aggregation was accepted (`request_id=invagg_8c41e6b2`), but no result was returned or retrieved. The available primary-line data does show concentration in `conveyor-routing` (1,947 of 2,184 TimeoutErrors, about 89%).

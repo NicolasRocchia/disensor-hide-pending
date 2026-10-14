@@ -1,0 +1,1 @@
+Yes. The asynchronous query including primary and secondary production lines was accepted (`request_id=qdr_20261012_7F31C9`), but no result was returned or retrieved.

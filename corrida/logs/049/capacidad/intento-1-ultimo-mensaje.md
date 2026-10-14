@@ -1,0 +1,1 @@
+Yes. The expanded stockout query was accepted asynchronously (`request_id=mdq_01JAB7Q4N8K2X6VPTC9H3RFM5S`), but no result was retrieved. The available customer-facing data does show Phoenix had most NIC stockouts: 641 of 812 (about 79%).

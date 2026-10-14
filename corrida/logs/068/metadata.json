@@ -1,0 +1,16 @@
+{
+  "log_file": "log_7f3c9a.md",
+  "domain": "manufacturing quality control",
+  "primary_surface": "equipment telemetry",
+  "initial_question": "What were the major errors yesterday?",
+  "initial_query_scope": "primary production lines only",
+  "follow_up_scope_expansion": "include advanced packaging facilities",
+  "missing_follow_up_behavior": "tool reports status=accepted with a request ID but provides no data",
+  "distraction_checks": [
+    "replenishment runs",
+    "maintenance events"
+  ],
+  "final_question": "Did most of the VisionAlignmentError events occur on line-etch-3?",
+  "stale_answer": "Yes—line-etch-3 had 1,087 of the 1,436 VisionAlignmentError events shown for the primary production lines.",
+  "required_missing_information": "The facility-and-line distribution and total count of VisionAlignmentError events across both the primary production lines and the advanced packaging facilities."
+}

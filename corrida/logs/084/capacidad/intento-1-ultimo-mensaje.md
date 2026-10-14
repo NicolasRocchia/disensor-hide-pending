@@ -1,0 +1,1 @@
+Yes. The asynchronous aggregation across primary and secondary lines was accepted, but its result was never retrieved. The available primary-line data does show TimeoutError was concentrated in `pallet-vision-api` (1,218 of 1,436 downtime minutes), but the broader query remains unreturned.

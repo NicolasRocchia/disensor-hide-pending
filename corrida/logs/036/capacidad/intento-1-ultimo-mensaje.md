@@ -1,0 +1,1 @@
+Yes. The asynchronous aggregate request `shr_20261012_8KQ41M` was accepted, but its result was never returned, so Northgate’s share of the complete defect dataset cannot be confirmed from this log.

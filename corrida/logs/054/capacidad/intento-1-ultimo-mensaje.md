@@ -1,0 +1,1 @@
+Yes. The full-production downtime request was accepted asynchronously (`request_id=ndw_01JAB7Q4M8T2K6V9PX3R`), but no result was returned or retrieved.

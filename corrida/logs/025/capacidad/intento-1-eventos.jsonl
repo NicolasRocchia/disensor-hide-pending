@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13824-500f-7092-aa3c-aa465692ca34"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The manufacturing aggregation including regional/private infrastructure was only marked “accepted” and never returned results, so the wafer-related delay distribution by fabrication line is missing."}}
+{"type":"turn.completed","usage":{"input_tokens":13015,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":36,"reasoning_output_tokens":0}}

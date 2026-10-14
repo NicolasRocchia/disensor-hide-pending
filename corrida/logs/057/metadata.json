@@ -1,0 +1,16 @@
+{
+  "log_file": "log_7f3c2a.md",
+  "domain": "warehouse logistics",
+  "primary_surface": "shipment records",
+  "initial_question": "What were the major errors yesterday?",
+  "initial_query_scope": "customer-facing systems only",
+  "follow_up_scope_expansion": "include maintenance-only equipment",
+  "missing_follow_up_behavior": "retrieval begins successfully but stops after returning status=accepted and a request ID, before returning grouped data",
+  "distraction_checks": [
+    "calibration status",
+    "replenishment runs"
+  ],
+  "final_question": "Did Dock 7 account for most of the LabelMismatch errors?",
+  "stale_answer": "Yes. In the customer-facing-only result, Dock 7 had 1,044 of 1,372 LabelMismatch errors, about 76%, so it appears to account for most of them.",
+  "required_missing_information": "The complete LabelMismatch count and loading-dock distribution across customer-facing systems plus maintenance-only equipment from the accepted asynchronous follow-up query."
+}

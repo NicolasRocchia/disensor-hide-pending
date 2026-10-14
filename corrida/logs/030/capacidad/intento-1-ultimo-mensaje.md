@@ -1,0 +1,1 @@
+Yes. The asynchronous `incident_records.aggregate_async` call was accepted with request ID `irq_7F3A91C2`, but no result was returned or retrieved, so the fabrication-line delay question remains unanswered.

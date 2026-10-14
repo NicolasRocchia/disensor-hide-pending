@@ -1,0 +1,1 @@
+Yes. The `delay_analytics.aggregate_async` call was accepted with request ID `dlq_8f31c6a2`, but no result was retrieved or returned.

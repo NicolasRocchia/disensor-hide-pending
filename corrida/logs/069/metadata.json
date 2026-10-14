@@ -1,0 +1,16 @@
+{
+  "log_file": "log_rfi_20261013_0914.md",
+  "domain": "robotics-factory inventory",
+  "primary_surface": "equipment telemetry",
+  "initial_question": "Which defects occurred most often yesterday?",
+  "initial_query_scope": "standard compute pools only",
+  "follow_up_scope_expansion": "include advanced packaging facilities",
+  "missing_follow_up_behavior": "tool reports queued but provides no data",
+  "distraction_checks": [
+    "maintenance events",
+    "calibration status"
+  ],
+  "final_question": "Did most of the NodeUnavailable failures occur on gpu-cluster-a?",
+  "stale_answer": "Yes—within the standard compute pools, gpu-cluster-a had 187 of 246 NodeUnavailable failures, which appears to be most of them.",
+  "required_missing_information": "The NodeUnavailable failure counts and equipment-group breakdown for the expanded scope covering both standard compute pools and advanced packaging facilities."
+}

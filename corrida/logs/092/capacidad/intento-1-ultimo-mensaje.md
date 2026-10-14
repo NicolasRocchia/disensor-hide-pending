@@ -1,0 +1,1 @@
+Yes. The expanded-scope aggregation was accepted asynchronously (`request_id=qcagg_8d71c4b2`), but its result was never retrieved, so the Rosario Assembly conclusion is based only on the customer-facing-system data.

@@ -1,0 +1,1 @@
+Yes. The broader `incident_records.aggregate_async` call was accepted, but its result was never returned. The available external-services data does show TimeoutError was concentrated in `reticle-cloud-gateway` (1,218 of 1,486 downtime minutes).

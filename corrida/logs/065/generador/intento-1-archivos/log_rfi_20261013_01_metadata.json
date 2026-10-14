@@ -1,0 +1,16 @@
+{
+  "log_file": "log_rfi_20261013_01.md",
+  "domain": "robotics-factory inventory",
+  "primary_surface": "incident records",
+  "initial_question": "Which components were most frequently out of stock yesterday?",
+  "initial_query_scope": "non-reserved inventory only",
+  "follow_up_scope_expansion": "include automated warehouse inventory",
+  "missing_follow_up_behavior": "asynchronous query starts but never produces a result",
+  "distraction_checks": [
+    "system health",
+    "alert summary"
+  ],
+  "final_question": "Were the servo-motor stockouts concentrated at the Rosario Assembly Plant?",
+  "stale_answer": "Yes. In the non-reserved inventory slice, 119 of 146 servo-motor SM-42 stockout incidents were at the Rosario Assembly Plant.",
+  "required_missing_information": "The complete servo-motor SM-42 stockout distribution by facility and storage zone after adding automated warehouse inventory to the non-reserved inventory scope."
+}

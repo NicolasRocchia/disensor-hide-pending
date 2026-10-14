@@ -1,0 +1,1 @@
+Yes. The async aggregation request (`agg-20261013-091411-8fd27c`) was accepted, but no result was returned or retrieved. The available external-service data does show most NodeUnavailable incidents occurred on gpu-cluster-a: 184 of 257 (about 72%).

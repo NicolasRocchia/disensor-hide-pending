@@ -1,0 +1,1 @@
+Yes. The asynchronous broader-environment failure query was accepted, but no result was returned. The available data does show TimeoutError was concentrated in `production-api` (1,947 of 2,184, about 89%).

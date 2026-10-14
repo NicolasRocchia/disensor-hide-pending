@@ -1,0 +1,1 @@
+Yes. The asynchronous error aggregation request (`shpagg_8f2c71d4`) was accepted, but no completion result was returned or checked. The available data does show carrier-gate-east had 1,742 of 2,214 LabelReadErrors (about 79%), so most occurred there.

@@ -1,0 +1,16 @@
+{
+  "log_file": "log_qc4827.md",
+  "domain": "manufacturing quality control",
+  "primary_surface": "shipment records",
+  "initial_question": "Which issues caused the most downtime yesterday?",
+  "initial_query_scope": "standard compute pools only",
+  "follow_up_scope_expansion": "include regional or private infrastructure",
+  "missing_follow_up_behavior": "asynchronous query starts but never produces a result",
+  "distraction_checks": [
+    "maintenance events",
+    "system health"
+  ],
+  "final_question": "Did most of the NodeUnavailable downtime occur on gpu-cluster-a?",
+  "stale_answer": "Yes. In the standard compute pools, gpu-cluster-a accounted for 1,087 of 1,426 NodeUnavailable downtime minutes, which is most of that limited-scope total.",
+  "required_missing_information": "The NodeUnavailable downtime breakdown by compute cluster across standard compute pools plus regional and private infrastructure."
+}

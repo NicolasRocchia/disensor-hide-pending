@@ -1,0 +1,1 @@
+Yes. The expanded asynchronous quality-control query was accepted, but no result was returned, so its data is missing from the log.

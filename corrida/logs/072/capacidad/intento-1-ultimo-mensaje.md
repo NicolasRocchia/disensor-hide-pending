@@ -1,0 +1,1 @@
+Yes. The expanded ServoMotorStockout aggregation was accepted, but no result was returned. The available data still shows concentration at Río-North’s rack-handling-cell-4: 143 of 184 events (about 78%).

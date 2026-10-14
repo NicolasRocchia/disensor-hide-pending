@@ -1,0 +1,16 @@
+{
+  "log_file": "log_mqc_1047.md",
+  "domain": "manufacturing quality control",
+  "primary_surface": "shipment records",
+  "initial_question": "Which defects occurred most often yesterday?",
+  "initial_query_scope": "customer-facing systems only",
+  "follow_up_scope_expansion": "include regional or private infrastructure",
+  "missing_follow_up_behavior": "asynchronous query starts but never produces a result",
+  "distraction_checks": [
+    "system health",
+    "replenishment runs"
+  ],
+  "final_question": "Was the TimeoutError problem concentrated in one service?",
+  "stale_answer": "Yes. The customer-facing results suggest the TimeoutError problem was concentrated in dispatch-api, which had 1,947 of 2,184 events.",
+  "required_missing_information": "The completed service-level distribution of TimeoutError events across customer-facing systems and all regional or private infrastructure."
+}

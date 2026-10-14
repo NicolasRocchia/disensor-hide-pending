@@ -1,0 +1,1 @@
+Yes. The fleet-wide `telemetry.aggregate_stockouts` call was accepted asynchronously, but no result was returned. The available external-services data does show concentration in production-cell-e4: 392 of 486 servo-motor stockouts (about 81%).

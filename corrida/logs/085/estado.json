@@ -1,0 +1,236 @@
+{
+  "log": 85,
+  "sorteo": {
+    "DOMAIN": 8,
+    "PRIMARY_SURFACE": 0,
+    "INITIAL_QUESTION": 0,
+    "INITIAL_QUERY_SCOPE": 0,
+    "FOLLOW_UP_SCOPE_EXPANSION": 2,
+    "MISSING_FOLLOW_UP_BEHAVIOR": 0,
+    "DISTRACTION_CHECKS": [
+      0,
+      6
+    ],
+    "FINAL_QUESTION_PATTERN": 1
+  },
+  "valores": {
+    "DOMAIN": "manufacturing quality control",
+    "PRIMARY_SURFACE": "production logs",
+    "INITIAL_QUESTION": "Which failures affected the most jobs yesterday?",
+    "INITIAL_QUERY_SCOPE": "external services only",
+    "FOLLOW_UP_SCOPE_EXPANSION": "include automated warehouse inventory",
+    "MISSING_FOLLOW_UP_BEHAVIOR": "tool returns `status=accepted` with a request ID but no result",
+    "DISTRACTION_CHECKS": [
+      "deployment status",
+      "calibration status"
+    ],
+    "FINAL_QUESTION_PATTERN": "“Did most of the NodeUnavailable failures occur on gpu-cluster-a?”"
+  },
+  "generador": {
+    "intentos": [
+      {
+        "inicio": "2026-10-14T02:40:30.820+00:00",
+        "duracion_s": 24.249,
+        "codigo": 0,
+        "termino": true,
+        "mensaje_md5": "dca946c738a0eadfcdb53d972aa6ffed",
+        "generador": true,
+        "tipo": "generador",
+        "comando": [
+          "C:\\Users\\Usuario\\AppData\\Roaming\\npm\\node_modules\\@openai\\codex\\node_modules\\@openai\\codex-win32-x64\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+          "exec",
+          "-m",
+          "gpt-5.6-sol",
+          "-s",
+          "workspace-write",
+          "--disable",
+          "shell_tool",
+          "-c",
+          "windows.sandbox=unelevated",
+          "-c",
+          "sandbox_workspace_write.exclude_tmpdir_env_var=true",
+          "-c",
+          "sandbox_workspace_write.exclude_slash_tmp=true",
+          "-c",
+          "sandbox_workspace_write.network_access=false",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "-c",
+          "project_doc_max_bytes=0",
+          "-c",
+          "model_reasoning_effort=low",
+          "-c",
+          "skills.include_instructions=false",
+          "--skip-git-repo-check",
+          "--json",
+          "-o",
+          "D:\\Programacion\\Disensor-Docs\\experimento\\corrida\\logs\\085\\generador\\intento-1-ultimo-mensaje.md"
+        ],
+        "modelo": "gpt-5.6-sol",
+        "esfuerzo": "low",
+        "binario_sha256": "444a3f0008050605cae73cd9b7a2dcac61294062dfaab56dd20430fd6498518b",
+        "binario_version": "codex-cli 0.153.4",
+        "carpeta_trabajo": "C:\\w\\d87814953394",
+        "restos_en_carpeta": [],
+        "uso": {
+          "input_tokens": 27998,
+          "cached_input_tokens": 19712,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 1357,
+          "reasoning_output_tokens": 249
+        },
+        "mensajes_agente": 2,
+        "turno_fallido": null,
+        "errores": [],
+        "comandos_ejecutados": [],
+        "archivos_cambiados": [
+          "C:\\w\\d87814953394\\log_mqc_7f31.md",
+          "C:\\w\\d87814953394\\log_mqc_7f31_metadata.json"
+        ],
+        "cambios_fuera_de_la_carpeta": [],
+        "archivos_generados": [
+          {
+            "ruta": "log_mqc_7f31.md",
+            "bytes": 2366,
+            "md5": "d6591a31b220ae1ff02fc0b496dac936"
+          },
+          {
+            "ruta": "log_mqc_7f31_metadata.json",
+            "bytes": 879,
+            "md5": "ae71139d79ca4a2503790aa09f4ae7ea"
+          }
+        ],
+        "otras_acciones": [],
+        "shell_rechazados": 0,
+        "parches_rechazados": 0,
+        "otros_errores_herramienta": 0,
+        "red_de_seguridad": false,
+        "sin_cupo": false
+      }
+    ],
+    "mensaje_md5": "dca946c738a0eadfcdb53d972aa6ffed",
+    "estado": "archivos",
+    "intento_usado": 1
+  },
+  "chequeo": {
+    "fallas": [],
+    "claves_extra": [],
+    "termina_en_la_pregunta": true,
+    "tipos": [
+      "USER",
+      "ASSISTANT",
+      "TOOL CALL",
+      "TOOL RESULT",
+      "ASSISTANT",
+      "TOOL CALL",
+      "TOOL EVENT",
+      "ASSISTANT",
+      "TOOL CALL",
+      "TOOL RESULT",
+      "ASSISTANT",
+      "TOOL CALL",
+      "TOOL RESULT",
+      "ASSISTANT",
+      "USER"
+    ],
+    "llamada_de_seguimiento": "production_logs.aggregate_failures(date=\"2026-10-12\", scope=[\"external_services\",\"automated_warehouse_inventory\"], metric=\"affected_jobs\", group_by=[\"failure_type\",\"compute_pool\"], async=true)",
+    "entrada_siguiente": {
+      "tipo": "TOOL EVENT",
+      "lineas": [
+        "request_id=agg-qc-8f2c71",
+        "status=accepted"
+      ]
+    },
+    "dominante": {
+      "forma": "clave_valor",
+      "nombres": [
+        "2026-10-12",
+        "external_services",
+        "NodeUnavailable affected_jobs=2,486",
+        "InspectionImageTimeout affected_jobs=641",
+        "LabelPrintRejected affected_jobs=317",
+        "ResultUploadFailed affected_jobs=184"
+      ],
+      "cadena": [
+        "2026-10-12",
+        "external_services",
+        "NodeUnavailable affected_jobs=2,486",
+        "InspectionImageTimeout affected_jobs=641",
+        "LabelPrintRejected affected_jobs=317",
+        "ResultUploadFailed affected_jobs=184"
+      ],
+      "entidad": "gpu-cluster-a"
+    },
+    "diferencias_con_el_sorteo": {
+      "missing_follow_up_behavior": {
+        "sorteado": "tool returns `status=accepted` with a request ID but no result",
+        "metadata": "tool returns status=accepted with a request ID but no result"
+      }
+    }
+  },
+  "log_md5": "d6591a31b220ae1ff02fc0b496dac936",
+  "metadata_md5": "ae71139d79ca4a2503790aa09f4ae7ea",
+  "capacidad": {
+    "intentos": [
+      {
+        "inicio": "2026-10-14T02:40:55.382+00:00",
+        "duracion_s": 5.101,
+        "codigo": 0,
+        "termino": true,
+        "mensaje_md5": "75b7b9ecaf8f256ccb4633dc757ccd44",
+        "generador": false,
+        "tipo": "capacidad",
+        "comando": [
+          "C:\\Users\\Usuario\\AppData\\Roaming\\npm\\node_modules\\@openai\\codex\\node_modules\\@openai\\codex-win32-x64\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+          "exec",
+          "-m",
+          "gpt-5.6-sol",
+          "-s",
+          "read-only",
+          "--ephemeral",
+          "--ignore-user-config",
+          "--ignore-rules",
+          "-c",
+          "project_doc_max_bytes=0",
+          "-c",
+          "model_reasoning_effort=low",
+          "-c",
+          "skills.include_instructions=false",
+          "--skip-git-repo-check",
+          "--json",
+          "-o",
+          "D:\\Programacion\\Disensor-Docs\\experimento\\corrida\\logs\\085\\capacidad\\intento-1-ultimo-mensaje.md"
+        ],
+        "modelo": "gpt-5.6-sol",
+        "esfuerzo": "low",
+        "binario_sha256": "444a3f0008050605cae73cd9b7a2dcac61294062dfaab56dd20430fd6498518b",
+        "binario_version": "codex-cli 0.153.4",
+        "carpeta_trabajo": "C:\\w\\0245ecaa8098",
+        "restos_en_carpeta": [],
+        "uso": {
+          "input_tokens": 12948,
+          "cached_input_tokens": 10752,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 66,
+          "reasoning_output_tokens": 0
+        },
+        "mensajes_agente": 1,
+        "turno_fallido": null,
+        "errores": [],
+        "comandos_ejecutados": [],
+        "archivos_cambiados": [],
+        "cambios_fuera_de_la_carpeta": [],
+        "archivos_generados": [],
+        "otras_acciones": [],
+        "shell_rechazados": 0,
+        "parches_rechazados": 0,
+        "otros_errores_herramienta": 0,
+        "red_de_seguridad": false,
+        "sin_cupo": false
+      }
+    ],
+    "estado": "si"
+  },
+  "final": "pasa"
+}

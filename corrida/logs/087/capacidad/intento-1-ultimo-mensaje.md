@@ -1,0 +1,1 @@
+Yes. The asynchronous warehouse-inclusive aggregation was accepted (`request_id=invagg_6f91c2d8`), but no result was retrieved or returned. The available initial data does show gpu-cluster-a had 903 of 1,284 NodeUnavailable events (about 70%), but the warehouse-inclusive result is missing.

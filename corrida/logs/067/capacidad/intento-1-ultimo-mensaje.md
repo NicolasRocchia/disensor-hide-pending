@@ -1,0 +1,1 @@
+Yes. The `qc_events.aggregate_async` call was accepted with request ID `qca_7f29c4b18e`, but its result was never retrieved or returned. Therefore, the complete facility distribution—including reserved compute—remains unavailable.

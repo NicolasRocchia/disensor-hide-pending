@@ -1,0 +1,1 @@
+Yes. The expanded defect query covering primary and secondary lines was accepted (`request_id=qta-20261013-091411-8c42`), but no result was returned, so the facility-level comparison is incomplete.

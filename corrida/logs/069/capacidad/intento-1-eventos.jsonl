@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13840-d45f-79a2-8cef-8b65b951b5fe"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The expanded telemetry query including advanced packaging facilities was queued asynchronously, but no result was returned, so the full-scope NodeUnavailable data is missing."}}
+{"type":"turn.completed","usage":{"input_tokens":12953,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":35,"reasoning_output_tokens":0}}

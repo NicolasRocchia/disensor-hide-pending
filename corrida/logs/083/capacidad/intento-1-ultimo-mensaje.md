@@ -1,0 +1,1 @@
+Yes. The `external_and_internal` shipment aggregation was accepted asynchronously (`request_id=shpagg_7K2M91QF`), but its result was never retrieved or returned.

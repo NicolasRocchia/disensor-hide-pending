@@ -1,0 +1,1 @@
+Yes. The broader asynchronous aggregation request was accepted (`req-net-7f31c9a2`), but no result was returned. The available customer-facing data does show most NodeUnavailable failures on gpu-cluster-a: 2,301 of 2,744 (about 84%).

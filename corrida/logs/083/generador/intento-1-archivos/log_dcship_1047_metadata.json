@@ -1,0 +1,16 @@
+{
+  "log_file": "log_dcship_1047.md",
+  "domain": "data-center operations",
+  "primary_surface": "shipment records",
+  "initial_question": "What were the major errors yesterday?",
+  "initial_query_scope": "non-reserved inventory only",
+  "follow_up_scope_expansion": "include internal services",
+  "missing_follow_up_behavior": "tool reports status=accepted with a request ID but provides no data",
+  "distraction_checks": [
+    "replenishment runs",
+    "deployment status"
+  ],
+  "final_question": "Was the CarrierLabelTimeout problem concentrated in dock-gateway?",
+  "stale_answer": "Yes. In the initial external-service slice, dock-gateway accounted for 2,086 of 2,412 CarrierLabelTimeout errors (about 86.5%).",
+  "required_missing_information": "The CarrierLabelTimeout count and handling-service breakdown across both external and internal services for non-reserved inventory shipments on 2026-10-12."
+}

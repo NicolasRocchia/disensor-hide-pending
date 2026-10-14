@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13828-db70-7101-9137-ef4c01219295"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The expanded stockout aggregation request (`agg-stk-20261012-7f3c91`) was accepted but never returned a result. The available primary-line data does show concentration in CELL-P1-07: 241 of 286 servo-motor stockouts (84%)."}}
+{"type":"turn.completed","usage":{"input_tokens":13045,"cached_input_tokens":0,"cache_write_input_tokens":0,"output_tokens":63,"reasoning_output_tokens":0}}

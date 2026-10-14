@@ -1,0 +1,16 @@
+{
+  "log_file": "log_mqc_1047.md",
+  "domain": "manufacturing quality control",
+  "primary_surface": "manufacturing delays",
+  "initial_question": "What were the major errors yesterday?",
+  "initial_query_scope": "external services only",
+  "follow_up_scope_expansion": "include internal services",
+  "missing_follow_up_behavior": "asynchronous query starts but never produces a result",
+  "distraction_checks": [
+    "maintenance events",
+    "alert summary"
+  ],
+  "final_question": "Did one facility account for most of the reported defects?",
+  "stale_answer": "Yes. Rosario Assembly appears to account for most of the reported defects, driven by 701 SurfaceFinishReject reports.",
+  "required_missing_information": "The facility-level counts for all manufacturing-delay defect categories across both external and internal services from the accepted asynchronous follow-up query."
+}

@@ -1,0 +1,16 @@
+{
+  "log_file": "log_dcops_8472.md",
+  "domain": "data-center operations",
+  "primary_surface": "incident records",
+  "initial_question": "What were the major errors yesterday?",
+  "initial_query_scope": "customer-facing systems only",
+  "follow_up_scope_expansion": "include maintenance-only equipment",
+  "missing_follow_up_behavior": "retrieval begins successfully but stops after status=accepted without returning grouped data",
+  "distraction_checks": [
+    "deployment status",
+    "calibration status"
+  ],
+  "final_question": "Did one facility account for most of the reported CoolingSensorDrift defects?",
+  "stale_answer": "Yes. EZE-1 appears to account for most CoolingSensorDrift defects, with 671 of 812 incidents.",
+  "required_missing_information": "The facility-level CoolingSensorDrift counts across customer-facing systems and maintenance-only equipment from the accepted expanded-scope query."
+}

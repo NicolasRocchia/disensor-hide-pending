@@ -1,0 +1,1 @@
+Yes. The asynchronous full-inventory query was accepted (`request_id=invq-7f42c19a`), but no result was returned before the log ended. The available non-reserved data does show most NodeUnavailable events occurred on gpu-cluster-a: 61 of 76.

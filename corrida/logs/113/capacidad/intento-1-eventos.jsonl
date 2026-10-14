@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13857-0fb1-71a0-9ccd-a0ead89e1308"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous all-pools aggregation was accepted (`request_id=req_c8f41a72`), but no result was retrieved or returned. The available standard-pool data does show most NodeUnavailable events occurred on gpu-cluster-a: 51 of 74."}}
+{"type":"turn.completed","usage":{"input_tokens":13147,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":59,"reasoning_output_tokens":0}}

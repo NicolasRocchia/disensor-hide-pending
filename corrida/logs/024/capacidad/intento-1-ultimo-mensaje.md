@@ -1,0 +1,1 @@
+Yes. The asynchronous aggregation including automated warehouse inventory was accepted (`request_id=invagg-7f3c91a2`), but its result was never retrieved or returned. The available non-reserved data does show TimeoutError was concentrated in `inventory-sync` (2,421 of 2,764 minutes, about 88%).

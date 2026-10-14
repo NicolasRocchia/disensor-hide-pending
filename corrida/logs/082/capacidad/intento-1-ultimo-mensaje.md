@@ -1,0 +1,1 @@
+Yes. The asynchronous `shipment_analytics.aggregate_async` call was accepted with request ID `shipagg_7F3C91A2`, but no result was returned or retrieved.

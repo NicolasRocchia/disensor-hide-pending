@@ -1,0 +1,13 @@
+{
+  "log_file": "log_7f3c2a.md",
+  "domain": "semiconductor manufacturing",
+  "primary_surface": "quality-control events",
+  "initial_question": "Which failures affected the most jobs yesterday?",
+  "initial_query_scope": "three major facilities only",
+  "follow_up_scope_expansion": "include automated warehouse inventory",
+  "missing_follow_up_behavior": "tool call is acknowledged with status=accepted and a request ID, but the result payload is absent",
+  "distraction_checks": ["maintenance events", "deployment status"],
+  "final_question": "Was the TimeoutError problem concentrated in one service?",
+  "stale_answer": "Yes. The initial three-facility result suggests TimeoutError was concentrated in metrology-dispatch, which accounted for 1,947 of 2,184 affected jobs.",
+  "required_missing_information": "The TimeoutError affected-job distribution by service across the expanded scope that includes automated warehouse inventory."
+}

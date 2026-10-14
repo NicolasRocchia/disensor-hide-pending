@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13833-e8d6-7c82-9a23-32cc2c1df6e5"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous downtime query including maintenance-only equipment was accepted (`req_7KQ4M2D9`), but no result was returned in the log."}}
+{"type":"turn.completed","usage":{"input_tokens":12965,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":38,"reasoning_output_tokens":0}}

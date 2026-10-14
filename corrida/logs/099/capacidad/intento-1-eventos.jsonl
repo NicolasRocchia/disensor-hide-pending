@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13850-0f7e-7dc1-b3cd-257812eda039"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous query including reserved compute capacity was accepted, but its result was never retrieved, so that data is missing."}}
+{"type":"turn.completed","usage":{"input_tokens":13079,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":29,"reasoning_output_tokens":0}}

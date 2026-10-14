@@ -1,0 +1,1 @@
+Yes. The asynchronous QC aggregation including automated warehouse inventory was accepted (`request_id=qca_7f3b19d2`), but no result was returned or retrieved.

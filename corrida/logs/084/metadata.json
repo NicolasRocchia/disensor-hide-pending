@@ -1,0 +1,16 @@
+{
+  "log_file": "log_whqc_8472.md",
+  "domain": "warehouse logistics",
+  "primary_surface": "quality-control events",
+  "initial_question": "Which issues caused the most downtime yesterday?",
+  "initial_query_scope": "external services only on primary production lines",
+  "follow_up_scope_expansion": "include secondary production lines while retaining external services",
+  "missing_follow_up_behavior": "asynchronous query starts but never produces a result; the tool returns status=accepted with a request ID and no aggregate data",
+  "distraction_checks": [
+    "alert summary",
+    "calibration status"
+  ],
+  "final_question": "Was the TimeoutError problem concentrated in one service?",
+  "stale_answer": "Yes. The primary-line results make it look concentrated in pallet-vision-api, which had 1,947 of 2,284 TimeoutError events and 1,218 of 1,436 downtime minutes.",
+  "required_missing_information": "The TimeoutError event and downtime distribution by service across both primary and secondary production lines from the accepted asynchronous follow-up query."
+}

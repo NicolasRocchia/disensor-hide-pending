@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13856-8278-7812-a3f7-cab2970b8610"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous query including primary and secondary production lines was accepted (`request_id=qdr_20261012_7F31C9`), but no result was returned or retrieved."}}
+{"type":"turn.completed","usage":{"input_tokens":12991,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":42,"reasoning_output_tokens":0}}

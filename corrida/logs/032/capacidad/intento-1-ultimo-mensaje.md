@@ -1,0 +1,1 @@
+Yes. The asynchronous all-infrastructure stockout query (`request_id=stkq_7f2c91ab`) was accepted, but no result was retrieved or returned.

@@ -1,0 +1,1 @@
+Yes. The asynchronous full-distribution query was accepted with request ID `dly_q_8f31c72a`, but no result was returned or retrieved. The available customer-facing data does show EZE-1 accounted for 1,824 of 2,146 InventoryPickMismatch delays (about 85%).

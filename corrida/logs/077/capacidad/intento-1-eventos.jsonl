@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13844-d991-73c0-ab88-8a7bd0d76d5e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous secondary-line stockout request (`srq_8f31c2a947`) was accepted, but no result was returned. The available primary-line data does show Cambridge Lab accounted for 214 of 271 tubing stockouts (about 79%), but the broader-scope result is missing."}}
+{"type":"turn.completed","usage":{"input_tokens":12986,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":67,"reasoning_output_tokens":0}}

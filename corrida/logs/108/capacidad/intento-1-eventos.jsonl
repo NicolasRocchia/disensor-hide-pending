@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13854-73be-7a72-b58c-8b3d99f064aa"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous full-distribution query was accepted with request ID `dly_q_8f31c72a`, but no result was returned or retrieved. The available customer-facing data does show EZE-1 accounted for 1,824 of 2,146 InventoryPickMismatch delays (about 85%)."}}
+{"type":"turn.completed","usage":{"input_tokens":13007,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":68,"reasoning_output_tokens":0}}

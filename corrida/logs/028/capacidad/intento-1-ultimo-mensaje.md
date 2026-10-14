@@ -1,0 +1,1 @@
+Yes. The `aggregate_component_delays` call was accepted and given request ID `ldq_20261013_091411_8f2c`, but no completed result was returned, so the fabrication-line question remains unanswered.

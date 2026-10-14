@@ -1,0 +1,16 @@
+{
+  "log_file": "log_lab_4827.md",
+  "domain": "laboratory equipment",
+  "primary_surface": "manufacturing delays",
+  "initial_question": "Which issues caused the most downtime yesterday?",
+  "initial_query_scope": "standard compute pools only",
+  "follow_up_scope_expansion": "include advanced packaging facilities",
+  "missing_follow_up_behavior": "tool returns status=accepted with a request ID but no result",
+  "distraction_checks": [
+    "scheduled changes",
+    "replenishment runs"
+  ],
+  "final_question": "Did one fabrication line account for most of the wafer-related delays?",
+  "stale_answer": "Yes—FAB-3 appears to account for most wafer-related delay time, contributing 1,196 of the 1,486 minutes attributed to wafer-stage vacuum instability.",
+  "required_missing_information": "The issue-by-fabrication-line downtime distribution after adding advanced packaging facilities to the standard-compute-pool records."
+}

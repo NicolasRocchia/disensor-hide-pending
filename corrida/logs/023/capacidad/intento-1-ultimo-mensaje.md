@@ -1,0 +1,1 @@
+Yes. The broader infrastructure downtime query was accepted asynchronously (`request_id=shp_qc_7F29C1A4`), but its result was never retrieved or returned. The available standard-pool data does show gpu-cluster-a accounted for 1,087 of 1,426 NodeUnavailable minutes—about 76%.

@@ -1,0 +1,16 @@
+{
+  "log_file": "log_rf27.md",
+  "domain": "robotics-factory inventory",
+  "primary_surface": "production logs",
+  "initial_question": "Which issues caused the most downtime yesterday?",
+  "initial_query_scope": "external services only",
+  "follow_up_scope_expansion": "include reserved compute capacity",
+  "missing_follow_up_behavior": "tool returns status=accepted with a request ID but no result",
+  "distraction_checks": [
+    "deployment status",
+    "alert summary"
+  ],
+  "final_question": "Were the servo-motor stockouts concentrated in one production cell?",
+  "stale_answer": "Yes. The external-services-only result suggests cell-R7 dominated servo-motor stockout downtime, with 571 of 684 minutes.",
+  "required_missing_information": "The servo-motor stockout downtime and event distribution by production cell after expanding the production-log scope to include reserved compute capacity."
+}

@@ -1,0 +1,1 @@
+Yes. The asynchronous query including maintenance-only equipment was accepted (`request_id=tel-7Q4M2-1012`), but no result was returned or retrieved.

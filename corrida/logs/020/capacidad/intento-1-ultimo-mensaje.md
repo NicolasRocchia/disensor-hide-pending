@@ -1,0 +1,1 @@
+Yes. The asynchronous `quality_incidents.aggregate_async` call was accepted with request ID `qia_8f31c6d2`, but no result was returned or retrieved. That missing result was needed to confirm whether servo-motor stockouts remained concentrated in one cell after including maintenance-only equipment.

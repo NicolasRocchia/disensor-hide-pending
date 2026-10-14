@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a13852-eea0-7d91-a654-a0802bb15e2f"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The expanded inventory aggregation was accepted asynchronously (`request_id=invagg_7f3c91b2`), but its result was never retrieved, so the secondary-line data is missing. The available primary-line data does show concentration in `inventory-sync-gateway` (1,947 of 2,184 TimeoutErrors)."}}
+{"type":"turn.completed","usage":{"input_tokens":12994,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":71,"reasoning_output_tokens":0}}

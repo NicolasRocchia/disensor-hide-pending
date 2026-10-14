@@ -1,0 +1,16 @@
+{
+  "log_file": "log_c7a41e.md",
+  "domain": "cloud infrastructure",
+  "primary_surface": "equipment telemetry",
+  "initial_question": "What were the major errors yesterday?",
+  "initial_query_scope": "standard compute pools only",
+  "follow_up_scope_expansion": "include secondary production lines",
+  "missing_follow_up_behavior": "tool call is acknowledged but result payload is absent",
+  "distraction_checks": [
+    "alert summary",
+    "replenishment runs"
+  ],
+  "final_question": "Was the TimeoutError problem concentrated in one service?",
+  "stale_answer": "Yes. Based on the standard compute pools, TimeoutError was concentrated in production-api, which accounted for 1,947 of 2,184 events.",
+  "required_missing_information": "The TimeoutError service and production-line distribution after expanding the telemetry scope to include secondary production lines."
+}

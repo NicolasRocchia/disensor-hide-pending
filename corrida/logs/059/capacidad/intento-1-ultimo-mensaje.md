@@ -1,0 +1,1 @@
+Yes. The second `qc_events.aggregate` request was only accepted; no result was returned, so the advanced-packaging-inclusive line distribution is missing.

@@ -1,0 +1,1 @@
+Yes. The expanded stockout aggregation request (`agg-stk-20261012-7f3c91`) was accepted but never returned a result. The available primary-line data does show concentration in CELL-P1-07: 241 of 286 servo-motor stockouts (84%).

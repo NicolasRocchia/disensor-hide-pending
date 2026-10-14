@@ -1,0 +1,16 @@
+{
+  "log_file": "log_csched_042.md",
+  "domain": "compute-cluster scheduling",
+  "primary_surface": "manufacturing delays",
+  "initial_question": "What were the major errors yesterday?",
+  "initial_query_scope": "customer-facing systems only",
+  "follow_up_scope_expansion": "include regional or private infrastructure",
+  "missing_follow_up_behavior": "tool reports accepted with a request ID but provides no data",
+  "distraction_checks": [
+    "scheduled changes",
+    "calibration status"
+  ],
+  "final_question": "Were the servo-motor stockouts concentrated in one production cell?",
+  "stale_answer": "Yes—cell-atlas-3 accounted for 1,566 of the 1,842 servo-motor stockout delays.",
+  "required_missing_information": "The production-cell distribution of ServoMotorStockout delays across customer-facing systems plus regional or private infrastructure for 2026-10-12."
+}

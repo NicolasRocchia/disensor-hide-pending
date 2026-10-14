@@ -1,0 +1,1 @@
+Yes. The expanded stockout aggregation request was accepted (`lrq_8c41f2a9`), but no result was returned or retrieved. The available data still shows strong Northbridge concentration: 401 of 486 pipette-tip failures (82.5%).

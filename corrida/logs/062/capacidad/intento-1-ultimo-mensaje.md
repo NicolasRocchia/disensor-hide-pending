@@ -1,0 +1,1 @@
+Yes. The asynchronous `qc_events.aggregate_async` call returned only an acceptance event (`request_id=qca_7f31c9b2`), with no subsequent result.

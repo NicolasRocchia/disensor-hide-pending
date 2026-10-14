@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1382d-e6f8-7fe3-b0c4-60d97d671418"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The asynchronous aggregation including secondary production lines was accepted, but no result for request `agg-rp-20261012-84c19e` was returned or retrieved."}}
+{"type":"turn.completed","usage":{"input_tokens":13047,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":40,"reasoning_output_tokens":0}}
