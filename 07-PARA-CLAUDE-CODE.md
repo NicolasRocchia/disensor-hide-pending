@@ -165,20 +165,39 @@ brazos ni el informe antes que Nico.**
 - No actualizar Codex mientras corren `logs` o `brazos`; después no importa.
 - Los JSON que edita Nico se pueden guardar con BOM; en UTF-16, no.
 
-## Siguiente (13/10/2026)
+## Estado y siguiente (15/10/2026)
 
-El piloto terminó (capacidad 50 de 50, `12`). `juez-prueba` con el prompt ciego:
-5 de 5 (`18`); con la regla de textos de la v20 el juez recibe los mismos textos, y
-la etapa lo verifica sin llamar. La cuarta revisión está en `19` y sus arreglos en
-la v20 (`20`). La quinta está en `21` y sus arreglos en la v21; la sexta, en `22`
-y sus arreglos en la v22; la séptima, de falsos frenos, en `23` y sus arreglos en
-la v23. **El protocolo quedó congelado el 13/10/2026, en la v23** (tag
-`protocolo-congelado`); desde acá, todo cambio va en «Enmiendas».
+**La fase 1 terminó el 14/10/2026.** El protocolo quedó congelado el 13/10, en la
+v23 (tag `protocolo-congelado`). La corrida: `logs` (`24`), `gemelos` (`25`), la
+lista de 100 pares (`238c1df`, con su registro en «Enmiendas» en `7d02634`),
+`brazos` (`26`), `juez`, `validacion` y `analizar`. El resultado está en `27`, y
+los informes en `28` (lista del W3C, en inglés), `29` (disensor) y `30` (autores
+del paper, en inglés). El repo es público,
+`github.com/NicolasRocchia/disensor-hide-pending`, con un README en inglés.
 
-**Siguiente: `logs`** (§0, paso 5), con el OK de Nico:
-**`python experimento\herramientas\corrida.py logs --limite N`**, en segundo plano
-y en tandas, hasta que 110 logs pasen §4.2 y §4.3. Unas 120 generaciones con su
-capacidad: unos 8 millones de tokens de entrada de GPT, del orden de 6 puntos de la
-semana de Nico. Al terminar aplica la regla de parada de §4.3. Después, `gemelos`
-(Claude) y la hoja de Nico. Antes de `brazos` hace falta el remoto en GitHub
-(`origin`, rama `main`) con el commit de la lista y el del registro.
+**Una corrección posterior al resultado:** de las 71 ausencias falsas, las 71
+cumplen el esquema pero 69 pasan las cuatro reglas; las de `002` y `081` caen por
+R1, no por la ausencia. Está corregido en `29` (`6b989b7`) y en los issues #134 y
+#137 de disensor, y el cruce se rehace con `cruces/ausencias_y_reglas.py`.
+
+**El árbol de la fase 1 no se toca.** `corrida.py analizar` vuelve a verificar
+que `herramientas/`, `prompts/` y `esquemas/` sean el árbol del registro de
+«Enmiendas». Un cambio ahí hace que un clon nuevo deje de reproducir el análisis.
+Lo nuevo va en otra carpeta (como `cruces/`) o en otra rama; si algún día hace
+falta tocar ese árbol, antes hay que fijar con un tag el commit que reproduce la
+fase 1 y cambiar las instrucciones del README y de `28` para que lo usen.
+
+**Lo que queda:**
+
+- Las respuestas de la lista del W3C y de los autores del paper, a los mails del
+  14/10.
+- En disensor, los issues #134 a #139 que salieron del informe `29`.
+- **La fase 2** (§13): si la prosa, no el JSON, dice más seguido que la consulta no
+  volvió. Va con su propio protocolo, su revisión y su congelamiento. La prosa de
+  las 400 llamadas de la fase 1 ya está guardada (`corrida/brazos/*/prosa.txt`);
+  hacen falta los brazos A0 y A1, el juez del paper (Q.2.8) sobre la prosa y el de
+  falsos positivos sobre los gemelos. Si compara contra A2, o vuelve a correr A2
+  intercalado en su propia ventana, o declara la confusión por fecha.
+- **El método entero** (#139 de disensor): sobre los mismos 100 pares, un
+  generador declara el residuo, un revisor de otra familia lo ataca, y se mide
+  cuántos falsos cierres sobreviven a la ronda.
