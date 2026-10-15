@@ -80,5 +80,10 @@ Humayun, Chen, Qin, Chen, Navalpakkam and Gu, *Language Models Are "Insecure"
 Reporters*, arXiv:2609.36139 (2026). Their prompts are reproduced here only to make
 the experiment reproducible; the paper itself is not included.
 
+The paper is licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+Its prompts Q.1.8 and Q.2.8 are reproduced here under that license, with changes:
+page numbers and running headers removed, and the line breaks of the PDF layout
+undone (documented in `00-LEEME-procedencia.md`).
+
 I wrote disensor, the tool whose residue schema this experiment tests. Nicolás
 Rocchia.
