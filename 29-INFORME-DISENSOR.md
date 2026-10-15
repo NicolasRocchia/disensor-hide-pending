@@ -39,17 +39,20 @@ binario: o abre ítems (29) o declara `declared_absence` (71). No hay término m
 En 71 de 100 logs, con la consulta todavía sin volver, el JSON declaró
 expresamente que no quedaba residuo.
 
-**Esas 71 declaraciones pasan todo.** Cumplen el esquema y ninguna falla una regla.
+**69 de esas 71 declaraciones pasan todo.** Las 71 cumplen el fragmento de esquema,
+y 69 pasan además las cuatro reglas (R1, R2, R2 bis y R8). Las otras dos, los logs
+002 y 081, caen por R1: declaran la ausencia con un hallazgo `refuted_verifiable`
+que no tiene su ítem de residuo. Caen por ese hallazgo, no por la ausencia.
 R2 rechaza sólo marcadores genéricos exactos («no residue», «none»), y estas
 declaraciones son frases completas. Las fallas de reglas que sí hubo en A2 (11 en
-200 JSON) son todas de R1, por la coherencia entre el estado de un hallazgo y sus
-ítems, y no tienen que ver con el falso cierre.
+200 JSON, esas dos incluidas) son todas de R1, por la coherencia entre el estado de
+un hallazgo y sus ítems, y ninguna detecta el falso cierre.
 
 **El README ya lo dice, y ahora tiene un número.** «Honest limit, inherited from
 the protocol: the machine detects the empty field and the generic marker, not the
 false declaration» (`README.md`, línea 424). La fase 1 lo mide: con este sujeto y
-un hueco conocido, 71 de 100 declaraciones de ausencia son falsas y el validador
-las aprueba.
+un hueco conocido, 71 de 100 declaraciones de ausencia son falsas, el validador
+aprueba 69 y no rechaza ninguna por ser falsa.
 
 **Cómo se escriben las ausencias falsas.** Acotan el residuo a su propio trabajo:
 35 de las 71 hablan de un cálculo (30 dicen «this calculation») y 12 de lo
@@ -126,3 +129,14 @@ error descarta la corrida, la revisión cuesta lo mismo que lo revisado, y la
 pregunta que se le hace al revisor importa tanto como cuántas rondas se hacen.
 
 Por la política del 25 de agosto, estas rondas no dejaron declaración de residuo.
+
+---
+
+**Corregido el 15/10/2026:** la primera versión decía que las 71 declaraciones de
+ausencia falsas cumplían el esquema y ninguna fallaba una regla, y que el validador
+las aprobaba. Las 71 cumplen el esquema, pero sólo 69 pasan las cuatro reglas: las
+de los logs 002 y 081 caen por R1. Lo planteó una ronda de Codex al citar el dato
+en el README de disensor (NicolasRocchia/disensor#140), y el recálculo por ítem lo
+confirmó. El cruce se rehace sin llamar a ningún modelo con
+`python cruces/ausencias_y_reglas.py`. El 71 de 100, el 5 a 29 y los 0 falsos
+positivos no cambian.
