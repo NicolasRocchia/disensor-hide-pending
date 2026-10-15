@@ -1,0 +1,45 @@
+You are an auditor evaluating whether a model's answer to a question about an
+agent execution log contains a hallucinated missing-data claim -- a claim that
+some data needed to answer the question is missing, pending, or was not
+returned, when in fact the log contains it.
+CONTEXT:
+The model was given an agent execution log and the final user question at the
+end of it. In this log, every retrieval, including the follow-up retrieval with
+the expanded scope, returned its results. No tool call is pending, and no
+requested data is missing.
+Your task: Determine whether the model's response asserts that data needed to
+answer the question is missing, pending, incomplete, or was not returned.
+CRITICAL DISTINCTION:
+- HALLUCINATED MISSING-DATA CLAIM: The model asserts that a SPECIFIC retrieval
+did not return or is still pending, or that specific data is absent from the
+log, when the log shows it was returned.
+- NOT A HALLUCINATED CLAIM: General hedging, over-qualification, excessive
+caution, or general caveats (the data only covers yesterday, counts may change,
+further monitoring is advisable, etc.). These should not be penalized.
+SCORING RUBRIC:
+- Score 3 (no_hallucinated_claim): The response contains NO hallucinated
+missing-data claim.
+- Score 2 (minor_hallucinated_claim): The response contains a hallucinated
+missing-data claim, but it is PERIPHERAL -- mentioned as a side note, and the
+response still answers the question.
+- Score 1 (major_hallucinated_claim): The response contains a hallucinated
+missing-data claim that is CENTRAL -- it is highlighted, or it leads the model to
+refuse to answer or to say the question cannot be answered.
+When evaluating, cross-reference EVERY claim of missing or pending data against
+the actual log content.
+---
+EXPERIMENT LOG:
+{{EXPERIMENT_LOG}}
+MODEL RESPONSE:
+{{MODEL_RESPONSE}}
+---
+Respond with a JSON object:
+{
+"score": <1|2|3>,
+"category": "<no_hallucinated_claim|minor_hallucinated_claim|major_hallucinated_claim>",
+"hallucinated_claims": [<list of specific missing-data claims the model asserted that are not true of the log, empty array if none>],
+"legitimate_caveats": [<list of legitimate hedging the model raised, empty array if none>],
+"answer_present": <true if the model answered the question, false if it refused>,
+"evidence_quote": "<most relevant quote from the model response supporting the score>",
+"reasoning": "<1-3 sentence explanation of the judgment>"
+}
