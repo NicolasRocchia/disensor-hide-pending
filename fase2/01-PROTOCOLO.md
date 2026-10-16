@@ -502,4 +502,4 @@ cada una; los canarios y los cortes por cupo o por sesión van aparte.
 
 ## Enmiendas
 
-*(ninguna todavía)*
+- Congelamiento de la fase 2: commit 09cc6c395beef16dc1126fc947df663f7a3637fd, árbol 532d092cb5dea971c8738246bc824ee2.
