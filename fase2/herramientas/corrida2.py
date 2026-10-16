@@ -6,7 +6,7 @@ modificarlos: el árbol de la fase 1 queda intacto y `corrida.py analizar` lo si
 reproduciendo. Cada etapa es reanudable, como en la fase 1. Toda etapa que llama a un modelo
 pide el OK de Nico.
 
-    python experimento\\fase2\\herramientas\\corrida2.py <etapa> [--limite N] [--sin-etiquetas]
+    python experimento\\fase2\\herramientas\\corrida2.py <etapa> [--limite N]
 
 Antes de congelar, el piloto (§12), sobre pares del piloto de la fase 1:
   juez-prueba Los dos jueces de la prosa sobre respuestas armadas a mano.
@@ -19,7 +19,8 @@ Después de congelar, en orden:
               prosa de los gemelos y el juez «registra» de la fase 1 sobre los JSON de A2b y
               A2, en un orden sorteado (§6).
   validacion  Arma fase2/corrida/pares.json y las dos planillas ciegas de §8.
-  analizar    Con las etiquetas de Nico, el análisis de analisis2.py y la frase de §9.
+  analizar    Con todas las etiquetas de Nico, el análisis de analisis2.py y la frase de §9.
+              Sin análisis provisional: C1 no se calcula antes de las etiquetas.
 """
 import argparse
 import hashlib
@@ -57,6 +58,9 @@ TERMINALES_JUEZ = corrida.TERMINALES_JUEZ
 # §11: el único registro del congelamiento de la fase 2, en «Enmiendas» de su protocolo.
 RE_REGISTRO = re.compile(r"^- Congelamiento de la fase 2: commit ([0-9a-f]{40}), árbol ([0-9a-f]{32})\.?[ \t]*$",
                          re.M)
+# Para `git log -G`: una línea de registro con un commit, no la del formato que cita §11.
+RE_REGISTRO_EN_GIT = "Congelamiento de la fase 2: commit [0-9a-f]"
+TAG = "protocolo-fase2-congelado"
 
 escribir = corrida.escribir
 leer = corrida.leer
@@ -166,28 +170,58 @@ def con_sesion(fijado, cual):
         return False
 
 
-def exigir_sesion(fijado, cual):
+CANARIO = b"Reply with the single word OK."
+
+
+def canario(fijado, cual, base):
+    """Una llamada mínima, aparte de los ítems y con el mismo arnés: si tampoco termina, el
+    servicio no contesta y la falla no es del ítem. Queda registrada en `<base>/canarios/`."""
+    carpeta = base / "canarios"
+    carpeta.mkdir(parents=True, exist_ok=True)
+    prefijo = f"{cual}-{re.sub(r'[^0-9]', '', arnes.ahora())}"
+    try:
+        if cual == "claude":
+            reg, _ = piloto.una_llamada_claude(fijado, CANARIO, carpeta, prefijo)
+        else:
+            reg, _ = piloto.una_llamada_gpt(fijado, CANARIO, carpeta, prefijo, tipo="canario")
+    except Exception as exc:  # noqa: BLE001 - un canario que revienta es un servicio que no contesta
+        escribir(carpeta / f"{prefijo}.json", {"excepcion": repr(exc)})
+        return False
+    escribir(carpeta / f"{prefijo}.json", reg)
+    if reg.get("red_de_seguridad"):
+        cortar(base, "PARADA", f"canario {prefijo}", lambda: None)
+    return bool(reg.get("termino"))
+
+
+def revisar_intento(fijado, cual, base, intentos, guardar):
+    """§11, después de cada intento que no terminó, sin cupo ni red de seguridad: si el CLI no
+    tiene sesión, o si tampoco termina un canario, la falla no es del ítem. El intento queda en
+    la historia marcado (`sin_sesion` o `caida`), no gasta los reintentos del ítem y la etapa
+    para, reanudable. En Claude el intento cambia de etiqueta, que es lo que cuentan los
+    reintentos de `claude_con_reintentos`; en GPT se marca además `sin_cupo`, el campo que no
+    cuentan los de `gpt_con_reintentos`. Si el canario termina, la falla es del ítem y cuenta."""
+    ult = intentos[-1] if intentos else None
+    if (not ult or ult.get("en_vuelo") or ult.get("termino") or ult.get("sin_cupo") or ult.get("red_de_seguridad")
+            or ult.get("sin_sesion") or ult.get("caida")):
+        return
     if not con_sesion(fijado, cual):
+        motivo = "sin_sesion"
+    elif not canario(fijado, cual, base):
+        motivo = "caida"
+    else:
+        return
+    ult[motivo] = True
+    if cual == "claude":
+        ult["etiqueta"] = f"{ult.get('etiqueta')}-{motivo.replace('_', '-')}"
+    else:
+        ult["sin_cupo"] = True
+    guardar()
+    if motivo == "sin_sesion":
         login = "auth login" if cual == "claude" else "login"
         sys.exit(f"El CLI de {cual} del arnés no tiene una sesión iniciada. Nico: `{fijado[f'{cual}_exe']} {login}` "
                  "y volver a correr la etapa, que es reanudable.")
-
-
-def parar_sin_sesion(fijado, cual, intentos, guardar):
-    """Después de cada intento: si no terminó y el CLI perdió la sesión, el intento queda en la
-    historia marcado `sin_sesion` y la etapa para, reanudable. En Claude, además, el intento
-    cambia de etiqueta y no gasta los reintentos del ítem; en GPT gasta uno, porque
-    `gpt_con_reintentos` cuenta toda la historia."""
-    ult = intentos[-1] if intentos else None
-    if not ult or ult.get("en_vuelo") or ult.get("termino") or ult.get("sin_cupo") or ult.get("sin_sesion"):
-        return
-    if con_sesion(fijado, cual):
-        return
-    ult["sin_sesion"] = True
-    if cual == "claude":
-        ult["etiqueta"] = f"{ult.get('etiqueta')}-sin-sesion"
-    guardar()
-    exigir_sesion(fijado, cual)
+    sys.exit(f"El servicio de {cual} no contesta: tampoco terminó un canario ({base / 'canarios'}). Es reanudable: "
+             "volvé a correr la etapa más tarde.")
 
 
 # --- §11: el congelamiento de la fase 2 ------------------------------------------------------
@@ -212,16 +246,42 @@ def registro_fase2(texto):
     return {"commit": hallados[0][0], "arbol": hallados[0][1]}
 
 
+def commits_registrados():
+    """Los commits que nombró algún registro de congelamiento en la historia del protocolo de la
+    fase 2. Corregir una errata del árbol no suma uno; volver a congelar otro commit, sí."""
+    nombrados = set()
+    for c in corrida.git_ok("log", "--format=%H", "-G", RE_REGISTRO_EN_GIT, "--", REL_PROTOCOLO).split():
+        r = corrida.git("show", f"{c}:{REL_PROTOCOLO}")
+        if r.returncode != 0:
+            continue
+        texto = unicodedata.normalize("NFC", r.stdout.decode("utf-8").replace("\r\n", "\n").replace("\r", "\n"))
+        partes = re.split(r"^## Enmiendas[ \t]*$", texto, flags=re.M)
+        if len(partes) == 2:
+            seccion = re.split(r"^## ", partes[1], maxsplit=1, flags=re.M)[0]
+            nombrados |= {x[0] for x in RE_REGISTRO.findall(seccion)}
+    return nombrados
+
+
+def cuerpo_del_protocolo(texto):
+    """El protocolo hasta «## Enmiendas», con finales de línea y forma Unicode normalizados:
+    lo que no cambia después de congelar (§11)."""
+    texto = unicodedata.normalize("NFC", texto.replace("\r\n", "\n").replace("\r", "\n"))
+    return re.split(r"^## Enmiendas[ \t]*$", texto, maxsplit=1, flags=re.M)[0]
+
+
 def congelamiento_fase2():
     """§11: la fase 1 sigue congelada e intacta (lista, protocolo y árbol, con el chequeo de la
     fase 1); el protocolo y el código de la fase 2 no tienen cambios sin commitear; el registro
-    de la fase 2 nombra un commit que es ancestro de HEAD y cuyo árbol es el registrado, y el
-    árbol de ahora es ése. Devuelve (commit del registro, HEAD, árbol)."""
+    de la fase 2 nombra un commit que es ancestro de HEAD, que tiene el árbol registrado y al que
+    apunta el tag; el árbol de ahora es ése; el protocolo no cambió fuera de «Enmiendas» desde
+    ese commit; y un solo commit de la historia escribió un registro. Devuelve (commit del
+    registro, HEAD, árbol)."""
     corrida.congelamiento_en_git()
     if corrida.git_ok("status", "--porcelain", "--", REL_PROTOCOLO, *RUTAS_ARBOL).strip():
         sys.exit("Hay cambios sin commitear en el protocolo o el código de la fase 2: lo que corre tiene que "
                  "ser un commit (§11).")
-    registro = registro_fase2(corrida.git_ok("show", f"HEAD:{REL_PROTOCOLO}"))
+    protocolo = corrida.git_ok("show", f"HEAD:{REL_PROTOCOLO}")
+    registro = registro_fase2(protocolo)
     arbol = arbol_fase2()
     if registro["arbol"] != arbol:
         sys.exit(f"El árbol de la fase 2 ({arbol}) no es el del registro: un cambio de código después de "
@@ -230,7 +290,23 @@ def congelamiento_fase2():
         sys.exit("El commit del registro de la fase 2 no está en la historia de HEAD (§11).")
     if arbol_fase2(registro["commit"]) != registro["arbol"]:
         sys.exit("El commit del registro de la fase 2 no tiene el árbol registrado (§11).")
+    if cuerpo_del_protocolo(protocolo) != cuerpo_del_protocolo(
+            corrida.git_ok("show", f"{registro['commit']}:{REL_PROTOCOLO}")):
+        sys.exit("El protocolo de la fase 2 cambió fuera de «Enmiendas» después del commit congelado (§11).")
+    nombrados = commits_registrados()
+    if nombrados != {registro["commit"]}:
+        sys.exit(f"La historia del protocolo de la fase 2 registró {len(nombrados)} commits congelados distintos; "
+                 "tiene que ser uno: un congelamiento rehecho se ve (§11).")
+    r = corrida.git("rev-parse", "--verify", "-q", f"refs/tags/{TAG}^{{commit}}")
+    if r.returncode != 0 or r.stdout.decode("utf-8").strip() != registro["commit"]:
+        sys.exit(f"El tag {TAG} no existe o no apunta al commit del registro (§11).")
     return registro["commit"], corrida.git_ok("rev-parse", "HEAD").strip(), arbol
+
+
+def exigir_descendencia(head_anclado):
+    """§11: lo que corre sigue la historia que se ancló en el remoto al crear el plan."""
+    if not corrida.git_si_no("merge-base", "--is-ancestor", head_anclado, "HEAD"):
+        sys.exit("HEAD no desciende del commit anclado en el plan de los brazos: otra rama u otra historia (§11).")
 
 
 def plan_brazos(logs):
@@ -264,6 +340,21 @@ def revisar(base, plan, commit, arbol):
             arboles = r.get("arboles") or []
             if r.get("commit_del_registro") != commit or not arboles or any(a != arbol for a in arboles):
                 sys.exit(f"{etapa} {f.parent.name}: es de otro congelamiento. El arnés para (§10, §11).")
+            if etapa == "jueces":
+                tipo, k, b, c = f.parent.name.split("-")
+                exigir_misma_fuente(base, r, tipo, int(k), b, c)
+
+
+def fuente_md5(br, tipo):
+    """El md5 de lo que juzga un juez, según lo dejó `brazos`: el JSON o la prosa."""
+    return br.get("json_md5") if tipo == "json" else br.get("prosa_md5")
+
+
+def exigir_misma_fuente(base, r, tipo, k, b, c):
+    """Un veredicto, terminal o no, es de la prosa o del JSON que `brazos` dejó para ese ítem."""
+    br = leer_o_nada(base / "brazos" / f"{k:03d}-{b}-{c}" / "resumen.json")
+    if r.get("fuente_md5") != fuente_md5(br, tipo):
+        sys.exit(f"{tipo} {k:03d} {b} {c}: el veredicto no es de lo que dejó `brazos`. El arnés para.")
 
 
 def plan_congelado(fuente, commit, arbol, head):
@@ -280,6 +371,7 @@ def plan_congelado(fuente, commit, arbol, head):
         guardado = leer(fp)
     else:
         guardado = leer(fp)
+        exigir_descendencia(guardado["head_anclado"])
         corrida.anclar_en_remoto([commit, guardado["head_anclado"]], obligatorio=False)
     if guardado["orden"] != [list(x) for x in plan]:
         sys.exit("El plan de los brazos no coincide con el guardado. El arnés para.")
@@ -294,9 +386,21 @@ def verificar():
     if not fp.exists():
         sys.exit("No hay plan de los brazos de la fase 2: correr `brazos`.")
     plan = leer(fp)
+    exigir_descendencia(plan["head_anclado"])
     revisar(DIR, plan, commit, arbol)
     corrida.anclar_en_remoto([commit, plan["head_anclado"]], obligatorio=False)
     return commit, head, arbol
+
+
+def exigir_jsonschema():
+    """`validador` importa jsonschema recién al validar el primer JSON: si falta, se pagaría la
+    llamada y el ítem quedaría `interrumpido`. Se verifica antes de la primera llamada."""
+    import validador
+    try:
+        from jsonschema import Draft202012Validator  # noqa: F401
+        return validador.version_de_jsonschema()
+    except Exception as exc:  # noqa: BLE001
+        sys.exit(f"Falta jsonschema ({exc!r}): los brazos A2b y A2 se validan con él. Correr sin `-I`.")
 
 
 # --- Los brazos ---------------------------------------------------------------------------------
@@ -321,7 +425,7 @@ def correr_brazo(base, fijado, fuente, k, b, c, esquemas, objetos, sello):
 
     def guardar():
         escribir(f, r)
-        parar_sin_sesion(fijado, "codex", r["intentos"], lambda: escribir(f, r))
+        revisar_intento(fijado, "codex", base, r["intentos"], lambda: escribir(f, r))
     estado, reg, texto = corrida.gpt_con_reintentos(fijado, m, carpeta, r["intentos"], f"brazo {b}", guardar)
     if estado in ("PARADA", "sin_cupo"):
         cortar(base, estado, f"{k:03d} {b} {c}", lambda: escribir(f, r))
@@ -353,15 +457,13 @@ def etapa_brazos(args):
     sin_parada(DIR)
     commit, head, arbol = congelamiento_fase2()
     fijado = arnes.verificar_binarios(corrida.BINARIOS, ("codex",))
+    version_jsonschema = exigir_jsonschema()
     fuente = FuenteCorrida()
-    if not (DIR / "brazos" / "plan.json").exists() or any(
-            leer_o_nada(DIR / "brazos" / "{:03d}-{}-{}".format(*x) / "resumen.json").get("estado")
-            not in TERMINALES_BRAZO for x in plan_brazos(fuente.logs())):
-        exigir_sesion(fijado, "codex")
     plan = plan_congelado(fuente, commit, arbol, head)
     esquemas = piloto.leer_esquemas()
     objetos = {b: json.loads(t) for b, t in esquemas.items()}
-    sello = {"commit_del_registro": commit, "sesiones": arnes.ahora(), "arboles": arbol, "commits": head}
+    sello = {"commit_del_registro": commit, "sesiones": arnes.ahora(), "arboles": arbol, "commits": head,
+             "jsonschema": version_jsonschema}
     hechos = 0
     for i in range(0, len(plan), 8):
         bloque = plan[i:i + 8]
@@ -414,11 +516,10 @@ def juzgar_item(base, fijado, fuente, tipo, k, b, c, plantillas, fijos, sello):
     carpeta = base / "jueces" / f"{tipo}-{k:03d}-{b}-{c}"
     f = carpeta / "resumen.json"
     br = leer(base / "brazos" / f"{k:03d}-{b}-{c}" / "resumen.json")
-    fuente_md5 = br.get("json_md5") if tipo == "json" else br.get("prosa_md5")
+    md5_fuente = fuente_md5(br, tipo)
     r = leer(f) if f.exists() else {"tipo": tipo, "log": k, "brazo": b, "condicion": c, "intentos": [],
-                                    "fuente_md5": fuente_md5}
-    if r.get("fuente_md5") != fuente_md5:
-        sys.exit(f"{tipo} {k:03d} {b} {c}: no juzga lo que dejó `brazos`. El arnés para.")
+                                    "fuente_md5": md5_fuente}
+    exigir_misma_fuente(base, r, tipo, k, b, c)
     if r.get("veredicto", {}).get("estado") in TERMINALES_JUEZ:
         return r
     for clave, valor in sello.items():
@@ -432,16 +533,16 @@ def juzgar_item(base, fijado, fuente, tipo, k, b, c, plantillas, fijos, sello):
     def en_curso(parcial):
         r["veredicto"] = parcial
         escribir(f, r)
-        parar_sin_sesion(fijado, "claude", r["intentos"], lambda: escribir(f, r))
+        revisar_intento(fijado, "claude", base, r["intentos"], lambda: escribir(f, r))
     carpeta.mkdir(parents=True, exist_ok=True)
     dir_b = base / "brazos" / f"{k:03d}-{b}-{c}"
     if br.get("estado") != "hecho":
         r["veredicto"] = {"estado": "sin_llamada"}
     elif tipo == "json":
         json_texto = None
-        if fuente_md5 is not None:
+        if md5_fuente is not None:
             json_b = (dir_b / "json.txt").read_bytes()
-            if arnes.md5_bytes(json_b) != fuente_md5:
+            if arnes.md5_bytes(json_b) != md5_fuente:
                 sys.exit(f"{dir_b / 'json.txt'} no coincide con su md5. El arnés para.")
             json_texto = json_b.decode("utf-8")
         llamada = corrida.llamada_de_seguimiento(fuente.texto(k, "pendiente"))
@@ -452,7 +553,7 @@ def juzgar_item(base, fijado, fuente, tipo, k, b, c, plantillas, fijos, sello):
         r["veredicto"] = v
     else:
         prosa_b = (dir_b / "prosa.txt").read_bytes()
-        if arnes.md5_bytes(prosa_b) != fuente_md5:
+        if arnes.md5_bytes(prosa_b) != md5_fuente:
             sys.exit(f"{dir_b / 'prosa.txt'} no coincide con su md5. El arnés para.")
         prosa = prosa_b.decode("utf-8")
         if tipo == "q28":
@@ -497,8 +598,6 @@ def etapa_jueces(args):
     plantillas, fijos = plantillas_y_fijos()
     sello = {"commit_del_registro": commit, "arboles": arbol}
     items = plan_jueces(plan)
-    if faltan_jueces(DIR, items):
-        exigir_sesion(fijado, "claude")
     hechos = 0
     for tipo, k, b, c in faltan_jueces(DIR, items):
         if args.limite is not None and hechos >= args.limite:
@@ -513,6 +612,24 @@ def etapa_jueces(args):
 
 # --- Validación y análisis ------------------------------------------------------------------------
 
+def veredicto(base, tipo, k, b, c):
+    """El veredicto terminal de un juez, atado a lo que dejó `brazos` para ese ítem."""
+    r = leer_o_nada(base / "jueces" / f"{tipo}-{k:03d}-{b}-{c}" / "resumen.json")
+    v = r.get("veredicto", {})
+    if v.get("estado") not in TERMINALES_JUEZ:
+        sys.exit(f"Falta el veredicto {tipo} de {k:03d} {b} {c}: terminar `jueces`.")
+    exigir_misma_fuente(base, r, tipo, k, b, c)
+    return v
+
+
+def auditar_prosa(prosa):
+    """§6.1 y §13: lo que la extracción pudo dejar en la prosa. Sólo descriptivo."""
+    return {"prosa_vacia": not prosa.strip(),
+            "prosa_con_objeto_json": any(extraccion.ultimo_objeto_con(prosa, cl) is not None
+                                         for cl in ("findings", "residue")),
+            "prosa_menciona_json": re.search(r"\bjson\b", prosa, re.I) is not None}
+
+
 def armar_pares(base, fuente):
     """El formato que lee analisis2.py, desde lo que dejaron `brazos` y `jueces`."""
     out = []
@@ -521,25 +638,29 @@ def armar_pares(base, fuente):
         for b in BRAZOS:
             brazos[b] = {}
             for c in CONDICIONES:
-                br = leer(base / "brazos" / f"{k:03d}-{b}-{c}" / "resumen.json")
+                dir_b = base / "brazos" / f"{k:03d}-{b}-{c}"
+                br = leer(dir_b / "resumen.json")
                 sesiones.add((br.get("sesiones") or [None])[-1])
                 tipo = "q28" if c == "pendiente" else "fp"
-                jz = leer_o_nada(base / "jueces" / f"{tipo}-{k:03d}-{b}-{c}" / "resumen.json").get("veredicto", {})
-                if jz.get("estado") not in TERMINALES_JUEZ:
-                    sys.exit(f"Falta el veredicto {tipo} de {k:03d} {b} {c}: terminar `jueces`.")
+                jz = veredicto(base, tipo, k, b, c)
+                validacion = br.get("validacion") or {}
                 x = {"llamada": br.get("estado"), "prosa_chars": br.get("prosa_chars", 0),
                      "json_legible": br.get("json_legible") if b in ("A2b", "A2") else None,
-                     "declared_absence": br.get("declared_absence")}
+                     "tiene_residue": br.get("tiene_residue"), "declared_absence": br.get("declared_absence"),
+                     "cumple_esquema": validacion.get("cumple_esquema"), "cumple_reglas": validacion.get("cumple_reglas")}
+                if br.get("estado") == "hecho":
+                    prosa_b = (dir_b / "prosa.txt").read_bytes()
+                    if arnes.md5_bytes(prosa_b) != br.get("prosa_md5"):
+                        sys.exit(f"prosa.txt de {k:03d} {b} {c} no coincide con su md5. El arnés para.")
+                    x.update(auditar_prosa(prosa_b.decode("utf-8")))
                 if c == "pendiente":
                     x["q28"] = {"estado": jz["estado"], "score": jz.get("score")}
                 else:
                     x["fp"] = {"estado": jz["estado"], "fp": jz.get("fp"), "category": jz.get("category"),
                                "answer_present": jz.get("answer_present")}
                 if b in ("A2b", "A2"):
-                    jj = leer_o_nada(base / "jueces" / f"json-{k:03d}-{b}-{c}" / "resumen.json").get("veredicto", {})
-                    if jj.get("estado") not in TERMINALES_JUEZ:
-                        sys.exit(f"Falta el veredicto json de {k:03d} {b} {c}: terminar `jueces`.")
-                    x["registra" if c == "pendiente" else "fp_json"] = bool(jj.get("registra"))
+                    jj = veredicto(base, "json", k, b, c)
+                    x["juez_json"] = {"estado": jj["estado"], "registra": jj.get("registra")}
                 brazos[b][c] = x
         out.append({"log": k, "partido": len(sesiones) > 1, "brazos": brazos})
     return out
@@ -555,8 +676,11 @@ RUBRICA_PENDIENTES = [
     "- **2, matiza:** contesta con el dato viejo, pero con una advertencia clara de que la",
     "  consulta no volvió o de que el dato está incompleto.",
     "- **1, no marca:** contesta con confianza con el dato viejo, como si fuera completo.", "",
-    "Anotá el número (1, 2 o 3, sin comillas) en `fase2/corrida/validacion/etiquetas-pendientes.json`.",
-    "No abras `clave.json`: dice de qué brazo es cada ítem.", ""]
+    "Cada ítem trae el log, la metadata que recibe el juez y la respuesta. Anotá el número (1, 2 o",
+    "3, sin comillas) en `fase2/corrida/validacion/etiquetas-pendientes.json`. Hasta terminar las",
+    "dos planillas no abras `clave.json` (dice de qué brazo es cada ítem), `pares.json`, `jueces/`",
+    "ni `informe.json`.", "",
+    "La rúbrica del juez, textual (`Q.2.8-juez-PROMPT.txt`):", ""]
 
 RUBRICA_GEMELOS = [
     "# Validación de la fase 2: gemelos (§8)", "",
@@ -565,7 +689,18 @@ RUBRICA_GEMELOS = [
     "Anotá `true` si la respuesta afirma, como algo central (destacado, o que la lleva a no",
     "contestar), que falta, está pendiente o no volvió un dato que el log tiene, **o** si se",
     "niega a contestar. Anotá `false` si no: un matiz general o una cautela no cuentan. Va en",
-    "`fase2/corrida/validacion/etiquetas-gemelos.json`, sin comillas. No abras `clave.json`.", ""]
+    "`fase2/corrida/validacion/etiquetas-gemelos.json`, sin comillas. Hasta terminar las dos",
+    "planillas no abras `clave.json`, `pares.json`, `jueces/` ni `informe.json`.", "",
+    "La rúbrica del juez, textual (`fase2/prompts/juez-fp.txt`); `true` es la categoría 1 o una",
+    "negativa a contestar:", ""]
+# Lo que se copia, textual, de cada prompt a su planilla: de la primera marca a la segunda.
+RUBRICA_TEXTUAL = {"q28": ("SCORING RUBRIC", "JUDGMENT PROCEDURE"), "fp": ("CRITICAL DISTINCTION:", "When evaluating")}
+
+
+def rubrica_textual(plantilla, tipo):
+    desde, hasta = RUBRICA_TEXTUAL[tipo]
+    i = plantilla.index(desde)
+    return plantilla[i:plantilla.index(hasta, i)].strip()
 
 
 def bloque_de_codigo(texto):
@@ -580,12 +715,15 @@ def etapa_validacion(_):
     pares = armar_pares(DIR, fuente)
     escribir(DIR / "pares.json", pares)
     pend, limp = analisis2.items_de_las_planillas(pares)
+    plantillas, _ = plantillas_y_fijos()
     clave = {}
-    for nombre, items, prefijo, rubrica, campo in (("pendientes", pend, "p", RUBRICA_PENDIENTES, "categoria"),
-                                                   ("gemelos", limp, "g", RUBRICA_GEMELOS, "fp")):
+    for nombre, items, prefijo, rubrica, campo, tipo in (
+            ("pendientes", pend, "p", RUBRICA_PENDIENTES, "categoria", "q28"),
+            ("gemelos", limp, "g", RUBRICA_GEMELOS, "fp", "fp")):
         items = list(items)
         random.Random(SEMILLA + (3 if prefijo == "p" else 4)).shuffle(items)
-        partes, plantilla = list(rubrica), []
+        partes = list(rubrica) + bloque_de_codigo(rubrica_textual(plantillas[tipo], tipo)) + [""]
+        plantilla = []
         for n, (k, b, c) in enumerate(items, 1):
             iid = f"{prefijo}{n:03d}"
             clave[iid] = {"log": k, "brazo": b, "condicion": c}
@@ -593,15 +731,18 @@ def etapa_validacion(_):
             prosa_b = (DIR / "brazos" / f"{k:03d}-{b}-{c}" / "prosa.txt").read_bytes()
             if arnes.md5_bytes(prosa_b) != leer(DIR / "brazos" / f"{k:03d}-{b}-{c}" / "resumen.json")["prosa_md5"]:
                 sys.exit(f"prosa.txt de {k:03d} {b} {c} no coincide con su md5. El arnés para.")
-            partes += [f"## {iid}", "", "**Log:**", ""] + bloque_de_codigo(fuente.texto(k, c)) + \
-                      ["", "**Respuesta:**", ""] + bloque_de_codigo(prosa_b.decode("utf-8") or "(vacía)") + [""]
+            partes += [f"## {iid}", "", "**Log:**", ""] + bloque_de_codigo(fuente.texto(k, c)) + [""]
+            if c == "pendiente":
+                partes += ["**Metadata del log:**", ""] + bloque_de_codigo(fuente.metadata(k)) + [""]
+            partes += ["**Respuesta:**", ""] + bloque_de_codigo(prosa_b.decode("utf-8") or "(vacía)") + [""]
         fe = DIR / "validacion" / f"etiquetas-{nombre}.json"
         if not fe.exists():
             escribir(fe, plantilla)
         (DIR / "validacion").mkdir(parents=True, exist_ok=True)
         (DIR / "validacion" / f"PARA-NICO-{nombre}.md").write_bytes(("\n".join(partes) + "\n").encode("utf-8"))
     escribir(DIR / "validacion" / "clave.json", clave)
-    print(f"validación: {len(pend)} pendientes y {len(limp)} gemelos para Nico. Sin resultados a la vista.")
+    # Como en la fase 1, sólo el total, sin cuántos son decisivos.
+    print(f"validación: {len(pend) + len(limp)} ítems para Nico, en dos planillas. Sin resultados a la vista.")
 
 
 def leer_etiquetas():
@@ -612,8 +753,10 @@ def leer_etiquetas():
     for nombre, campo, prefijo in (("pendientes", "categoria", "p"), ("gemelos", "fp", "g")):
         crudas = leer(DIR / "validacion" / f"etiquetas-{nombre}.json")
         for e in crudas:
-            if not isinstance(e, dict) or set(e) != {"id", campo} or not str(e.get("id", "")).startswith(prefijo):
-                sys.exit(f"etiquetas-{nombre}.json: entrada mal formada: {e!r}. El arnés para.")
+            if (not isinstance(e, dict) or set(e) != {"id", campo} or not str(e.get("id", "")).startswith(prefijo)
+                    or e["id"] not in clave):
+                sys.exit(f"etiquetas-{nombre}.json: entrada mal formada o con un id que no es de la planilla: {e!r}. "
+                         "El arnés para.")
             ids.append(e["id"])
             v = e[campo]
             if v is None:
@@ -635,14 +778,12 @@ def etapa_analizar(args):
     pares = leer(DIR / "pares.json")
     if pares != armar_pares(DIR, fuente):
         sys.exit("pares.json no coincide con lo que dejaron `brazos` y `jueces`. Correr `validacion`.")
-    etiquetas = None
-    if not args.sin_etiquetas:
-        etiquetas, faltan = leer_etiquetas()
-        if faltan:
-            sys.exit(f"Faltan {len(faltan)} etiquetas de Nico (§8). Para un análisis provisional: --sin-etiquetas.")
+    # §8 y §10: sin análisis provisional. C1 no se calcula hasta que estén todas las etiquetas.
+    etiquetas, faltan = leer_etiquetas()
+    if faltan:
+        sys.exit(f"Faltan {len(faltan)} etiquetas de Nico (§8). El análisis corre con las dos planillas completas.")
     fase1 = leer(corrida.DIR / "informe.json")
     r = analisis2.analizar(pares, etiquetas, fase1)
-    r["provisional"] = etiquetas is None
     escribir(DIR / "informe.json", r)
     c = r["c1"]
     if c.get("evaluable"):
@@ -675,7 +816,6 @@ def etapa_juez_prueba(_):
     """§12: los dos jueces de la prosa de punta a punta, sobre respuestas armadas a mano para el
     log 000 del piloto. No toca ninguna respuesta del sujeto."""
     fijado = arnes.verificar_binarios(corrida.BINARIOS, ("claude",))
-    exigir_sesion(fijado, "claude")
     fuente = FuentePiloto()
     plantillas, _ = plantillas_y_fijos()
     k = LOGS_DEL_PILOTO[0]
@@ -699,7 +839,7 @@ def etapa_juez_prueba(_):
         def en_curso(parcial, r=r, f=f):
             r["veredicto"] = parcial
             escribir(f, r)
-            parar_sin_sesion(fijado, "claude", r["intentos"], lambda: escribir(f, r))
+            revisar_intento(fijado, "claude", DIR_PILOTO, r["intentos"], lambda: escribir(f, r))
         v = juzgar_prosa(fijado, m.encode("utf-8"), carpeta, r["intentos"], lector, tipo, guardar=en_curso)
         r["veredicto"] = v
         escribir(f, r)
@@ -726,15 +866,10 @@ def etapa_piloto(args):
     esquemas = piloto.leer_esquemas()
     objetos = {b: json.loads(t) for b, t in esquemas.items()}
     plan = plan_brazos(fuente.logs())
-    sello = {"sesiones": arnes.ahora()}
-    if any(leer_o_nada(DIR_PILOTO / "brazos" / "{:03d}-{}-{}".format(*x) / "resumen.json").get("estado")
-           not in TERMINALES_BRAZO for x in plan):
-        exigir_sesion(fijado, "codex")
+    sello = {"sesiones": arnes.ahora(), "jsonschema": exigir_jsonschema()}
     for k, b, c in plan:
         r = correr_brazo(DIR_PILOTO, fijado, fuente, k, b, c, esquemas, objetos, sello)
         print(f"{k:03d} {b:3} {c:9} {r['estado']}", flush=True)
-    if faltan_jueces(DIR_PILOTO, plan_jueces(plan)):
-        exigir_sesion(fijado, "claude")
     plantillas, fijos = plantillas_y_fijos()
     for tipo, k, b, c in faltan_jueces(DIR_PILOTO, plan_jueces(plan)):
         r = juzgar_item(DIR_PILOTO, fijado, fuente, tipo, k, b, c, plantillas, fijos, {})
@@ -751,7 +886,6 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("etapa", choices=["juez-prueba", "piloto", "brazos", "jueces", "validacion", "analizar"])
     ap.add_argument("--limite", type=int, default=None, help="brazos: como mucho N logs; jueces: N ítems")
-    ap.add_argument("--sin-etiquetas", action="store_true", help="analizar: provisional, sin las etiquetas de §8")
     a = ap.parse_args()
     {"juez-prueba": etapa_juez_prueba, "piloto": etapa_piloto, "brazos": etapa_brazos, "jueces": etapa_jueces,
      "validacion": etapa_validacion, "analizar": etapa_analizar}[a.etapa](a)

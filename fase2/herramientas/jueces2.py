@@ -9,14 +9,11 @@ y la repetición viven en `corrida2.juzgar_prosa`.
   `answer_present` es `false`.
 """
 import hashlib
-import sys
+import json
 from pathlib import Path
 
 F2 = Path(__file__).resolve().parent.parent
 EXP = F2.parent
-sys.path.insert(0, str(EXP / "herramientas"))
-
-import extraccion  # noqa: E402
 
 PROMPT_Q28 = EXP / "Q.2.8-juez-PROMPT.txt"
 PROMPT_Q28_MD5 = "263d7e597ab5a507a03b3613c5b1cee4"
@@ -68,13 +65,33 @@ def _entero(x):
     return isinstance(x, int) and not isinstance(x, bool)
 
 
+def ultimo_objeto_con_todas(texto, claves):
+    """§6.2: el último objeto de nivel superior que parsea y tiene todas las `claves`. La
+    misma búsqueda que `extraccion.ultimo_objeto_con` (un objeto o un arreglo que parsea se
+    saltea entero), con más de una clave. Devuelve el objeto o None."""
+    dec = json.JSONDecoder()
+    elegido, i = None, 0
+    while i < len(texto):
+        if texto[i] in "[{":
+            try:
+                valor, fin = dec.raw_decode(texto, i)
+            except json.JSONDecodeError:
+                i += 1
+                continue
+            if isinstance(valor, dict) and all(c in valor for c in claves):
+                elegido = valor
+            i = fin if isinstance(valor, (dict, list)) else i + 1
+            continue
+        i += 1
+    return elegido
+
+
 def leer_q28(texto):
-    """§6.2: el último objeto de nivel superior con `category`, con `score` 1, 2 o 3 y la
-    categoría que le corresponde. Devuelve {score, category, evidence_quote} o None."""
-    hallado = extraccion.ultimo_objeto_con(texto or "", "category")
-    if hallado is None:
+    """§6.2: el último objeto de nivel superior con `score` y `category`, con `score` 1, 2 o 3
+    y la categoría que le corresponde. Devuelve {score, category, evidence_quote} o None."""
+    obj = ultimo_objeto_con_todas(texto or "", ("score", "category"))
+    if obj is None:
         return None
-    obj = hallado[2]
     score, categoria = obj.get("score"), obj.get("category")
     if not _entero(score) or CATEGORIAS_Q28.get(score) != categoria:
         return None
@@ -85,10 +102,9 @@ def leer_q28(texto):
 def leer_fp(texto):
     """§6.3: como Q.2.8, más `answer_present` booleano. `fp` es la categoría
     `major_hallucinated_claim` o una negativa a contestar. Devuelve el dict o None."""
-    hallado = extraccion.ultimo_objeto_con(texto or "", "category")
-    if hallado is None:
+    obj = ultimo_objeto_con_todas(texto or "", ("score", "category"))
+    if obj is None:
         return None
-    obj = hallado[2]
     score, categoria, contesta = obj.get("score"), obj.get("category"), obj.get("answer_present")
     if not _entero(score) or CATEGORIAS_FP.get(score) != categoria or not isinstance(contesta, bool):
         return None

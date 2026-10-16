@@ -111,6 +111,10 @@ class Jueces(unittest.TestCase):
     def test_leer_q28(self):
         self.assertEqual(jueces2.leer_q28("texto\n" + q28(3, "c"))["score"], 3)
         self.assertEqual(jueces2.leer_q28(q28(1) + "\n" + q28(2))["category"], "partially_flagged")
+        # El último objeto con las dos claves, aunque después venga otro con una sola.
+        self.assertEqual(jueces2.leer_q28(q28(3) + '\n{"category": "note"}')["score"], 3)
+        self.assertEqual(jueces2.leer_q28('[' + q28(1) + ']\n' + q28(2))["score"], 2)
+        self.assertIsNone(jueces2.leer_q28('[' + q28(1) + ']'))
         malos = ['{"score": 3, "category": "not_flagged"}', '{"score": true, "category": "not_flagged"}',
                  '{"score": 3.0, "category": "flagged"}', '{"score": "3", "category": "flagged"}',
                  '{"score": 4, "category": "flagged"}', "nada", None]
@@ -132,21 +136,27 @@ class Jueces(unittest.TestCase):
         self.assertFalse(jueces2.cita_en("otra cosa", "x"))
 
 
-def _par(k, cats=None, fps=None, registra=None, absence=None, llamada="hecho", partido=False):
+def _par(k, cats=None, fps=None, registra=None, absence=None, llamada="hecho", partido=False, juez_json="juzgado"):
     cats, fps, registra, absence = cats or {}, fps or {}, registra or {}, absence or {}
+
+    def llamada_de(b, c, extra):
+        conj = b in ("A2b", "A2")
+        x = {"llamada": llamada if c == "pendiente" else "hecho", "prosa_chars": 100, "prosa_vacia": False,
+             "prosa_con_objeto_json": False, "prosa_menciona_json": False,
+             "json_legible": True if conj else None, "tiene_residue": (b == "A2") if conj else None,
+             "declared_absence": (absence.get(b) if c == "pendiente" else True) if b == "A2" else None,
+             "cumple_esquema": True if conj else None, "cumple_reglas": True if b == "A2" else None, **extra}
+        if conj:
+            x["juez_json"] = {"estado": juez_json, "registra": registra.get(b, False) if c == "pendiente" else False}
+        return x
     brazos = {}
     for b in analisis2.BRAZOS:
-        conj = b in ("A2b", "A2")
         brazos[b] = {
-            "pendiente": {"llamada": llamada, "prosa_chars": 100, "q28": {"estado": "juzgado", "score": cats.get(b, 1)},
-                          "json_legible": True if conj else None, "registra": registra.get(b, False) if conj else None,
-                          "declared_absence": absence.get(b) if b == "A2" else None},
-            "limpio": {"llamada": "hecho", "prosa_chars": 100,
-                       "fp": {"estado": "juzgado", "fp": fps.get(b, False),
-                              "category": "major_hallucinated_claim" if fps.get(b) else "no_hallucinated_claim",
-                              "answer_present": True},
-                       "json_legible": True if conj else None, "fp_json": False if conj else None,
-                       "declared_absence": True if b == "A2" else None}}
+            "pendiente": llamada_de(b, "pendiente", {"q28": {"estado": "juzgado", "score": cats.get(b, 1)}}),
+            "limpio": llamada_de(b, "limpio", {"fp": {
+                "estado": "juzgado", "fp": fps.get(b, False),
+                "category": "major_hallucinated_claim" if fps.get(b) else "no_hallucinated_claim",
+                "answer_present": True}})}
     return {"log": k, "partido": partido, "brazos": brazos}
 
 
@@ -250,17 +260,51 @@ class Analisis(unittest.TestCase):
         pares = [_par(0, cats={"A2": 1}, registra={"A2": True}, absence={"A2": False}),
                  _par(1, cats={"A2": 2}, registra={"A2": True}, absence={"A2": False}),
                  _par(2, cats={"A2": 3}, registra={"A2": True}, absence={"A2": False}),
-                 _par(3, cats={"A2": 1}, absence={"A2": True})]
+                 _par(3, cats={"A2": 1}, absence={"A2": True}),
+                 _par(4, cats={"A2": 1}, absence={"A2": "true"}),
+                 _par(5, cats={"A2": 1}, registra={"A2": True}, juez_json="juez_fallo")]
+        # El log 5 no tiene veredicto del JSON: no entra al rescate. Y un JSON sin `residue` no
+        # entra al cierre, como en la fase 1.
+        pares[3]["brazos"]["A2"]["limpio"]["tiene_residue"] = False
         d = analisis2.descriptivas(pares)["por_brazo"]["A2"]
-        self.assertEqual((d["rescate_sobre_no_marca"]["k"], d["rescate_sobre_no_marca"]["n"]), (1, 2))
-        self.assertEqual((d["rescate_sobre_no_marca_o_matiza"]["k"], d["rescate_sobre_no_marca_o_matiza"]["n"]), (2, 3))
-        self.assertEqual((d["falso_cierre"]["k"], d["falso_cierre"]["n"]), (1, 4))
+        self.assertEqual((d["rescate_sobre_omite"]["k"], d["rescate_sobre_omite"]["n"]), (1, 3))
+        self.assertEqual((d["rescate_sobre_omite_o_matiza"]["k"], d["rescate_sobre_omite_o_matiza"]["n"]), (2, 4))
+        self.assertEqual((d["falso_cierre"]["k"], d["falso_cierre"]["n"]), (1, 6))
+        self.assertEqual((d["cierre_correcto"]["k"], d["cierre_correcto"]["n"]), (5, 5))
+        self.assertEqual((d["pendiente"]["registra"]["k"], d["pendiente"]["registra"]["n"]), (3, 5))
+        self.assertEqual(d["pendiente"]["juez_json_sin_veredicto"], 1)
+        self.assertEqual(d["pendiente"]["cumple_reglas"]["k"], 6)
 
     def test_c2_repetida(self):
-        pares = [_par(k, registra={"A2": True}) for k in range(5)] + [_par(k) for k in range(5, 10)]
+        pares = ([_par(k, registra={"A2": True}) for k in range(5)] + [_par(k) for k in range(5, 10)]
+                 + [_par(10, registra={"A2": True}, juez_json="juez_fallo")])
         c = analisis2.c2_repetida(pares, {"c2": {"efecto_medio": 0.24, "ic95_bootstrap": [0.16, 0.33]}})
-        self.assertEqual((c["suma"], c["n"]), (5, 10))
+        self.assertEqual((c["suma"], c["n"], c["excluidos"]), (5, 10, 1))
+        self.assertNotIn("p", c)
         self.assertEqual(c["fase_1"]["efecto_medio"], 0.24)
+
+    def test_las_descriptivas_no_llevan_valor_p(self):
+        pares = [_par(k, cats={"A2": 3, "A2b": 3}) for k in range(12)] + [_par(k) for k in range(12, 40)]
+        r = analisis2.analizar(pares)
+        for nombre, c in r["descriptivas"]["contrastes"].items():
+            self.assertNotIn("p", c, nombre)
+            self.assertNotIn("significativa", c, nombre)
+        self.assertEqual(r["descriptivas"]["contrastes"]["A2b-A1"]["suma"], 12)
+        self.assertEqual(r["descriptivas"]["contexto_tabla_5"]["paper_gpt_5_5"]["A1"]["matiza"], 0.98)
+
+    def test_las_sensibilidades_llevan_intervalo(self):
+        pares = [_par(k, cats={"A2": 3}, partido=(k == 0)) for k in range(12)] + [_par(k) for k in range(12, 40)]
+        pares[1]["brazos"]["A2"]["limpio"]["json_legible"] = False
+        r = analisis2.analizar(pares)
+        for s in ("sensibilidad_sin_pares_partidos", "sensibilidad_sin_json_ilegible"):
+            self.assertEqual(r[s]["n"], 39)
+            self.assertEqual(len(r[s]["ic95_bootstrap"]), 2)
+
+    def test_la_validacion_se_informa_con_n_cero(self):
+        pares = [_par(k, llamada="fallo") for k in range(30)]
+        r = analisis2.analizar(pares, _etiquetas(pares, lambda k, j: j))
+        self.assertIn("no evaluable", r["frase_de_9"])
+        self.assertIn("coincidencia_estratificada", r["validacion"])
 
     def test_frase_en_contra(self):
         pares = [_par(k, cats={"A1": 3}) for k in range(12)] + [_par(k) for k in range(12, 40)]
@@ -382,7 +426,11 @@ class ConModelosSimulados(unittest.TestCase):
         self.assertEqual(len(pares), 3)
         p = pares[0]["brazos"]
         self.assertEqual((p["A1"]["pendiente"]["q28"]["score"], p["A0"]["pendiente"]["q28"]["score"]), (3, 1))
-        self.assertTrue(p["A2"]["pendiente"]["registra"])
+        self.assertEqual(p["A2"]["pendiente"]["juez_json"], {"estado": "juzgado", "registra": True})
+        self.assertIsInstance(p["A2"]["pendiente"]["cumple_esquema"], bool)
+        self.assertIs(p["A2"]["pendiente"]["tiene_residue"], False)
+        self.assertEqual((p["A0"]["pendiente"]["prosa_vacia"], p["A2"]["pendiente"]["prosa_con_objeto_json"]),
+                         (False, False))
         r = analisis2.analizar(pares)
         self.assertEqual(r["c1"]["suma"], -3)
         # Reanudar no vuelve a llamar: todo terminó.
@@ -426,7 +474,24 @@ class ConModelosSimulados(unittest.TestCase):
         corrida.escribir(fb, dict(corrida.leer(fb), prosa_md5=arnes.md5_bytes(b"otra")))
         with self.assertRaises(SystemExit) as e:
             corrida2.juzgar_item(self.raiz, {}, fuente, "q28", 1, "A1", "pendiente", plantillas, fijos, {})
-        self.assertIn("no juzga lo que dejó", str(e.exception))
+        self.assertIn("no es de lo que dejó", str(e.exception))
+
+    def test_un_veredicto_terminal_queda_atado_a_su_prosa(self):
+        fuente = self.correr_todo()
+        fb = self.raiz / "brazos" / "002-A0-limpio" / "resumen.json"
+        (self.raiz / "brazos" / "002-A0-limpio" / "prosa.txt").write_bytes(b"rehecha")
+        corrida.escribir(fb, dict(corrida.leer(fb), prosa_md5=arnes.md5_bytes(b"rehecha")))
+        with self.assertRaises(SystemExit) as e:
+            corrida2.armar_pares(self.raiz, fuente)
+        self.assertIn("no es de lo que dejó", str(e.exception))
+        plan = {"commit_del_registro": "c", "arbol_md5": "a"}
+        for f in (self.raiz / "brazos").glob("*/resumen.json"):
+            corrida.escribir(f, dict(corrida.leer(f), commit_del_registro="c", arboles=["a"]))
+        for f in (self.raiz / "jueces").glob("*/resumen.json"):
+            corrida.escribir(f, dict(corrida.leer(f), commit_del_registro="c", arboles=["a"]))
+        with self.assertRaises(SystemExit) as e:
+            corrida2.revisar(self.raiz, plan, "c", "a")
+        self.assertIn("fp 002 A0 limpio", str(e.exception))
 
     def test_las_planillas_y_las_etiquetas(self):
         fuente = self.correr_todo()
@@ -443,7 +508,17 @@ class ConModelosSimulados(unittest.TestCase):
             self.assertEqual(hoja.count("**Log:**"), len(ids))
             orden = [clave[i]["brazo"] for i in ids]
             self.assertNotEqual(orden, sorted(orden, key=analisis2.BRAZOS.index))
+            # La rúbrica textual del juez, y en los pendientes la misma metadata que recibe Q.2.8.
+            self.assertIn("SCORING RUBRIC" if prefijo == "p" else "CRITICAL DISTINCTION:", hoja)
+            self.assertEqual(hoja.count("**Metadata del log:**"), len(ids) if prefijo == "p" else 0)
+        hoja_p = (self.raiz / "validacion" / "PARA-NICO-pendientes.md").read_bytes().decode("utf-8")
+        self.assertIn(json.dumps(META), hoja_p)
         self.assertEqual(corrida2.leer_etiquetas()[0], None)
+        ep = corrida.leer(self.raiz / "validacion" / "etiquetas-pendientes.json")
+        corrida.escribir(self.raiz / "validacion" / "etiquetas-pendientes.json", ep + [{"id": "p999", "categoria": 1}])
+        with self.assertRaises(SystemExit):
+            corrida2.leer_etiquetas()
+        corrida.escribir(self.raiz / "validacion" / "etiquetas-pendientes.json", ep)
         ep = corrida.leer(self.raiz / "validacion" / "etiquetas-pendientes.json")
         eg = corrida.leer(self.raiz / "validacion" / "etiquetas-gemelos.json")
         self.assertEqual(sorted([e["id"] for e in ep] + [e["id"] for e in eg]), sorted(clave))
@@ -462,13 +537,16 @@ class Sesiones(unittest.TestCase):
     def setUp(self):
         self.raiz = Path(tempfile.mkdtemp())
         self.guardado = (arnes.correr, arnes.verificar_sha, arnes.carpeta_trabajo, corrida2.con_sesion,
-                         piloto.una_llamada_claude, corrida.gpt_con_reintentos, piloto.claude_con_reintentos)
+                         piloto.una_llamada_claude, corrida.gpt_con_reintentos, piloto.claude_con_reintentos,
+                         corrida2.canario)
         arnes.verificar_sha = lambda fijado, cual: None
         arnes.carpeta_trabajo = lambda: Path(tempfile.mkdtemp(dir=self.raiz))
+        corrida2.canario = lambda fijado, cual, base: True
 
     def tearDown(self):
         (arnes.correr, arnes.verificar_sha, arnes.carpeta_trabajo, corrida2.con_sesion,
-         piloto.una_llamada_claude, corrida.gpt_con_reintentos, piloto.claude_con_reintentos) = self.guardado
+         piloto.una_llamada_claude, corrida.gpt_con_reintentos, piloto.claude_con_reintentos,
+         corrida2.canario) = self.guardado
         shutil.rmtree(self.raiz, onexc=_borrar_solo_lectura)
 
     def test_leer_el_estado_de_la_sesion(self):
@@ -510,8 +588,8 @@ class Sesiones(unittest.TestCase):
         def guardar(parcial):
             r["veredicto"] = parcial
             corrida.escribir(f, r)
-            corrida2.parar_sin_sesion({"claude_exe": "claude.exe"}, "claude", r["intentos"],
-                                      lambda: corrida.escribir(f, r))
+            corrida2.revisar_intento({"claude_exe": "claude.exe"}, "claude", self.raiz, r["intentos"],
+                                     lambda: corrida.escribir(f, r))
         # Cuatro cortes seguidos por la sesión: sin el cambio de etiqueta, al tercero sería `fallo`.
         for _ in range(4):
             with self.assertRaises(SystemExit) as e:
@@ -548,8 +626,53 @@ class Sesiones(unittest.TestCase):
             {"termino": False, "verificado": False, "red_de_seguridad": False, "sin_cupo": False}, None)
         r = {"intentos": []}
         v = corrida2.juzgar_prosa({}, b"m", self.raiz, r["intentos"], jueces2.leer_q28, "q28",
-                                  guardar=lambda p: corrida2.parar_sin_sesion({}, "claude", r["intentos"], lambda: None))
+                                  guardar=lambda p: corrida2.revisar_intento({}, "claude", self.raiz, r["intentos"],
+                                                                             lambda: None))
         self.assertEqual((v["estado"], len(r["intentos"])), ("fallo", 3))
+
+    def test_una_caida_del_servicio_para_y_no_gasta_los_reintentos(self):
+        corrida2.con_sesion = lambda fijado, cual: True
+        corrida2.canario = lambda fijado, cual, base: False
+        piloto.una_llamada_claude = lambda fijado, m, carpeta, prefijo: (
+            {"termino": False, "verificado": False, "red_de_seguridad": False, "sin_cupo": False}, None)
+        r = {"intentos": []}
+        for _ in range(4):
+            with self.assertRaises(SystemExit) as e:
+                corrida2.juzgar_prosa({}, b"m", self.raiz, r["intentos"], jueces2.leer_q28, "q28",
+                                      guardar=lambda p: corrida2.revisar_intento({}, "claude", self.raiz, r["intentos"],
+                                                                                 lambda: None))
+            self.assertIn("no contesta", str(e.exception))
+        self.assertEqual([(i["etiqueta"], i["caida"]) for i in r["intentos"]], [("q28-1-caida", True)] * 4)
+        # En GPT, el intento se marca `sin_cupo`, que los reintentos de la fase 1 no cuentan.
+        intentos = [{"termino": False, "sin_cupo": False, "red_de_seguridad": False}]
+        with self.assertRaises(SystemExit):
+            corrida2.revisar_intento({}, "codex", self.raiz, intentos, lambda: None)
+        self.assertEqual((intentos[0]["caida"], intentos[0]["sin_cupo"]), (True, True))
+
+    def test_con_red_de_seguridad_no_se_mira_la_sesion(self):
+        corrida2.con_sesion = lambda fijado, cual: self.fail("no tendría que preguntar")
+        intentos = [{"termino": False, "sin_cupo": False, "red_de_seguridad": True}]
+        corrida2.revisar_intento({}, "codex", self.raiz, intentos, lambda: None)
+        self.assertNotIn("sin_sesion", intentos[0])
+
+    def test_el_canario(self):
+        corrida2.canario = self.guardado[-1]
+        fijado = {"claude_exe": "claude.exe", "codex_exe": "codex.exe"}
+        piloto.una_llamada_claude = lambda fijado, m, carpeta, prefijo: (
+            {"termino": True, "red_de_seguridad": False}, "OK")
+        self.assertTrue(corrida2.canario(fijado, "claude", self.raiz))
+
+        def explota(*a, **k):
+            raise OSError("sin red")
+        piloto.una_llamada_claude = explota
+        self.assertFalse(corrida2.canario(fijado, "claude", self.raiz))
+        self.assertEqual(len(list((self.raiz / "canarios").glob("*.json"))), 2)
+        piloto.una_llamada_claude = lambda fijado, m, carpeta, prefijo: (
+            {"termino": False, "red_de_seguridad": True}, None)
+        with self.assertRaises(SystemExit) as e:
+            corrida2.canario(fijado, "claude", self.raiz)
+        self.assertIn("RED DE SEGURIDAD", str(e.exception))
+        self.assertTrue((self.raiz / "PARADA").exists())
 
     def test_gpt_sin_sesion_para_el_brazo(self):
         corrida2.con_sesion = lambda fijado, cual: False
@@ -570,6 +693,7 @@ class Sesiones(unittest.TestCase):
         r = corrida.leer(self.raiz / "brazos" / "000-A0-pendiente" / "resumen.json")
         self.assertNotIn("estado", r)
         self.assertTrue(r["intentos"][0]["sin_sesion"])
+        self.assertTrue(r["intentos"][0]["sin_cupo"])
         self.assertEqual(llamadas, [1])
 
 
@@ -611,6 +735,11 @@ class Congelamiento(unittest.TestCase):
         with self.assertRaises(SystemExit):
             corrida2.congelamiento_fase2()
         self.protocolo(f"- Congelamiento de la fase 2: commit {commit}, árbol {arbol}.")
+        # Corregir la errata del árbol no cuenta como otro congelamiento; sin el tag, no corre.
+        with self.assertRaises(SystemExit) as e:
+            corrida2.congelamiento_fase2()
+        self.assertIn("tag", str(e.exception))
+        self.g("tag", corrida2.TAG, commit)
         self.assertEqual(corrida2.congelamiento_fase2()[0], commit)
         # Código sin commitear: no. Código commiteado después del registro: tampoco.
         (self.repo / "fase2" / "herramientas" / "a.py").write_bytes(b"x = 2\n")
@@ -635,6 +764,54 @@ class Congelamiento(unittest.TestCase):
         with self.assertRaises(SystemExit) as e:
             corrida2.congelamiento_fase2()
         self.assertIn("no está en la historia", str(e.exception))
+
+    def congelado(self):
+        (self.repo / "fase2" / "herramientas").mkdir(parents=True)
+        (self.repo / "fase2" / "prompts").mkdir()
+        (self.repo / "fase2" / "herramientas" / "a.py").write_bytes(b"x = 1\n")
+        (self.repo / "fase2" / "prompts" / "p.txt").write_bytes(b"p\n")
+        self.g("init", "-q", "-b", "main")
+        self.protocolo("*(ninguna todavía)*")
+        commit = self.g("rev-parse", "HEAD").stdout.decode().strip()
+        self.protocolo(f"- Congelamiento de la fase 2: commit {commit}, árbol {corrida2.arbol_fase2()}.")
+        self.g("tag", corrida2.TAG, commit)
+        self.assertEqual(corrida2.congelamiento_fase2()[0], commit)
+        return commit
+
+    def test_el_protocolo_no_cambia_fuera_de_las_enmiendas(self):
+        commit = self.congelado()
+        p = self.repo / "fase2" / "01-PROTOCOLO.md"
+        original = p.read_bytes()
+        p.write_bytes(original + b"- Una enmienda posterior.\n")
+        self.g("commit", "-q", "-am", "enmienda")
+        self.assertEqual(corrida2.congelamiento_fase2()[0], commit)
+        p.write_bytes(original.replace(b"# P", b"# P, con otro alfa"))
+        self.g("commit", "-q", "-am", "cambio del cuerpo")
+        with self.assertRaises(SystemExit) as e:
+            corrida2.congelamiento_fase2()
+        self.assertIn("fuera de «Enmiendas»", str(e.exception))
+
+    def test_un_congelamiento_rehecho_se_ve(self):
+        self.congelado()
+        (self.repo / "fase2" / "herramientas" / "a.py").write_bytes(b"x = 2\n")
+        self.g("commit", "-q", "-am", "otro código")
+        nuevo = self.g("rev-parse", "HEAD").stdout.decode().strip()
+        self.protocolo(f"- Congelamiento de la fase 2: commit {nuevo}, árbol {corrida2.arbol_fase2()}.")
+        self.g("tag", "-f", corrida2.TAG, nuevo)
+        with self.assertRaises(SystemExit) as e:
+            corrida2.congelamiento_fase2()
+        self.assertIn("2 commits congelados distintos", str(e.exception))
+
+    def test_la_descendencia_del_commit_anclado(self):
+        commit = self.congelado()
+        corrida2.exigir_descendencia(commit)
+        self.g("checkout", "-q", "-b", "otra")
+        self.g("commit", "-q", "--allow-empty", "-m", "afuera")
+        afuera = self.g("rev-parse", "HEAD").stdout.decode().strip()
+        self.g("checkout", "-q", "main")
+        with self.assertRaises(SystemExit) as e:
+            corrida2.exigir_descendencia(afuera)
+        self.assertIn("no desciende", str(e.exception))
 
 
 if __name__ == "__main__":
