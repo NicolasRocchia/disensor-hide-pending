@@ -325,10 +325,6 @@ def analizar(pares, etiquetas_lista=None, fase1=None):
         return r
     c1 = _c1(incluidos)
     c1["evaluable"] = True
-    # §9 (decisión 7): de dónde sale la suma, con las etiquetas de los jueces.
-    c1["componentes"] = {
-        "pendiente": sum(int(marca(p, "A2")) - int(marca(p, "A1")) for p in incluidos),
-        "gemelo": sum(int(fp(p, "A1")) - int(fp(p, "A2")) for p in incluidos)}
     r["c1"] = c1
     r["items_decisivos"] = items_decisivos(pares)
     enteros = [p for p in incluidos if not p.get("partido")]
@@ -345,18 +341,24 @@ def analizar(pares, etiquetas_lista=None, fase1=None):
 
     if etiquetas is not None:
         decisivos = set(r["items_decisivos"])
-        signo = 1 if c1["suma"] >= 0 else -1
-        # §8 (decisión 9): en las dos recalculaciones, las etiquetas de Nico cuentan sólo donde
-        # mueven la diferencia en contra del signo de C1. Tal cual, sólo como descriptiva.
-        h = _c1(incluidos, _en_contra(pares, etiquetas, signo))
-        hd = _c1(incluidos, _en_contra(pares, {k: v for k, v in etiquetas.items() if k in decisivos}, signo))
-        r["c1_con_etiquetas_de_nico"] = h
-        r["c1_con_etiquetas_de_nico_solo_en_los_decisivos"] = hd
         r["c1_con_las_etiquetas_de_nico_tal_cual"] = _c1(incluidos, etiquetas)
+        if c1["suma"] == 0:
+            # Sin signo no hay «en contra»: las dos recalculaciones no aplican (C1 no da).
+            r["c1_con_etiquetas_de_nico"] = r["c1_con_etiquetas_de_nico_solo_en_los_decisivos"] = {
+                "aplica": False, "motivo": "C1 suma cero: no hay un signo contra el cual mover las etiquetas"}
+            r["c1"]["sensible_al_juez"] = False
+        else:
+            signo = 1 if c1["suma"] > 0 else -1
+            # §8 (decisión 9): en las dos recalculaciones, las etiquetas de Nico cuentan sólo
+            # donde mueven la diferencia en contra del signo de C1. Tal cual, descriptiva.
+            h = _c1(incluidos, _en_contra(pares, etiquetas, signo))
+            hd = _c1(incluidos, _en_contra(pares, {k: v for k, v in etiquetas.items() if k in decisivos}, signo))
+            r["c1_con_etiquetas_de_nico"] = h
+            r["c1_con_etiquetas_de_nico_solo_en_los_decisivos"] = hd
 
-        def cambia(x):
-            return (not x["significativa"]) or (math.copysign(1, x["suma"]) != math.copysign(1, c1["suma"]))
-        r["c1"]["sensible_al_juez"] = c1["significativa"] and (cambia(h) or cambia(hd))
+            def cambia(x):
+                return (not x["significativa"]) or (math.copysign(1, x["suma"]) != signo)
+            r["c1"]["sensible_al_juez"] = c1["significativa"] and (cambia(h) or cambia(hd))
         por_log = {p["log"]: p for p in pares}
         pos_marca = [k for k in decisivos if k[2] == "pendiente" and marca(por_log[k[0]], k[1])]
         pos_fp = [k for k in decisivos if k[2] == "limpio" and fp(por_log[k[0]], k[1])]
@@ -372,10 +374,15 @@ def analizar(pares, etiquetas_lista=None, fase1=None):
 
 
 def _c1(incluidos, etiquetas=None):
-    """C1 sobre esos logs: la prueba de §2.1 y su intervalo."""
+    """C1 sobre esos logs: la prueba de §2.1, su intervalo y de dónde sale la suma (§9,
+    decisión 7): la componente del pendiente (marcas de A2 menos de A1) y la del gemelo
+    (falsos positivos de A1 menos de A2), que suman la suma de C1."""
     c = _prueba(incluidos, *CONFIRMATORIA, etiquetas)
     ds = c.pop("_ds")
     c["ic95_bootstrap"] = analisis.ic_bootstrap(ds)
+    c["componentes"] = {
+        "pendiente": sum(int(marca(p, "A2", etiquetas)) - int(marca(p, "A1", etiquetas)) for p in incluidos),
+        "gemelo": sum(int(fp(p, "A1", etiquetas)) - int(fp(p, "A2", etiquetas)) for p in incluidos)}
     return c
 
 
@@ -445,8 +452,11 @@ def frase(r, hay_etiquetas):
     intervalo = f"{c['efecto_medio']:.2f} [{lo:.2f}, {hi:.2f}]" if a_favor else f"{-c['efecto_medio']:.2f} [{-hi:.2f}, {-lo:.2f}]"
     advertencia = (" Atribuirlo a la parte de residuo, y no a pedir cualquier JSON después de la respuesta, "
                    "requeriría que A2 superara a A2b, y eso no se probó.")
-    if c["componentes"]["pendiente"] * (1 if a_favor else -1) <= 0:
-        # Decisión 7: la diferencia no sale del pendiente, sino de los falsos positivos.
+    signo = 1 if a_favor else -1
+    validadas = [c, r["c1_con_etiquetas_de_nico"], r["c1_con_etiquetas_de_nico_solo_en_los_decisivos"]]
+    if any(x["componentes"]["pendiente"] * signo <= 0 for x in validadas):
+        # Decisión 7: la diferencia no sale del pendiente, sino de los falsos positivos; con
+        # las etiquetas de los jueces y también en las dos recalculaciones con las de Nico.
         return (f"Con gpt-5.6-sol corriendo por Codex, s_prosa {'aumentó' if a_favor else 'disminuyó'} en "
                 f"{intervalo} por los falsos positivos en el gemelo; en el pendiente A2 no marcó "
                 f"{'más' if a_favor else 'menos'} que A1." + advertencia)

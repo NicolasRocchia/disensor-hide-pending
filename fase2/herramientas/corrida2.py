@@ -10,7 +10,8 @@ pide el OK de Nico.
 
 Antes de congelar, el piloto (§12), sobre pares del piloto de la fase 1:
   juez-prueba Los dos jueces de la prosa sobre respuestas armadas a mano.
-  piloto      Los cuatro brazos sobre dos pares del piloto, los tres jueces y el análisis.
+  piloto      Los cuatro brazos sobre los diez pares del piloto con gemelo, los tres jueces y
+              el análisis.
 
 Después de congelar, en orden:
   brazos      A0, A1, A2b y A2 sobre los 100 pares, las ocho llamadas de cada log seguidas,
@@ -93,7 +94,7 @@ class FuenteCorrida:
 
 
 class FuentePiloto:
-    """§12: dos pares del piloto de la fase 1, que no están entre los 100."""
+    """§12: pares del piloto de la fase 1 (los diez con gemelo), que no están entre los 100."""
 
     def __init__(self, logs=LOGS_DEL_PILOTO):
         self._logs = list(logs)
@@ -179,6 +180,7 @@ CAIDAS_POR_ITEM = 3
 # largos entre los del piloto con gemelo (3.043 y 4.206 bytes), por encima del percentil 90
 # de los logs de la corrida. Así va del lado de arriba de los tamaños reales.
 LOG_DEL_CANARIO = 3
+MARCA_CANARIO = "\n\n[canary request]"
 # Una respuesta fija para los canarios de los jueces de la prosa, más larga que las del piloto
 # (176 a 388 caracteres), para que el pedido quede del lado de arriba de los reales.
 _PARRAFO_CANARIO = (
@@ -217,7 +219,11 @@ def mensaje_canario(familia):
                             juez.textos_libres(json.loads(JSON_CANARIO), fijos)).encode("utf-8")
     fuente, k = FuentePiloto((LOG_DEL_CANARIO,)), LOG_DEL_CANARIO
     if familia == "brazo":
-        return mensaje(fuente.texto(k, "limpio"), "A2", piloto.leer_esquemas()).encode("utf-8")
+        # Con un marcador neutro al final del log: el 003 es también del piloto (§12), y el
+        # canario no puede ser el mismo pedido que un ítem, o la falla de ese ítem se tomaría
+        # por una caída del servicio.
+        return mensaje(fuente.texto(k, "limpio").rstrip("\n") + MARCA_CANARIO, "A2",
+                       piloto.leer_esquemas()).encode("utf-8")
     if familia == "q28":
         plantilla = jueces2.leer_prompt(jueces2.PROMPT_Q28, jueces2.PROMPT_Q28_MD5)
         return jueces2.mensaje_q28(plantilla, fuente.texto(k, "pendiente"), fuente.metadata(k),
@@ -1027,8 +1033,9 @@ def etapa_juez_prueba(_):
 
 
 def etapa_piloto(args):
-    """§12: los cuatro brazos sobre dos pares del piloto, los tres jueces y el análisis, sin
-    congelamiento. Las respuestas del piloto se pueden leer."""
+    """§12: los cuatro brazos sobre los diez pares del piloto con gemelo, los tres jueces y el
+    análisis, sin congelamiento. Las respuestas del piloto se pueden leer. Reanudar reusa lo
+    que ya terminó: los pares 000 y 001 corrieron antes de ampliar el piloto, con su orden."""
     sin_parada(DIR_PILOTO)
     fuente = FuentePiloto()
     esquemas = piloto.leer_esquemas()

@@ -286,6 +286,27 @@ class Analisis(unittest.TestCase):
         self.assertIn("hizo que la respuesta dijera", analisis2.analizar(pares, _etiquetas(pares, lambda k, j: j))
                       ["frase_de_9"])
 
+    def test_la_frase_mira_tambien_las_recalculaciones(self):
+        # La séptima revisión: ocho marcas de A2 y doce falsos positivos de A1; Nico baja las
+        # ocho marcas. C1 sigue dando por los gemelos, pero la componente del pendiente
+        # validada es cero: la frase no puede decir que A2 hizo marcar más.
+        pares = ([_par(k, cats={"A2": 3}) for k in range(8)] + [_par(k, fps={"A1": True}) for k in range(8, 20)]
+                 + [_par(k) for k in range(20, 40)])
+        baja = {(k, "A2", "pendiente") for k in range(8)}
+        r = analisis2.analizar(pares, _etiquetas(pares, lambda k, j: 2 if k in baja else j))
+        self.assertEqual(r["c1"]["componentes"], {"pendiente": 8, "gemelo": 12})
+        self.assertFalse(r["c1"]["sensible_al_juez"])
+        self.assertEqual(r["c1_con_etiquetas_de_nico"]["componentes"]["pendiente"], 0)
+        self.assertIn("por los falsos positivos en el gemelo", r["frase_de_9"])
+
+    def test_con_suma_cero_las_recalculaciones_no_aplican(self):
+        pares = [_par(k, cats={"A2": 3}) for k in range(3)] + [_par(k, cats={"A1": 3}) for k in range(3, 6)] + \
+                [_par(k) for k in range(6, 30)]
+        r = analisis2.analizar(pares, _etiquetas(pares, lambda k, j: j))
+        self.assertEqual(r["c1"]["suma"], 0)
+        self.assertIs(r["c1_con_etiquetas_de_nico"]["aplica"], False)
+        self.assertIs(r["c1"]["sensible_al_juez"], False)
+
     def test_el_nulo_con_el_juez_no_confiable(self):
         pares = [_par(k) for k in range(100)]
         por_log = {p["log"]: p for p in pares}
@@ -843,6 +864,10 @@ class Sesiones(unittest.TestCase):
             self.assertTrue(corrida2.canario(fijado, "codex", self.raiz, "brazo"))
             self.assertIn(b"JSON", recibidos[-1])
             self.assertIn(gemelo3, recibidos[-1])
+            # No es el mismo pedido que el ítem 003-A2-limpio del piloto.
+            item = corrida2.mensaje(gemelo3.decode("utf-8"), "A2", piloto.leer_esquemas()).encode("utf-8")
+            self.assertNotEqual(recibidos[-1], item)
+            self.assertIn(corrida2.MARCA_CANARIO.encode(), recibidos[-1])
             gpt["texto"] = "  "
             self.assertFalse(corrida2.canario(fijado, "codex", self.raiz, "brazo"))
         finally:
