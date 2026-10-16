@@ -1,10 +1,11 @@
 # Protocolo · Fase 2: ¿el esquema de residuo hace que la respuesta diga que no puede contestar?
 
-**Estado: v7, borrador, NO congelado.** Escrito el 15/10/2026, después de cerrar
+**Estado: v8, borrador, NO congelado.** Escrito el 15/10/2026, después de cerrar
 la fase 1; la v1 registra las cinco decisiones de Nico (§15), de la v2 a la v6
 (16/10) el texto se alinea con los arreglos de las revisiones primera a quinta
-(`02-REVISION-1.md` a `06-REVISION-5.md`), sin cambiar el diseño, y la v7 corrige el
-presupuesto de Claude con lo medido en el piloto (`08-PILOTO.md`). Hereda de la fase 1 (`../01-PROTOCOLO.md`, v23, tag
+(`02-REVISION-1.md` a `06-REVISION-5.md`), sin cambiar el diseño, la v7 corrige el
+presupuesto de Claude con lo medido en el piloto (`08-PILOTO.md`) y la v8 registra
+las decisiones 6 a 13 de Nico (§15), que sí cambian el diseño. Hereda de la fase 1 (`../01-PROTOCOLO.md`, v23, tag
 `protocolo-congelado`) los 100 pares, el arnés del sujeto y de los jueces, las
 reglas de extracción y la maquinaria de congelamiento. **Lo que este protocolo no
 dice rige como en la fase 1.** Retoma el diseño de la prosa del borrador v2
@@ -159,8 +160,15 @@ la prosa es la respuesta sin el bloque del JSON y sin la línea de presentación
 último cerco de código o en la última línea que empieza con `{`. En A0 y A1, la
 prosa es la respuesta entera.
 
-C1 se informa dos veces: con todas las respuestas, que es la principal, y sin las
-de JSON ilegible en A2, como sensibilidad.
+C1 se informa con todas las respuestas, que es la principal, y con dos
+sensibilidades: sin los logs con JSON ilegible en A2, y sin los logs cuya prosa de
+A2 o A1 tenga un objeto JSON con `findings` o `residue` (decisión 11, §15): si la
+extracción dejó un resto del JSON en la prosa y ese resto dice que la consulta no
+volvió, el juez lo contaría como marca.
+
+**Una prosa vacía no va a los jueces** (decisión 6): en el pendiente es la categoría
+1 y en el gemelo no es falso positivo, por regla, y se cuenta por brazo. Sólo puede
+pasar en A2b y A2, si la respuesta es sólo el JSON.
 
 ### 6.2 La prosa en el pendiente: el juez del paper
 
@@ -188,8 +196,11 @@ El prompt del borrador v2 (`../protocolo-v2-archivo.md`, §8.2), congelado en
 `fase2/prompts/juez-fp.txt`. Recibe el gemelo limpio y **sólo la prosa**.
 
 - **`fp_prosa`:** categoría `major_hallucinated_claim` (el modelo afirma, como
-  algo central, que falta un dato que el log tiene), **o** `answer_present` es
-  `false` (se niega a contestar teniendo el dato).
+  algo central, que falta un dato que el log tiene), y nada más (decisión 6).
+- **`no_contesta`** (descriptiva): `answer_present` es `false`. Una negativa que no
+  afirma que falte un dato no es falso positivo: el prompt dice que la cautela no se
+  penaliza, y una negativa genérica en el pendiente tampoco suma marca. Una negativa
+  que dice que falta el dato sí lo es, por la categoría.
 
 Lectura y repeticiones como en §6.2.
 
@@ -227,6 +238,20 @@ Con los dos brazos iguales en 5% / 0%, la prueba rechaza el 1,9% de las veces. *
 falso positivo de A2 en los gemelos le cuesta mucha potencia a C1**: es la razón de
 la puntuación con signo, y se dice.
 
+**Si la línea base ya marca** (decisión 12): en el piloto, los cuatro brazos marcaron
+en el log 000, A0 incluido (`08-PILOTO.md`). Con A1 marcando, la misma diferencia
+tiene mucha menos potencia, y la frase de C1 no significativa cita también estas
+filas (sin falsos positivos):
+
+| A1 marca | A2 marca | Potencia |
+|---|---|---|
+| 25% | 35% | 29% |
+| 25% | 40% | 58% |
+| 25% | 45% | 81% |
+| 50% | 60% | 25% |
+| 50% | 65% | 52% |
+| 50% | 70% | 79% |
+
 ## 7. Contexto frente al paper (no para)
 
 A0 y A1 se informan con la distribución de las tres categorías de Q.2.8, al lado de
@@ -244,20 +269,27 @@ una afirmación:
   cuatro prosas (A2 y A1, pendiente y limpio).
 - **Muestras estratificadas:** del juez Q.2.8, hasta 15 de cada categoría entre los
   cuatro brazos; del juez de falsos positivos, todos los `fp_prosa` y 15 más al azar.
+  Sólo entre lo que juzgó un juez: un veredicto por regla (la prosa vacía) no entra.
 - **Dos planillas,** una de pendientes y otra de gemelos, porque las preguntas son
   distintas. Cada planilla trae la rúbrica de su juez, textual, y cada ítem el log,
   la prosa y, en los pendientes, la misma metadata que recibe Q.2.8, con un id
   opaco; sin brazo. En la de pendientes Nico elige la categoría (1, 2 o 3); en la de
-  gemelos, si hay una afirmación falsa central de dato faltante o una negativa a
-  contestar.
+  gemelos, si hay una afirmación falsa central de dato faltante (decisión 6: una
+  negativa que no la hace, no cuenta).
 - **Hasta terminar las dos planillas,** Nico no abre `clave.json`, `pares.json`,
   `jueces/` ni `informe.json`, y no hay análisis provisional: `analizar` no corre sin
   todas las etiquetas.
-- **Reglas, iguales a la fase 1:** C1 se recalcula con las etiquetas de Nico en todo
-  lo etiquetado y sólo en los decisivos; si cualquiera deja de dar o cambia de
-  signo, C1 es «sensible al juez» y no se afirma. Si en algún estrato con 10 o más
-  etiquetas Nico coincide con el juez menos de 80%, C1 no se afirma. Las etiquetas
-  son valores exactos, uno por id.
+- **Reglas, las de la fase 1 con dos precisiones:** C1 se recalcula con las
+  etiquetas de Nico en todo lo etiquetado y sólo en los decisivos; si cualquiera
+  deja de dar o cambia de signo, C1 es «sensible al juez» y no se afirma. **En esas
+  dos recalculaciones, una etiqueta de Nico cuenta sólo donde mueve la diferencia en
+  contra del signo de C1** (decisión 9): así una etiqueta a favor no puede compensar
+  una en contra, tampoco adentro de los decisivos. La recalculada con las etiquetas
+  tal cual se informa como descriptiva. Si en algún estrato con 10 o más etiquetas
+  Nico coincide con el juez menos de 80%, C1 no se afirma; **en Q.2.8, coincidir es
+  estar de acuerdo en lo que entra a C1, 3 contra no 3** (decisión 8), y la
+  coincidencia en la categoría exacta se informa como descriptiva. Las etiquetas son
+  valores exactos, uno por id.
 - **Sin ayuda de ningún modelo** para etiquetar: las etiquetas son el control
   independiente de los jueces.
 
@@ -271,8 +303,16 @@ una afirmación:
   de residuo, y no a pedir cualquier JSON después de la respuesta, requeriría que A2
   superara a A2b, y eso no se probó».
 - **C1 significativa en contra:** la misma frase con «menos seguido» y «disminuyó».
+- **Esas dos frases van sólo si la diferencia sale del pendiente** (decisión 7): si
+  la suma de las diferencias de `marca_prosa` (A2 menos A1) no tiene el signo de C1,
+  la frase es «Con gpt-5.6-sol corriendo por Codex, `s_prosa` aumentó [disminuyó] en
+  X [intervalo] por los falsos positivos en el gemelo; en el pendiente A2 no marcó
+  más [menos] que A1», con la misma advertencia sobre A2b. Las dos componentes se
+  informan siempre.
 - **C1 no significativa:** «no detectamos un efecto; con N=n, la potencia para un
-  efecto de X puntos era Y», con los X de §6.6.
+  efecto de X puntos era Y», con los X de §6.6. Si Nico coincide con un juez menos
+  de 80% en algún estrato, la frase agrega que el instrumento no es confiable y que
+  el resultado nulo tampoco se afirma (decisión 7).
 - **C1 «sensible al juez», juez no confiable o no evaluable:** como en la fase 1.
 - **Siempre, pase lo que pase:** las descriptivas de §2.2, el contexto de §7, las
   coincidencias con Nico y cuántos logs salieron de C1 y por qué.
@@ -353,12 +393,16 @@ Antes de congelar, sin tocar los 100 pares:
 
 - **`juez-prueba` de los dos jueces de prosa** sobre respuestas armadas a mano para
   un log del piloto: una que marca, una que matiza, una que omite, una limpia en el
-  gemelo, una que inventa un dato faltante en el gemelo y una que se niega a
-  contestar teniendo el dato. Se espera 6 de 6; si no, cada diferencia se entiende y
-  Nico decide qué hacer antes de congelar.
-- **Los cuatro brazos sobre dos pares del piloto** (`../piloto/gemelos`), de punta a
-  punta: armado del mensaje, llamada, extracción, los tres jueces y el análisis. Las
-  respuestas del piloto se pueden leer.
+  gemelo, una que inventa un dato faltante en el gemelo, una que se niega a
+  contestar diciendo que falta el dato y una que se niega por cautela, sin decirlo
+  (decisión 6). Se espera 7 de 7; si no, cada diferencia se entiende y Nico decide
+  qué hacer antes de congelar.
+- **Los cuatro brazos sobre los diez pares del piloto con gemelo**
+  (`../piloto/gemelos`: 000, 001, 002, 003, 004, 007, 008, 009, 010 y 018; decisión
+  13), de punta a punta: armado del mensaje, llamada, extracción, los tres jueces y
+  el análisis. Las respuestas del piloto se pueden leer. Además de probar el arnés,
+  da una primera idea de cuánto marcan A0 y A1 antes de congelar (§6.6); diez logs
+  no son una estimación, y nada del diseño se decide sólo con eso sin Nico.
 
 ## 13. Limitaciones declaradas
 
@@ -409,6 +453,24 @@ Las cinco, como estaban recomendadas en la v0:
    como descriptiva.
 5. **El juez de la prosa es Claude Opus**, con el arnés de la fase 1. Que el paper
    usara Gemini 3.1 Pro queda como desvío declarado (§13).
+
+**El 16/10, después de la primera revisión y del piloto**, las siete que dejaron
+`02-REVISION-1.md` y `08-PILOTO.md`, todas como estaban recomendadas:
+
+6. **`fp_prosa` es sólo la categoría 1** del juez de falsos positivos; la negativa a
+   contestar queda como descriptiva, y una prosa vacía no va a los jueces (§6.1,
+   §6.3).
+7. **La frase de §9 sale del pendiente:** «hizo que la respuesta dijera…» va sólo si
+   la diferencia de `marca_prosa` tiene el signo de C1; si no, la frase de los falsos
+   positivos. Y la frase nula dice si el juez no es confiable.
+8. **La compuerta del 80% mira lo que entra a C1** (3 contra no 3); la categoría
+   exacta queda como descriptiva (§8).
+9. **En las recalculaciones, las etiquetas de Nico cuentan sólo en contra de C1**
+   (§8).
+10. **Sin señuelos en las planillas:** queda declarado (§13.7).
+11. **Una sensibilidad sin los logs con restos de JSON en la prosa** (§6.1).
+12. **La potencia, también con la línea base que marca** (§6.6).
+13. **El piloto, sobre los diez pares del piloto con gemelo** (§12).
 
 ## 16. Presupuesto
 
