@@ -456,6 +456,123 @@ class ConModelosSimulados(unittest.TestCase):
         self.assertEqual((len(lista), faltan), (len(clave), []))
 
 
+class Sesiones(unittest.TestCase):
+    """Una sesión vencida de un CLI para la etapa y no quema los intentos de los ítems."""
+
+    def setUp(self):
+        self.raiz = Path(tempfile.mkdtemp())
+        self.guardado = (arnes.correr, arnes.verificar_sha, arnes.carpeta_trabajo, corrida2.con_sesion,
+                         piloto.una_llamada_claude, corrida.gpt_con_reintentos, piloto.claude_con_reintentos)
+        arnes.verificar_sha = lambda fijado, cual: None
+        arnes.carpeta_trabajo = lambda: Path(tempfile.mkdtemp(dir=self.raiz))
+
+    def tearDown(self):
+        (arnes.correr, arnes.verificar_sha, arnes.carpeta_trabajo, corrida2.con_sesion,
+         piloto.una_llamada_claude, corrida.gpt_con_reintentos, piloto.claude_con_reintentos) = self.guardado
+        shutil.rmtree(self.raiz, onexc=_borrar_solo_lectura)
+
+    def test_leer_el_estado_de_la_sesion(self):
+        fijado = {"claude_exe": "claude.exe", "codex_exe": "codex.exe"}
+        for codigo, salida, cual, esperado in ((0, '{"loggedIn": true}', "claude", True),
+                                                (1, '{"loggedIn": false}', "claude", False),
+                                                (0, '{"loggedIn": "true"}', "claude", False),
+                                                (0, "no es json", "claude", False),
+                                                (0, "Logged in using ChatGPT", "codex", True),
+                                                (1, "Not logged in", "codex", False),
+                                                (1, "Logged in using ChatGPT", "codex", False),
+                                                (0, "", "codex", False)):
+            arnes.correr = lambda comando, codigo=codigo, salida=salida, **k: {
+                "codigo": codigo, "stdout": salida.encode(), "stderr": b""}
+            self.assertEqual(corrida2.con_sesion(fijado, cual), esperado, (cual, salida))
+
+        def explota(*a, **k):
+            raise TimeoutError
+        arnes.correr = explota
+        self.assertFalse(corrida2.con_sesion(fijado, "claude"))
+
+    def test_claude_sin_sesion_para_y_no_gasta_los_reintentos(self):
+        sesion = {"hay": False}
+        corrida2.con_sesion = lambda fijado, cual: sesion["hay"]
+        llamadas = []
+
+        def una(fijado, mensaje, carpeta, prefijo):
+            llamadas.append(prefijo)
+            (carpeta / f"{prefijo}-stream.jsonl").write_bytes(b"")
+            ok = sesion["hay"]
+            return ({"termino": ok, "verificado": ok, "red_de_seguridad": False, "sin_cupo": False, "costo_usd": 0},
+                    q28(3) if ok else None)
+        piloto.una_llamada_claude = una
+        carpeta = self.raiz / "j"
+        carpeta.mkdir()
+        f = carpeta / "resumen.json"
+        r = {"intentos": []}
+
+        def guardar(parcial):
+            r["veredicto"] = parcial
+            corrida.escribir(f, r)
+            corrida2.parar_sin_sesion({"claude_exe": "claude.exe"}, "claude", r["intentos"],
+                                      lambda: corrida.escribir(f, r))
+        # Cuatro cortes seguidos por la sesión: sin el cambio de etiqueta, al tercero sería `fallo`.
+        for _ in range(4):
+            with self.assertRaises(SystemExit) as e:
+                corrida2.juzgar_prosa({}, b"m", carpeta, r["intentos"], jueces2.leer_q28, "q28", guardar=guardar)
+            self.assertIn("auth login", str(e.exception))
+        guardado = corrida.leer(f)
+        self.assertEqual([i["etiqueta"] for i in guardado["intentos"]], ["q28-1-sin-sesion"] * 4)
+        self.assertTrue(all(i["sin_sesion"] for i in guardado["intentos"]))
+        sesion["hay"] = True
+        v = corrida2.juzgar_prosa({}, b"m", carpeta, r["intentos"], jueces2.leer_q28, "q28", guardar=guardar)
+        self.assertEqual((v["estado"], v["score"]), ("juzgado", 3))
+        self.assertEqual(llamadas, [f"intento-{n}" for n in range(1, 6)])
+
+    def test_juzgar_item_sin_sesion_queda_reanudable(self):
+        corrida2.con_sesion = lambda fijado, cual: False
+        piloto.una_llamada_claude = lambda fijado, m, carpeta, prefijo: (
+            {"termino": False, "verificado": False, "red_de_seguridad": False, "sin_cupo": False}, None)
+        dir_b = self.raiz / "brazos" / "000-A0-pendiente"
+        dir_b.mkdir(parents=True)
+        (dir_b / "prosa.txt").write_bytes(b"Yes.")
+        corrida.escribir(dir_b / "resumen.json", {"estado": "hecho", "prosa_md5": arnes.md5_bytes(b"Yes.")})
+        plantillas, fijos = corrida2.plantillas_y_fijos()
+        with self.assertRaises(SystemExit):
+            corrida2.juzgar_item(self.raiz, {"claude_exe": "claude.exe"}, ConModelosSimulados.Fuente(), "q28", 0,
+                                 "A0", "pendiente", plantillas, fijos, {})
+        r = corrida.leer(self.raiz / "jueces" / "q28-000-A0-pendiente" / "resumen.json")
+        self.assertEqual(r["veredicto"]["estado"], "en_curso")
+        self.assertEqual([(i["etiqueta"], i["sin_sesion"]) for i in r["intentos"]], [("q28-1-sin-sesion", True)])
+        self.assertEqual(corrida2.faltan_jueces(self.raiz, [("q28", 0, "A0", "pendiente")]), [("q28", 0, "A0", "pendiente")])
+
+    def test_una_falla_con_sesion_sigue_contando(self):
+        corrida2.con_sesion = lambda fijado, cual: True
+        piloto.una_llamada_claude = lambda fijado, m, carpeta, prefijo: (
+            {"termino": False, "verificado": False, "red_de_seguridad": False, "sin_cupo": False}, None)
+        r = {"intentos": []}
+        v = corrida2.juzgar_prosa({}, b"m", self.raiz, r["intentos"], jueces2.leer_q28, "q28",
+                                  guardar=lambda p: corrida2.parar_sin_sesion({}, "claude", r["intentos"], lambda: None))
+        self.assertEqual((v["estado"], len(r["intentos"])), ("fallo", 3))
+
+    def test_gpt_sin_sesion_para_el_brazo(self):
+        corrida2.con_sesion = lambda fijado, cual: False
+        llamadas = []
+
+        def gpt(fijado, m, carpeta, intentos, tipo, guardar, generador_=False):
+            llamadas.append(1)
+            intentos.append({"termino": False, "sin_cupo": False, "red_de_seguridad": False, "tipo": tipo})
+            guardar()
+            return "fallo", {}, None
+        corrida.gpt_con_reintentos = gpt
+        esquemas = piloto.leer_esquemas()
+        objetos = {b: json.loads(t) for b, t in esquemas.items()}
+        with self.assertRaises(SystemExit) as e:
+            corrida2.correr_brazo(self.raiz, {"codex_exe": "codex.exe"}, ConModelosSimulados.Fuente(), 0, "A0",
+                                  "pendiente", esquemas, objetos, {})
+        self.assertIn("codex.exe login", str(e.exception))
+        r = corrida.leer(self.raiz / "brazos" / "000-A0-pendiente" / "resumen.json")
+        self.assertNotIn("estado", r)
+        self.assertTrue(r["intentos"][0]["sin_sesion"])
+        self.assertEqual(llamadas, [1])
+
+
 class Congelamiento(unittest.TestCase):
     """§11, en un repo de git armado a mano. El chequeo de la fase 1 tiene su propia prueba."""
 

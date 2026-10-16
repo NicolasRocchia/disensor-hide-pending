@@ -138,6 +138,58 @@ def cortar(base, estado, quien, guardar):
     sys.exit(f"{quien}: sin cupo. Es reanudable: volvé a correr la etapa más tarde.")
 
 
+# --- Las sesiones de los dos CLI (§11) --------------------------------------------------------
+# Una sesión vencida no es una falla del ítem: sin esto, cada ítem gastaría sus tres intentos
+# y quedaría en `fallo`, terminal, y fuera del análisis sin que nadie lo viera.
+
+def con_sesion(fijado, cual):
+    """Si el CLI fijado tiene una sesión iniciada: `claude auth status` (JSON) o `codex login
+    status`. No llama a ningún modelo."""
+    arnes.verificar_sha(fijado, cual)
+    if cual == "claude":
+        comando, env = [str(fijado["claude_exe"]), "auth", "status"], arnes.entorno_claude()
+    else:
+        comando, env = [str(fijado["codex_exe"]), "login", "status"], arnes.entorno_codex()
+    trabajo = arnes.carpeta_trabajo()
+    try:
+        r = arnes.correr(comando, cwd=trabajo, env=env, timeout=120)
+    except Exception:  # noqa: BLE001 - sin respuesta cuenta como sin sesión: la etapa para y se reanuda
+        return False
+    finally:
+        arnes.soltar_carpeta(trabajo)
+    salida = r["stdout"].decode("utf-8", errors="replace")
+    if cual == "codex":
+        return r["codigo"] == 0 and "Logged in" in salida + r["stderr"].decode("utf-8", errors="replace")
+    try:
+        return json.loads(salida).get("loggedIn") is True
+    except (ValueError, AttributeError):
+        return False
+
+
+def exigir_sesion(fijado, cual):
+    if not con_sesion(fijado, cual):
+        login = "auth login" if cual == "claude" else "login"
+        sys.exit(f"El CLI de {cual} del arnés no tiene una sesión iniciada. Nico: `{fijado[f'{cual}_exe']} {login}` "
+                 "y volver a correr la etapa, que es reanudable.")
+
+
+def parar_sin_sesion(fijado, cual, intentos, guardar):
+    """Después de cada intento: si no terminó y el CLI perdió la sesión, el intento queda en la
+    historia marcado `sin_sesion` y la etapa para, reanudable. En Claude, además, el intento
+    cambia de etiqueta y no gasta los reintentos del ítem; en GPT gasta uno, porque
+    `gpt_con_reintentos` cuenta toda la historia."""
+    ult = intentos[-1] if intentos else None
+    if not ult or ult.get("en_vuelo") or ult.get("termino") or ult.get("sin_cupo") or ult.get("sin_sesion"):
+        return
+    if con_sesion(fijado, cual):
+        return
+    ult["sin_sesion"] = True
+    if cual == "claude":
+        ult["etiqueta"] = f"{ult.get('etiqueta')}-sin-sesion"
+    guardar()
+    exigir_sesion(fijado, cual)
+
+
 # --- §11: el congelamiento de la fase 2 ------------------------------------------------------
 
 def arbol_fase2(ref="HEAD"):
@@ -266,8 +318,11 @@ def correr_brazo(base, fijado, fuente, k, b, c, esquemas, objetos, sello):
     m = mensaje(fuente.texto(k, c), b, esquemas).encode("utf-8")
     r["mensaje_md5"] = arnes.md5_bytes(m)
     carpeta.mkdir(parents=True, exist_ok=True)
-    estado, reg, texto = corrida.gpt_con_reintentos(fijado, m, carpeta, r["intentos"], f"brazo {b}",
-                                                    lambda: escribir(f, r))
+
+    def guardar():
+        escribir(f, r)
+        parar_sin_sesion(fijado, "codex", r["intentos"], lambda: escribir(f, r))
+    estado, reg, texto = corrida.gpt_con_reintentos(fijado, m, carpeta, r["intentos"], f"brazo {b}", guardar)
     if estado in ("PARADA", "sin_cupo"):
         cortar(base, estado, f"{k:03d} {b} {c}", lambda: escribir(f, r))
     r["estado"] = estado
@@ -299,6 +354,10 @@ def etapa_brazos(args):
     commit, head, arbol = congelamiento_fase2()
     fijado = arnes.verificar_binarios(corrida.BINARIOS, ("codex",))
     fuente = FuenteCorrida()
+    if not (DIR / "brazos" / "plan.json").exists() or any(
+            leer_o_nada(DIR / "brazos" / "{:03d}-{}-{}".format(*x) / "resumen.json").get("estado")
+            not in TERMINALES_BRAZO for x in plan_brazos(fuente.logs())):
+        exigir_sesion(fijado, "codex")
     plan = plan_congelado(fuente, commit, arbol, head)
     esquemas = piloto.leer_esquemas()
     objetos = {b: json.loads(t) for b, t in esquemas.items()}
@@ -373,6 +432,7 @@ def juzgar_item(base, fijado, fuente, tipo, k, b, c, plantillas, fijos, sello):
     def en_curso(parcial):
         r["veredicto"] = parcial
         escribir(f, r)
+        parar_sin_sesion(fijado, "claude", r["intentos"], lambda: escribir(f, r))
     carpeta.mkdir(parents=True, exist_ok=True)
     dir_b = base / "brazos" / f"{k:03d}-{b}-{c}"
     if br.get("estado") != "hecho":
@@ -437,6 +497,8 @@ def etapa_jueces(args):
     plantillas, fijos = plantillas_y_fijos()
     sello = {"commit_del_registro": commit, "arboles": arbol}
     items = plan_jueces(plan)
+    if faltan_jueces(DIR, items):
+        exigir_sesion(fijado, "claude")
     hechos = 0
     for tipo, k, b, c in faltan_jueces(DIR, items):
         if args.limite is not None and hechos >= args.limite:
@@ -613,6 +675,7 @@ def etapa_juez_prueba(_):
     """§12: los dos jueces de la prosa de punta a punta, sobre respuestas armadas a mano para el
     log 000 del piloto. No toca ninguna respuesta del sujeto."""
     fijado = arnes.verificar_binarios(corrida.BINARIOS, ("claude",))
+    exigir_sesion(fijado, "claude")
     fuente = FuentePiloto()
     plantillas, _ = plantillas_y_fijos()
     k = LOGS_DEL_PILOTO[0]
@@ -620,7 +683,8 @@ def etapa_juez_prueba(_):
     for nombre, c, prosa, esperado in casos_de_prueba(fuente, k):
         carpeta = DIR_PILOTO / "juez-prueba" / nombre
         f = carpeta / "resumen.json"
-        if f.exists() and leer(f)["veredicto"]["estado"] in TERMINALES_JUEZ:
+        # Se reusa sólo un veredicto del juez: una llamada que no terminó se vuelve a probar.
+        if f.exists() and leer(f)["veredicto"]["estado"] in ("juzgado", "juez_fallo"):
             filas.append(leer(f))
             continue
         carpeta.mkdir(parents=True, exist_ok=True)
@@ -631,7 +695,12 @@ def etapa_juez_prueba(_):
         else:
             m = jueces2.mensaje_fp(plantillas["fp"], fuente.texto(k, c), prosa)
             lector, tipo = jueces2.leer_fp, "fp"
-        v = juzgar_prosa(fijado, m.encode("utf-8"), carpeta, r["intentos"], lector, tipo)
+
+        def en_curso(parcial, r=r, f=f):
+            r["veredicto"] = parcial
+            escribir(f, r)
+            parar_sin_sesion(fijado, "claude", r["intentos"], lambda: escribir(f, r))
+        v = juzgar_prosa(fijado, m.encode("utf-8"), carpeta, r["intentos"], lector, tipo, guardar=en_curso)
         r["veredicto"] = v
         escribir(f, r)
         if v["estado"] in ("PARADA", "sin_cupo"):
@@ -658,9 +727,14 @@ def etapa_piloto(args):
     objetos = {b: json.loads(t) for b, t in esquemas.items()}
     plan = plan_brazos(fuente.logs())
     sello = {"sesiones": arnes.ahora()}
+    if any(leer_o_nada(DIR_PILOTO / "brazos" / "{:03d}-{}-{}".format(*x) / "resumen.json").get("estado")
+           not in TERMINALES_BRAZO for x in plan):
+        exigir_sesion(fijado, "codex")
     for k, b, c in plan:
         r = correr_brazo(DIR_PILOTO, fijado, fuente, k, b, c, esquemas, objetos, sello)
         print(f"{k:03d} {b:3} {c:9} {r['estado']}", flush=True)
+    if faltan_jueces(DIR_PILOTO, plan_jueces(plan)):
+        exigir_sesion(fijado, "claude")
     plantillas, fijos = plantillas_y_fijos()
     for tipo, k, b, c in faltan_jueces(DIR_PILOTO, plan_jueces(plan)):
         r = juzgar_item(DIR_PILOTO, fijado, fuente, tipo, k, b, c, plantillas, fijos, {})
