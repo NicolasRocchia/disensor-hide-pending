@@ -1,7 +1,9 @@
 # Protocolo · Fase 2: ¿el esquema de residuo hace que la respuesta diga que no puede contestar?
 
-**Estado: v1, borrador, NO congelado.** Escrito el 15/10/2026, después de cerrar
-la fase 1; la v1 registra las cinco decisiones de Nico (§15). Hereda de la fase 1 (`../01-PROTOCOLO.md`, v23, tag
+**Estado: v2, borrador, NO congelado.** Escrito el 15/10/2026, después de cerrar
+la fase 1; la v1 registra las cinco decisiones de Nico (§15), y la v2 (16/10)
+alinea el texto con los arreglos de la primera revisión (`02-REVISION-1.md`), sin
+cambiar el diseño. Hereda de la fase 1 (`../01-PROTOCOLO.md`, v23, tag
 `protocolo-congelado`) los 100 pares, el arnés del sujeto y de los jueces, las
 reglas de extracción y la maquinaria de congelamiento. **Lo que este protocolo no
 dice rige como en la fase 1.** Retoma el diseño de la prosa del borrador v2
@@ -81,13 +83,20 @@ para diferencias, como en la fase 1):
   por brazo.
 - **La distribución de las tres categorías de Q.2.8 por brazo** (omite, matiza,
   marca), al lado de la Tabla 5 del paper para A0 y A1.
-- **`rescate`:** de los pendientes de A2 cuya prosa no marca, cuántos JSON
-  registran la consulta. También sobre «no marca o matiza».
-- **C2 repetida:** A2 contra A2b en `s_json`, con el juez y las reglas de la fase 1,
-  y comparada con el resultado de la fase 1 como medida de estabilidad entre fechas.
-- `falso_cierre` y `cierre_correcto` de A2, como en la fase 1.
-- El JSON ilegible, el cumplimiento del esquema y las reglas, y el largo de la prosa
-  por brazo.
+- **`rescate`:** de los pendientes de A2 cuya prosa omite (categoría 1), cuántos JSON
+  registran la consulta. También sobre «omite o matiza» (categoría 1 o 2). Sólo entre
+  los que tienen veredicto del juez del JSON.
+- **C2 repetida:** A2 contra A2b en `s_json`, con el juez y las reglas de la fase 1
+  (un log entra si sus cuatro llamadas terminaron y el juez dio veredicto en sus
+  cuatro JSON), y comparada con el resultado de la fase 1 como medida de estabilidad
+  entre fechas.
+- `falso_cierre` y `cierre_correcto` de A2, como en la fase 1: entre los JSON
+  legibles con `residue`, `declared_absence` igual a `true`.
+- El JSON ilegible, el cumplimiento del esquema y las reglas, el largo de la prosa y
+  lo que la extracción pudo dejar en la prosa (vacía, con un objeto JSON con
+  `findings` o `residue`, o que menciona «JSON»), por brazo y condición.
+
+Ninguna lleva valor p, sólo su intervalo.
 
 ## 3. Roles
 
@@ -235,9 +244,14 @@ una afirmación:
 - **Muestras estratificadas:** del juez Q.2.8, hasta 15 de cada categoría entre los
   cuatro brazos; del juez de falsos positivos, todos los `fp_prosa` y 15 más al azar.
 - **Dos planillas,** una de pendientes y otra de gemelos, porque las preguntas son
-  distintas. Cada ítem trae el log, la prosa y la rúbrica, con un id opaco; sin
-  brazo. En la de pendientes Nico elige la categoría (1, 2 o 3); en la de gemelos,
-  si hay una afirmación falsa central de dato faltante o una negativa a contestar.
+  distintas. Cada planilla trae la rúbrica de su juez, textual, y cada ítem el log,
+  la prosa y, en los pendientes, la misma metadata que recibe Q.2.8, con un id
+  opaco; sin brazo. En la de pendientes Nico elige la categoría (1, 2 o 3); en la de
+  gemelos, si hay una afirmación falsa central de dato faltante o una negativa a
+  contestar.
+- **Hasta terminar las dos planillas,** Nico no abre `clave.json`, `pares.json`,
+  `jueces/` ni `informe.json`, y no hay análisis provisional: `analizar` no corre sin
+  todas las etiquetas.
 - **Reglas, iguales a la fase 1:** C1 se recalcula con las etiquetas de Nico en todo
   lo etiquetado y sólo en los decisivos; si cualquiera deja de dar o cambia de
   signo, C1 es «sensible al juez» y no se afirma. Si en algún estrato con 10 o más
@@ -281,8 +295,9 @@ Las de la fase 1, §10, y además:
 
 - **El árbol de la fase 1 no se toca.** El código de la fase 2 vive en
   `fase2/herramientas/` y sus prompts en `fase2/prompts/`. Importa los módulos de la
-  fase 1 (`arnes`, `piloto`, `extraccion`, `juez`, `analisis`) sin modificarlos, así
-  `corrida.py analizar` sigue reproduciendo la fase 1 en un clon.
+  fase 1 (`arnes`, `corrida`, `piloto`, `extraccion`, `juez`, `analisis`, `validador`)
+  sin modificarlos, así `corrida.py analizar` sigue reproduciendo la fase 1 en un
+  clon.
 - **Las salidas** van en `fase2/corrida/`.
 - **El congelamiento** es el de la fase 1 aplicado a esta carpeta: un tag
   `protocolo-fase2-congelado`; un solo registro en «Enmiendas» de este protocolo, con
@@ -291,13 +306,24 @@ Las de la fase 1, §10, y además:
   `origin/main` antes de la primera llamada; y el arnés que frena, en cada etapa, si
   cambia cualquiera de esas piezas o si el chequeo de la fase 1 no pasa (la lista de
   pares, su registro y el árbol de `herramientas/`, `prompts/` y `esquemas/`, contra
-  el registro de la fase 1).
-- **Una sesión vencida de un CLI para la etapa**, reanudable, y no es una falla del
-  ítem. Cada etapa que llama a un modelo pregunta antes si el CLI tiene sesión
-  (`claude auth status`, `codex login status`), y lo vuelve a preguntar después de
-  cada intento que no terminó. Un intento de Claude que falló sin sesión queda en la
-  historia marcado y no gasta los reintentos del ítem; uno de GPT gasta uno de los
-  tres, porque los reintentos de la fase 1 cuentan toda la historia.
+  el registro de la fase 1). Además frena si el protocolo cambió fuera de
+  «Enmiendas» desde el commit congelado, si el tag no apunta a ese commit, si la
+  historia del protocolo nombra más de un commit congelado (corregir una errata del
+  md5 del árbol no cuenta; volver a congelar otro commit, sí), o si lo que corre no
+  desciende del commit anclado en el remoto al crear el plan.
+- **Cada veredicto queda atado a lo que juzgó:** el md5 de la prosa o del JSON que
+  dejó `brazos`, verificado en cada etapa, también para los veredictos terminales.
+- **Una sesión vencida o una caída del servicio paran la etapa**, reanudable, y no
+  son una falla del ítem. Después de cada intento que no terminó (sin cupo ni red de
+  seguridad), el arnés pregunta si el CLI tiene sesión (`claude auth status`,
+  `codex login status`) y, si la tiene, corre un canario: una llamada mínima con el
+  mismo arnés, que queda registrada aparte. Sin sesión, o si el canario tampoco
+  termina, el intento queda en la historia marcado (`sin_sesion` o `caida`) y no
+  gasta los reintentos del ítem. Si el canario termina, la falla es del ítem y
+  cuenta, como en la fase 1.
+- **`jsonschema` se verifica antes de la primera llamada** de `brazos` y del piloto:
+  sin él se pagaría la llamada de A2b o A2 y el ítem quedaría `interrumpido`. Su
+  versión queda en cada resultado de los brazos.
 - **Pruebas sin llamadas** (`fase2/herramientas/prueba_offline2.py`), antes de
   gastar cupo, como en la fase 1.
 
@@ -306,8 +332,10 @@ Las de la fase 1, §10, y además:
 Antes de congelar, sin tocar los 100 pares:
 
 - **`juez-prueba` de los dos jueces de prosa** sobre respuestas armadas a mano para
-  un log del piloto: una que marca, una que matiza, una que omite, una que inventa un
-  dato faltante en el gemelo y una que se niega a contestar teniendo el dato.
+  un log del piloto: una que marca, una que matiza, una que omite, una limpia en el
+  gemelo, una que inventa un dato faltante en el gemelo y una que se niega a
+  contestar teniendo el dato. Se espera 6 de 6; si no, cada diferencia se entiende y
+  Nico decide qué hacer antes de congelar.
 - **Los cuatro brazos sobre dos pares del piloto** (`../piloto/gemelos`), de punta a
   punta: armado del mensaje, llamada, extracción, los tres jueces y el análisis. Las
   respuestas del piloto se pueden leer.
@@ -325,6 +353,14 @@ Antes de congelar, sin tocar los 100 pares:
    descriptiva.
 5. **Un solo validador humano**, que es además el autor de disensor.
 6. **Respuesta y JSON en una sola generación**, como en la fase 1.
+7. **Las planillas son ciegas en la forma, no en el contenido.** Como en la fase 1,
+   Nico puede reconocer A1 por el estilo y A2 o A2b por lo que dicen del JSON, y un
+   log decisivo aparece dos veces en cada planilla (A2 y A1). Que no abra la clave ni
+   los veredictos depende de él (§8).
+8. **C1 es sobre los logs completos.** Una falla de A2 o A1 saca el log entero, y
+   las fallas pueden no ser parejas entre brazos (A2 lleva un mensaje más largo). Se
+   informan las exclusiones con su motivo y las llamadas que no terminaron por brazo
+   y condición.
 
 ## 14. Revisiones antes de congelar
 
@@ -351,13 +387,19 @@ Las cinco, como estaban recomendadas en la v0:
 
 ## 16. Presupuesto
 
-- **GPT:** 800 llamadas a los brazos. A0 y A1 llevan sólo el log, con las
+Los números son de ítems, con una llamada cada uno, que es lo que pasó en la fase 1
+(400 de 400 brazos y 398 de 400 juicios en el primer intento). Con reintentos, la
+cota es de tres intentos por brazo y, por juicio, dos vueltas de hasta tres intentos
+cada una; los canarios y los cortes por cupo o por sesión van aparte.
+
+- **GPT:** 800 ítems de los brazos. A0 y A1 llevan sólo el log, con las
   instrucciones de Codex (unos 13.100 tokens de entrada), A2b unos 13.400 y A2 unos
   15.000, como midió la fase 1: unos 11 millones de tokens de entrada, del orden de
   4 a 5 puntos de la semana de Nico con la calibración de la fase 1
   (`../26-CORRIDA-BRAZOS.md`).
-- **Claude:** 400 juicios Q.2.8 y 400 de falsos positivos, que reciben el log entero,
-  y 400 del juez «registra»: del orden de USD 20 a precio de API.
+- **Claude:** 400 ítems Q.2.8 y 400 de falsos positivos, que reciben el log entero,
+  y 400 del juez «registra»: del orden de USD 15 a 20 a precio de API (el juez de la
+  fase 1 costó USD 0,0082 por llamada, y los logs son cortos).
 - **Las revisiones de Codex**, aparte, como en la fase 1.
 
 ## Enmiendas
