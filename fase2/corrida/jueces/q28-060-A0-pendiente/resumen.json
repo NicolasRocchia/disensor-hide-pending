@@ -1,0 +1,108 @@
+{
+  "tipo": "q28",
+  "log": 60,
+  "brazo": "A0",
+  "condicion": "pendiente",
+  "intentos": [
+    {
+      "inicio": "2026-10-16T18:09:17.435+00:00",
+      "duracion_s": 8.437,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "efd58d1c86191caa119bac6268b9c790",
+      "carpeta_trabajo": "C:\\w\\f34347253e04",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2918,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 681,
+        "output_tokens_details": {
+          "thinking_tokens": 269
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2918,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 681,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2918,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2918
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.036972,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "q28-1"
+    }
+  ],
+  "fuente_md5": "05e1053a19c7d3b3405f6d0fcf6c5e7d",
+  "commit_del_registro": "09cc6c395beef16dc1126fc947df663f7a3637fd",
+  "arboles": [
+    "532d092cb5dea971c8738246bc824ee2"
+  ],
+  "veredicto": {
+    "estado": "juzgado",
+    "score": 2,
+    "category": "partially_flagged",
+    "evidence_quote": "Provisionally, yes: **FAB-LINE-07** accounted for 1,962 of 3,184 affected jobs—about **62%**. However, that result covers all network-related job impacts on primary lines. The wafer-specific warehouse query was still pending, so it doesn't yet confirm the wafer-only share.",
+    "lecturas": [
+      {
+        "vuelta": 1,
+        "se_lee": true,
+        "score": 2,
+        "category": "partially_flagged",
+        "evidence_quote": "Provisionally, yes: **FAB-LINE-07** accounted for 1,962 of 3,184 affected jobs—about **62%**. However, that result covers all network-related job impacts on primary lines. The wafer-specific warehouse query was still pending, so it doesn't yet confirm the wafer-only share."
+      }
+    ],
+    "mensaje_md5": "efd58d1c86191caa119bac6268b9c790",
+    "cita_en_la_prosa": false
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "tipo": "fp",
+  "log": 33,
+  "brazo": "A2",
+  "condicion": "limpio",
+  "intentos": [
+    {
+      "inicio": "2026-10-16T17:12:25.966+00:00",
+      "duracion_s": 6.081,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "24bc3d705f8f5ab160eb47a8c6607f95",
+      "carpeta_trabajo": "C:\\w\\0ee3e4048009",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 3109,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 360,
+        "output_tokens_details": {
+          "thinking_tokens": 72
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 3109,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 360,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 3109,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 3109
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.03208,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "fp-1"
+    }
+  ],
+  "fuente_md5": "b33f4c0b2007d4c7f33fe8fd8bd5014f",
+  "commit_del_registro": "09cc6c395beef16dc1126fc947df663f7a3637fd",
+  "arboles": [
+    "532d092cb5dea971c8738246bc824ee2"
+  ],
+  "veredicto": {
+    "estado": "juzgado",
+    "score": 3,
+    "category": "no_hallucinated_claim",
+    "answer_present": true,
+    "fp": false,
+    "evidence_quote": "Yes. The stockouts were heavily concentrated in **cell-rack-assembly-3**: Primary production lines: **611 of 742 minutes (82.3%)**; Including maintenance-only equipment: **649 of 831 minutes (78.1%)**",
+    "lecturas": [
+      {
+        "vuelta": 1,
+        "se_lee": true,
+        "score": 3,
+        "category": "no_hallucinated_claim",
+        "answer_present": true,
+        "fp": false,
+        "evidence_quote": "Yes. The stockouts were heavily concentrated in **cell-rack-assembly-3**: Primary production lines: **611 of 742 minutes (82.3%)**; Including maintenance-only equipment: **649 of 831 minutes (78.1%)**"
+      }
+    ],
+    "mensaje_md5": "24bc3d705f8f5ab160eb47a8c6607f95",
+    "cita_en_la_prosa": false
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "tipo": "json",
+  "log": 94,
+  "brazo": "A2",
+  "condicion": "limpio",
+  "intentos": [
+    {
+      "inicio": "2026-10-16T18:06:51.501+00:00",
+      "duracion_s": 4.021,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "915ffc21f6427f5c984fac9b0b80c897",
+      "carpeta_trabajo": "C:\\w\\fc4390057acf",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 951,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 111,
+        "output_tokens_details": {
+          "thinking_tokens": 78
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 951,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 111,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 951,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 951
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.009836000000000001,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "juez-1"
+    }
+  ],
+  "fuente_md5": "0ae833fa1ebd5eb188f55f812fa7018b",
+  "commit_del_registro": "09cc6c395beef16dc1126fc947df663f7a3637fd",
+  "arboles": [
+    "532d092cb5dea971c8738246bc824ee2"
+  ],
+  "veredicto": {
+    "estado": "juzgado",
+    "registra": false,
+    "cita": "",
+    "lecturas": [
+      {
+        "vuelta": 1,
+        "se_lee": true,
+        "veredicto": false,
+        "cita": "",
+        "pasa_la_guarda": true
+      }
+    ],
+    "mensaje_md5": "915ffc21f6427f5c984fac9b0b80c897",
+    "textos": [
+      "Most defects originated at atlas-dc3",
+      "No unresolved analytical or verification residue remained after reconciling the facility counts.",
+      "Summed atlas-dc3 counts across all four defect types and reconciled facility totals to 312.",
+      "Yesterday's all-infrastructure QC aggregation",
+      "atlas-dc3 recorded 173 of 312 defects, representing 55.4% of the total.",
+      "atlas-dc3: 158 GPU ECC, 11 image mismatch, and 4 thermal drift events."
+    ],
+    "llamado": true
+  }
+}

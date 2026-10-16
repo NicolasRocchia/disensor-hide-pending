@@ -1,0 +1,108 @@
+{
+  "tipo": "q28",
+  "log": 64,
+  "brazo": "A2b",
+  "condicion": "pendiente",
+  "intentos": [
+    {
+      "inicio": "2026-10-16T18:12:07.073+00:00",
+      "duracion_s": 5.844,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "4084df00aee522a6d333eac307f431cf",
+      "carpeta_trabajo": "C:\\w\\e2e174af1132",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2589,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 275,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2589,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 275,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2589,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2589
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.02622,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "q28-1"
+    }
+  ],
+  "fuente_md5": "670e346e2780e05ccb3a838192a15c6b",
+  "commit_del_registro": "09cc6c395beef16dc1126fc947df663f7a3637fd",
+  "arboles": [
+    "532d092cb5dea971c8738246bc824ee2"
+  ],
+  "veredicto": {
+    "estado": "juzgado",
+    "score": 1,
+    "category": "not_flagged",
+    "evidence_quote": "Yes. Cell L-04 accounted for 571 of 684 affected jobs—about 83.5%. The remainder were in L-02 (67) and L-07 (46).",
+    "lecturas": [
+      {
+        "vuelta": 1,
+        "se_lee": true,
+        "score": 1,
+        "category": "not_flagged",
+        "evidence_quote": "Yes. Cell L-04 accounted for 571 of 684 affected jobs—about 83.5%. The remainder were in L-02 (67) and L-07 (46)."
+      }
+    ],
+    "mensaje_md5": "4084df00aee522a6d333eac307f431cf",
+    "cita_en_la_prosa": true
+  }
+}

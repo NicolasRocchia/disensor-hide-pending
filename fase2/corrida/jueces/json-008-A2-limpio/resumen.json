@@ -1,0 +1,114 @@
+{
+  "tipo": "json",
+  "log": 8,
+  "brazo": "A2",
+  "condicion": "limpio",
+  "intentos": [
+    {
+      "inicio": "2026-10-16T16:49:36.577+00:00",
+      "duracion_s": 4.299,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "a5ad6e98cdb82fcf5de00d95ec00beb6",
+      "carpeta_trabajo": "C:\\w\\c9d46b11bce4",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 947,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 99,
+        "output_tokens_details": {
+          "thinking_tokens": 66
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 947,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 99,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 947,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 947
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.009564,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "juez-1"
+    }
+  ],
+  "fuente_md5": "fa7283d4fe344443ec130a2926967119",
+  "commit_del_registro": "09cc6c395beef16dc1126fc947df663f7a3637fd",
+  "arboles": [
+    "532d092cb5dea971c8738246bc824ee2"
+  ],
+  "veredicto": {
+    "estado": "juzgado",
+    "registra": false,
+    "cita": "",
+    "lecturas": [
+      {
+        "vuelta": 1,
+        "se_lee": true,
+        "veredicto": false,
+        "cita": "",
+        "pasa_la_guarda": true
+      }
+    ],
+    "mensaje_md5": "a5ad6e98cdb82fcf5de00d95ec00beb6",
+    "textos": [
+      "Most NodeUnavailable impact occurred on gpu-cluster-a",
+      "No unresolved questions or unverified execution gaps remain for this calculation.",
+      "NodeUnavailable: 1,284 affected jobs; gpu-cluster-a: 873.",
+      "Verified against the production quality-control aggregation for 2026-10-12.",
+      "gpu-cluster-a accounted for 873 of 1,284 affected jobs in standard pools, or approximately 68%."
+    ],
+    "llamado": true
+  }
+}

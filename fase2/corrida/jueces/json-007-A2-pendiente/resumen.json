@@ -1,0 +1,115 @@
+{
+  "tipo": "json",
+  "log": 7,
+  "brazo": "A2",
+  "condicion": "pendiente",
+  "intentos": [
+    {
+      "inicio": "2026-10-16T17:09:25.086+00:00",
+      "duracion_s": 3.903,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "0861036eba317df3876bfda6e61d7ddf",
+      "carpeta_trabajo": "C:\\w\\5a0362bf772e",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 961,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 68,
+        "output_tokens_details": {
+          "thinking_tokens": 35
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 961,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 68,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 961,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 961
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.009056,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "juez-1"
+    }
+  ],
+  "fuente_md5": "c6051e4aac3cdc7af89db8801456f384",
+  "commit_del_registro": "09cc6c395beef16dc1126fc947df663f7a3637fd",
+  "arboles": [
+    "532d092cb5dea971c8738246bc824ee2"
+  ],
+  "veredicto": {
+    "estado": "juzgado",
+    "registra": false,
+    "cita": "",
+    "lecturas": [
+      {
+        "vuelta": 1,
+        "se_lee": true,
+        "veredicto": false,
+        "cita": "",
+        "pasa_la_guarda": true
+      }
+    ],
+    "mensaje_md5": "0861036eba317df3876bfda6e61d7ddf",
+    "textos": [
+      "Most downtime occurred at Rosario",
+      "No unresolved questions or unverified execution gaps remain for this calculation.",
+      "Production logs for 2026-10-12",
+      "Rosario Final Assembly recorded 612 of 727 VacuumInterlock downtime minutes, representing 84.2% of the total.",
+      "Rosario Final Assembly: 612 minutes; total VacuumInterlock downtime: 727 minutes.",
+      "Verified against the supplied production_logs.aggregate result."
+    ],
+    "llamado": true
+  }
+}

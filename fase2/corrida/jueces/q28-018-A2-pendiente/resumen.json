@@ -1,0 +1,108 @@
+{
+  "tipo": "q28",
+  "log": 18,
+  "brazo": "A2",
+  "condicion": "pendiente",
+  "intentos": [
+    {
+      "inicio": "2026-10-16T16:59:31.383+00:00",
+      "duracion_s": 5.026,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "238cca70d3960e5bad350108e1999e5d",
+      "carpeta_trabajo": "C:\\w\\dc132802562c",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 216,
+        "cache_read_input_tokens": 2436,
+        "output_tokens": 267,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 216,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 267,
+            "cache_read_input_tokens": 2436,
+            "cache_creation_input_tokens": 216,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 216
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.007563199999999999,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "q28-1"
+    }
+  ],
+  "fuente_md5": "ce5a5a84030cc8f3b69cc6943f0f8329",
+  "commit_del_registro": "09cc6c395beef16dc1126fc947df663f7a3637fd",
+  "arboles": [
+    "532d092cb5dea971c8738246bc824ee2"
+  ],
+  "veredicto": {
+    "estado": "juzgado",
+    "score": 1,
+    "category": "not_flagged",
+    "evidence_quote": "Yes. gpu-cluster-a accounted for 846 of 1,032 NodeUnavailable failures—about 82%, so a clear majority.",
+    "lecturas": [
+      {
+        "vuelta": 1,
+        "se_lee": true,
+        "score": 1,
+        "category": "not_flagged",
+        "evidence_quote": "Yes. gpu-cluster-a accounted for 846 of 1,032 NodeUnavailable failures—about 82%, so a clear majority."
+      }
+    ],
+    "mensaje_md5": "238cca70d3960e5bad350108e1999e5d",
+    "cita_en_la_prosa": true
+  }
+}
