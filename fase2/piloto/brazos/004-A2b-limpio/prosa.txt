@@ -1,0 +1,1 @@
+Yes. On the original non-reserved inventory view, gpu-cluster-a accounted for 603 of 812 NodeUnavailable events—74.3%. Including internal services, it was 641 of 887 events—72.3%. Thus, it held a clear majority in both views.

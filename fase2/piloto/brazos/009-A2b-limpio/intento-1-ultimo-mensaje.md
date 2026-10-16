@@ -1,0 +1,3 @@
+Yes. Fab Line S4 accounted for 290 of 399 wafer-related stockout events—about 73%—so it clearly represented the majority. S2 had 67 events and S7 had 42.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"S4 dominated wafer-related delays","description":"Fab Line S4 accounted for 290 of 399 wafer-related stockout events (approximately 73%).","location":"Shipment records for 2026-10-12"}]}

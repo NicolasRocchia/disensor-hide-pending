@@ -1,0 +1,24 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "AssetTagMismatch concentrated at EZE-1",
+      "description": "EZE-1 generated 2,214 of 2,611 AssetTagMismatch events across primary and secondary production lines, representing approximately 84.8 percent of the total.",
+      "location": "Inventory events for EZE-1 on 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the reported inventory-events aggregation grouped by facility and production line."
+      },
+      "evidence": {
+        "text": "EZE-1 reported 1,947 primary-line and 267 secondary-line errors, totaling 2,214 of 2,611 events."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified conclusions remain from this analysis."
+  }
+}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14498-60e6-7973-8747-70f703fdc111"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Fab Line S4 accounted for most wafer-carrier stockouts in standard compute pools: 231 of 286 events (about 81%).\n\nHowever, that shows stockouts—not necessarily delays—and the broader query including advanced packaging had not completed. So the available data strongly points to S4, but it isn’t enough to confirm that S4 caused most wafer-related delays overall."}}
+{"type":"turn.completed","usage":{"input_tokens":12947,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":165,"reasoning_output_tokens":84}}

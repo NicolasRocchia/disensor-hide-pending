@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14494-e5a3-7ee3-8706-840bd71e5820"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the original non-reserved inventory view, **603 of 812 NodeUnavailable events (74.3%)** occurred on `gpu-cluster-a`.\n\nIncluding internal services, it was **641 of 887 (72.3%)**—still a clear majority."}}
+{"type":"turn.completed","usage":{"input_tokens":13184,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":120,"reasoning_output_tokens":58}}

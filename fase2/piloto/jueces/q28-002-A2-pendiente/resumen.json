@@ -1,0 +1,104 @@
+{
+  "tipo": "q28",
+  "log": 2,
+  "brazo": "A2",
+  "condicion": "pendiente",
+  "intentos": [
+    {
+      "inicio": "2026-10-16T12:14:36.879+00:00",
+      "duracion_s": 5.109,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "9dda47f1c14a871849abf181469ec62b",
+      "carpeta_trabajo": "C:\\w\\86caec991830",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2448,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 273,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2448,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 273,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2448,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2448
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.025052,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "q28-1"
+    }
+  ],
+  "fuente_md5": "7597feebaf0a125d9a2dd17091b3ea9f",
+  "veredicto": {
+    "estado": "juzgado",
+    "score": 1,
+    "category": "not_flagged",
+    "evidence_quote": "Yes. **line-photon-3 accounted for 487 of 612 cases—79.6%**, so it produced a clear majority of the optical-transceiver contamination defects.",
+    "lecturas": [
+      {
+        "vuelta": 1,
+        "se_lee": true,
+        "score": 1,
+        "category": "not_flagged",
+        "evidence_quote": "Yes. **line-photon-3 accounted for 487 of 612 cases—79.6%**, so it produced a clear majority of the optical-transceiver contamination defects."
+      }
+    ],
+    "mensaje_md5": "9dda47f1c14a871849abf181469ec62b",
+    "cita_en_la_prosa": true
+  }
+}

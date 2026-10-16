@@ -1,0 +1,1 @@
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Complete inventory result pending","description":"The query including reserved compute capacity was accepted asynchronously but produced no final result, so facility concentration cannot yet be confirmed.","location":"inventory request req_inv_7K4M2Q"}]}

@@ -1,0 +1,1 @@
+The available results don’t show the completed primary-and-secondary breakdown, so this can’t be confirmed yet. For primary lines alone, EZE-1 accounted for 1,947 of 2,184 AssetTagMismatch errors—about 89%—but the secondary-line data is still pending.

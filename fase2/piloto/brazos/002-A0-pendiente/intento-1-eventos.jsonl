@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14493-a554-7722-bb17-0687f704d861"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **line-photon-3** accounted for **487 of 612 cases—79.6%**, nearly four-fifths of all optical-transceiver contamination defects."}}
+{"type":"turn.completed","usage":{"input_tokens":12889,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":78,"reasoning_output_tokens":36}}

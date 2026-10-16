@@ -1,0 +1,24 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "inventory_logs",
+      "severity": "info",
+      "title": "Rotor stockouts concentrated at North Campus",
+      "description": "North Campus Lab generated 131 of 183 CR-24 centrifuge-rotor stockout events after reserved compute capacity was included.",
+      "location": "Inventory window 2026-10-12T00:00:00-03:00/2026-10-13T00:00:00-03:00",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Verified against the completed aggregate_stockouts result for the all-inventory scope."
+      },
+      "evidence": {
+        "text": "CR-24 totals: North Campus Lab 131, Genomics Annex 33, South Campus Lab 19; overall total 183."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved uncertainty remained in calculating or comparing the reported facility-level stockout counts."
+  }
+}

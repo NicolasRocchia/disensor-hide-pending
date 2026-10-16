@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14496-c4c7-7382-95e9-942fec9d975c"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **2,071 of 2,486** NodeUnavailable failures—about **83.3%**—occurred on `gpu-cluster-a`.\n\n```json\n{\n  \"findings\": [],\n  \"residue\": {\n    \"declared_absence\": true,\n    \"declaration\": \"No unresolved findings or unverified conclusions remain for this calculation.\"\n  }\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":14897,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":210,"reasoning_output_tokens":124}}

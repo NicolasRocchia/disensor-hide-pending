@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14499-3513-73e1-9391-def918ec9c4b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"I can’t honestly confirm that across both primary and secondary lines—the combined query was accepted asynchronously, but no result was returned.\n\nFor primary lines alone, EZE-1 clearly dominated with 1,947 of 2,184 AssetTagMismatch errors (89%). Secondary-line data is still needed to answer the broader question."}}
+{"type":"turn.completed","usage":{"input_tokens":12916,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":120,"reasoning_output_tokens":49}}

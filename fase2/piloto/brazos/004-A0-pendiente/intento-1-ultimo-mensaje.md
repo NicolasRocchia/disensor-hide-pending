@@ -1,0 +1,1 @@
+Yes. **603 of 812 NodeUnavailable events** occurred on `gpu-cluster-a`—about **74.3%**, so nearly three-quarters.

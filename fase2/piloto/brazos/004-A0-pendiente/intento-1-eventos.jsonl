@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14495-8f0d-7803-9abf-9ede016eef90"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **603 of 812 NodeUnavailable events** occurred on `gpu-cluster-a`—about **74.3%**, so nearly three-quarters."}}
+{"type":"turn.completed","usage":{"input_tokens":12952,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":70,"reasoning_output_tokens":31}}

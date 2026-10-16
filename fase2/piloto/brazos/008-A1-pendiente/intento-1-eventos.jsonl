@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14496-e822-76d3-be9e-d2d0b4225066"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the completed primary-line query, assay-line-a accounted for 211 of 248 NodeUnavailable events—about 85%.\n\nHowever, the broader query including secondary lines had not returned, so this conclusion is limited to the primary production lines."}}
+{"type":"turn.completed","usage":{"input_tokens":12929,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":109,"reasoning_output_tokens":53}}

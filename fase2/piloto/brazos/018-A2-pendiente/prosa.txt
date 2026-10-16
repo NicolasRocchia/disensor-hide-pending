@@ -1,0 +1,1 @@
+Not yet determinable. The complete inventory query—including reserved compute capacity—was accepted asynchronously, but no result was returned. The non-reserved data alone showed strong concentration at North Campus Lab: 118 of 163 rotor stockouts (72.4%).

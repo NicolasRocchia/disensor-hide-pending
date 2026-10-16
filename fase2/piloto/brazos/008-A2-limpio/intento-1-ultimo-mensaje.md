@@ -1,0 +1,28 @@
+Yes. Assay-line-a accounted for 211 of 275 NodeUnavailable failures—about 76.7%, so a clear majority.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "Most NodeUnavailable failures occurred on assay-line-a",
+      "description": "Assay-line-a produced 211 of the 275 NodeUnavailable events across primary and secondary production lines.",
+      "location": "Non-reserved inventory production logs for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Verified against the supplied aggregate_errors tool result."
+      },
+      "evidence": {
+        "text": "NodeUnavailable: 275 total; assay-line-a: 211."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified conclusions remain from this analysis."
+  }
+}
+```

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14497-ddaf-7620-8f59-ed4ae30b9da5"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Assay-line-a had 211 of 275 NodeUnavailable events across primary and secondary lines—about 77%, so a clear majority."}}
+{"type":"turn.completed","usage":{"input_tokens":13145,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":93,"reasoning_output_tokens":57}}

@@ -1,0 +1,1 @@
+Yes. Assay-line-a had 211 of 248 NodeUnavailable failures—about 85.1%—so the clear majority occurred there.

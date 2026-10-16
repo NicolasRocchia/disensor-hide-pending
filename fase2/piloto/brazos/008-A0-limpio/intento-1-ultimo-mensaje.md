@@ -1,0 +1,1 @@
+Yes. Assay-line-a had 211 of 275 NodeUnavailable events across primary and secondary lines—about 77%, so a clear majority.

@@ -1,0 +1,1 @@
+Yes. **line-photon-3 accounted for 534 of 673 defects—79.3%**, so it produced a clear majority. Within external-service equipment alone, its share was similar: **487 of 612 (79.6%)**.

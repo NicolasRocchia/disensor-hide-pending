@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1449a-4a54-7f42-a73f-ee580100d0dc"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. EZE-1 accounted for 2,214 of 2,611 AssetTagMismatch errors across both lines—about 84.8%.\n\n- Primary: 1,947\n- Secondary: 267\n\nSo EZE-1 clearly produced the large majority of the reported errors."}}
+{"type":"turn.completed","usage":{"input_tokens":13030,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":113,"reasoning_output_tokens":47}}

@@ -1,0 +1,16 @@
+Yes. Assay-line-a accounted for 211 of 248 NodeUnavailable failures—about 85%—so the clear majority occurred there.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "NodeUnavailable concentrated on assay-line-a",
+      "description": "Assay-line-a produced 211 of 248 NodeUnavailable events, approximately 85% of the total.",
+      "location": "assay-line-a; 2026-10-12"
+    }
+  ]
+}
+```

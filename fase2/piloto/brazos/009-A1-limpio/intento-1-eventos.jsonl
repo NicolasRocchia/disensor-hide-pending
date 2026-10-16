@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14498-c529-7fd1-81e7-3ef0e085a2ce"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—Fab Line S4 accounted for 290 of 399 wafer-related stockout events, about 73%.\n\nHowever, the records show stockout events, not measured delays. So S4 clearly dominated wafer-related stockouts, but we can’t conclusively say it caused most delays without delay-duration or shipment-impact data."}}
+{"type":"turn.completed","usage":{"input_tokens":13153,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":203,"reasoning_output_tokens":132}}

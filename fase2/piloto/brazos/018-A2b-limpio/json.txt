@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Rotor stockouts concentrated at North Campus",
+      "description": "North Campus Lab recorded 131 of 183 centrifuge-rotor stockouts (71.6%) after reserved compute capacity was included.",
+      "location": "North Campus Lab"
+    }
+  ]
+}

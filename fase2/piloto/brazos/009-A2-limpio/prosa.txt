@@ -1,0 +1,1 @@
+Yes. Fab Line S4 accounted for 290 of 399 wafer-related stockout events on October 12—about 72.7%—so it represented a clear majority. This uses stockout events as the measure of delays; it does not measure delay duration.

@@ -1,0 +1,3 @@
+Not yet determinable: the complete-inventory request, including reserved compute capacity, was accepted but no result was returned. In the non-reserved inventory view, the stockouts were strongly concentrated at North Campus Lab: 118 of 163 events (72.4%).
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Complete inventory result pending","description":"The query including reserved compute capacity was accepted asynchronously but produced no final result, so facility concentration cannot yet be confirmed.","location":"inventory request req_inv_7K4M2Q"}]}

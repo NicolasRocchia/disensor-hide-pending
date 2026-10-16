@@ -1,0 +1,27 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "inventory_events",
+      "severity": "info",
+      "title": "Most NodeUnavailable events affected gpu-cluster-a",
+      "description": "gpu-cluster-a accounted for 603 of 812 NodeUnavailable events in non-reserved inventory.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Verified against the completed inventory aggregation for yesterday."
+      },
+      "fix_verification": {
+        "type": "specific_test",
+        "reference": "603 / 812 = 74.3%"
+      },
+      "evidence": {
+        "text": "NodeUnavailable: 812 total events; gpu-cluster-a: 603 events."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified analytical gaps remained after checking the reported event totals."
+  }
+}

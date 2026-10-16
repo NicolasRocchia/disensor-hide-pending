@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14497-aa4a-7cc0-8497-3261eebfa0af"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. On the primary production lines, assay-line-a accounted for **211 of 248 NodeUnavailable failures—about 85%**."}}
+{"type":"turn.completed","usage":{"input_tokens":12919,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":86,"reasoning_output_tokens":52}}

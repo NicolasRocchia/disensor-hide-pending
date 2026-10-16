@@ -1,0 +1,1 @@
+Yes. Assay-line-a accounted for 211 of 275 NodeUnavailable events—about 77%—across primary and secondary lines on October 12, 2026. So a clear majority occurred there.

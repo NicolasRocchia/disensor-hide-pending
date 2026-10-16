@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14498-80a0-7812-a7d1-4548c9d4e0ff"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Fab Line S4 accounted for 290 of 399 wafer-related stockout events—about 73%.\n\n- Wafer-carrier assemblies: 271\n- Wafer-level packaging substrates: 19\n\nSo S4 was responsible for a clear majority, though these records count stockout events rather than delay duration."}}
+{"type":"turn.completed","usage":{"input_tokens":13151,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":148,"reasoning_output_tokens":77}}

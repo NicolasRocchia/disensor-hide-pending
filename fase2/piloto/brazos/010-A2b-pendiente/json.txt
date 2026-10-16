@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "Combined facility result unavailable",
+      "description": "The primary-and-secondary aggregation was accepted asynchronously but no completed result was retrieved, so the question cannot be answered conclusively.",
+      "location": "inventory_events.aggregate request invagg_7KQ29M4"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+Yes. On October 12, `production-api` accounted for:
+
+- 1,492 of 1,684 TimeoutError downtime minutes (88.6%)
+- 1,947 of 2,184 failed jobs (89.1%)
+
+The remaining downtime affected `worker` (143 minutes) and `scheduler` (49 minutes). So the problem was strongly concentrated in `production-api`.

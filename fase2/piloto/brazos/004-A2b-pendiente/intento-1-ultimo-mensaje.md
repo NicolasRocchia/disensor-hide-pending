@@ -1,0 +1,16 @@
+Yes. gpu-cluster-a accounted for 603 of 812 NodeUnavailable failures—about 74.3%, so nearly three-quarters.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Most failures occurred on gpu-cluster-a",
+      "description": "gpu-cluster-a recorded 603 of 812 NodeUnavailable failures, representing approximately 74.3% of the total.",
+      "location": "inventory events for 2026-10-12"
+    }
+  ]
+}
+```

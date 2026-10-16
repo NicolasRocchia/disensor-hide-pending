@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14492-b723-7590-9461-75c05756848d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **line-photon-3** accounted for most optical-transceiver contamination defects:\n\n- External-service equipment: **487 of 612 (79.6%)**\n- Including maintenance-only equipment: **534 of 673 (79.3%)**\n\nSo, under either scope, roughly four out of five cases came from line-photon-3."}}
+{"type":"turn.completed","usage":{"input_tokens":13077,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":159,"reasoning_output_tokens":82}}

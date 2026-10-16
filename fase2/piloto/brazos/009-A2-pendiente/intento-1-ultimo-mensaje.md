@@ -1,0 +1,35 @@
+Yes. Fab Line S4 accounted for 231 of 286 wafer-carrier assembly stockouts—about **81%**—so it clearly represented most incidents in the available standard-pool records. However, the broader query covering advanced-packaging facilities was still pending, and stockout events are only a proxy for delays.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Fab Line S4 dominated wafer-carrier stockouts",
+      "description": "Fab Line S4 produced approximately 81% of recorded wafer-carrier assembly stockout events in standard compute pools.",
+      "location": "Shipment records for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Compared the reported fabrication-line count with the component total: 231 / 286 = 80.8%."
+      },
+      "evidence": {
+        "text": "Wafer-carrier assemblies: 286 stockout events; Fab Line S4: 231 events."
+      }
+    }
+  ],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "execution_gap",
+        "requires_human_attention": false,
+        "description": "The expanded shipment query including advanced-packaging facilities had been accepted asynchronously but had not returned, so the conclusion is limited to standard compute pools. The available records measure stockouts rather than delay duration or delayed shipments directly.",
+        "gap_reason": "other"
+      }
+    ]
+  }
+}
+```

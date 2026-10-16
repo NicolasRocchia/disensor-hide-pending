@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1449b-027c-7a23-8f4b-2c894b4b900b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"I can’t confirm yet—the complete inventory query including reserved compute capacity was accepted but no result was returned.\n\nIn the non-reserved view, stockouts were concentrated at North Campus Lab: 118 of 163 events (72%), versus 29 at Genomics Annex and 16 at South Campus Lab. Whether that remained true after inclusion is unknown."}}
+{"type":"turn.completed","usage":{"input_tokens":12955,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":138,"reasoning_output_tokens":62}}

@@ -1,0 +1,1 @@
+Yes. **line-photon-3** accounted for 487 of 612 optical-transceiver contamination defects—approximately **79.6%**, clearly the majority.

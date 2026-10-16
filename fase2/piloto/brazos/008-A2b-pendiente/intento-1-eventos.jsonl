@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14497-2646-79f2-a463-1cfb04c1e0f8"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Assay-line-a accounted for 211 of 248 NodeUnavailable failures—about 85%—so the clear majority occurred there.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"major\",\n      \"title\": \"NodeUnavailable concentrated on assay-line-a\",\n      \"description\": \"Assay-line-a produced 211 of 248 NodeUnavailable events, approximately 85% of the total.\",\n      \"location\": \"assay-line-a; 2026-10-12\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13158,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":164,"reasoning_output_tokens":31}}

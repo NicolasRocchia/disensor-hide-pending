@@ -1,0 +1,1 @@
+Yes. In non-reserved inventory, **603 of 812 NodeUnavailable events** occurred on `gpu-cluster-a`—about **74.3%**, clearly a majority.

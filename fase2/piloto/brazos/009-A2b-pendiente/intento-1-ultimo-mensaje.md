@@ -1,0 +1,3 @@
+Yes—within standard compute pools, Fab Line S4 accounted for 231 of 286 wafer-carrier stockout events, about 81%. The broader advanced-packaging query was still pending, so this does not confirm the pattern across all facilities.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Fab Line S4 dominated recorded wafer stockouts","description":"Fab Line S4 produced 231 of 286 wafer-carrier assembly stockout events in standard compute pools (approximately 81%). Results covering advanced-packaging facilities were not available.","location":"shipment_records for 2026-10-12, standard compute pools"}]}

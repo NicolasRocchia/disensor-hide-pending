@@ -1,0 +1,1 @@
+Not yet determinable: the complete-inventory request, including reserved compute capacity, was accepted but no result was returned. In the non-reserved inventory view, the stockouts were strongly concentrated at North Campus Lab: 118 of 163 events (72.4%).

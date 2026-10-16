@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14497-02f4-73d1-a304-7e55237f371f"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Assay-line-a accounted for 211 of 275 NodeUnavailable events—about 77%—across primary and secondary lines on October 12, 2026. So a clear majority occurred there."}}
+{"type":"turn.completed","usage":{"input_tokens":13151,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":134,"reasoning_output_tokens":84}}

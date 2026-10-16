@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1449a-e7ff-76e3-9ffa-120ad1cc2199"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. With reserved compute capacity included, **North Campus Lab accounted for 131 of 183 CR-24 rotor stockouts (71.6%)**.\n\n- North Campus Lab: 131 (71.6%)\n- Genomics Annex: 33 (18.0%)\n- South Campus Lab: 19 (10.4%)\n\nThe concentration barely changed from the non-reserved view, where North Campus represented 72.4% (118 of 163)."}}
+{"type":"turn.completed","usage":{"input_tokens":13147,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":163,"reasoning_output_tokens":63}}

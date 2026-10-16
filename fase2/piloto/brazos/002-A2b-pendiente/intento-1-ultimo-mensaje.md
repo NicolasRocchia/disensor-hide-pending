@@ -1,0 +1,16 @@
+Yes. **line-photon-3** accounted for 487 of 612 optical-transceiver contamination defects—approximately **79.6%**, clearly the majority.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Contamination defects concentrated on line-photon-3",
+      "description": "Line-photon-3 produced 487 of 612 optical-transceiver contamination defects, representing approximately 79.6% of the total.",
+      "location": "line-photon-3"
+    }
+  ]
+}
+```

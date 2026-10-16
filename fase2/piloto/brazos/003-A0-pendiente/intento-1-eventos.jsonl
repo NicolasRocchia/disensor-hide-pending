@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14493-bd54-7610-813d-6fb2639caa1c"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the customer-facing systems, **production-api accounted for 1,492 of 1,684 TimeoutError downtime minutes—about 89%**.\n\nThe remainder was:\n\n- worker: 143 minutes (8.5%)\n- scheduler: 49 minutes (2.9%)\n\nSo the TimeoutError problem was strongly concentrated in `production-api`."}}
+{"type":"turn.completed","usage":{"input_tokens":13048,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":115,"reasoning_output_tokens":37}}

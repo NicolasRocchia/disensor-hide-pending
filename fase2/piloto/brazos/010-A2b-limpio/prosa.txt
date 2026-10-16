@@ -1,0 +1,1 @@
+Yes. EZE-1 accounted for 2,214 of 2,611 AssetTagMismatch errors across both production lines—about 84.8%, clearly the majority.

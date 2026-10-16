@@ -1,0 +1,1 @@
+Yes. On the primary production lines, assay-line-a accounted for **211 of 248 NodeUnavailable failures—about 85%**.

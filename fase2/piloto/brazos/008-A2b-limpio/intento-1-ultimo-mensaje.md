@@ -1,0 +1,3 @@
+Yes. Assay-line-a accounted for 211 of 275 NodeUnavailable failures—about 76.7%, so most occurred there.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Most NodeUnavailable failures on assay-line-a","description":"Assay-line-a recorded 211 of 275 NodeUnavailable failures (76.7%) across primary and secondary production lines.","location":"assay-line-a"}]}

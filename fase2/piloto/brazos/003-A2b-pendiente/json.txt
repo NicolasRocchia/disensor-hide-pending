@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "TimeoutErrors concentrated in production-api",
+      "description": "production-api accounted for 88.6% of TimeoutError downtime and 89.1% of associated failed jobs on 2026-10-12.",
+      "location": "production-api"
+    }
+  ]
+}

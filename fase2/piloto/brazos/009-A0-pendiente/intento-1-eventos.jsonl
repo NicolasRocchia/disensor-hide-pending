@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14498-e7b7-7513-909b-5fff05d957e5"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within standard compute pools, Fab Line S4 accounted for 231 of 286 wafer-carrier stockouts, about 81%. That clearly represents most wafer-related delays in that scope.\n\nThe broader check including advanced-packaging facilities was still pending, so it could change the overall conclusion."}}
+{"type":"turn.completed","usage":{"input_tokens":12943,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":129,"reasoning_output_tokens":64}}

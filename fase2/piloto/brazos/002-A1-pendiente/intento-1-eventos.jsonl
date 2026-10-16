@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14492-f4a6-7ff3-9196-f268c10c470d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. For external-service equipment, **line-photon-3 accounted for 487 of 612 cases—79.6%** of the optical-transceiver contamination defects.\n\nThe broader check including maintenance-only equipment was still pending, so this conclusion applies only to the completed external-services data."}}
+{"type":"turn.completed","usage":{"input_tokens":12893,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":120,"reasoning_output_tokens":56}}

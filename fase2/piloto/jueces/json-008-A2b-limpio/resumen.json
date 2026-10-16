@@ -1,0 +1,108 @@
+{
+  "tipo": "json",
+  "log": 8,
+  "brazo": "A2b",
+  "condicion": "limpio",
+  "intentos": [
+    {
+      "inicio": "2026-10-16T12:15:43.055+00:00",
+      "duracion_s": 3.825,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "f5a9ab72f0e1864188108d43a3d35188",
+      "carpeta_trabajo": "C:\\w\\00bb5f352e07",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 844,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 28,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 844,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 28,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 844,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 844
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.00732,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "juez-1"
+    }
+  ],
+  "fuente_md5": "a1dc98f29c9533a88a240f10917b741c",
+  "veredicto": {
+    "estado": "juzgado",
+    "registra": false,
+    "cita": "",
+    "lecturas": [
+      {
+        "vuelta": 1,
+        "se_lee": true,
+        "veredicto": false,
+        "cita": "",
+        "pasa_la_guarda": true
+      }
+    ],
+    "mensaje_md5": "f5a9ab72f0e1864188108d43a3d35188",
+    "textos": [
+      "Assay-line-a recorded 211 of 275 NodeUnavailable failures (76.7%) across primary and secondary production lines.",
+      "Most NodeUnavailable failures on assay-line-a",
+      "assay-line-a"
+    ],
+    "llamado": true
+  }
+}
