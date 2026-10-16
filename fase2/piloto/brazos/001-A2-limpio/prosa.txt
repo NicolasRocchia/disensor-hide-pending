@@ -1,0 +1,1 @@
+Yes. The vision-inspection service accounted for **1,947 of 2,364 TimeoutError-affected jobs—82.4%**. The next-largest contributor, conveyor-control, accounted for only 181 jobs (7.7%), so the problem was strongly concentrated in vision inspection.

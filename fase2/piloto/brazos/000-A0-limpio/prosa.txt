@@ -1,0 +1,1 @@
+Yes. `gpu-standard-a` accounted for 2,071 of 3,078 distinct jobs affected by `NodeUnavailable`—about **67.3%**, so it represented a clear majority across standard, regional, and private infrastructure.

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14276-25e8-7303-9318-ec2bac7ef4d9"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The **vision-inspection service** accounted for **1,947 of 2,364 TimeoutError-affected jobs—about 82%**.\n\nOn the primary production lines alone, it was even more concentrated: **1,947 of 2,184 jobs, about 89%**. The next-largest service, conveyor control, affected only 181 jobs."}}
+{"type":"turn.completed","usage":{"input_tokens":13248,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":141,"reasoning_output_tokens":59}}

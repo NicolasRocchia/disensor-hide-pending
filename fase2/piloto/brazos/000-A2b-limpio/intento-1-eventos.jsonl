@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14275-7e10-7820-9780-8a66fe487a26"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **gpu-standard-a accounted for 2,071 of 3,078 affected jobs—about 67.3%**, so it represented a clear majority of NodeUnavailable failures across standard, regional, and private infrastructure.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"info\",\n      \"title\": \"gpu-standard-a accounted for most failures\",\n      \"description\": \"gpu-standard-a represented 2,071 of 3,078 jobs affected by NodeUnavailable failures, approximately 67.3% of the total.\",\n      \"location\": \"NodeUnavailable aggregate for 2026-10-12\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13317,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":223,"reasoning_output_tokens":66}}

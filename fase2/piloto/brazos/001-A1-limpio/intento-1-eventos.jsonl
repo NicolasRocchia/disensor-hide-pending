@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14277-0649-7380-9e8b-2ae7eb7d30d5"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—mostly, but not entirely. Across production and warehouse systems, **1,947 of 2,364 TimeoutError-affected jobs (82%)** were tied to the vision-inspection service. The remaining 417 were spread across four other services."}}
+{"type":"turn.completed","usage":{"input_tokens":13252,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":113,"reasoning_output_tokens":55}}

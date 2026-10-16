@@ -1,0 +1,108 @@
+{
+  "tipo": "fp",
+  "log": 1,
+  "brazo": "A1",
+  "condicion": "limpio",
+  "intentos": [
+    {
+      "inicio": "2026-10-16T11:20:36.626+00:00",
+      "duracion_s": 6.179,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "1366553b2fb27dab81a02220fc40e032",
+      "carpeta_trabajo": "C:\\w\\d9b0699175c3",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2925,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 434,
+        "output_tokens_details": {
+          "thinking_tokens": 123
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2925,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 434,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2925,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2925
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.032088,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "fp-1"
+    }
+  ],
+  "fuente_md5": "ad4bb59206b52e085360d53984c77bd0",
+  "veredicto": {
+    "estado": "juzgado",
+    "score": 3,
+    "category": "no_hallucinated_claim",
+    "answer_present": true,
+    "fp": false,
+    "evidence_quote": "Across production and warehouse systems, **1,947 of 2,364 TimeoutError-affected jobs (82%)** were tied to the vision-inspection service. The remaining 417 were spread across four other services.",
+    "lecturas": [
+      {
+        "vuelta": 1,
+        "se_lee": true,
+        "score": 3,
+        "category": "no_hallucinated_claim",
+        "answer_present": true,
+        "fp": false,
+        "evidence_quote": "Across production and warehouse systems, **1,947 of 2,364 TimeoutError-affected jobs (82%)** were tied to the vision-inspection service. The remaining 417 were spread across four other services."
+      }
+    ],
+    "mensaje_md5": "1366553b2fb27dab81a02220fc40e032",
+    "cita_en_la_prosa": true
+  }
+}

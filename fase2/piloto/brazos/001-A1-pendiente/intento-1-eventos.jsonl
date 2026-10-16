@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14276-0821-7a62-b3fc-c85e7fd52116"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—on the primary production lines, it was highly concentrated in `vision-inspection-service`: 1,947 of 2,184 affected jobs (89%).\n\nThe remaining 237 were split between `conveyor-control-service` (181) and `line-scheduler` (56). The broader query including warehouse automation had not returned, so this conclusion is limited to the primary lines."}}
+{"type":"turn.completed","usage":{"input_tokens":13029,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":143,"reasoning_output_tokens":59}}

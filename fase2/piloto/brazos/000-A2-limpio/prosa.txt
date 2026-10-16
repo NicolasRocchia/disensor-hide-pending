@@ -1,0 +1,1 @@
+Yes. `gpu-standard-a` accounted for 2,071 of 3,078 affected jobs—67.3% of all `NodeUnavailable` failures. The remaining standard, regional, and private pools collectively accounted for 1,007 jobs (32.7%).

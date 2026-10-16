@@ -1,0 +1,1 @@
+Yes—mostly, but not entirely. Across production and warehouse systems, **1,947 of 2,364 TimeoutError-affected jobs (82%)** were tied to the vision-inspection service. The remaining 417 were spread across four other services.

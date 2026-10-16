@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14275-cc81-75e2-9963-ee18c73812cd"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. `gpu-standard-a` accounted for 2,071 of 3,078 distinct jobs affected by `NodeUnavailable`—about **67.3%**, so it represented a clear majority across standard, regional, and private infrastructure."}}
+{"type":"turn.completed","usage":{"input_tokens":13082,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":91,"reasoning_output_tokens":36}}

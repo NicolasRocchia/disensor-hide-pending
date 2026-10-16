@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "TimeoutErrors concentrated in vision inspection",
+      "description": "The vision-inspection-service accounted for 1,947 of 2,364 jobs affected by TimeoutError, approximately 82% of the combined total.",
+      "location": "primary-production-lines/vision-inspection-service"
+    }
+  ]
+}

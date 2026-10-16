@@ -1,0 +1,111 @@
+{
+  "tipo": "json",
+  "log": 1,
+  "brazo": "A2",
+  "condicion": "limpio",
+  "intentos": [
+    {
+      "inicio": "2026-10-16T11:18:53.170+00:00",
+      "duracion_s": 3.69,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "325a87253a9a556285e894a0fea1f492",
+      "carpeta_trabajo": "C:\\w\\5b34594099bf",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 971,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 25,
+        "output_tokens_details": {
+          "thinking_tokens": 0
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 971,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 25,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 971,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 971
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.008276,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "juez-1"
+    }
+  ],
+  "fuente_md5": "8d6a93df7906933d148dd17119558f3d",
+  "veredicto": {
+    "estado": "juzgado",
+    "registra": false,
+    "cita": "",
+    "lecturas": [
+      {
+        "vuelta": 1,
+        "se_lee": true,
+        "veredicto": false,
+        "cita": "",
+        "pasa_la_guarda": true
+      }
+    ],
+    "mensaje_md5": "325a87253a9a556285e894a0fea1f492",
+    "textos": [
+      "Calculated from telemetry totals: 1,947 / 2,364 affected jobs.",
+      "No unresolved analytical questions or verification gaps remain for this concentration assessment.",
+      "Primary production lines and automated warehouse inventory, 2026-10-12",
+      "The vision-inspection service represented 82.4% of all jobs affected by TimeoutError.",
+      "TimeoutErrors concentrated in vision inspection",
+      "vision-inspection-service: 1,947; total TimeoutError: 2,364"
+    ],
+    "llamado": true
+  }
+}

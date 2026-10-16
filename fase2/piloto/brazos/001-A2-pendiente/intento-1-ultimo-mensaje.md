@@ -1,0 +1,41 @@
+Yes. On the primary production lines, the problem was highly concentrated in `vision-inspection-service`: 1,947 of 2,184 affected jobs—about **89.1%**. The remaining 237 jobs were split between `conveyor-control-service` (181) and `line-scheduler` (56).
+
+The broader production-plus-warehouse aggregation was still pending, so this conclusion applies only to the primary production lines.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "telemetry-analysis",
+      "severity": "info",
+      "title": "TimeoutError concentrated in vision inspection",
+      "description": "The vision-inspection-service accounted for 1947 of 2184 jobs affected by TimeoutError on the primary production lines, approximately 89.1 percent.",
+      "location": "primary production lines, 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Verified against the completed telemetry aggregation for affected jobs grouped by failure type and equipment service."
+      },
+      "fix_verification": {
+        "type": "specific_test",
+        "reference": "telemetry.aggregate_failures result for 2026-10-12, primary production lines"
+      },
+      "evidence": {
+        "text": "TimeoutError affected 2184 jobs: vision-inspection-service 1947, conveyor-control-service 181, and line-scheduler 56."
+      }
+    }
+  ],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "execution_gap",
+        "requires_human_attention": false,
+        "description": "The combined production and automated-warehouse aggregation was accepted asynchronously but no completed result was available, so warehouse-wide concentration could not be verified.",
+        "gap_reason": "other"
+      }
+    ]
+  }
+}
+```

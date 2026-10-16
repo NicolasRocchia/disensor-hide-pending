@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14275-ea87-7fe3-ada7-d93fa8f979aa"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—by distinct jobs affected, gpu-standard-a accounted for 2,071 of 3,078 NodeUnavailable cases across all three infrastructure classes, about 67.3%.\n\nStrictly speaking, the data measures affected jobs, not the raw number of failure events."}}
+{"type":"turn.completed","usage":{"input_tokens":13086,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":102,"reasoning_output_tokens":42}}

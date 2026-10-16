@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Cross-infrastructure majority is undetermined",
+      "description": "gpu-standard-a held 83.9% of standard-pool NodeUnavailable cases, but regional and private results are unavailable.",
+      "location": "qc_events request qca_7f31c9b2"
+    }
+  ]
+}

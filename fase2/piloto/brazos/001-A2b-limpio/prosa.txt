@@ -1,0 +1,1 @@
+Yes. The problem was heavily concentrated in `vision-inspection-service`, which accounted for 1,947 of 2,364 TimeoutError-affected jobs—about 82% across the combined production and warehouse scope. On primary production lines alone, it represented about 89%.

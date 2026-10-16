@@ -1,0 +1,1 @@
+Not yet. The available result only shows that gpu-standard-a accounted for 2,071 of 2,468 NodeUnavailable-affected jobs within standard pools (83.9%). The cross-infrastructure query covering standard, regional, and private pools was accepted but no result was returned, so the broader majority cannot be confirmed.
