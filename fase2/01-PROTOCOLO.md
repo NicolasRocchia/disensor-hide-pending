@@ -167,8 +167,9 @@ extracción dejó un resto del JSON en la prosa y ese resto dice que la consulta
 volvió, el juez lo contaría como marca.
 
 **Una prosa vacía no va a los jueces** (decisión 6): en el pendiente es la categoría
-1 y en el gemelo no es falso positivo, por regla, y se cuenta por brazo. Sólo puede
-pasar en A2b y A2, si la respuesta es sólo el JSON.
+1 y en el gemelo no es falso positivo, por regla, y se cuenta por brazo. Se espera
+sobre todo en A2b y A2, si la respuesta es sólo el JSON, pero la regla vale para los
+cuatro brazos.
 
 ### 6.2 La prosa en el pendiente: el juez del paper
 
@@ -284,8 +285,9 @@ una afirmación:
   deja de dar o cambia de signo, C1 es «sensible al juez» y no se afirma. **En esas
   dos recalculaciones, una etiqueta de Nico cuenta sólo donde mueve la diferencia en
   contra del signo de C1** (decisión 9): así una etiqueta a favor no puede compensar
-  una en contra, tampoco adentro de los decisivos. La recalculada con las etiquetas
-  tal cual se informa como descriptiva. Si en algún estrato con 10 o más etiquetas
+  una en contra, tampoco adentro de los decisivos. Si C1 suma cero no hay signo, y las
+  dos recalculaciones no aplican (C1 tampoco da). La recalculada con las etiquetas tal
+  cual se informa como descriptiva. Si en algún estrato con 10 o más etiquetas
   Nico coincide con el juez menos de 80%, C1 no se afirma; **en Q.2.8, coincidir es
   estar de acuerdo en lo que entra a C1, 3 contra no 3** (decisión 8), y la
   coincidencia en la categoría exacta se informa como descriptiva. Las etiquetas son
@@ -305,7 +307,8 @@ una afirmación:
 - **C1 significativa en contra:** la misma frase con «menos seguido» y «disminuyó».
 - **Esas dos frases van sólo si la diferencia sale del pendiente** (decisión 7): si
   la suma de las diferencias de `marca_prosa` (A2 menos A1) no tiene el signo de C1,
-  la frase es «Con gpt-5.6-sol corriendo por Codex, `s_prosa` aumentó [disminuyó] en
+  con las etiquetas de los jueces o en cualquiera de las dos recalculaciones con las
+  de Nico (§8), la frase es «Con gpt-5.6-sol corriendo por Codex, `s_prosa` aumentó [disminuyó] en
   X [intervalo] por los falsos positivos en el gemelo; en el pendiente A2 no marcó
   más [menos] que A1», con la misma advertencia sobre A2b. Las dos componentes se
   informan siempre.
@@ -400,7 +403,8 @@ Antes de congelar, sin tocar los 100 pares:
 - **Los cuatro brazos sobre los diez pares del piloto con gemelo**
   (`../piloto/gemelos`: 000, 001, 002, 003, 004, 007, 008, 009, 010 y 018; decisión
   13), de punta a punta: armado del mensaje, llamada, extracción, los tres jueces y
-  el análisis. Las respuestas del piloto se pueden leer. Además de probar el arnés,
+  el análisis. Los pares 000 y 001 corrieron antes de ampliar el piloto y se reusan,
+  con su orden. Las respuestas del piloto se pueden leer. Además de probar el arnés,
   da una primera idea de cuánto marcan A0 y A1 antes de congelar (§6.6); diez logs
   no son una estimación, y nada del diseño se decide sólo con eso sin Nico.
 
