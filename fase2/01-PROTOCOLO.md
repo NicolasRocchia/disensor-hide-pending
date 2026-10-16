@@ -1,9 +1,9 @@
 # Protocolo · Fase 2: ¿el esquema de residuo hace que la respuesta diga que no puede contestar?
 
-**Estado: v3, borrador, NO congelado.** Escrito el 15/10/2026, después de cerrar
-la fase 1; la v1 registra las cinco decisiones de Nico (§15), la v2 (16/10) alinea
-el texto con los arreglos de la primera revisión (`02-REVISION-1.md`) y la v3 con
-los de la segunda (`03-REVISION-2.md`), sin cambiar el diseño. Hereda de la fase 1 (`../01-PROTOCOLO.md`, v23, tag
+**Estado: v4, borrador, NO congelado.** Escrito el 15/10/2026, después de cerrar
+la fase 1; la v1 registra las cinco decisiones de Nico (§15), y la v2, la v3 y la
+v4 (16/10) alinean el texto con los arreglos de la primera, la segunda y la tercera
+revisión (`02-REVISION-1.md` a `04-REVISION-3.md`), sin cambiar el diseño. Hereda de la fase 1 (`../01-PROTOCOLO.md`, v23, tag
 `protocolo-congelado`) los 100 pares, el arnés del sujeto y de los jueces, las
 reglas de extracción y la maquinaria de congelamiento. **Lo que este protocolo no
 dice rige como en la fase 1.** Retoma el diseño de la prosa del borrador v2
@@ -312,19 +312,31 @@ Las de la fase 1, §10, y además:
   md5 del árbol no cuenta; volver a congelar otro commit, sí), o si lo que corre no
   desciende del commit anclado en el remoto al crear el plan. Al crear el plan,
   además, el tag tiene que estar publicado en el remoto y apuntar a ese commit.
+- **La receta que pasa** (verificada por la tercera revisión): un commit C con el
+  código, los prompts y el cuerpo final del protocolo; un commit R después, que sólo
+  agrega en «Enmiendas» el registro de C (`- Congelamiento de la fase 2: commit
+  <C entero>, árbol <md5 de fase2/herramientas y fase2/prompts en C>.`); el tag
+  `protocolo-fase2-congelado` sobre C, no sobre R; y el push de `main` (con R) y del
+  tag antes de `brazos`.
 - **Cada veredicto queda atado a lo que juzgó:** el md5 de la prosa o del JSON que
   dejó `brazos`, verificado en cada etapa, también para los veredictos terminales.
 - **Una sesión vencida o una caída del servicio paran la etapa**, reanudable, y no
   son una falla del ítem. Después de cada intento que no terminó (sin cupo ni red de
   seguridad), el arnés pregunta si el CLI tiene sesión (`claude auth status`,
-  `codex login status`) y, si la tiene, corre un canario: un pedido del tamaño de
-  los reales, sobre el log 000 del piloto (A2 sobre el pendiente para GPT; Q.2.8 con
-  una respuesta fija para Claude), con el mismo arnés, que queda registrado aparte.
-  Sin sesión, o si el canario no termina con una respuesta (en Claude, una que se lee
-  como veredicto), el intento queda en la historia marcado (`sin_sesion` o `caida`)
-  y no gasta los reintentos del ítem. Si el canario termina, la falla es del ítem y
+  `codex login status`) y, si la tiene, corre un canario de la misma familia que el
+  intento (A2 sobre el pendiente para los brazos; Q.2.8, el juez de falsos positivos
+  o el juez del JSON para los jueces), con el mismo arnés y sobre el log 003 del
+  piloto, que no está entre los 100 y está por encima del percentil 90 de su tamaño
+  (el del JSON usa el caso de prueba de la fase 1, del log 000). Queda registrado
+  aparte. Sin sesión, o si el canario no termina con una respuesta, el intento queda
+  en la historia marcado (`sin_sesion` o `caida`) y no gasta los reintentos del ítem.
+  Lo que dice la respuesta del canario no se mira: una salida que no se lee es una
+  falla del juez, no del servicio. Si el canario termina, la falla es del ítem y
   cuenta, como en la fase 1. A la tercera caída en un mismo ítem, el arnés deja
   `PARADA` y no sigue hasta que Nico la revise.
+- **Después de crear el plan, sin red no se frena:** el ancla se vuelve a verificar
+  con un tiempo máximo y sin que git pida credenciales; un remoto que no contesta es
+  un aviso, y uno que contesta y ya no tiene los commits frena.
 - **`jsonschema` se verifica antes de la primera llamada** de `brazos` y del piloto:
   sin él se pagaría la llamada de A2b o A2 y el ítem quedaría `interrumpido`. Su
   versión queda en cada resultado de los brazos.
