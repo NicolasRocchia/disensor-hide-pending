@@ -711,21 +711,33 @@ def faltan_jueces(base, items):
             .get("veredicto", {}).get("estado") not in TERMINALES_JUEZ]
 
 
-def jueces_que_llaman(base, items):
+def jueces_que_llaman(base, items, fijos):
     """De los ítems de `jueces` que faltan, los que pueden llegar a llamar a Claude: el brazo
-    terminó y, en el juez del JSON, hay JSON. Los demás se resuelven sin modelo."""
+    terminó y, en el juez del JSON, hay JSON con algún texto libre (`piloto.juzgar` resuelve
+    sin modelo el que no tiene). Los demás se resuelven sin modelo."""
     out = []
     for tipo, k, b, c in items:
-        br = leer_o_nada(base / "brazos" / f"{k:03d}-{b}-{c}" / "resumen.json")
-        if br.get("estado") == "hecho" and (tipo != "json" or br.get("json_md5")):
-            out.append((tipo, k, b, c))
+        dir_b = base / "brazos" / f"{k:03d}-{b}-{c}"
+        br = leer_o_nada(dir_b / "resumen.json")
+        if br.get("estado") != "hecho":
+            continue
+        if tipo == "json":
+            if not br.get("json_md5") or not (dir_b / "json.txt").exists():
+                continue
+            try:
+                obj = json.loads((dir_b / "json.txt").read_bytes().decode("utf-8"))
+            except ValueError:
+                obj = None
+            # Ante la duda, cuenta: pedir el binario de más no frena nada que vaya a correr.
+            if obj is not None and not juez.textos_libres(obj, fijos):
+                continue
+        out.append((tipo, k, b, c))
     return out
 
 
 def etapa_jueces(args):
     sin_parada(DIR)
     commit, head, arbol = verificar()
-    fijado = arnes.verificar_binarios(corrida.BINARIOS, ("claude",))
     fuente = FuenteCorrida()
     plan = plan_brazos(fuente.logs())
     for k, b, c in plan:
@@ -734,6 +746,9 @@ def etapa_jueces(args):
     plantillas, fijos = plantillas_y_fijos()
     sello = {"commit_del_registro": commit, "arboles": arbol}
     items = plan_jueces(plan)
+    # El binario de Claude, sólo si algún juez que falta puede llamarlo.
+    fijado = arnes.verificar_binarios(corrida.BINARIOS,
+                                      ("claude",) if jueces_que_llaman(DIR, faltan_jueces(DIR, items), fijos) else ())
     hechos = 0
     for tipo, k, b, c in faltan_jueces(DIR, items):
         if args.limite is not None and hechos >= args.limite:
@@ -1013,9 +1028,9 @@ def etapa_piloto(args):
         for k, b, c in plan:
             r = correr_brazo(DIR_PILOTO, fijado, fuente, k, b, c, esquemas, objetos, sello)
             print(f"{k:03d} {b:3} {c:9} {r['estado']}", flush=True)
-    if jueces_que_llaman(DIR_PILOTO, faltan_jueces(DIR_PILOTO, plan_jueces(plan))):
-        fijado = arnes.verificar_binarios(corrida.BINARIOS, ("claude",))
     plantillas, fijos = plantillas_y_fijos()
+    if jueces_que_llaman(DIR_PILOTO, faltan_jueces(DIR_PILOTO, plan_jueces(plan)), fijos):
+        fijado = arnes.verificar_binarios(corrida.BINARIOS, ("claude",))
     for tipo, k, b, c in faltan_jueces(DIR_PILOTO, plan_jueces(plan)):
         r = juzgar_item(DIR_PILOTO, fijado, fuente, tipo, k, b, c, plantillas, fijos, {})
         v = r["veredicto"]

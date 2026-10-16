@@ -769,11 +769,16 @@ class Sesiones(unittest.TestCase):
     def test_jueces_que_llaman(self):
         for nombre, br in (("000-A0-pendiente", {"estado": "hecho"}), ("000-A2-limpio", {"estado": "hecho"}),
                            ("000-A2-pendiente", {"estado": "hecho", "json_md5": "x"}),
+                           ("000-A2b-pendiente", {"estado": "hecho", "json_md5": "y"}),
                            ("000-A1-limpio", {"estado": "fallo"})):
             corrida.escribir(self.raiz / "brazos" / nombre / "resumen.json", br)
+        # Un JSON con texto libre llama; uno con sólo valores fijos se resuelve sin modelo.
+        (self.raiz / "brazos" / "000-A2-pendiente" / "json.txt").write_bytes(piloto.CASOS_JUEZ[0][2].encode())
+        (self.raiz / "brazos" / "000-A2b-pendiente" / "json.txt").write_bytes(piloto.CASOS_JUEZ[2][2].encode())
+        _, fijos = corrida2.plantillas_y_fijos()
         items = [("q28", 0, "A0", "pendiente"), ("json", 0, "A2", "limpio"), ("json", 0, "A2", "pendiente"),
-                 ("fp", 0, "A1", "limpio")]
-        self.assertEqual(corrida2.jueces_que_llaman(self.raiz, items),
+                 ("json", 0, "A2b", "pendiente"), ("fp", 0, "A1", "limpio")]
+        self.assertEqual(corrida2.jueces_que_llaman(self.raiz, items, fijos),
                          [("q28", 0, "A0", "pendiente"), ("json", 0, "A2", "pendiente")])
 
     def test_la_familia_del_canario_es_la_del_juez(self):
