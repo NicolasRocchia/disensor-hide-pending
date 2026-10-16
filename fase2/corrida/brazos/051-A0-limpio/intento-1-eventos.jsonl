@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f1-19d6-7673-b7e0-1f2d7c78f06a"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **FAB-A/CELL-ETCH-04** recorded 731 servo-motor stockouts on October 12:\n\n- 76% of all 960 stockouts across wafer fabs and advanced packaging.\n- 87% of the 842 events on primary wafer-fab lines.\n\nSo the stockouts were strongly concentrated in that one etch cell."}}
+{"type":"turn.completed","usage":{"input_tokens":13193,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":194,"reasoning_output_tokens":116}}

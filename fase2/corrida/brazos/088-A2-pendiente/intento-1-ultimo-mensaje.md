@@ -1,0 +1,36 @@
+Yes. Rosario Fulfillment Center accounted for 1,858 of 3,184 errors—58.4%—on October 12, 2026, so it produced a majority of reported defects. Barcode-read failures dominated its total.
+
+This conclusion covers non-reserved inventory; the maintenance-only-inclusive query had not completed.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "telemetry_review",
+      "severity": "major",
+      "title": "Rosario produced most defects",
+      "description": "Rosario Fulfillment Center accounted for 1,858 of 3,184 reported errors, or 58.4%.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Calculated from the completed telemetry aggregation for non-reserved inventory on 2026-10-12."
+      },
+      "evidence": {
+        "text": "Rosario facility counts sum to 1,858 out of 3,184 total error events."
+      }
+    }
+  ],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "execution_gap",
+        "requires_human_attention": false,
+        "description": "The expanded aggregation including maintenance-only equipment was accepted asynchronously but no completed result was available.",
+        "gap_reason": "other"
+      }
+    ]
+  }
+}
+```

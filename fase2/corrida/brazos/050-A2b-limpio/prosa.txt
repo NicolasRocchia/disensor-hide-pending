@@ -1,0 +1,1 @@
+Yes. West Annex accounted for **70 of 101 BarcodeReadTimeout failures (69.3%)** when warehouse inventory is included. For lab equipment alone, it had **61 of 84 failures (72.6%)**.

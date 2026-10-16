@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "TimeoutError concentrated in pallet-vision-api",
+      "description": "The service accounted for 84.8% of TimeoutError downtime on primary production lines.",
+      "location": "pallet-vision-api; primary production lines"
+    }
+  ]
+}

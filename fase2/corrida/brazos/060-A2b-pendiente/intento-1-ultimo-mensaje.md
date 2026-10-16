@@ -1,0 +1,3 @@
+Not yet confirmed. The wafer-specific aggregation—including automated warehouse inventory—is still pending. The available primary-line data shows FAB-LINE-07 dominated WarehouseLinkTimeout impacts (1,962 of 2,380 jobs, about 82%), but that result was not filtered specifically to wafers.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Wafer-specific result still pending","description":"FAB-LINE-07 dominated the available primary-line timeout data, but the wafer-filtered aggregation has not completed, so a definitive conclusion cannot yet be made.","location":"inventory_events.aggregate_async request invagg-20261013-7f42c9"}]}

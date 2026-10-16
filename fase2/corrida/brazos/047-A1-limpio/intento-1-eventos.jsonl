@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144ed-3f03-7481-b740-c2fd0e2b46f0"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. On the primary production lines, weld-cell-P3 accounted for 318 of 392 stockout minutes—about 81%. The remaining 74 minutes were split between assembly-cell-P1 (49) and paint-cell-P2 (25).\n\nIncluding maintenance-only equipment lowers P3’s share to about 74% (318 of 430 minutes), but the stockouts were still clearly concentrated there."}}
+{"type":"turn.completed","usage":{"input_tokens":13116,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":159,"reasoning_output_tokens":72}}

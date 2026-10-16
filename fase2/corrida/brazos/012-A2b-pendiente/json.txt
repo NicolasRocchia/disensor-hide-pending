@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "Packet-loss downtime concentrated on edge-gateway-03",
+      "description": "edge-gateway-03 contributed 608 of 742 packet-loss downtime minutes, approximately 82% of the total.",
+      "location": "edge-gateway-03"
+    }
+  ]
+}

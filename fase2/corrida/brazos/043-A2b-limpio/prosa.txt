@@ -1,0 +1,3 @@
+No single fabrication line accounted for a majority of all wafer-fabrication downtime. FAB-3 was the largest contributor with **1,307 of 2,651 minutes (49.3%)**.
+
+It did, however, dominate the leading issue: FAB-3 caused **1,196 of 1,486 minutes (80.5%)** of wafer-stage vacuum-instability downtime.

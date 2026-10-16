@@ -1,0 +1,5 @@
+{"type":"thread.started","thread_id":"01a144c9-5019-7b80-84be-cc1c63d304a7"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (unexpected status 503 Service Unavailable: An error occurred while processing your request. You can retry your request, or contact us through our help center at help.openai.com if the error persists.)"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within the completed **external-services-only** data, Santa Clara Fab 4 accounted for **1,256 of 2,184 defects (57.5%)**, a majority.\n\nThe broader query including automated warehouse inventory was still pending, so I can’t honestly confirm that it held a majority across all records."}}
+{"type":"turn.completed","usage":{"input_tokens":13030,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":158,"reasoning_output_tokens":88}}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1452b-0f02-7120-a79c-1a26d9e07304"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. ReticleSyncTimeout was strongly concentrated in **litho-dispatch**, which recorded **2,198 of 2,496 events (88.1%)** across all inventory. Wafer-routing accounted for 201 (8.1%) and mask-catalog for 97 (3.9%). The non-reserved-only distribution was nearly identical at 88.2% for litho-dispatch.\n\n```json\n{\n  \"findings\": [],\n  \"residue\": {\n    \"declared_absence\": true,\n    \"declaration\": \"No unresolved questions or execution gaps remain for this concentration analysis.\"\n  }\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":14902,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":321,"reasoning_output_tokens":184}}

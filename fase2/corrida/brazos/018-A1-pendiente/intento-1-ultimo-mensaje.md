@@ -1,0 +1,1 @@
+Yes. gpu-cluster-a accounted for 846 of 1,032 NodeUnavailable failures—about 82%—within the non-reserved, primary-line records for October 12, 2026. The secondary-line check had not yet returned, so this isn’t confirmed across all production lines.

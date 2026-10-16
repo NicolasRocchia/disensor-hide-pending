@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1451f-c8e8-79f3-9e11-2f13e5d8604d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Including maintenance-only equipment, **Córdoba Assembly accounted for 493 of 650 SD-48 stockout events—about 76%**. Rosario had 101 (16%) and Pilar 56 (9%).\n\nThe standard-pool-only data shows the same pattern: Córdoba had 471 of 612 events (77%). These are event counts, so they don’t indicate stockout duration or production impact."}}
+{"type":"turn.completed","usage":{"input_tokens":13239,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":164,"reasoning_output_tokens":74}}

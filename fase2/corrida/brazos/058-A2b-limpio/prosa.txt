@@ -1,0 +1,1 @@
+Yes. Checkout-api accounted for **421 of 544 minutes (77%)** of database connection-pool exhaustion across all production services. Among customer-facing services alone, it represented **421 of 486 minutes (87%)**.

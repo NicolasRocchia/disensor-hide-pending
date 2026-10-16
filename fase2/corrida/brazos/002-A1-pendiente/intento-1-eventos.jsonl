@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144b5-9ce4-7bf3-a45a-750e0708e680"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within the reported **non-reserved inventory**, 611 of 742 `NodeUnavailable` failures occurred on `gpu-cluster-a`, about **82%**.\n\nThe broader query including reserved compute capacity had not returned, so this isn’t yet confirmed across all inventory scopes."}}
+{"type":"turn.completed","usage":{"input_tokens":12920,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":103,"reasoning_output_tokens":40}}

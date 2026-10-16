@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144cf-651d-7c50-a68b-145e2f67fa79"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. gpu-cluster-a accounted for 846 of 1,032 NodeUnavailable failures—about 82%—within the non-reserved, primary-line records for October 12, 2026. The secondary-line check had not yet returned, so this isn’t confirmed across all production lines."}}
+{"type":"turn.completed","usage":{"input_tokens":12958,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":107,"reasoning_output_tokens":40}}

@@ -1,0 +1,1 @@
+Yes. North Hub accounted for 684 of 788 packet-loss downtime minutes—about 86.8%—so it represented the clear majority.

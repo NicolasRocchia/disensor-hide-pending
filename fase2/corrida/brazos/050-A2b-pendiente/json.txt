@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Most failures occurred at West Annex",
+      "description": "West Annex recorded 61 of 84 BarcodeReadTimeout failures (approximately 73%).",
+      "location": "West Annex"
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144c9-9a1d-7150-ad29-5fc49abe9bfc"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Santa Clara Fab 4 accounted for 1,369 of 2,448 reported defects—55.9%, a clear majority. Hsinchu Partner Fab 2 had 661 (27.0%), and Dresden Foundry Annex had 418 (17.1%).\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"info\",\n      \"title\": \"Santa Clara reported most defects\",\n      \"description\": \"Santa Clara Fab 4 accounted for 1,369 of 2,448 reported defects (55.9%) on October 12, 2026.\",\n      \"location\": \"Manufacturing delay aggregate by facility\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13441,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":287,"reasoning_output_tokens":124}}

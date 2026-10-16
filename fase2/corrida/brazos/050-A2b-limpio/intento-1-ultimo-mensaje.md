@@ -1,0 +1,3 @@
+Yes. West Annex accounted for **70 of 101 BarcodeReadTimeout failures (69.3%)** when warehouse inventory is included. For lab equipment alone, it had **61 of 84 failures (72.6%)**.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Most barcode timeouts occurred at West Annex","description":"West Annex recorded 70 of 101 BarcodeReadTimeout failures (69.3%), including 61 lab-equipment and 9 automated-warehouse failures.","location":"West Annex"}]}

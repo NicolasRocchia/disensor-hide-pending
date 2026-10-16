@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144e2-241d-7bb3-a19c-5571a019055d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Northgate accounted for 470 of 837 reported defects yesterday—56.2%, a clear majority.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"info\",\n      \"title\": \"Northgate reported most defects\",\n      \"description\": \"Northgate Fulfillment Center accounted for 470 of 837 defects (56.2%) across external services and automated warehouse inventory.\",\n      \"location\": \"shipment_records.aggregate for 2026-10-12\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13293,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":217,"reasoning_output_tokens":89}}

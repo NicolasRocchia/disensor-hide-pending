@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144bc-6446-7350-938d-e4d7adbddc41"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. On standard pools, gpu-cluster-a accounted for 873 of 1,284 affected jobs—about 68%.\n\nIncluding maintenance-only pools, it was still the majority: 873 of 1,454, about 60%. These figures measure affected jobs, not distinct failure events."}}
+{"type":"turn.completed","usage":{"input_tokens":13313,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":135,"reasoning_output_tokens":69}}

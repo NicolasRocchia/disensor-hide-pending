@@ -1,0 +1,1 @@
+Yes. Of the 842 servo-motor stockout events, 731—about 87%—occurred in **FAB-A/CELL-ETCH-04**. The remaining 111 were split between CELL-ETCH-02 (64) and FAB-B/CELL-CMP-01 (47).

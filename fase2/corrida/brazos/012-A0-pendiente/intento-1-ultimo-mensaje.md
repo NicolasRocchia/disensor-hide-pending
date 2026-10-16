@@ -1,0 +1,1 @@
+Yes. **edge-gateway-03 accounted for 608 of 742 packet-loss downtime minutes—about 82%**. The remaining 134 minutes were split between edge-gateway-07 (81) and public-dns-02 (53).

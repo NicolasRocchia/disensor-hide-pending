@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14513-e447-77b2-a485-f804be35cd11"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. gpu-cluster-a accounted for 2,071 of 2,486 affected jobs—about **83%** of the NodeUnavailable impact."}}
+{"type":"turn.completed","usage":{"input_tokens":12899,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":85,"reasoning_output_tokens":48}}

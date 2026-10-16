@@ -1,0 +1,1 @@
+Yes. **fab-line-p1 accounted for 2,167 of 3,168 affected fabrication jobs (68.4%)**. It dominated the largest failure, WaferCarrierRouteTimeout, with 1,917 of 2,284 jobs (83.9%).

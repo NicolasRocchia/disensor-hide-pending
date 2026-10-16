@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14523-8c60-72d1-9e2e-f440c33f7020"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Harbor Point accounted for **755 of 1,072 SFP-25G stockout events (70.4%)** across all facilities, including **684 on primary lines** and **71 on secondary lines**.\n\nSo the events were clearly concentrated there. However, these are event counts—not necessarily 755 distinct stockout incidents or a measure of outage duration."}}
+{"type":"turn.completed","usage":{"input_tokens":13554,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":157,"reasoning_output_tokens":76}}

@@ -1,0 +1,3 @@
+Yes. Of 612 servo-motor SM-42 stockouts on primary production lines, 487—about 79.6%—occurred in assembly-cell-A3. The remaining incidents were in B1 (79) and P2 (46), so the stockouts were strongly concentrated in A3.
+
+The broader check including maintenance-only equipment had not returned a result, so this conclusion applies only to primary production lines.

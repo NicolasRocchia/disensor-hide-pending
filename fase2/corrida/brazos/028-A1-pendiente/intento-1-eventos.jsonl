@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144da-a262-78a0-ba88-c721a91cb254"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"I can’t honestly confirm that from the completed data. North Materials Lab’s Line N‑W2 accounted for 31 of 43 wafer-handler stockout events (72%), but the broader wafer-related delay rollup was still processing. Stockouts aren’t necessarily equivalent to delays."}}
+{"type":"turn.completed","usage":{"input_tokens":13139,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":129,"reasoning_output_tokens":67}}

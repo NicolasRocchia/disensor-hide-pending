@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1451a-f6ae-73f0-8b9d-dff90e060a55"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—for customer-facing systems, Rosario Assembly accounted for 1,782 of 3,184 reported defects, about 56%, so it represented a narrow majority.\n\nThe broader query including maintenance-only equipment was still pending, so I can’t honestly confirm the same conclusion for that expanded scope."}}
+{"type":"turn.completed","usage":{"input_tokens":12915,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":139,"reasoning_output_tokens":75}}

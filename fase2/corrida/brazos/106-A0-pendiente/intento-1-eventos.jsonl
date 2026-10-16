@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14528-197e-7393-904e-42a8051aa95d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Fab Line P3 accounted for 611 of 742 wafer-edge-chipping incidents—about **82%**, clearly the majority. P1 had 83 and P2 had 48."}}
+{"type":"turn.completed","usage":{"input_tokens":12956,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":218,"reasoning_output_tokens":172}}

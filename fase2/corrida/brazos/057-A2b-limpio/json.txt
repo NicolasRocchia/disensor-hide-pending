@@ -1,0 +1,1 @@
+{"findings":[{"id":"h1","origin":"assistant","severity":"major","title":"Dock 7 dominated LabelMismatch errors","description":"Dock 7 produced more than three-quarters of all LabelMismatch errors on 2026-10-12.","location":"Dock 7"}]}

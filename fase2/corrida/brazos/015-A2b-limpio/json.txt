@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "TimeoutErrors concentrated in production-api",
+      "description": "Production-api generated 84.5% of TimeoutErrors across the combined inventory scope and 89.1% within non-reserved inventory.",
+      "location": "Incident records for 2026-10-12"
+    }
+  ]
+}

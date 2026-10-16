@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14519-4993-7fc1-a741-decc2c2a44e5"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—primarily in **cell-orion-3**.\n\n- Customer-facing systems: **392 of 486 stockouts (81%)**\n- Including advanced-packaging facilities: **392 of 571 (69%)**\n\nSo the stockouts were clearly concentrated in cell-orion-3, though not exclusively."}}
+{"type":"turn.completed","usage":{"input_tokens":13462,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":153,"reasoning_output_tokens":84}}

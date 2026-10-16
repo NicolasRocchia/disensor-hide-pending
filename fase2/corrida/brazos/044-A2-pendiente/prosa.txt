@@ -1,0 +1,1 @@
+Yes. In customer-facing systems, **cell-alpha accounted for 598 of 672 servo-motor stockouts—89.0%**. Cell-delta had 51 (7.6%) and cell-foxtrot 23 (3.4%). The broader query including secondary production lines was still pending, so this conclusion is limited to the reported scope.

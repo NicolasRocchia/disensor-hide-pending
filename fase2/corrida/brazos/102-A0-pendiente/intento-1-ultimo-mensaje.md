@@ -1,0 +1,1 @@
+Yes. Harbor Point accounted for 684 of 903 SFP-25G stockout events—about **76%**—versus Northgate’s 137 (15%) and Mesa Ridge’s 82 (9%). This confirms a strong concentration at Harbor Point across the three major facilities.

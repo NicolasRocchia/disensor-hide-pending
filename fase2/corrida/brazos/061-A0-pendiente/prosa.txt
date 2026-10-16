@@ -1,0 +1,1 @@
+Yes. RA-07 recorded **438 of 612** SM-48 servo-motor stockouts on October 12—about **72% across all three facilities** and **90% of Rosario Assembly’s 487 events**.

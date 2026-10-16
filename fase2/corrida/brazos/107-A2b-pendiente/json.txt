@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "Wafer delays concentrated on fab-line-p1",
+      "description": "Fab-line-p1 accounted for 1,917 of 2,284 jobs affected by WaferCarrierRouteTimeout, approximately 84%, within the primary production lines.",
+      "location": "shipment_monitor aggregate for 2026-10-12; primary_production_lines/fab-line-p1"
+    }
+  ]
+}

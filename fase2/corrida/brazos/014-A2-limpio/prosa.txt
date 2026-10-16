@@ -1,0 +1,1 @@
+Yes. Line-alpha accounted for 1,947 of 2,424 pallet label mismatch failures across all production lines yesterday—about **80.3%**, so it clearly represented the majority.

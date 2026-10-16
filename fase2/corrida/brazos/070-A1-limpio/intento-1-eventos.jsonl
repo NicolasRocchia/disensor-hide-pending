@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14505-6809-76e2-8d05-8264017857b3"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Carrier-gate-east caused 1,742 of 2,214 external-service LabelReadErrors—about **79%**.\n\nIncluding maintenance-only equipment, it was still 1,742 of 2,351—about **74%**. So, under either scope, most occurred there."}}
+{"type":"turn.completed","usage":{"input_tokens":13137,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":134,"reasoning_output_tokens":66}}

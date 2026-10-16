@@ -1,0 +1,1 @@
+Yes. Transit-gateway accounted for **1,872 of 2,504 affected jobs (74.8%)** after internal services were included. Its count did not change; internal services added 358 affected jobs, reducing transit-gateway’s share from 87.2% to 74.8%, but it remained strongly concentrated there.

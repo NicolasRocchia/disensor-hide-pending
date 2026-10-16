@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144be-3bc7-7f32-a7bc-9faa276ac110"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Including automated warehouse inventory, **vision-inspection-api caused 2,259 of 2,628 TimeoutErrors (86.0%)**. The remaining 14% was split among three services, so the issue was strongly concentrated there."}}
+{"type":"turn.completed","usage":{"input_tokens":13060,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":143,"reasoning_output_tokens":87}}

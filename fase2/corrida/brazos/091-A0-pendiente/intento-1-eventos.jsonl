@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1451a-a934-7960-aa05-0f2dea9da858"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Cell A3 accounted for **1,214 of 1,486 minutes—about 82%** of servo-motor stockout downtime.\n\n- Cell B1: 164 minutes (11%)\n- Cell C2: 108 minutes (7%)"}}
+{"type":"turn.completed","usage":{"input_tokens":12943,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":116,"reasoning_output_tokens":57}}

@@ -1,0 +1,26 @@
+Yes. Carrier-gate-east accounted for 1,742 of 2,214 externally scoped `LabelReadError` failures—about **78.7%**, clearly the majority. Even including maintenance-only equipment, it represented 74.1% (1,742 of 2,351).
+
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "shipment_analytics",
+      "severity": "info",
+      "title": "Most label-read failures occurred at carrier-gate-east",
+      "description": "Carrier-gate-east produced 1,742 of 2,214 externally scoped LabelReadError records, or approximately 78.7%.",
+      "location": "Shipment analytics for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied shipment_analytics.aggregate_errors result."
+      },
+      "evidence": {
+        "text": "LabelReadError total: 2,214; carrier-gate-east: 1,742."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified interpretive conclusions remain for this calculation."
+  }
+}

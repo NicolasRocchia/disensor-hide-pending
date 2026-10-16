@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f2-bddc-7171-8726-4232fe73496a"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within non-reserved inventory, gpu-cluster-a accounted for:\n\n- 61 of 76 events (80%)\n- 366 of 438 delayed jobs (84%)\n- 11,180 of 13,420 delay-minutes (83%)\n\nSo it was clearly the main source of NodeUnavailable failures. The broader query including reserved compute capacity was still pending."}}
+{"type":"turn.completed","usage":{"input_tokens":13067,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":161,"reasoning_output_tokens":80}}

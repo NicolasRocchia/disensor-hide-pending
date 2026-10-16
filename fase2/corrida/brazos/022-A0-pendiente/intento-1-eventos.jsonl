@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144d6-b102-7172-a0b5-199b31608e2b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **EZE-1 accounted for 671 of 812 CoolingSensorDrift incidents—about 83%**. COR-2 had 89 and SCL-3 had 52."}}
+{"type":"turn.completed","usage":{"input_tokens":13057,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":79,"reasoning_output_tokens":32}}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144e4-c6e7-78d2-8bfe-cd295ad1d0db"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Including secondary production lines, **production-api accounted for 2,161 of 2,525 TimeoutErrors—about 86%**.\n\n- production-api: 2,161 (86%)\n- worker: 277 (11%)\n- scheduler: 87 (3%)\n\nSo the problem was strongly concentrated in `production-api`."}}
+{"type":"turn.completed","usage":{"input_tokens":13277,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":140,"reasoning_output_tokens":66}}

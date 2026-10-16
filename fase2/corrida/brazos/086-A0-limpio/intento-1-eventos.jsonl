@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14515-8790-7a72-815e-2292ac035397"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Northbridge accounted for **401 of 486 customer-facing pipette-tip stockout failures (82.5%)**.\n\nThe remaining failures were:\n\n- Harborview: 58 (11.9%)\n- West Annex: 27 (5.6%)\n\nSo the failures were strongly concentrated on Northbridge."}}
+{"type":"turn.completed","usage":{"input_tokens":13249,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":162,"reasoning_output_tokens":93}}

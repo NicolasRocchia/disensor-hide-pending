@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1451a-c071-7421-bde0-b771ab53a7e2"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Cell A3 accounted for 1,400 of 1,709 minutes—about 82%—of servo-motor stockout downtime. The remaining downtime was in B1 (186 minutes) and C2 (123 minutes)."}}
+{"type":"turn.completed","usage":{"input_tokens":13087,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":121,"reasoning_output_tokens":66}}

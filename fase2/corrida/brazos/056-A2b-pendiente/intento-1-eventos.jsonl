@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f7-3850-7232-8101-369fe54908dd"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **cell-pack-04 accounted for 781 of 934 servo-motor stockout-affected jobs—83.6%.** The remainder occurred in cell-pack-02 (96; 10.3%) and cell-assembly-07 (57; 6.1%).\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"major\",\n      \"title\": \"Servo-motor stockouts concentrated in cell-pack-04\",\n      \"description\": \"Cell-pack-04 accounted for 781 of 934 affected jobs (83.6%), indicating a strong concentration in one production cell.\",\n      \"location\": \"cell-pack-04\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13223,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":266,"reasoning_output_tokens":103}}

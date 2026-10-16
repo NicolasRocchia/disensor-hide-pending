@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144ef-3782-7213-98cc-ae9f01a8a956"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Phoenix-integration accounted for 853 of 1,092 stockouts—about 78%—across all build scopes."}}
+{"type":"turn.completed","usage":{"input_tokens":13122,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":97,"reasoning_output_tokens":63}}

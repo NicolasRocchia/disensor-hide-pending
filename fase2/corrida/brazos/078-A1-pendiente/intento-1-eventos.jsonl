@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1450c-8b01-7f51-a9f1-ff48297fcbd7"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within the **standard compute pools**, FAB-L3 accounted for 143 of 184 WaferAlignTimeout-affected jobs, about **78%**, so it clearly represented most wafer-related delays.\n\nThe broader query including maintenance-only equipment had not completed, so this conclusion is limited to standard compute equipment."}}
+{"type":"turn.completed","usage":{"input_tokens":12944,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":138,"reasoning_output_tokens":70}}

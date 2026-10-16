@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1451e-ac9f-7221-90ad-78a74aa761c6"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **eze-1 accounted for 2,641 of 3,146 minutes—about 84%** of the reported damaged accelerator tray downtime. The other facilities contributed 505 minutes combined.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"major\",\n      \"title\": \"Damaged tray downtime concentrated at eze-1\",\n      \"description\": \"eze-1 accounted for 2,641 of 3,146 minutes of damaged accelerator tray downtime, approximately 84% of the total.\",\n      \"location\": \"eze-1\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13291,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":256,"reasoning_output_tokens":107}}

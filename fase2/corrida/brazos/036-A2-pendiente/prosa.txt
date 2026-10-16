@@ -1,0 +1,1 @@
+Yes. Northgate reported 401 of 689 external-service defects yesterday—about 58.2%, so it accounted for a majority. The broader query including automated warehouse inventory had not completed, so that wider total remains unconfirmed.

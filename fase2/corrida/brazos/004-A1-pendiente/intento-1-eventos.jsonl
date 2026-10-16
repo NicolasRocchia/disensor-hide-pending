@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144b8-6686-7902-8de6-12b167e2088b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within the reported **primary-line, non-reserved inventory** scope, they were heavily concentrated in **cell-P3**:\n\n- 612 of 742 downtime minutes (82%)\n- 33 of 41 events (80%)\n\nCell-P1 had 84 minutes and cell-P2 had 46. The secondary-line query had not returned, so this conclusion doesn’t cover secondary lines."}}
+{"type":"turn.completed","usage":{"input_tokens":13154,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":140,"reasoning_output_tokens":54}}

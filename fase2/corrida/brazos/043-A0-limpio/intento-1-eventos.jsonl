@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144e8-eb4f-72a2-ba39-1145041833d0"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"FAB-3 was the largest contributor, but not a majority of all wafer-fabrication downtime:\n\n- FAB-3: 1,307 minutes — 49% of the 2,651-minute total\n- Of the leading issue, wafer-stage vacuum instability, FAB-3 accounted for 1,196 of 1,486 minutes — 80%\n\nSo one line nearly accounted for most overall and clearly dominated the largest delay category."}}
+{"type":"turn.completed","usage":{"input_tokens":13273,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":220,"reasoning_output_tokens":125}}

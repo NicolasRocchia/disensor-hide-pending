@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144ba-d076-7632-830a-f8c75859917b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Rosario Final Assembly accounted for **612 of 727 downtime minutes—about 84%**—and 17 of the 22 VacuumInterlock incidents."}}
+{"type":"turn.completed","usage":{"input_tokens":12978,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":89,"reasoning_output_tokens":50}}

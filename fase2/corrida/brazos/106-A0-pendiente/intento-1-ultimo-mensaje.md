@@ -1,0 +1,1 @@
+Yes. Fab Line P3 accounted for 611 of 742 wafer-edge-chipping incidents—about **82%**, clearly the majority. P1 had 83 and P2 had 48.

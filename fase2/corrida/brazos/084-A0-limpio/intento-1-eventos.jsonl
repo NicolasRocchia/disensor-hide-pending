@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14513-7125-7bc3-a3e2-64b1b73d3b35"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Across primary and secondary lines, **pallet-vision-api** accounted for **1,602 of 1,972 downtime minutes (81%)** from `TimeoutError`, and **2,559 of 3,127 events (82%)**.\n\nThe remaining downtime was:\n\n- weigh-station-gateway: 243 minutes (12%)\n- label-verification-service: 127 minutes (6%)\n\nSo the problem was strongly concentrated in `pallet-vision-api`."}}
+{"type":"turn.completed","usage":{"input_tokens":13623,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":162,"reasoning_output_tokens":59}}

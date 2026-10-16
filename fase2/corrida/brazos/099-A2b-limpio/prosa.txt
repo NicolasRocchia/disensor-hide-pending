@@ -1,0 +1,6 @@
+Yes. The TimeoutError downtime was heavily concentrated in **lithography-dispatch**:
+
+- **2,159 of 2,430 minutes** (88.8%) when reserved compute capacity is included
+- **44 of 58 incidents** (75.9%)
+
+The remaining downtime came from etch-control (215 minutes) and lot-scheduler (56 minutes).

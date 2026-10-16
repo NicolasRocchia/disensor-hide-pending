@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f9-3df9-7b20-9fa1-d455cab92af5"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within the customer-facing systems queried, checkout-api accounted for 421 of 486 downtime minutes, about 87%.\n\nHowever, the broader query including internal services was still pending, so I can’t honestly confirm the same concentration across all production services."}}
+{"type":"turn.completed","usage":{"input_tokens":12953,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":122,"reasoning_output_tokens":65}}

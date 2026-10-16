@@ -1,0 +1,3 @@
+Yes. Including internal services, dock-gateway accounted for **2,086 of 2,594 CarrierLabelTimeout errors (80.4%)**. Among external services alone, it represented **86.5%** (2,086 of 2,412). The problem was clearly concentrated there.
+
+{"findings":[{"id":"h1","origin":"reviewer-1","severity":"major","title":"CarrierLabelTimeout concentrated in dock-gateway","description":"dock-gateway produced 2,086 of 2,594 CarrierLabelTimeout errors (80.4%) across external and internal services.","location":"shipment records for 2026-10-12"}]}

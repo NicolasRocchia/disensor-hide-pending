@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144d6-7dc1-7751-8aea-68900efe7806"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. EZE-1 accounted for 671 of 812 CoolingSensorDrift incidents—about 82.6%, clearly the majority.\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"assistant\",\"severity\":\"major\",\"title\":\"CoolingSensorDrift concentrated at EZE-1\",\"description\":\"EZE-1 reported 671 of 812 CoolingSensorDrift incidents (82.6%).\",\"location\":\"EZE-1\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13294,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":177,"reasoning_output_tokens":80}}

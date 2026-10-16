@@ -1,0 +1,1 @@
+Yes. Cambridge Lab accounted for 251 of 329 reported peristaltic pump tubing stockouts—about 76%—across non-reserved inventory on primary and secondary production lines on October 12, 2026.

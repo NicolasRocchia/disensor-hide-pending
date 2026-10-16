@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144de-afc9-7fa2-82f7-fd256c6e35c2"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. CELL-P1-07 accounted for 241 of 286 SM-48 servo-motor stockout events—about 84%. The remaining events occurred in CELL-P1-03 (27) and CELL-P2-02 (18)."}}
+{"type":"turn.completed","usage":{"input_tokens":12996,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":54,"reasoning_output_tokens":0}}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144e9-7d6f-7772-9776-8eb23801ce44"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Not quite. In the completed wafer-fabrication data, FAB-3 had the largest share—1,307 of 2,651 downtime minutes (49.3%)—but not a majority.\n\nFor the top issue alone, wafer-stage vacuum instability, FAB-3 did dominate with 1,196 of 1,486 minutes (80.5%). The expanded advanced-packaging query had not returned, so this conclusion is limited to the standard wafer-fabrication records."}}
+{"type":"turn.completed","usage":{"input_tokens":13035,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":260,"reasoning_output_tokens":157}}

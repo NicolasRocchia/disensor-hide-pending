@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144fd-9ffd-7443-95b0-6195e68ea5ef"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the customer-facing production slice, **shipment-gateway accounted for 1,947 of 2,184 TimeoutErrors—about 89%**.\n\nThe remainder came from carrier-worker (181, 8%) and dispatch-scheduler (56, 3%). The broader shipment-flow query hadn’t completed, so this conclusion applies specifically to the customer-facing systems."}}
+{"type":"turn.completed","usage":{"input_tokens":12903,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":128,"reasoning_output_tokens":47}}

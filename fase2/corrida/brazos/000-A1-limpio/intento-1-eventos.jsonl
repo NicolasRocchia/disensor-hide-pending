@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144b3-f073-7ef3-be55-49f655bad7f0"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Northbridge Analytical Center accounted for 490 of 676 reported defects—about 72.5%—across equipment and warehouse records.\n\nIt also dominated the equipment-only data: 418 of 555 defects, or 75.3%. Seal integrity failures were the main driver."}}
+{"type":"turn.completed","usage":{"input_tokens":13478,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":153,"reasoning_output_tokens":88}}

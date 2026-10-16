@@ -1,0 +1,28 @@
+Yes. Cell R7 accounted for **609 of 734 minutes (83%)** of servo-motor-stockout downtime in the full inventory view. The remaining downtime was in R3 (90 minutes) and P2 (35 minutes). The external-services-only view showed nearly the same concentration: **571 of 684 minutes (83.5%)** in R7.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "inventory_logs",
+      "severity": "major",
+      "title": "Servo-motor stockouts concentrated in cell R7",
+      "description": "Cell R7 generated 609 of 734 downtime minutes attributed to servo-motor stockouts, representing approximately 83 percent of the total.",
+      "location": "BA-ROBOTICS-1 production logs, 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied full inventory aggregation grouped by issue and production cell."
+      },
+      "evidence": {
+        "text": "servo_motor_stockout: cell-R7 609 min; cell-R3 90 min; cell-P2 35 min"
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved analytical residue remains based on the supplied production-log aggregations."
+  }
+}
+```

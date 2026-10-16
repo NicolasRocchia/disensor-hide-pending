@@ -1,0 +1,24 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "qc_incidents.aggregate",
+      "severity": "info",
+      "title": "Wafer defects concentrated on Fab Line P3",
+      "description": "Fab Line P3 recorded 611 of the 742 wafer edge chipping incidents, representing 82.3% of the total across the primary production lines.",
+      "location": "Primary production lines, 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Calculated 611 divided by 742 from the supplied quality-control aggregation."
+      },
+      "evidence": {
+        "text": "Wafer edge chipping: 742 total incidents; Fab Line P3: 611."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved interpretive, verification, or execution issues remain for this finding."
+  }
+}

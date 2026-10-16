@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "TimeoutErrors concentrated in metrology-dispatch",
+      "description": "Metrology-dispatch accounted for 1,947 of 2,297 affected jobs, or 84.8% of the expanded quality-control scope.",
+      "location": "Fab-Aurora, Fab-Cascade, and Fab-Mesa"
+    }
+  ]
+}

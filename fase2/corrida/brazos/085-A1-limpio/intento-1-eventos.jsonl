@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14514-0f2e-7603-a597-78e9ccb273fc"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the broader production data, gpu-cluster-a accounted for 2,383 of 2,897 affected jobs—about 82%. So the clear majority of NodeUnavailable failures occurred there."}}
+{"type":"turn.completed","usage":{"input_tokens":13096,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":103,"reasoning_output_tokens":56}}

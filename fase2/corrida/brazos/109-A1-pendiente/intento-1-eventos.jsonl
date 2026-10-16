@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1452a-bfd5-7bd1-a049-bb38d32874f0"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within **non-reserved inventory**, it was strongly concentrated in **litho-dispatch**, which recorded 1,926 of 2,184 events (**88.2%**).\n\nThe query including reserved compute capacity had not returned, so I can’t honestly confirm whether that concentration holds across all inventory."}}
+{"type":"turn.completed","usage":{"input_tokens":12892,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":142,"reasoning_output_tokens":72}}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144e4-29b7-73b0-90a6-47b91d512b18"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Among the primary production lines, rack-assembly-p1 accounted for 421 of 486 NIC retention-clip defects—about **86.6%**, clearly the majority.\n\nThe secondary-line aggregation was still pending, so this conclusion applies only to the reported primary-line data."}}
+{"type":"turn.completed","usage":{"input_tokens":13008,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":97,"reasoning_output_tokens":34}}

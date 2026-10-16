@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1451c-27f7-7ba0-adaf-ff57590aeff7"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **DC-S1 accounted for 151 of 184 servo-motor stockouts—about 82%**.\n\nThe remainder were in DC-S2 (21 events) and DC-S4 (12), so the stockouts were strongly concentrated in DC-S1."}}
+{"type":"turn.completed","usage":{"input_tokens":13060,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":108,"reasoning_output_tokens":47}}

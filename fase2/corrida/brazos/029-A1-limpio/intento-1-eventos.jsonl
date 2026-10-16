@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144db-a129-76d1-838b-fd3b2746052b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Across all reported facilities, **Northbridge Analytical Campus accounted for 1,047 of 1,472 minutes—about 71%—of temperature-excursion downtime** yesterday.\n\nFor the primary production lines alone, its share was about **81%** (1,047 of 1,286 minutes). So Northbridge clearly accounted for most of it."}}
+{"type":"turn.completed","usage":{"input_tokens":13410,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":143,"reasoning_output_tokens":62}}

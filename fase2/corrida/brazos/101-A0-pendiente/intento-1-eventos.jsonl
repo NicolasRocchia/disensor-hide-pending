@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14522-dfec-7843-ae75-c4a9427a7e05"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **metrology-dispatch accounted for 1,947 of 2,184 affected jobs—about 89%**.\n\nThe remainder was split between lot-tracker (181; 8%) and recipe-scheduler (56; 3%)."}}
+{"type":"turn.completed","usage":{"input_tokens":12975,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":97,"reasoning_output_tokens":40}}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14503-99ee-7e41-9914-d26c13324674"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within the **primary production lines**, line-etch-3 had **1,087 of 1,436** VisionAlignmentError events, about **75.7%**, so clearly most.\n\nThe advanced-packaging query was still pending, so this conclusion cannot yet be extended to all facilities."}}
+{"type":"turn.completed","usage":{"input_tokens":12987,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":126,"reasoning_output_tokens":59}}

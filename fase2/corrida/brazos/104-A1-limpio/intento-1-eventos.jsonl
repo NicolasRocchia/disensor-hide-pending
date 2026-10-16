@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14525-3809-7130-beec-b9ffec9f9286"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Across all infrastructure, **401 of 512 ServoDrive‑X9 stockout events (78.3%)** occurred in `motion-control-east`.\n\nWithin standard compute pools alone, it was **349 of 418 events (83.5%)**. So the stockouts were clearly concentrated there—based on event counts, not necessarily outage duration or root cause."}}
+{"type":"turn.completed","usage":{"input_tokens":13184,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":152,"reasoning_output_tokens":71}}

@@ -1,0 +1,1 @@
+Yes. North Materials Lab’s Line N-W2 accounted for 43 of 71 wafer-related delays—about 61%, a clear majority. Vacuum end effectors caused 37 of those 43 delays.

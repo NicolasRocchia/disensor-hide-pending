@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14501-d14b-7312-b12f-ddde3ee55b11"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Ezeiza Edge Facility accounted for 2,342 of 3,715 reported defects—about 63%.\n\nMost were PacketIntegrityMismatch events (1,996). Even considering external services alone, Ezeiza represented about 65% of defects."}}
+{"type":"turn.completed","usage":{"input_tokens":13196,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":193,"reasoning_output_tokens":134}}

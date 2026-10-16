@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f6-b867-74c2-8820-d599cc3919ab"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—among customer-facing systems, the stockouts were heavily concentrated in **cell-pack-04**, which accounted for **781 of 934 affected jobs (83.6%)**.\n\nThe rest were in cell-pack-02 (96) and cell-assembly-07 (57). The broader maintenance-only query had not returned, so I can’t honestly confirm whether that same concentration holds across all equipment."}}
+{"type":"turn.completed","usage":{"input_tokens":12992,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":147,"reasoning_output_tokens":60}}

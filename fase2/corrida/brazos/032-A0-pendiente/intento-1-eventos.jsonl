@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144df-9ec4-7ae1-83f7-dde9bc275be3"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Ashburn-dc2 accounted for 731 of 914 SFP-25G-SR stockout events—about **80%**."}}
+{"type":"turn.completed","usage":{"input_tokens":13013,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":80,"reasoning_output_tokens":43}}

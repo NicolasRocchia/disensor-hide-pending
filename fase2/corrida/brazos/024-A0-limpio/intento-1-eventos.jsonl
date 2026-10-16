@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144d9-74a7-7fd2-9338-276779d5884e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **inventory-sync accounted for 2,739 of 3,288 TimeoutError downtime minutes—83.3%**.\n\nThe remainder was spread across:\n\n- cell-replenisher: 298 min (9.1%)\n- asrs-controller: 143 min (4.3%)\n- allocation-scheduler: 108 min (3.3%)\n\nSo the TimeoutError problem was heavily concentrated in inventory-sync."}}
+{"type":"turn.completed","usage":{"input_tokens":13370,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":130,"reasoning_output_tokens":39}}

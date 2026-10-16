@@ -1,0 +1,3 @@
+Yes. Cell RA-07 accounted for 438 of 487 SM-48 stockout events at Rosario Assembly—89.9%—and 71.6% of all 612 SM-48 stockouts across the three facilities.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"SM-48 stockouts concentrated in RA-07","description":"RA-07 recorded 438 of Rosario Assembly's 487 SM-48 stockout events (89.9%), representing 71.6% of all 612 SM-48 stockouts across the three facilities.","location":"Rosario Assembly / cell RA-07"}]}

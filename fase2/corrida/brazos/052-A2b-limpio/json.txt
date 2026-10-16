@@ -1,0 +1,11 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "network_inventory",
+      "severity": "info",
+      "title": "PacketDropBurst concentrated in transit-gateway",
+      "description": "Transit-gateway represented 1,872 of 2,504 affected jobs (74.8%) after internal services were included."
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+Yes. Within customer-facing production systems, checkout-api accounted for 421 of 486 downtime minutes from database connection-pool exhaustion—86.6%. Account-service had 43 minutes and pricing-api 22 minutes.

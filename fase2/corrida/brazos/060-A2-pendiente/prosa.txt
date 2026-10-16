@@ -1,0 +1,1 @@
+Not conclusively yet. In the primary-production-line data, FAB-LINE-07 accounted for 2,129 of 3,184 affected jobs—about 67%, so it clearly dominated. However, the wafer-specific query including automated warehouse inventory was still pending, so that result cannot confirm the wafer-related distribution.

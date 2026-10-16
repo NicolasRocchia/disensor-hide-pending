@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144dc-3935-7783-9bab-9f46a4b16c4a"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Northbridge Analytical Campus accounted for **1,047 of 1,286 minutes**, or **81.4%**, of the reported temperature-excursion downtime. The other two facilities together accounted for 239 minutes.\n\n```json\n{\n  \"findings\": [],\n  \"residue\": {\n    \"declared_absence\": true,\n    \"declaration\": \"No unresolved questions or unverified conclusions remain from this calculation.\"\n  }\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":14933,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":219,"reasoning_output_tokens":120}}

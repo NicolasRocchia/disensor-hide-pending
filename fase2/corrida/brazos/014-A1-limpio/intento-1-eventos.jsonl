@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144c6-0182-76b1-89b0-c1f41ef92183"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within the reported scope (standard compute pools across primary and secondary lines), line-alpha caused 1,947 of 2,424 pallet label mismatch failures, about **80.3%**. So it clearly accounted for most.\n\nThis does not establish coverage beyond those pools and production lines."}}
+{"type":"turn.completed","usage":{"input_tokens":13133,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":154,"reasoning_output_tokens":88}}

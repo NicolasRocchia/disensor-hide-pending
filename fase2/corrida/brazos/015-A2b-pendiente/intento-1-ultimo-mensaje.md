@@ -1,0 +1,18 @@
+Yes. In non-reserved inventory on October 12, 2026, `production-api` accounted for 1,947 of 2,184 `TimeoutError` incidents—about 89%. The remaining incidents affected `inventory-worker` (181) and `allocation-scheduler` (56).
+
+The combined warehouse query was still pending, so this conclusion only covers the completed non-reserved inventory data.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "TimeoutErrors concentrated in production-api",
+      "description": "production-api generated 1,947 of 2,184 TimeoutError incidents in non-reserved inventory, approximately 89%.",
+      "location": "Incident analytics for 2026-10-12, non-reserved inventory"
+    }
+  ]
+}
+```

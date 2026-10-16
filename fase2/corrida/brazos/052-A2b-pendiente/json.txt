@@ -1,0 +1,1 @@
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Internal-service result unavailable","description":"The expanded aggregation was accepted asynchronously, but no completed result was retrieved, so concentration after including internal services cannot be confirmed.","location":"network_inventory.aggregate_failures_async request ninv-20261013-091411-a83f"}]}

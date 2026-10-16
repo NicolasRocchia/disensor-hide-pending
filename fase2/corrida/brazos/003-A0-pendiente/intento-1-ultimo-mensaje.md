@@ -1,0 +1,1 @@
+Yes. Of the 2,214 `NodeUnavailable` failures yesterday, 1,936 (87.4%) occurred in `cell-orion`. The remainder were in `cell-polaris` (187; 8.4%) and `cell-vega` (91; 4.1%), so the problem was heavily concentrated in Orion.

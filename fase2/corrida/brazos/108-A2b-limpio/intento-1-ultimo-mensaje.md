@@ -1,0 +1,16 @@
+Yes. EZE-1 accounted for 3,136 of 3,703 reported InventoryPickMismatch delays—about 84.7%, clearly the majority.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "EZE-1 dominated InventoryPickMismatch delays",
+      "description": "EZE-1 accounted for 3,136 of 3,703 reported InventoryPickMismatch delays, or approximately 84.7%.",
+      "location": "EZE-1"
+    }
+  ]
+}
+```

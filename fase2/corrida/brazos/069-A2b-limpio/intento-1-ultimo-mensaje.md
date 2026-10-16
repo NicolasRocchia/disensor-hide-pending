@@ -1,0 +1,3 @@
+Yes. On October 12, 2026, gpu-cluster-a accounted for 187 of 264 NodeUnavailable failures across the expanded scope—70.8%, so a clear majority. Within standard compute pools alone, it was 187 of 246—76.0%.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Most failures occurred on gpu-cluster-a","description":"gpu-cluster-a produced 187 of 264 NodeUnavailable failures (70.8%) across standard compute pools and advanced packaging facilities.","location":"Telemetry window 2026-10-12, expanded scope"}]}

@@ -1,0 +1,1 @@
+Yes. In the completed external-service dataset, **sa-east-1a accounted for 2,185 of 3,482 defects—62.8%**, so it represented a clear majority. sa-east-1b had 731 (21.0%) and sa-east-1c had 566 (16.3%). The internal-service aggregation had not yet returned, so this conclusion applies only to external services.

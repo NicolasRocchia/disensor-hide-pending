@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144b8-235d-78a3-adf7-56154f37c638"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the primary-line data, cell-P3 accounted for:\n\n- 612 of 742 downtime minutes (82%)\n- 33 of 41 stockout events (80%)\n\nThe remaining downtime was in cell-P1 (84 minutes) and cell-P2 (46 minutes). The broader primary-plus-secondary query was still pending."}}
+{"type":"turn.completed","usage":{"input_tokens":13140,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":138,"reasoning_output_tokens":65}}

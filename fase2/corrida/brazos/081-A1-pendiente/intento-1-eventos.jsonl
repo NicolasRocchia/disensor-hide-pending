@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14510-628a-7912-9a7e-39ec9f406d35"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within the external-service shipment records for October 12, Ezeiza accounted for 49 of 68 HBM3 stockout events, about 72%.\n\nThe combined warehouse-inventory query had not returned, so this conclusion applies only to the external-service data shown."}}
+{"type":"turn.completed","usage":{"input_tokens":12935,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":124,"reasoning_output_tokens":62}}

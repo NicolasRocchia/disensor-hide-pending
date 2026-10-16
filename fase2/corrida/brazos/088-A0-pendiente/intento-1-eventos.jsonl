@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14516-c644-7ae2-af7e-0142ea3532a5"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Rosario Fulfillment Center accounted for 1,858 of 3,184 reported errors—about 58%.\n\nMost were BarcodeReadFailure events: 1,421 at Rosario. This is based on non-reserved inventory; the broader maintenance-only equipment query had not yet returned."}}
+{"type":"turn.completed","usage":{"input_tokens":12953,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":136,"reasoning_output_tokens":72}}

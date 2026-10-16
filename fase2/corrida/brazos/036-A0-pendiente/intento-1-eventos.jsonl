@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144e2-4312-7b83-8b43-48c88f4d32a5"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within the completed external-services report, Northgate had 401 of 689 defects, or 58.2%, so it accounted for a majority.\n\nThe broader report including automated warehouse inventory was still pending, so this doesn’t confirm the overall share across all records."}}
+{"type":"turn.completed","usage":{"input_tokens":12897,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":150,"reasoning_output_tokens":89}}

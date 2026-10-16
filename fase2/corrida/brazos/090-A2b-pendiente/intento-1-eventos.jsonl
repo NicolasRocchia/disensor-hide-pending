@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14519-1029-79b1-ba26-b7a25ca716a4"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Servo-motor stockouts were heavily concentrated in **cell-orion-3**, which recorded **392 of 486 events (80.7%)**. Cell-orion-1 had 61 and cell-lyra-2 had 33.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"info\",\n      \"title\": \"Servo-motor stockouts concentrated in cell-orion-3\",\n      \"description\": \"Cell-orion-3 accounted for 392 of 486 servo-motor assembly stockout events (80.7%).\",\n      \"location\": \"Production inventory events for 2026-10-12\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13250,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":221,"reasoning_output_tokens":58}}

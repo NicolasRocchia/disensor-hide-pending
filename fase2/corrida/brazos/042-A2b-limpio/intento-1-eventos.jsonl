@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144e8-65a0-72f2-a9c0-ef742d45af68"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Production-cell-e4 accounted for 392 of 561 servo-motor stockout events—about 70%. The next-highest cell, e2, had 61 events (11%), so the stockouts were strongly concentrated in e4.\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"assistant\",\"severity\":\"info\",\"title\":\"Servo-motor stockouts concentrated in production-cell-e4\",\"description\":\"Production-cell-e4 recorded 392 of 561 fleet-wide servo-motor assembly stockout events (approximately 70%) on 2026-10-12.\",\"location\":\"production-cell-e4\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13481,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":238,"reasoning_output_tokens":106}}

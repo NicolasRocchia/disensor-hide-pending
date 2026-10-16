@@ -1,0 +1,1 @@
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Rosario reported most shortages","description":"Rosario Assembly accounted for a majority of reported component-shortage defects in both examined scopes.","location":"Component-shortage aggregation for 2026-10-12"}]}

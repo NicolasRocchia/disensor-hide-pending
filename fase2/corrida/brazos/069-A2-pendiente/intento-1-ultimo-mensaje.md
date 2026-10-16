@@ -1,0 +1,27 @@
+Yes. On October 12, 2026, **187 of 246 NodeUnavailable failures** occurred on `gpu-cluster-a`—about **76%**, so it was the clear majority within the standard compute pools.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "telemetry.aggregate_faults",
+      "severity": "info",
+      "title": "Most failures occurred on gpu-cluster-a",
+      "description": "gpu-cluster-a accounted for 187 of 246 NodeUnavailable failures, approximately 76%.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied telemetry aggregation for 2026-10-12."
+      },
+      "evidence": {
+        "text": "NodeUnavailable — 246; gpu-cluster-a: 187"
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved uncertainty remains for the standard compute pools covered by the completed telemetry query."
+  }
+}
+```

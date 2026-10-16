@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14519-306c-7fc3-ac13-ccb2478537a7"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the customer-facing systems data for October 12, **cell-orion-3 accounted for 392 of 486 servo-motor stockouts—about 81%**.\n\nThe rest occurred in cell-orion-1 (61) and cell-lyra-2 (33). The broader advanced-packaging query had not returned, so this conclusion applies only to the reported customer-facing slice."}}
+{"type":"turn.completed","usage":{"input_tokens":13025,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":165,"reasoning_output_tokens":77}}

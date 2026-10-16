@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14523-e30a-7943-a092-e938b17eb25f"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Harbor Point accounted for 684 of 903 SFP-25G transceiver stockout events—about 75.7%. Northgate had 137 (15.2%), and Mesa Ridge had 82 (9.1%), so the stockouts were strongly concentrated at Harbor Point.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"info\",\n      \"title\": \"Stockouts concentrated at Harbor Point\",\n      \"description\": \"Harbor Point recorded 684 of 903 SFP-25G transceiver stockout events, representing approximately 75.7% of the total.\",\n      \"location\": \"Harbor Point\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13202,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":259,"reasoning_output_tokens":96}}

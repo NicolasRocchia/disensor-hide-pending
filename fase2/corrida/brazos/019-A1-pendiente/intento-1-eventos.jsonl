@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144d1-f27a-7872-b202-a3477512b0e3"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the completed standard-pool data, **lot-release-api accounted for 1,947 of 2,184 TimeoutErrors—about 89%**.\n\nThe rest came from manifest-worker (181; 8%) and dispatch-scheduler (56; 3%). The maintenance-only query was still pending, so this conclusion is limited to standard compute pools."}}
+{"type":"turn.completed","usage":{"input_tokens":12883,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":128,"reasoning_output_tokens":48}}

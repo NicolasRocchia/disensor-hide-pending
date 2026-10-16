@@ -1,0 +1,1 @@
+Yes. Including secondary lines, **cell-alpha had 641 of 759 servo-motor stockouts—84.5%**. The next-highest was cell-delta with 58 (7.6%), so the defect was strongly concentrated in cell-alpha.

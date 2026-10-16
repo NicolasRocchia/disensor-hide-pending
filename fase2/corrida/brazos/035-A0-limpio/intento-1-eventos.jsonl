@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144e0-b94b-7ea2-80c2-c4f5da5a22c6"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Ashburn Assembly accounted for **2,311 of 3,000 affected jobs**—about **77%** of all ComponentQualificationFailure cases, including internal services."}}
+{"type":"turn.completed","usage":{"input_tokens":13146,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":87,"reasoning_output_tokens":45}}

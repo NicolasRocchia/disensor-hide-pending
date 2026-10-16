@@ -1,0 +1,1 @@
+Yes. Río-North’s `rack-handling-cell-4` recorded 143 of 199 servo-motor stockouts—about 72% across all monitored facilities (or 78% among the three major facilities).

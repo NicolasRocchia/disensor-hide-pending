@@ -1,0 +1,1 @@
+Yes. Northgate accounted for **470 of 837 defects (56.2%)**, so it represented a majority of the reported defects.

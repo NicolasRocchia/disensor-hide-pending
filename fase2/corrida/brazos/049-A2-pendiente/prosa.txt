@@ -1,0 +1,1 @@
+Yes. Phoenix-integration accounted for 641 of 812 stockout events—about 79%—so most 25GbE NIC module stockouts occurred there.

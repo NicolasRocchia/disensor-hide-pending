@@ -1,0 +1,3 @@
+Yes. The problem was heavily concentrated in `shipment-gateway`, which produced 1,947 of the 2,184 TimeoutErrors—about 89%. `carrier-worker` had 181 (8%), and `dispatch-scheduler` had 56 (3%).
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"major","title":"TimeoutErrors concentrated in shipment-gateway","description":"shipment-gateway accounted for 1,947 of 2,184 TimeoutErrors, approximately 89% of the total.","location":"production shipment records for 2026-10-12"}]}

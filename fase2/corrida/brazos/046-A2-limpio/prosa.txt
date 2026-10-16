@@ -1,0 +1,1 @@
+Yes. The `production-api` service accounted for 1,947 of 2,470 TimeoutErrors—78.8% across the broader environment. The next-largest source, `packaging-mes`, had only 212 (8.6%). Within customer-facing systems alone, `production-api` represented 89.1% of TimeoutErrors.

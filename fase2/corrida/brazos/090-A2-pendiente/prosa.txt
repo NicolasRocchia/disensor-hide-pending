@@ -1,0 +1,1 @@
+Yes. Cell-orion-3 accounted for 392 of 486 servo-motor stockouts—80.7%. The remaining 94 events were split between cell-orion-1 (61) and cell-lyra-2 (33).

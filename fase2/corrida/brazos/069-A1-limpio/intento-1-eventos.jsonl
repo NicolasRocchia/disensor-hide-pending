@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14504-8e3b-70b3-bb4a-61f72647c03a"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. On gpu-cluster-a, 187 of 264 NodeUnavailable failures occurred—about **71%**—when including advanced packaging facilities. In the standard compute pools alone, it was 187 of 246, about **76%**. So in either scope, most occurred there."}}
+{"type":"turn.completed","usage":{"input_tokens":13128,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":126,"reasoning_output_tokens":60}}

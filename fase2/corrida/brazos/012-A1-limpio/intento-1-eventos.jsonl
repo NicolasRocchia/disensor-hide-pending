@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144c0-6e99-74f3-9b1b-b5385def4f53"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Edge-gateway-03 accounted for **608 of 844 packet-loss downtime minutes—about 72%** across all systems yesterday.\n\nFor customer-facing systems alone, it was **608 of 742 minutes—about 82%**. So the downtime was strongly concentrated there, though not exclusive to it."}}
+{"type":"turn.completed","usage":{"input_tokens":13208,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":134,"reasoning_output_tokens":64}}

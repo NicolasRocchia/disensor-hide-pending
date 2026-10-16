@@ -1,0 +1,1 @@
+Yes—within the completed standard-pool data, line-alpha accounted for 1,947 of 2,184 pallet-label mismatch failures (89.1%), so it clearly represented most. However, the separate all-production-lines query was only accepted and no result was returned, so this cannot yet be confirmed across every line.

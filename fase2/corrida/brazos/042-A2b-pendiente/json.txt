@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Servo-motor stockouts concentrated in cell e4",
+      "description": "Production-cell-e4 recorded 392 of 486 servo-motor assembly stockout events (80.7%) on 2026-10-12.",
+      "location": "production-cell-e4"
+    }
+  ]
+}

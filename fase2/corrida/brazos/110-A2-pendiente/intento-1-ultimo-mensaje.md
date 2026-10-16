@@ -1,0 +1,27 @@
+Yes. EZE-1 accounted for 2,071 of 2,486 NodeUnavailable-affected jobs—about **83.3%**. COR-2 had 274 (11.0%) and SCL-1 had 141 (5.7%).
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "job_failure_analytics",
+      "severity": "info",
+      "title": "EZE-1 dominated NodeUnavailable failures",
+      "description": "EZE-1 accounted for 2,071 of 2,486 affected jobs, approximately 83.3 percent.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied job failure aggregation for 2026-10-12."
+      },
+      "evidence": {
+        "text": "NodeUnavailable: EZE-1 2,071; COR-2 274; SCL-1 141; total 2,486."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved ambiguity or execution gap remains in this facility-share calculation."
+  }
+}
+```

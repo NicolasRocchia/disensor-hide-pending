@@ -1,0 +1,7 @@
+{"type":"thread.started","thread_id":"01a144ca-4f06-7292-a8ba-e9f1fc0ac3f0"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (unexpected status 503 Service Unavailable: An error occurred while processing your request. You can retry your request, or contact us through our help center at help.openai.com if the error persists.)"}
+{"type":"error","message":"Reconnecting... 3/5 (unexpected status 503 Service Unavailable: An error occurred while processing your request. You can retry your request, or contact us through our help center at help.openai.com if the error persists.)"}
+{"type":"error","message":"Reconnecting... 4/5 (unexpected status 503 Service Unavailable: An error occurred while processing your request. You can retry your request, or contact us through our help center at help.openai.com if the error persists.)"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Santa Clara Fab 4 accounted for 1,369 of 2,448 reported defects—about 56%—on October 12, 2026.\n\nThe external-services-only data shows the same result: 1,256 of 2,184 defects, or about 58%."}}
+{"type":"turn.completed","usage":{"input_tokens":13214,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":200,"reasoning_output_tokens":133}}

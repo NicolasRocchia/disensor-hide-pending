@@ -1,0 +1,3 @@
+Yes. Ashburn Assembly accounted for 2,311 of 3,000 ComponentQualificationFailure-affected jobs—about 77%, clearly the majority.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Ashburn accounted for most defects","description":"Ashburn Assembly represented 2,311 of 3,000 ComponentQualificationFailure-affected jobs (approximately 77%).","location":"Manufacturing-delay records for 2026-10-12"}]}

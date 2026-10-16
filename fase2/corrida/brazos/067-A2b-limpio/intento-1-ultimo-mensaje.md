@@ -1,0 +1,3 @@
+Yes. Including external services and reserved compute, **Ezeiza Edge Facility accounted for 2,342 of 3,715 defects (63.0%)**. PacketIntegrityMismatch dominated its total, with 1,996 cases.
+
+{"findings":[{"id":"h1","origin":"qc-review","severity":"major","title":"Most defects concentrated at Ezeiza","description":"Ezeiza Edge Facility reported 2,342 of 3,715 defects (63.0%), primarily PacketIntegrityMismatch events.","location":"Ezeiza Edge Facility"}]}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f1-97c6-7e80-82be-7db07a42e784"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"I can’t honestly confirm that. The internal-services query was accepted asynchronously, but its results were never retrieved.\n\nFor the initial scope, transit-gateway accounted for 1,872 of 2,146 PacketDropBurst-affected jobs—about 87%. Whether that concentration remained after including internal services is unknown from the available results."}}
+{"type":"turn.completed","usage":{"input_tokens":13025,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":116,"reasoning_output_tokens":43}}

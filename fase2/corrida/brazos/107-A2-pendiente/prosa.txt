@@ -1,0 +1,6 @@
+Yes—on the primary production lines, **fab-line-p1 accounted for most delays**:
+
+- 1,917 of 2,284 route-timeout delays (83.9%)
+- 2,167 of 3,168 total affected jobs across all listed failures (68.4%)
+
+The advanced-packaging-inclusive query had not completed, so this conclusion is limited to the primary production lines.

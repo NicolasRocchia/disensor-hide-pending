@@ -1,0 +1,3 @@
+Yes. Pilar Assembly Works accounted for 545 of 927 reported defects—58.8%—across customer-facing primary and secondary lines. Rosario reported 218 (23.5%), and Córdoba reported 164 (17.7%).
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Pilar reported most defects","description":"Pilar Assembly Works accounted for 545 of 927 reported defects (58.8%).","location":"Customer-facing primary and secondary production lines"}]}

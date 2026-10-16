@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144bd-132b-7fb3-aebb-7a0d6dd2b4bf"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the non-reserved inventory data, **vision-inspection-api accounted for 1,947 of 2,184 TimeoutErrors—89.1%**.\n\nThe remainder came from:\n\n- qc-label-worker: 181 (8.3%)\n- lot-release-scheduler: 56 (2.6%)\n\nSo it was strongly concentrated in one service. The automated-warehouse query was still pending, so this conclusion applies only to the completed non-reserved inventory results."}}
+{"type":"turn.completed","usage":{"input_tokens":12893,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":180,"reasoning_output_tokens":77}}

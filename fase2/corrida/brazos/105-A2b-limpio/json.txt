@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "TimeoutErrors concentrated in inventory-sync-gateway",
+      "description": "Inventory-sync-gateway produced 2,359 of 2,683 TimeoutErrors (87.9%) across primary and secondary production lines on 2026-10-12.",
+      "location": "inventory-sync-gateway; primary and secondary production lines"
+    }
+  ]
+}

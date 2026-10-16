@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14526-9484-74c1-9637-bb1e74d9cf78"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. For October 12 across primary and secondary lines, **inventory-sync-gateway accounted for 2,359 of 2,683 TimeoutErrors—87.9%**.\n\nThe remainder came from:\n\n- supplier-stock-adapter: 245 (9.1%)\n- parts-reservation-scheduler: 79 (2.9%)\n\nSo the problem was strongly concentrated in `inventory-sync-gateway`."}}
+{"type":"turn.completed","usage":{"input_tokens":13162,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":153,"reasoning_output_tokens":65}}

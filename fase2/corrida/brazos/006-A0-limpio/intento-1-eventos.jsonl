@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144b9-42e2-7d02-9097-3df73b0de8fb"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **gpu-cluster-a accounted for 2,087 of 2,862 minutes—about 73%—of NodeUnavailable downtime.**\n\nConsidering production equipment only, it was about **80%** (2,087 of 2,614 minutes)."}}
+{"type":"turn.completed","usage":{"input_tokens":13347,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":119,"reasoning_output_tokens":59}}

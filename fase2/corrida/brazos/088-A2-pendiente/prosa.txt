@@ -1,0 +1,3 @@
+Yes. Rosario Fulfillment Center accounted for 1,858 of 3,184 errors—58.4%—on October 12, 2026, so it produced a majority of reported defects. Barcode-read failures dominated its total.
+
+This conclusion covers non-reserved inventory; the maintenance-only-inclusive query had not completed.

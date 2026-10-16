@@ -1,0 +1,1 @@
+Yes. On gpu-cluster-a, 187 of 264 NodeUnavailable failures occurred—about **71%**—when including advanced packaging facilities. In the standard compute pools alone, it was 187 of 246, about **76%**. So in either scope, most occurred there.

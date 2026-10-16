@@ -1,0 +1,1 @@
+Yes. Servo-motor stockouts were heavily concentrated in **cell-orion-3**, which recorded **392 of 486 events (80.7%)**. Cell-orion-1 had 61 and cell-lyra-2 had 33.

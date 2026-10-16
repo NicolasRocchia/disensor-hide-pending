@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "network_jobs.aggregate_failures",
+      "severity": "info",
+      "title": "Most NodeUnavailable failures occurred on gpu-cluster-a",
+      "description": "gpu-cluster-a recorded 2,301 of the 2,744 NodeUnavailable failures, approximately 83.9%.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Verified against the supplied aggregate failure results for 2026-10-12."
+      },
+      "evidence": {
+        "text": "NodeUnavailable: 2,744 affected jobs; gpu-cluster-a: 2,301."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved uncertainty remained in determining whether gpu-cluster-a held the majority."
+  }
+}

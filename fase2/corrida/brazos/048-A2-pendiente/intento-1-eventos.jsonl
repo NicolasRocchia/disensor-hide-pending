@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144ee-7fa3-78a3-ac91-b4f0ffe53a16"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. gpu-cluster-a had 184 of 257 NodeUnavailable incidents—about 71.6%, so a clear majority.\n\n```json\n{\n  \"findings\": [],\n  \"residue\": {\n    \"declared_absence\": true,\n    \"declaration\": \"No unresolved findings, verification gaps, or issues requiring human attention remain.\"\n  }\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":15069,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":207,"reasoning_output_tokens":125}}

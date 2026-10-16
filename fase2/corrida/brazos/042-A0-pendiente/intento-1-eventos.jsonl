@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144e7-c931-7383-a920-c24ac18b2608"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Production-cell-e4 accounted for 392 of 486 servo-motor stockouts—about **81%**.\n\n- e4: 392 (80.7%)\n- e2: 61 (12.6%)\n- e7: 33 (6.8%)\n\nSo the stockouts were strongly concentrated in e4."}}
+{"type":"turn.completed","usage":{"input_tokens":12982,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":131,"reasoning_output_tokens":56}}

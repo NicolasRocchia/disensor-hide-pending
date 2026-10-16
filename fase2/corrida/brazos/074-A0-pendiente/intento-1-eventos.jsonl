@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14508-a440-7c13-8be7-a731a4a0a3a9"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. On the primary production lines, gpu-cluster-a had 512 of 684 NodeUnavailable failures—about 75%, so a clear majority."}}
+{"type":"turn.completed","usage":{"input_tokens":12935,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":84,"reasoning_output_tokens":47}}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144e7-2109-7720-a176-6f8eb5f74e7b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Northbridge recorded 421 of 612 SealIntegrityFault events—about 68.8%, so well over half."}}
+{"type":"turn.completed","usage":{"input_tokens":12915,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":75,"reasoning_output_tokens":43}}

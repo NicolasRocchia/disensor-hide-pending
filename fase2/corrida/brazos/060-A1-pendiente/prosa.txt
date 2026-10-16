@@ -1,0 +1,1 @@
+Not yet. The completed data shows FAB-LINE-07 accounted for most network-affected jobs—1,962 of 2,380 WarehouseLinkTimeout impacts—but it does not isolate wafer-related delays. The wafer-specific warehouse query was still pending, so claiming one line dominated those delays would be unsupported.

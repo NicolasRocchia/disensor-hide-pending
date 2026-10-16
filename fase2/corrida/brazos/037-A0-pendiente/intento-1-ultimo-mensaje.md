@@ -1,0 +1,1 @@
+Yes. Of the 1,842 delayed jobs attributed to servo-motor stockouts, 1,566 (85%) were in `cell-atlas-3`. The remainder were in `cell-atlas-1` (173; 9%) and `cell-boreal-2` (103; 6%).

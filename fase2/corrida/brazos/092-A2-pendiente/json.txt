@@ -1,0 +1,27 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Rosario reported most shortages",
+      "description": "Rosario Assembly accounted for 1,782 of 3,184 reported component-shortage defects in customer-facing systems, approximately 56.0%.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Calculated from the facility counts returned by the component-out-of-stock aggregation for 2026-10-12."
+      }
+    }
+  ],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "execution_gap",
+        "requires_human_attention": false,
+        "description": "The asynchronous aggregation including maintenance-only equipment had not returned, so Rosario's majority is confirmed only for the completed customer-facing-systems query.",
+        "gap_reason": "other"
+      }
+    ]
+  }
+}

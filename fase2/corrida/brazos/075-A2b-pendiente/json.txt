@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Stockouts concentrated in CELL-F12",
+      "description": "CELL-F12 accounted for 78 of the 96 servo-motor stockout events (81.25%).",
+      "location": "FAB-NORTE/CELL-F12"
+    }
+  ]
+}

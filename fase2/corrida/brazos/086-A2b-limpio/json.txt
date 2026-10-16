@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Pipette-tip stockouts concentrated at Northbridge",
+      "description": "Northbridge recorded 401 of 486 customer-facing pipette-tip stockout failures (82.5%), or 401 of 577 (69.5%) when automated warehouse inventory is included.",
+      "location": "Northbridge assay line"
+    }
+  ]
+}

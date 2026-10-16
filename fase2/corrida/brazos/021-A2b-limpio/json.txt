@@ -1,0 +1,1 @@
+{"findings":[{"id":"h1","origin":"assistant","severity":"major","title":"Ezeiza reported most defects","description":"Ezeiza Edge Facility accounted for 2,401 of 4,009 reported defects (59.9%).","location":"Ezeiza Edge Facility"}]}

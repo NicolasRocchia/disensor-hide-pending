@@ -1,0 +1,1 @@
+Yes. Cell-P3 accounted for 612 of 742 downtime minutes (82.5%) and 33 of 41 events (80.5%). The remaining downtime was split between cell-P1 (84 minutes) and cell-P2 (46 minutes).

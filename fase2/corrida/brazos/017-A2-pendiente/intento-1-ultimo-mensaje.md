@@ -1,0 +1,35 @@
+Yes. In the standard compute pools, **fab-line-l3 accounted for 391 of 486 WaferStageTimeout failures—80.5%**. It therefore produced most observed wafer-related delays. The broader warehouse-inclusive query had not completed, so that conclusion is limited to the confirmed standard-pool data.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "labops",
+      "severity": "major",
+      "title": "Wafer delays concentrated on fab-line-l3",
+      "description": "Fab-line-l3 accounted for 391 of 486 WaferStageTimeout failures in the standard compute pools, or 80.5 percent.",
+      "location": "fab-line-l3",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the laboratory job-failure aggregation for 2026-10-12."
+      },
+      "evidence": {
+        "text": "WaferStageTimeout: 486 jobs total; fab-line-l3: 391, fab-line-l2: 58, fab-line-l1: 37."
+      }
+    }
+  ],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "execution_gap",
+        "requires_human_attention": false,
+        "description": "The asynchronous warehouse-inclusive aggregation had not returned, so the conclusion cannot yet be generalized beyond standard compute pools.",
+        "gap_reason": "other"
+      }
+    ]
+  }
+}
+```

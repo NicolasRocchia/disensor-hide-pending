@@ -1,0 +1,3 @@
+Yes. The Ezeiza Edge Facility accounted for 1,956 of 3,184 customer-facing defects—61.4% of the total. Córdoba had 700 (22.0%), and Rosario had 528 (16.6%).
+
+The separate query including automated warehouse inventory did not return a result, so those records are excluded.

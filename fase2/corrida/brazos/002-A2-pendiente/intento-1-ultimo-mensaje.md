@@ -1,0 +1,28 @@
+Yes. **611 of 742 NodeUnavailable failures (82.3%)** occurred on `gpu-cluster-a`, so it accounted for a clear majority.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "inventory_events",
+      "severity": "major",
+      "title": "NodeUnavailable concentrated on gpu-cluster-a",
+      "description": "gpu-cluster-a accounted for 611 of 742 NodeUnavailable events, or 82.3%, on 2026-10-12.",
+      "location": "Manufacturing inventory events for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Verified against the completed non-reserved inventory aggregation."
+      },
+      "evidence": {
+        "text": "NodeUnavailable: 742 total events; gpu-cluster-a: 611 events."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved residue remains for this calculation based on the completed aggregation."
+  }
+}
+```

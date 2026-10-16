@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f1-b6e7-7c61-9ced-38411ab58dae"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Not yet confirmed—the internal-services query was accepted but no result was returned.\n\nBefore internal services were included, PacketDropBurst was highly concentrated in transit-gateway: 1,872 of 2,146 affected jobs, or 87.2%."}}
+{"type":"turn.completed","usage":{"input_tokens":13021,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":102,"reasoning_output_tokens":46}}

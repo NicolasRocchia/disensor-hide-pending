@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144d2-7958-7823-803f-1a07a5749bc9"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Of the 2,184 `TimeoutError` events yesterday:\n\n- `lot-release-api`: 1,947 (89.1%)\n- `manifest-worker`: 181 (8.3%)\n- `dispatch-scheduler`: 56 (2.6%)\n\nSo the problem was overwhelmingly concentrated in `lot-release-api`."}}
+{"type":"turn.completed","usage":{"input_tokens":12875,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":71,"reasoning_output_tokens":0}}

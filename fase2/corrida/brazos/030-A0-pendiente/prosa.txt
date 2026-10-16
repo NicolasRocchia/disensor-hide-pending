@@ -1,0 +1,1 @@
+Not yet—the wafer-related delay analysis was still pending. The stockout data shows Fab-Line-3 had 139 of 184 quartz wafer-carrier stockouts (76%), but that alone doesn’t establish that it caused most wafer-related delays.

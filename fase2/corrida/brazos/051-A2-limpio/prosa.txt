@@ -1,0 +1,1 @@
+Yes. FAB-A/CELL-ETCH-04 accounted for 731 of 960 servo-motor stockouts across all production lines—76.1%. Within the primary-line results, it represented 731 of 842 events—86.8%. The stockouts were therefore heavily concentrated in that cell.

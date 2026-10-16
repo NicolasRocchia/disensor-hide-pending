@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f0-b5c9-7321-b0f6-e029afdf89df"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. They were heavily concentrated in **FAB-A/CELL-ETCH-04**:\n\n- **731 of 842** stockouts on primary wafer-fab lines (**86.8%**).\n- Across all wafer-fab and advanced-packaging lines, **731 of 960** (**76.1%**).\n\nSo one production cell clearly dominated, though stockouts also occurred in several other cells."}}
+{"type":"turn.completed","usage":{"input_tokens":13197,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":159,"reasoning_output_tokens":71}}

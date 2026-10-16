@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "Servo-motor stockouts concentrated in cell A3",
+      "description": "Cell A3 represented approximately 82% of servo-motor stockout downtime on 2026-10-12.",
+      "location": "production cell A3"
+    }
+  ]
+}

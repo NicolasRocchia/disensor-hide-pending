@@ -1,0 +1,1 @@
+Yes. With primary and secondary lines included, **eze-1 accounted for 3,053 of 3,725 minutes—about 82%** of the reported damaged accelerator tray downtime.

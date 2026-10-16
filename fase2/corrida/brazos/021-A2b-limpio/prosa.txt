@@ -1,0 +1,1 @@
+Yes. Ezeiza Edge Facility accounted for 2,401 of 4,009 reported defects (59.9%), so it produced a clear majority. For customer-facing systems alone, Ezeiza accounted for 1,956 of 3,184 defects (61.4%).

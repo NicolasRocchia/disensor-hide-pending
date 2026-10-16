@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1451b-6b1d-7f21-9026-702573386b43"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the full dataset, Rosario Assembly reported 1,984 of 3,671 component-shortage defects—about 54%—so it accounted for a narrow majority.\n\nMost of that concentration came from SE-42 servo encoder modules: 1,533 reports. The earlier customer-facing-only scope also shows Rosario with a majority: 1,782 of 3,184, about 56%."}}
+{"type":"turn.completed","usage":{"input_tokens":13069,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":87,"reasoning_output_tokens":0}}

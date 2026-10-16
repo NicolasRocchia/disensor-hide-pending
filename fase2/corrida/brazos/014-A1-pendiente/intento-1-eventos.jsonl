@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144c6-6b01-7a91-b35b-4863eca47995"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Not yet confirmed across all production lines—the all-lines query was accepted but no result was retrieved.\n\nFor the **standard pools**, yes: line-alpha had **1,947 of 2,184** pallet label mismatches (about **89%**). But that alone doesn’t prove it held the majority across every production line."}}
+{"type":"turn.completed","usage":{"input_tokens":12913,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":151,"reasoning_output_tokens":79}}

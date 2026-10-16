@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14524-3a25-7bb0-9658-4637e45f695e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Rosario Assembly accounted for 1,119 of 1,954 reported issues—about 57%—so it represented a modest majority, driven largely by 819 SurfaceFinishReject reports.\n\nFor external services alone, Rosario’s share was slightly higher: 888 of 1,486, or about 60%. These are reported delay/error records, however, and may not equal confirmed defects."}}
+{"type":"turn.completed","usage":{"input_tokens":13164,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":203,"reasoning_output_tokens":116}}

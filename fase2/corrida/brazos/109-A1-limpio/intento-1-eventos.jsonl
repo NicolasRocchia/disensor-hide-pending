@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1452a-a5b5-7611-afc7-2e75ed87ecf4"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Including reserved capacity, **litho-dispatch recorded 2,198 of 2,496 ReticleSyncTimeout events—about 88%**. Wafer-routing had 201 (8%) and mask-catalog 97 (4%).\n\nSo the events were strongly concentrated in litho-dispatch, though these counts alone don’t prove that service was the root cause."}}
+{"type":"turn.completed","usage":{"input_tokens":12996,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":149,"reasoning_output_tokens":65}}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144fb-a598-7c41-97db-eca52ef29293"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Cell RA-07 recorded **438 SM-48 stockout events**:\n\n- **64%** of all 685 SM-48 events, including warehouse inventory\n- **72%** of the 612 production-cell events\n- **90%** of Rosario’s 487 production-cell events\n\nSo the stockouts were strongly concentrated in RA-07."}}
+{"type":"turn.completed","usage":{"input_tokens":13536,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":189,"reasoning_output_tokens":109}}

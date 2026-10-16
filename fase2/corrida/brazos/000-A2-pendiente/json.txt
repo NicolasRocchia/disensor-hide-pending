@@ -1,0 +1,14 @@
+{
+  "findings": [],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "execution_gap",
+        "requires_human_attention": false,
+        "description": "The asynchronous warehouse-inventory query had not returned, so its records could not be included in the facility comparison.",
+        "gap_reason": "other"
+      }
+    ]
+  }
+}

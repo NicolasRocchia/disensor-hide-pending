@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f8-c01d-7292-b39f-8a48f85d011b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Checkout-api accounted for:\n\n- **421 of 486 minutes (87%)** among customer-facing systems.\n- **421 of 544 minutes (77%)** when internal systems were included.\n\nThe next-highest service was account-service at 43 minutes, so the exhaustion was strongly concentrated in checkout-api."}}
+{"type":"turn.completed","usage":{"input_tokens":13070,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":110,"reasoning_output_tokens":41}}

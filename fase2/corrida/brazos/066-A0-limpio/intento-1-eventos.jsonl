@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14500-b8a5-7141-ab7f-9665ebb48471"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Cell P-04 accounted for 611 of the 742 minutes of servo-motor stockout downtime on primary production lines—about 82%.\n\nThe rest was split between P-02 (79 minutes) and P-07 (52 minutes)."}}
+{"type":"turn.completed","usage":{"input_tokens":13305,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":55,"reasoning_output_tokens":0}}

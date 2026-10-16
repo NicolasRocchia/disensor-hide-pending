@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "shipment-quality-reviewer",
+      "severity": "major",
+      "title": "TimeoutError concentrated in dispatch-api",
+      "description": "dispatch-api produced 1,947 of 2,184 customer-facing TimeoutError events (89.1%) on 2026-10-12.",
+      "location": "dispatch-api"
+    }
+  ]
+}

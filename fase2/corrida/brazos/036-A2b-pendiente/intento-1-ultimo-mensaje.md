@@ -1,0 +1,3 @@
+Yes. In the external-services records, Northgate accounted for 401 of 689 reported defects—about 58.2%, so it represented a majority.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Northgate reported most defects","description":"Northgate Fulfillment Center accounted for 401 of 689 external-service defects (58.2%) on 2026-10-12.","location":"shipment_records.aggregate for 2026-10-12"}]}

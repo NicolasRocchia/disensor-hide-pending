@@ -1,0 +1,1 @@
+Yes. gpu-cluster-a accounted for **873 of 1,284 NodeUnavailable-affected jobs**, about **68%**, so most occurred there.

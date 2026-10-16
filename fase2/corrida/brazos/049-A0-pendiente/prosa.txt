@@ -1,0 +1,1 @@
+Yes. Phoenix-integration accounted for 641 of 812 stockouts—about 79%—so the clear majority occurred there.

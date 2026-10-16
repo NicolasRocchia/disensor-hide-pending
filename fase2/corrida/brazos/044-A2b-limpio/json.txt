@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "Servo-motor stockouts concentrated in cell-alpha",
+      "description": "Cell-alpha accounted for 641 of 759 servo-motor stockouts (84.5%) across customer-facing systems, including secondary production lines.",
+      "location": "production/cell-alpha"
+    }
+  ]
+}

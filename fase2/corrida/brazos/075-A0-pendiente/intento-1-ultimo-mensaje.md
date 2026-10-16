@@ -1,0 +1,1 @@
+Yes. Of the 96 servo-motor stockout events, 78 occurred in **CELL-F12**—about **81%**. The remaining events were in CELL-F07 (11) and CELL-F03 (7), so they were strongly concentrated in CELL-F12.

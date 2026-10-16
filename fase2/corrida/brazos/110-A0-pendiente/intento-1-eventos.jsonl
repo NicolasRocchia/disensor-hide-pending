@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1452b-9b10-7942-b6e9-e772dafa212f"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **EZE-1 accounted for 2,071 of 2,486 affected jobs—about 83%** of all `NodeUnavailable` cases.\n\nCOR-2 had 274 (11%), and SCL-1 had 141 (6%)."}}
+{"type":"turn.completed","usage":{"input_tokens":13019,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":107,"reasoning_output_tokens":47}}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14522-f87b-7cc2-be59-6c5518159612"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **metrology-dispatch accounted for 1,947 of 2,297 affected jobs—about 85%**.\n\nThe remainder came from:\n\n- lot-tracker: 181 (8%)\n- inventory-sync: 113 (5%)\n- recipe-scheduler: 56 (2%)\n\nSo the TimeoutError was strongly concentrated in metrology-dispatch."}}
+{"type":"turn.completed","usage":{"input_tokens":13192,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":138,"reasoning_output_tokens":58}}

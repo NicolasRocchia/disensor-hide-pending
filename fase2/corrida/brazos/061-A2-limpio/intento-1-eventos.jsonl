@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144fc-2fdd-76d1-accf-1eb59f5912b5"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. RA-07 recorded 438 of 612 SM-48 production-cell stockouts—71.6% across the three facilities. It also accounted for 89.9% of Rosario Assembly’s SM-48 production-cell stockouts (438 of 487).\n\n```json\n{\n  \"findings\": [],\n  \"residue\": {\n    \"declared_absence\": true,\n    \"declaration\": \"No unresolved review residue remained from this factual analysis.\"\n  }\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":15446,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":346,"reasoning_output_tokens":241}}

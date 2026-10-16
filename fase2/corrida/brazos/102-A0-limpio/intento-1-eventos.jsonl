@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14523-a824-7ea0-861f-f77079f34b8c"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Harbor Point accounted for **755 of 1,072 SFP-25G stockout events (70.4%)** across all facilities and production lines yesterday—far more than Northgate’s 159 or Mesa Ridge’s 96."}}
+{"type":"turn.completed","usage":{"input_tokens":13544,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":94,"reasoning_output_tokens":38}}

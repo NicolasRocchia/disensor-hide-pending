@@ -1,0 +1,1 @@
+Yes. FAB-A/CELL-ETCH-04 recorded 731 of the 842 servo-motor stockouts—about 86.8%. The other two cells accounted for only 111 combined, so the stockouts were strongly concentrated in that one cell.

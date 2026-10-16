@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14503-ee83-7e31-b317-f7198d26fd05"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Line-etch-3 generated 1,087 of 1,436 VisionAlignmentError events on the primary lines—about **75.7%**.\n\nEven including advanced packaging, it was still the majority: 1,087 of 1,621 events, or **67.1%**."}}
+{"type":"turn.completed","usage":{"input_tokens":13115,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":120,"reasoning_output_tokens":50}}

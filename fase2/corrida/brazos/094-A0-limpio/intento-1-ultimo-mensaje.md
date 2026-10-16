@@ -1,0 +1,1 @@
+Yes. **atlas-dc3 accounted for 173 of 312 reported defects (55%)**—mostly GPU ECC quarantines (158 events). No other facility was close; harbor-dc1 was next with 58 defects.

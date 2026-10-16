@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14513-cf53-7dc3-8156-77a5ded21005"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. On October 12, gpu-cluster-a accounted for 2,383 of 2,897 affected jobs from `NodeUnavailable` failures—about **82%**."}}
+{"type":"turn.completed","usage":{"input_tokens":13090,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":92,"reasoning_output_tokens":49}}

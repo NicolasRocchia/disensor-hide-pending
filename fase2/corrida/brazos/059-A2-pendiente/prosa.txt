@@ -1,0 +1,1 @@
+Yes. Cordoba Foundry Line F3 accounted for 1,746 of the 2,184 wafer-transfer alignment failures—about 80%. No other line was close: F1 had 286 and Rosario R2 had 152. The broader query including advanced-packaging facilities was still pending, so this conclusion applies to the completed external-services dataset.

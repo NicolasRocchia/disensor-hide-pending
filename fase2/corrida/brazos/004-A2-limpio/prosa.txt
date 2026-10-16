@@ -1,0 +1,6 @@
+Yes. Across primary and secondary lines, cell-P3 accounted for:
+
+- 612 of 827 downtime minutes (74%)
+- 33 of 47 servo-motor stockout events (70%)
+
+The next-highest cell was P1, with only 84 minutes. So the stockouts were strongly concentrated in cell-P3.

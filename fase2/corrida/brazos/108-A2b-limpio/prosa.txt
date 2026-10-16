@@ -1,0 +1,1 @@
+Yes. EZE-1 accounted for 3,136 of 3,703 reported InventoryPickMismatch delays—about 84.7%, clearly the majority.

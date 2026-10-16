@@ -1,0 +1,28 @@
+Yes. On the primary production lines, **512 of 684 NodeUnavailable failures (74.9%)** occurred on `gpu-cluster-a`, so it accounted for nearly three-quarters of them.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Most NodeUnavailable failures occurred on gpu-cluster-a",
+      "description": "gpu-cluster-a recorded 512 of the 684 NodeUnavailable failures on the primary production lines, representing 74.9 percent.",
+      "location": "Inventory events for 2026-10-12, primary production lines",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied inventory_events.aggregate result."
+      },
+      "evidence": {
+        "text": "NodeUnavailable — 684; gpu-cluster-a: 512"
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions, execution gaps, or other residual issues remain for this calculation."
+  }
+}
+```

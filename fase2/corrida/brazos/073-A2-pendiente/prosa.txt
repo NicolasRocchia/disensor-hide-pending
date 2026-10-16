@@ -1,0 +1,1 @@
+Yes. In the external-services data, `fleet-inventory-api` accounted for **3,806 of 4,312 TimeoutError downtime minutes (88.3%)** and **1,947 of 2,184 failed jobs (89.1%)**. The problem was overwhelmingly concentrated there.

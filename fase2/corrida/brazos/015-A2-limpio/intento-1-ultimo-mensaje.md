@@ -1,0 +1,27 @@
+Yes. Of 2,793 TimeoutErrors across the combined inventory scope, 2,359 (84.5%) came from `production-api`. The next-largest source was `inventory-worker` with 277 (9.9%), so the problem was strongly concentrated in `production-api`.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "incident_analytics",
+      "severity": "major",
+      "title": "TimeoutErrors concentrated in production-api",
+      "description": "Production-api generated 2,359 of 2,793 TimeoutErrors, representing 84.5% of the combined inventory total.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Verified against the completed incident aggregation for 2026-10-12."
+      },
+      "evidence": {
+        "text": "TimeoutError total: 2,793; production-api: 2,359; inventory-worker: 277; allocation-scheduler: 94; warehouse-controller: 63."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved analytical questions or unverified execution gaps remain for this concentration finding."
+  }
+}
+```

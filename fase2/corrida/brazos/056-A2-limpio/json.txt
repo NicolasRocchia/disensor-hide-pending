@@ -1,0 +1,24 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "inventory_ops",
+      "severity": "major",
+      "title": "Stockouts concentrated in cell-pack-04",
+      "description": "Cell-pack-04 accounted for 781 of 934 customer-facing jobs affected by servo-motor stockouts, or 83.6 percent.",
+      "location": "robotics-west/cell-pack-04",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the inventory_ops aggregate for 2026-10-12."
+      },
+      "evidence": {
+        "text": "ServoMotorStockout: cell-pack-04 affected 781 of 934 customer-facing jobs."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved ambiguity or unverified execution gap remained in this concentration analysis."
+  }
+}

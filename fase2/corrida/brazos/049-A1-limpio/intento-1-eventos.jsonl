@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144ee-b273-7b51-8c1b-1c3d326e72ba"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. At phoenix-integration:\n\n- Customer-facing builds: 641 of 812 stockouts (79%)\n- All included builds: 853 of 1,092 stockouts (78%)\n\nSo roughly four out of five 25GbE NIC module stockouts occurred at Phoenix."}}
+{"type":"turn.completed","usage":{"input_tokens":13128,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":131,"reasoning_output_tokens":68}}

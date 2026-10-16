@@ -1,0 +1,3 @@
+Yes. In customer-facing systems, **dispatch-api accounted for 1,947 of 2,184 TimeoutErrors—89.1%**. Customer-tracking had 181 (8.3%), and label-scheduler had 56 (2.6%). The problem was strongly concentrated in dispatch-api.
+
+The broader regional/private-infrastructure query had not completed, so this conclusion is limited to customer-facing systems.

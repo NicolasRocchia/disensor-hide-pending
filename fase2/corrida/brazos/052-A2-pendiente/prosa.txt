@@ -1,0 +1,1 @@
+The external-services data showed strong concentration in transit-gateway: 1,872 of 2,146 affected jobs (87.2%). However, the internal-services query was only accepted and no result was returned, so we cannot confirm whether that concentration remained after internal services were included.

@@ -1,0 +1,1 @@
+Yes. North Materials Lab’s Line N-W2 accounted for 37 of 71 wafer-related delay events—52.1%, a narrow majority. All other lines combined accounted for 34 events. This rollup includes reserved inventory and compute capacity across all four facilities.

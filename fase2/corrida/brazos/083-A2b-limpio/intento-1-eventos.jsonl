@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14511-970a-7ec3-9b41-2f9d975f3c04"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Including internal services, dock-gateway accounted for **2,086 of 2,594 CarrierLabelTimeout errors (80.4%)**. Among external services alone, it represented **86.5%** (2,086 of 2,412). The problem was clearly concentrated there.\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"reviewer-1\",\"severity\":\"major\",\"title\":\"CarrierLabelTimeout concentrated in dock-gateway\",\"description\":\"dock-gateway produced 2,086 of 2,594 CarrierLabelTimeout errors (80.4%) across external and internal services.\",\"location\":\"shipment records for 2026-10-12\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13352,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":243,"reasoning_output_tokens":100}}

@@ -1,0 +1,27 @@
+Yes. **187 of 264 NodeUnavailable failures (70.8%)** occurred on `gpu-cluster-a`, so it accounted for a clear majority.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "telemetry.aggregate_faults",
+      "severity": "info",
+      "title": "Most failures occurred on gpu-cluster-a",
+      "description": "gpu-cluster-a recorded 187 of 264 NodeUnavailable failures, representing 70.8% of the total.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied telemetry aggregation for 2026-10-12."
+      },
+      "evidence": {
+        "text": "NodeUnavailable: 264 total; gpu-cluster-a: 187."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified conclusions remain for this calculation."
+  }
+}
+```

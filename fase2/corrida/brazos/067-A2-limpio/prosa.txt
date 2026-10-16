@@ -1,0 +1,1 @@
+Yes. Ezeiza Edge Facility accounted for 2,342 of 3,715 reported defects—about 63%. Most were PacketIntegrityMismatch events (1,996). Pilar accounted for 855 defects (23%), and Rosario for 518 (14%).

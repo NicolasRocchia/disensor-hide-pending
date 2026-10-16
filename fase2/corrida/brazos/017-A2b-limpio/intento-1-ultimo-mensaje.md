@@ -1,0 +1,16 @@
+Yes. **fab-line-l3 accounted for 494 of 849 wafer-related failures (58.2%)**, so it produced the majority. It was especially dominant for `WaferStageTimeout`, with 443 of 560 cases (79.1%).
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "Fab-line-l3 caused most wafer-related delays",
+      "description": "Fab-line-l3 accounted for 494 of 849 wafer-related failures (58.2%), including 443 of 560 WaferStageTimeout cases (79.1%).",
+      "location": "fab-line-l3"
+    }
+  ]
+}
+```

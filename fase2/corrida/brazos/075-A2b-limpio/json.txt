@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Servo-motor stockouts concentrated in CELL-F12",
+      "description": "CELL-F12 recorded 78 of 96 servo-motor stockout events (81.3%) in customer-facing systems on 2026-10-12.",
+      "location": "FAB-NORTE/CELL-F12"
+    }
+  ]
+}

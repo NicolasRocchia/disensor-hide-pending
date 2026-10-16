@@ -1,0 +1,1 @@
+Yes. Rack-assembly-p1 accounted for **421 of 536** NIC retention-clip defects across primary and secondary lines—about **78.5%**.

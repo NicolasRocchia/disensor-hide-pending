@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144e6-3003-7da0-a031-3dc23cdb15f3"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Of 2,744 `NodeUnavailable` failures yesterday, 2,301 occurred on `gpu-cluster-a`—about 84%, so clearly most of them."}}
+{"type":"turn.completed","usage":{"input_tokens":12941,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":41,"reasoning_output_tokens":0}}

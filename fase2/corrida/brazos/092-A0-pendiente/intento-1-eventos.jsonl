@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1451b-ba73-7262-9230-a75835377bcd"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Rosario Assembly accounted for **1,782 of 3,184** reported component-shortage defects—about **56%**, a majority—in the customer-facing systems data. Most were SE-42 shortages (1,391)."}}
+{"type":"turn.completed","usage":{"input_tokens":12913,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":113,"reasoning_output_tokens":60}}

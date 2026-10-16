@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144fc-cfcb-7e30-bf29-10a1f041a98d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Northbridge Cell N-4 accounted for **148 of 178 affected production jobs (83%)**.\n\nThe remainder were in Río Seco Cell R-2 (21 jobs) and Harbor Point Cell H-1 (9 jobs)."}}
+{"type":"turn.completed","usage":{"input_tokens":13206,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":108,"reasoning_output_tokens":53}}

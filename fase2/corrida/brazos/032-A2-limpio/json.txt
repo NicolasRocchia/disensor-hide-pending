@@ -1,0 +1,24 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "inventory_log_review",
+      "severity": "info",
+      "title": "Most stockouts occurred in Ashburn",
+      "description": "Ashburn-dc2 recorded 731 of 1,062 SFP-25G-SR stockout events, or approximately 68.8%.",
+      "location": "production inventory logs for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied production_logs.aggregate_stockouts result."
+      },
+      "evidence": {
+        "text": "SFP-25G-SR transceiver — 1,062; ashburn-dc2: 731"
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions, execution gaps, or findings requiring human judgment remained."
+  }
+}

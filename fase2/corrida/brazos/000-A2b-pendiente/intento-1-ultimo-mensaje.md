@@ -1,0 +1,16 @@
+Yes. Northbridge Analytical Center accounted for 418 of 555 facility-equipment defects—about 75.3%. Meridian BioLab reported 87 (15.7%), and Lakeside Research Annex reported 50 (9.0%).
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Northbridge accounted for most defects",
+      "description": "Northbridge Analytical Center reported 418 of 555 defects, representing 75.3% of the total.",
+      "location": "Facility-equipment incident records for 2026-10-12"
+    }
+  ]
+}
+```

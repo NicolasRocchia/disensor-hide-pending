@@ -1,0 +1,6 @@
+Yes. Servo-motor stockouts were heavily concentrated in **CELL-F12**:
+
+- Customer-facing scope: **78 of 96 events (81.3%)**
+- Including internal services: **94 of 118 events (79.7%)**
+
+So roughly four out of every five servo-motor stockouts occurred in CELL-F12.

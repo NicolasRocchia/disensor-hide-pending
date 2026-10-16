@@ -1,0 +1,1 @@
+Yes. Rosario Assembly accounted for **1,782 of 3,184** reported component-shortage defects—about **56%**, a majority—in the customer-facing systems data. Most were SE-42 shortages (1,391).

@@ -1,0 +1,4 @@
+Yes. Servo-motor stockouts were heavily concentrated in **cell-atlas-3**:
+
+- Across all infrastructure: **1,912 of 2,382 delayed jobs (80.3%)**
+- Customer-facing systems only: **1,566 of 1,842 (85.0%)**

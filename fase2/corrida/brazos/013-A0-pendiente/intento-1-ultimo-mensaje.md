@@ -1,0 +1,1 @@
+Yes. **dal-04 accounted for 137 of 184 NVMe U.2 7.68 TB SSD stockouts—about 74%**, so it represented a clear majority.

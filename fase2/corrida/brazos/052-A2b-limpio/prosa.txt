@@ -1,0 +1,1 @@
+Yes. After internal services were included, transit-gateway still accounted for 1,872 of 2,504 PacketDropBurst-affected jobs—about **74.8%**. Internal services added 358 affected jobs but did not change the concentration materially.

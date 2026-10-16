@@ -1,0 +1,35 @@
+Yes. In the standard compute pools, FAB-L3 accounted for 143 of 184 jobs affected by `WaferAlignTimeout`—about 77.7%. FAB-L1 accounted for 25 and FAB-L2 for 16. This measures affected jobs, not total delay duration; the maintenance-only query had not completed.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "telemetry-analysis",
+      "severity": "info",
+      "title": "FAB-L3 dominated wafer-related failures",
+      "description": "FAB-L3 represented 143 of 184 jobs affected by WaferAlignTimeout in standard compute pools.",
+      "location": "Standard compute telemetry for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Checked against the supplied telemetry aggregation result."
+      },
+      "evidence": {
+        "text": "WaferAlignTimeout: 184 jobs total; FAB-L3: 143, FAB-L1: 25, FAB-L2: 16."
+      }
+    }
+  ],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "execution_gap",
+        "requires_human_attention": false,
+        "description": "The asynchronous query including maintenance-only equipment had not returned, so the conclusion is limited to standard compute pools.",
+        "gap_reason": "other"
+      }
+    ]
+  }
+}
+```

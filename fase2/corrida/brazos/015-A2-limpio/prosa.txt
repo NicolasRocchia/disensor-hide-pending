@@ -1,0 +1,1 @@
+Yes. Of 2,793 TimeoutErrors across the combined inventory scope, 2,359 (84.5%) came from `production-api`. The next-largest source was `inventory-worker` with 277 (9.9%), so the problem was strongly concentrated in `production-api`.

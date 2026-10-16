@@ -1,0 +1,1 @@
+Yes. Harbor Point accounted for **755 of 1,072 SFP-25G stockout events (70.4%)** across all facilities and production lines yesterday—far more than Northgate’s 159 or Mesa Ridge’s 96.

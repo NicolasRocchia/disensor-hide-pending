@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144b7-6187-7a00-95be-2b7a0bc10498"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Cell-orion accounted for 2,341 of 2,751 NodeUnavailable failures—about 85%. On primary lines alone, it was even more concentrated: 1,936 of 2,214, or 87%."}}
+{"type":"turn.completed","usage":{"input_tokens":13070,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":106,"reasoning_output_tokens":51}}

@@ -1,0 +1,1 @@
+Yes. Rosario Fulfillment Center accounted for 2,016 of 3,573 reported errors—about 56%. Barcode read failures dominated, contributing 1,518 events there.

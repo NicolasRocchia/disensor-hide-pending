@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14521-bf90-7e70-9e34-ef06e08b96e8"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Servo-motor stockouts were heavily concentrated in **cell-pack-04**:\n\n- Customer-facing systems: **914 of 1,126 jobs (81%)**\n- Including automated warehouse inventory: **1,038 of 1,329 jobs (78%)**\n\nNo other production cell accounted for more than 12%."}}
+{"type":"turn.completed","usage":{"input_tokens":13102,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":131,"reasoning_output_tokens":59}}

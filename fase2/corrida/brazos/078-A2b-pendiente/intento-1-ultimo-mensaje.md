@@ -1,0 +1,3 @@
+Yes. FAB-L3 accounted for 143 of the 184 jobs affected by `WaferAlignTimeout`—about 78%—so it clearly represented most wafer-related delays in the standard compute pools.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"FAB-L3 dominated wafer-alignment delays","description":"FAB-L3 accounted for 143 of 184 jobs affected by WaferAlignTimeout, approximately 78% of the total.","location":"standard_compute/FAB-L3"}]}

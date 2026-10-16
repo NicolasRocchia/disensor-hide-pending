@@ -1,0 +1,1 @@
+It can’t be determined from the available results. Before internal services were included, transit-gateway accounted for 1,872 of 2,146 affected jobs (87.2%), so the problem was concentrated there. However, the internal-services request was only accepted; its completed results were never retrieved.

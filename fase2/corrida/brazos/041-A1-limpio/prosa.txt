@@ -1,0 +1,1 @@
+Yes. Northbridge accounted for 518 of 779 SealIntegrityFault events across primary and secondary lines—about 66.5%, so roughly two-thirds occurred there.

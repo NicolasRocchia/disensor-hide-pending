@@ -1,0 +1,1 @@
+Yes. Of 146 non-reserved servo-motor SM-42 stockouts, 119 occurred at the Rosario Assembly Plant—about **81.5%**. The remaining 27 were split between Córdoba (18) and Santa Fe (9). Automated-warehouse results were still pending, so this conclusion applies only to non-reserved inventory.

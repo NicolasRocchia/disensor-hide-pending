@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f9-e2d3-70c2-9512-d54d7c2313df"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Within external services, Cordoba Foundry Line F3 accounted for 1,746 of 2,184 wafer-transfer alignment failures—about 80%. No other line exceeded 13%.\n\nThe expanded check including advanced-packaging facilities had not yet returned, so this conclusion applies only to external services."}}
+{"type":"turn.completed","usage":{"input_tokens":13048,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":156,"reasoning_output_tokens":88}}

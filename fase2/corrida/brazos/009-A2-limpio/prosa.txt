@@ -1,0 +1,6 @@
+Yes. The TimeoutErrors were heavily concentrated in `vision-inspection-api`:
+
+- Including automated-warehouse inventory: **2,259 of 2,628** TimeoutErrors (**86.0%**).
+- Non-reserved inventory alone: **1,947 of 2,184** (**89.1%**).
+
+So `vision-inspection-api` was clearly the primary source.

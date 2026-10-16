@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144ea-7271-7072-9449-91145a572593"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **Cell-alpha had 598 of 672 servo-motor stockouts—about 89%**.\n\n- Cell-alpha: 598 (89.0%)\n- Cell-delta: 51 (7.6%)\n- Cell-foxtrot: 23 (3.4%)\n\nSo the stockouts were overwhelmingly concentrated in cell-alpha."}}
+{"type":"turn.completed","usage":{"input_tokens":12897,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":105,"reasoning_output_tokens":28}}

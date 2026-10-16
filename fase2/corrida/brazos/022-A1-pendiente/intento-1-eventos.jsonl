@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144d6-4e22-7782-bd80-4b33f08e6568"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within the customer-facing systems data, EZE-1 accounted for 671 of 812 CoolingSensorDrift incidents, about 83%.\n\nThe broader query including maintenance-only equipment was still pending, so I can’t honestly confirm whether that share holds across the entire estate."}}
+{"type":"turn.completed","usage":{"input_tokens":13061,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":120,"reasoning_output_tokens":58}}

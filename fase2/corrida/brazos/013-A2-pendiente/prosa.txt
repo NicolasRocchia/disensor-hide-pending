@@ -1,0 +1,1 @@
+Yes. **dal-04 accounted for 137 of 184 reported NVMe SSD stockouts—74.5%**, so it represented nearly three-quarters of the total. iad-02 had 29 and phx-01 had 18.

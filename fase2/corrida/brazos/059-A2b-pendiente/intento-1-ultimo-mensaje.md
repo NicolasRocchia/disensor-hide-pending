@@ -1,0 +1,3 @@
+Yes. Córdoba Foundry Line F3 accounted for 1,746 of 2,184 wafer transfer alignment failures—about 80%—so it clearly represented most wafer-related delays in the available external-services data. The advanced-packaging query had not yet returned, so it is not included.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"major","title":"Wafer delays concentrated on Córdoba Line F3","description":"Córdoba Foundry Line F3 accounted for 1,746 of 2,184 wafer transfer alignment failures, approximately 80% of the external-services total.","location":"Córdoba Foundry / Line F3"}]}

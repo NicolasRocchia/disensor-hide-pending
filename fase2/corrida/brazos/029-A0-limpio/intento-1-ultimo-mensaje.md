@@ -1,0 +1,1 @@
+Yes. Northbridge Analytical Campus accounted for **1,047 of 1,472 minutes**—about **71%**—of the reported temperature-excursion downtime across all included facilities.

@@ -1,0 +1,4 @@
+Yes. EZE-1 accounted for most CoolingSensorDrift defects:
+
+- Customer-facing systems: 671 of 812 incidents (82.6%).
+- Including maintenance-only equipment: 765 of 955 incidents (80.1%).

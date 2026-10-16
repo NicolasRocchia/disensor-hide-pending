@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1450f-daad-7c12-8c91-7ccbaafe5bc9"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Ezeiza Compute Depot accounted for **49 of 68 HBM3 stockout events—about 72%**—so most were concentrated there."}}
+{"type":"turn.completed","usage":{"input_tokens":12933,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":80,"reasoning_output_tokens":41}}

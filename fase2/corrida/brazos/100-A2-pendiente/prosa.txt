@@ -1,0 +1,1 @@
+Yes. **cell-pack-04 accounted for 914 of 1,126 servo-motor stockout impacts—81.2%**. The remaining 212 jobs were split between cell-pack-02 (137) and cell-sort-01 (75).

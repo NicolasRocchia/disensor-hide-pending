@@ -1,0 +1,3 @@
+Yes. Dock 7 accounted for 1,044 of 1,372 LabelMismatch errors in customer-facing systems—about 76.1%. In the expanded scope, it accounted for 1,079 of 1,431, or 75.4%.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"major","title":"Dock 7 dominated LabelMismatch errors","description":"Dock 7 produced more than three-quarters of all LabelMismatch errors on 2026-10-12.","location":"Dock 7"}]}

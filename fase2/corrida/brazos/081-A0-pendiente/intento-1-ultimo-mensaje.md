@@ -1,0 +1,1 @@
+Yes. Ezeiza Compute Depot accounted for **49 of 68 HBM3 stockout events—about 72%**—so most were concentrated there.

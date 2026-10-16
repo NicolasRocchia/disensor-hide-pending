@@ -1,0 +1,1 @@
+Yes. Across primary and secondary lines, **inventory-sync-gateway accounted for 2,359 of 2,683 TimeoutErrors—87.9%**. The remaining 12.1% came from supplier-stock-adapter (245) and parts-reservation-scheduler (79), so the problem was strongly concentrated in one service.

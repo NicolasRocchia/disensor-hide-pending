@@ -1,0 +1,1 @@
+Yes. On October 12, Cell P-04 accounted for 611 of 742 minutes—about 82%—of servo-motor-stockout downtime on the primary production lines. The remainder was in P-02 (79 minutes) and P-07 (52 minutes).

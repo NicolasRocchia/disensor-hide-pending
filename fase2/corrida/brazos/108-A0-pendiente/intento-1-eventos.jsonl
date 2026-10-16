@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1452a-297b-7960-993e-1d1d787fc0ca"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. EZE-1 accounted for 1,824 of the 2,146 InventoryPickMismatch delays—about **85%**. COR-2 had 211 and ROS-1 had 111."}}
+{"type":"turn.completed","usage":{"input_tokens":12958,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":107,"reasoning_output_tokens":58}}

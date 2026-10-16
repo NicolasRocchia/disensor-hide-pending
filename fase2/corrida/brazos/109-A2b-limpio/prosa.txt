@@ -1,0 +1,1 @@
+Yes. ReticleSyncTimeout was heavily concentrated in **litho-dispatch**, which recorded **2,198 of 2,496 events (88.1%)** across all inventory, including reserved compute capacity. Wafer-routing had 201 (8.1%), and mask-catalog had 97 (3.9%).

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144ff-7c3f-7070-90e1-eee5f410caeb"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Including warehouse inventory, Cell L-04 accounted for **729 of 942 affected jobs—77%**. The rest were in L-07 (115) and L-02 (98).\n\nFor external services alone, the concentration was even higher: **571 of 684 jobs—83%—in L-04**."}}
+{"type":"turn.completed","usage":{"input_tokens":13117,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":126,"reasoning_output_tokens":52}}

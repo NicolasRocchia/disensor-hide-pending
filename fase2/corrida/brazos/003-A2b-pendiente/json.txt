@@ -1,0 +1,1 @@
+{"findings":[{"id":"h1","origin":"assistant","severity":"major","title":"NodeUnavailable concentrated in cell-orion","description":"Cell-orion accounted for 1,936 of 2,214 NodeUnavailable failures (87.4%) on primary production lines.","location":"production/primary_lines/cell-orion"}]}

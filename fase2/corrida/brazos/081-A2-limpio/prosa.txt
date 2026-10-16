@@ -1,0 +1,1 @@
+Yes. Ezeiza Compute Depot accounted for 71 of 99 HBM3 stockout events (71.7%) across the combined records. In external-service shipments alone, it accounted for 49 of 68 events (72.1%).

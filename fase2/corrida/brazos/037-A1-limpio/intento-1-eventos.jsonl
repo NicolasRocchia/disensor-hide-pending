@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144e3-2c9e-7e43-96bf-f8221f4090e2"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. On 2026-10-12, `cell-atlas-3` accounted for 1,912 of 2,382 servo-motor stockout delays—about 80%. Within customer-facing systems alone, it was 1,566 of 1,842—about 85%.\n\nSo the stockouts were strongly concentrated there, though not exclusive to that cell."}}
+{"type":"turn.completed","usage":{"input_tokens":13183,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":149,"reasoning_output_tokens":65}}

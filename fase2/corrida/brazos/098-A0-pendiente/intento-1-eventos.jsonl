@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14520-0b28-7c01-aebb-283a6993cf9c"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **Córdoba Assembly accounted for 471 of 612 SD-48 stockouts—77%**.\n\n- Córdoba Assembly: 471 (77%)\n- Rosario Robotics: 92 (15%)\n- Pilar Integration: 49 (8%)"}}
+{"type":"turn.completed","usage":{"input_tokens":13030,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":108,"reasoning_output_tokens":52}}

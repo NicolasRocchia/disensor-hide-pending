@@ -1,0 +1,1 @@
+Yes. Ashburn Assembly accounted for 2,311 of 2,846 affected jobs—about **81.2%** of the ComponentQualificationFailure total across the three facilities.

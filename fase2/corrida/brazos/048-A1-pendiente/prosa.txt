@@ -1,0 +1,1 @@
+Yes. Of 257 NodeUnavailable incidents, 184 occurred on `gpu-cluster-a`—about 72%, so it was clearly the majority. It also accounted for 2,213 of 2,823 downtime minutes (about 78%).

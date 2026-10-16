@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144ee-651d-7e51-9de5-85d04c0b02d9"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. On the expanded non-reserved scope, gpu-cluster-a had **236 of 335 NodeUnavailable incidents (70.4%)** and **2,817 of 3,652 downtime minutes (77.1%)**.\n\nThe external-service-only slice showed the same pattern: **184 of 257 incidents (71.6%)** occurred there."}}
+{"type":"turn.completed","usage":{"input_tokens":13396,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":120,"reasoning_output_tokens":41}}

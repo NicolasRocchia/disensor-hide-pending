@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144ee-e266-71d0-9d06-4ad9e6f7d516"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the customer-facing build data, Phoenix had 641 of 812 stockouts—about 79%.\n\nThe broader query covering regional and private builds had not returned, so this conclusion is limited to customer-facing systems."}}
+{"type":"turn.completed","usage":{"input_tokens":12966,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":108,"reasoning_output_tokens":57}}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14528-379a-7421-95dc-2808491425e3"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **fab-line-p1 accounted for 1,917 of 2,284 WaferCarrierRouteTimeout-affected fabrication jobs—about 84%.**\n\nEven including packaging facilities, p1 still represented 1,917 of 2,426 affected jobs, or 79%. The data strongly indicates one fabrication line dominated these delays, though it doesn’t establish the underlying cause."}}
+{"type":"turn.completed","usage":{"input_tokens":13210,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":188,"reasoning_output_tokens":104}}

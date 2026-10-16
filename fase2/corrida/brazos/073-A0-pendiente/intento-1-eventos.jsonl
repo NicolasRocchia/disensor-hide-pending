@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14508-202a-7c83-8bb9-bacf3e02d31d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The **fleet-inventory-api** accounted for **3,806 of 4,312 downtime minutes (88%)** and **1,947 of 2,184 failed jobs (89%)** caused by `TimeoutError`.\n\nThe remainder was:\n\n- supplier-sync-worker: 389 minutes (9%)\n- allocation-scheduler: 117 minutes (3%)"}}
+{"type":"turn.completed","usage":{"input_tokens":13047,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":160,"reasoning_output_tokens":80}}

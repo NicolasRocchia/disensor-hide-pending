@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144fa-a5c1-7823-8909-961461b6b7d9"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. On October 12, FAB-LINE-07 accounted for 2,335 of 3,502 distinct wafer jobs affected by network failures—about 67%.\n\nMost came from WarehouseLinkTimeout (2,148 jobs). Caveat: the data measures affected jobs, not delay duration, so it shows the line behind most impacted jobs—not necessarily most total delay time."}}
+{"type":"turn.completed","usage":{"input_tokens":13522,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":246,"reasoning_output_tokens":164}}

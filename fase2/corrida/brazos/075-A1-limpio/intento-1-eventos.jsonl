@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14509-4a2e-79d0-824f-e88f2ccc6ca4"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. They were heavily concentrated in **CELL-F12**:\n\n- Customer-facing scope: **78 of 96 events (81%)**\n- Including internal services: **94 of 118 events (80%)**\n\nSo roughly four out of five servo-motor stockouts occurred in CELL-F12. The records show concentration, but they don’t establish why it happened."}}
+{"type":"turn.completed","usage":{"input_tokens":13112,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":78,"reasoning_output_tokens":0}}

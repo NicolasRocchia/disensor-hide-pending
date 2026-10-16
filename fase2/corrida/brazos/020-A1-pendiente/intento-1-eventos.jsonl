@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144d3-cc76-77a2-8dee-6a989567eb6e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—on the primary production lines, 487 of 612 SM-42 stockouts (about 80%) occurred in assembly-cell-A3. The rest were in B1 (79) and P2 (46).\n\nThe expanded check including maintenance-only equipment never returned, so I can’t confirm whether that concentration holds across all equipment."}}
+{"type":"turn.completed","usage":{"input_tokens":13040,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":137,"reasoning_output_tokens":63}}

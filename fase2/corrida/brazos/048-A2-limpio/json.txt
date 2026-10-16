@@ -1,0 +1,20 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "incident_analytics",
+      "severity": "info",
+      "title": "Most NodeUnavailable failures occurred on gpu-cluster-a",
+      "description": "gpu-cluster-a recorded 236 of 335 NodeUnavailable incidents (70.4%) and 2,817 of 3,652 associated downtime minutes (77.1%).",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the incident aggregation for non-reserved inventory across external and internal services."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified analytical gaps remain for this comparison."
+  }
+}

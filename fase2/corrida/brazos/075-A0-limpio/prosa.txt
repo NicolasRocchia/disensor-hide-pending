@@ -1,0 +1,1 @@
+Yes. CELL-F12 accounted for 78 of 96 servo-motor stockouts in customer-facing systems—81%. Including internal services, it was 94 of 118 events—80%.

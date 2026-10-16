@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144cb-fb95-7db1-9315-0209f4ab556d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the reported standard compute pools, **fab-line-l3 accounted for 391 of 486 WaferStageTimeout failures—80.5%**—so it was responsible for most wafer-related delays. The automated warehouse query had not yet returned, so this conclusion is limited to the available compute-pool data.\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"assistant\",\"severity\":\"major\",\"title\":\"Wafer delays concentrated on fab-line-l3\",\"description\":\"Fab-line-l3 produced 391 of 486 reported WaferStageTimeout failures (80.5%) in the standard compute pools.\",\"location\":\"fab-line-l3\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13251,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":251,"reasoning_output_tokens":113}}

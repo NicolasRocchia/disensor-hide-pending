@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "SD-48 stockouts concentrated at Cordoba Assembly",
+      "description": "Cordoba Assembly accounted for 471 of 612 SD-48 stockout events, approximately 77% of the total.",
+      "location": "Cordoba Assembly"
+    }
+  ]
+}

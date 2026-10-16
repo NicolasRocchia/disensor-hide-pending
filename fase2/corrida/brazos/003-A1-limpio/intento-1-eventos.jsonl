@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144b6-ab8e-7e82-b0f8-01cf13a17beb"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. It was heavily concentrated in **cell-orion**: 2,341 of 2,751 `NodeUnavailable` failures—about **85%**—occurred there across primary and secondary production lines.\n\nFor primary lines alone, cell-orion had 1,936 of 2,214 failures, about **87%**. This establishes concentration, but the data shown doesn’t establish the underlying cause."}}
+{"type":"turn.completed","usage":{"input_tokens":13072,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":89,"reasoning_output_tokens":0}}

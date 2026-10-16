@@ -1,0 +1,1 @@
+Yes. For customer-facing systems, **Ezeiza Edge Facility** reported **1,956 of 3,184 defects (61.4%)**, so it accounted for a clear majority. Most were OpticalTransceiverCrcFaults (1,409). The expanded warehouse-inclusive query had not yet returned.

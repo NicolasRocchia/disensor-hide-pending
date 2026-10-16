@@ -1,0 +1,1 @@
+Yes—North Materials Lab’s Line N‑W2 accounted for 31 of 43 wafer-handler stockout events, about 72%. That’s a clear majority of the observed wafer-related shortages; the broader delay rollup was still processing, so total delay impact wasn’t yet confirmed.

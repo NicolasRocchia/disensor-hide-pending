@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144fc-e843-76b0-aa7f-f89f91f62264"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Northbridge Cell N-4 accounted for 148 of 178 production-equipment jobs affected—about 83%. Río Seco R-2 had 21 and Harbor Point H-1 had 9.\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"assistant\",\"severity\":\"info\",\"title\":\"Stockouts concentrated in Cell N-4\",\"description\":\"Northbridge Cell N-4 represented approximately 83% of production-equipment jobs affected by servo-motor stockouts.\",\"location\":\"Northbridge / Cell N-4\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13441,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":240,"reasoning_output_tokens":124}}

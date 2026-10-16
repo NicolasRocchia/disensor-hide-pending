@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144bf-3a4a-78c2-8218-e011edae7eef"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Across all systems, edge-gateway-03 accounted for 608 of 844 packet-loss downtime minutes—about 72%. Within customer-facing systems alone, it represented about 82% (608 of 742 minutes).\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"assistant\",\"severity\":\"info\",\"title\":\"Packet loss concentrated on edge-gateway-03\",\"description\":\"edge-gateway-03 accounted for 608 of 844 packet-loss downtime minutes across all systems (72%), and 608 of 742 minutes among customer-facing systems (82%).\",\"location\":\"netqc.aggregate_events results for 2026-10-12\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13439,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":229,"reasoning_output_tokens":91}}

@@ -1,0 +1,1 @@
+Yes. Rack-assembly cell 3 accounted for 611 of 742 downtime minutes (82.3%) and 25 of 31 delayed shipments (80.6%) caused by servo-motor stockouts on primary production lines.

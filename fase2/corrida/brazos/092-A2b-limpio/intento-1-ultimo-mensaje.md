@@ -1,0 +1,3 @@
+Yes. Including maintenance-only equipment, Rosario Assembly accounted for **1,984 of 3,671 defects (54.0%)**, more than the other facilities combined. For customer-facing systems alone, it accounted for **1,782 of 3,184 (56.0%)**.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Rosario reported most shortages","description":"Rosario Assembly accounted for a majority of reported component-shortage defects in both examined scopes.","location":"Component-shortage aggregation for 2026-10-12"}]}

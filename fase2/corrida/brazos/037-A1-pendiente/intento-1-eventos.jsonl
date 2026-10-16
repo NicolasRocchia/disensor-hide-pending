@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144e3-9354-7c81-a66e-2af27e2a38ba"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within the customer-facing systems data, the stockouts were heavily concentrated in **cell-atlas-3**: 1,566 of 1,842 delayed jobs, about **85%**.\n\nThe remainder were in cell-atlas-1 (173) and cell-boreal-2 (103). The broader regional/private-infrastructure query was still pending, so this conclusion isn’t confirmed beyond the customer-facing scope."}}
+{"type":"turn.completed","usage":{"input_tokens":12950,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":143,"reasoning_output_tokens":50}}

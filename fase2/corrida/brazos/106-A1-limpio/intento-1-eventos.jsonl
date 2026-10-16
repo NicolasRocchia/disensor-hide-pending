@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14527-2d6c-71e0-aced-f7176cc3aa0e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—if you mean **wafer edge chipping**, Fab Line P3 accounted for 611 of 742 incidents on fabrication lines, about **82%**.\n\nIf “wafer-related defects” means a broader category, the data doesn’t define which defect types belong in it, so I can’t honestly claim a definitive majority without that classification."}}
+{"type":"turn.completed","usage":{"input_tokens":13205,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":309,"reasoning_output_tokens":232}}

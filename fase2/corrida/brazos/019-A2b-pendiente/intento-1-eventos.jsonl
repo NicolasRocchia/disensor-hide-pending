@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144d1-30eb-7a31-a389-c00fd377e01c"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The TimeoutError problem was highly concentrated in **lot-release-api**, which accounted for **1,947 of 2,184 events (89.1%)**. The remaining 10.9% came from manifest-worker (181) and dispatch-scheduler (56).\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"assistant\",\"severity\":\"major\",\"title\":\"TimeoutErrors concentrated in lot-release-api\",\"description\":\"The lot-release-api generated 1,947 of 2,184 TimeoutError events (89.1%); manifest-worker generated 181 and dispatch-scheduler generated 56.\",\"location\":\"Shipment records for 2026-10-12, standard compute pools\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13112,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":248,"reasoning_output_tokens":102}}

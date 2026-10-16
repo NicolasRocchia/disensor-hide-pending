@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "TimeoutErrors concentrated in lot-release-api",
+      "description": "The lot-release-api produced 2,031 of 2,296 TimeoutErrors (88.5%), indicating that the problem was strongly concentrated in one service.",
+      "location": "Production shipment records for 2026-10-12, standard and maintenance-only compute pools"
+    }
+  ]
+}

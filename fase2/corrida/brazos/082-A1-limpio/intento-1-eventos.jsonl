@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14511-7a0a-7123-bc90-0d116525e690"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. FAB-L3 accounted for 469 of 586 minutes of wafer-carrier dispatch delays—about 80%. Even when considering production lines alone, it represented 428 of 522 minutes, or 82%.\n\nSo FAB-L3 clearly drove most wafer-related downtime. This identifies concentration, not necessarily the root cause."}}
+{"type":"turn.completed","usage":{"input_tokens":13284,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":146,"reasoning_output_tokens":75}}

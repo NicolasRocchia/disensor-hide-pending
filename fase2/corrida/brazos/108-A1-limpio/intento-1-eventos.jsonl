@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14529-d2e1-7801-8cba-464e7c600f5d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. EZE-1 accounted for most InventoryPickMismatch-affected jobs:\n\n- Customer-facing systems: 1,824 of 2,146 (85.0%)\n- Including automated warehouse inventory: 3,136 of 3,703 (84.7%)\n\nSo EZE-1 contributed roughly 85% under either scope."}}
+{"type":"turn.completed","usage":{"input_tokens":13117,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":163,"reasoning_output_tokens":88}}

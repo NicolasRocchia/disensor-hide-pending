@@ -1,0 +1,1 @@
+Yes. **sa-east-1a accounted for 2,627 of 4,259 defects (61.7%)**, so it represented a clear majority. The concentration was mainly driven by 2,064 HealthProbeTimeout reports.

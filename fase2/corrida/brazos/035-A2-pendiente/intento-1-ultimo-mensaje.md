@@ -1,0 +1,27 @@
+Yes. Ashburn Assembly accounted for 2,311 of 2,846 ComponentQualificationFailure defects—about 81.2%, clearly the majority.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Ashburn represented the majority",
+      "description": "Ashburn Assembly accounted for approximately 81.2% of ComponentQualificationFailure defects.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Calculated as 2,311 divided by the reported total of 2,846 affected jobs."
+      },
+      "evidence": {
+        "text": "Ashburn Assembly: 2,311; total ComponentQualificationFailure: 2,846."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified interpretive judgments remain for this calculation."
+  }
+}
+```

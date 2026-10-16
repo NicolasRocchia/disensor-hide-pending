@@ -1,0 +1,1 @@
+Yes. In the broader production data, gpu-cluster-a accounted for 2,383 of 2,897 affected jobs—about 82%. So the clear majority of NodeUnavailable failures occurred there.

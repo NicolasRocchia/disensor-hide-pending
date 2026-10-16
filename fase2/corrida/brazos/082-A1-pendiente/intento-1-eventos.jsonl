@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14511-5b8e-77e1-8b31-ab3135afda9b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within the completed primary-production-line data, **FAB-L3 accounted for 428 of 522 minutes (82%)** of wafer-carrier dispatch-hold downtime.\n\nHowever, the broader query including automated warehouse inventory was still pending, so I can’t honestly confirm that FAB-L3 dominated the complete wafer-movement picture."}}
+{"type":"turn.completed","usage":{"input_tokens":12973,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":160,"reasoning_output_tokens":88}}

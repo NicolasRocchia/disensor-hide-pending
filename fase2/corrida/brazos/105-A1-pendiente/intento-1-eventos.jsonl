@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14526-b03f-7bf1-8e07-ca72645c656a"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within the completed **external-service, primary-line** data, `inventory-sync-gateway` accounted for **1,947 of 2,184 TimeoutErrors (89.1%)**, so the problem was strongly concentrated there.\n\nThe broader query including secondary lines had not completed, so I can’t honestly confirm whether that concentration held across all lines."}}
+{"type":"turn.completed","usage":{"input_tokens":12953,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":122,"reasoning_output_tokens":45}}

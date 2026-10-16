@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144d5-b040-7312-b49d-5205cf7d2e1f"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Including customer-facing systems and automated warehouse inventory, **Ezeiza Edge Facility reported 2,401 of 4,009 defects—59.9%**, so it accounted for most.\n\nFor customer-facing systems alone, Ezeiza’s share was even higher: **1,956 of 3,184 defects (61.4%)**."}}
+{"type":"turn.completed","usage":{"input_tokens":13281,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":186,"reasoning_output_tokens":108}}

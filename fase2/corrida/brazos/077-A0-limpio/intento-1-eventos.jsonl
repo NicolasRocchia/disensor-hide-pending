@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1450b-b470-7080-8609-63f1cca48add"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Cambridge Lab accounted for 251 of 329 reported peristaltic pump tubing stockouts—about **76%**. Rosario had 51 and Cordoba had 27."}}
+{"type":"turn.completed","usage":{"input_tokens":13096,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":93,"reasoning_output_tokens":49}}

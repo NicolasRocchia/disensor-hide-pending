@@ -1,0 +1,3 @@
+Yes. On the primary production lines, **fab-line-p1 accounted for 1,917 of 2,284 WaferCarrierRouteTimeout-affected jobs—about 84%**. That indicates one line dominated the wafer-related delays.
+
+The broader aggregation including advanced-packaging facilities had not returned, so this conclusion is limited to the primary lines.

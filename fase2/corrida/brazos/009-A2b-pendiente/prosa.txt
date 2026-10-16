@@ -1,0 +1,1 @@
+Yes. The TimeoutError problem was highly concentrated in `vision-inspection-api`: **1,947 of 2,184 events (89.1%)**. The remainder came from `qc-label-worker` (181; 8.3%) and `lot-release-scheduler` (56; 2.6%).

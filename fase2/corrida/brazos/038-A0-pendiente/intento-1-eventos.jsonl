@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144e4-13c0-7942-85d5-08c71892961d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Rack-assembly-p1 accounted for **421 of 486** NIC retention-clip misalignment defects—about **86.6%**—among the primary production lines."}}
+{"type":"turn.completed","usage":{"input_tokens":12996,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":76,"reasoning_output_tokens":33}}

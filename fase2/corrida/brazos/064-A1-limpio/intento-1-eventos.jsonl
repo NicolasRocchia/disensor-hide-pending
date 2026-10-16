@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144fe-af95-7863-a0ea-f891085c16ae"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the complete dataset, Cell L-04 accounted for 729 of 942 affected jobs—about 77%. The remainder were in L-07 (115) and L-02 (98), so the stockouts were strongly concentrated in L-04, though not exclusive to it."}}
+{"type":"turn.completed","usage":{"input_tokens":13119,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":114,"reasoning_output_tokens":48}}

@@ -1,0 +1,4 @@
+Yes. Servo-motor stockouts were heavily concentrated in **DC-S1**:
+
+- Standard and reserved pools: **180 of 222 events (81.1%)**
+- Standard pools alone: **151 of 184 events (82.1%)**

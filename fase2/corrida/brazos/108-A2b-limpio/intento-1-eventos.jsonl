@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14529-9ab5-79a2-bce7-9427cce4287e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. EZE-1 accounted for 3,136 of 3,703 reported InventoryPickMismatch delays—about 84.7%, clearly the majority.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"info\",\n      \"title\": \"EZE-1 dominated InventoryPickMismatch delays\",\n      \"description\": \"EZE-1 accounted for 3,136 of 3,703 reported InventoryPickMismatch delays, or approximately 84.7%.\",\n      \"location\": \"EZE-1\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13344,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":207,"reasoning_output_tokens":69}}

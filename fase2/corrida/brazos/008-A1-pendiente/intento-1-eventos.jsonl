@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144bb-cf9e-7562-b79b-10c3df28cb15"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In production’s standard compute pools, gpu-cluster-a accounted for 873 of 1,284 NodeUnavailable-affected jobs—about 68%.\n\nThe broader query including maintenance-only pools had not returned, so I can’t confirm the same conclusion for that expanded scope."}}
+{"type":"turn.completed","usage":{"input_tokens":13005,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":138,"reasoning_output_tokens":76}}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144ec-6808-7612-b301-b43255e0b1f6"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Of 2,184 `TimeoutError` failures, 1,947 (89.1%) came from `production-api`. The remainder were in `async-worker` (181; 8.3%) and `job-scheduler` (56; 2.6%)."}}
+{"type":"turn.completed","usage":{"input_tokens":12960,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":62,"reasoning_output_tokens":0}}

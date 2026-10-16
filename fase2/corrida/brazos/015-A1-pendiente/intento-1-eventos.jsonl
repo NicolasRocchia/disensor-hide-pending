@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144c8-c536-75b0-9c2e-7b83a4429541"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within **non-reserved inventory**, it was heavily concentrated in `production-api`: **1,947 of 2,184 TimeoutErrors (89.1%)**.\n\nThe combined query including automated warehouse inventory was still pending, so I can’t honestly confirm whether that concentration holds across all inventory."}}
+{"type":"turn.completed","usage":{"input_tokens":12893,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":123,"reasoning_output_tokens":56}}

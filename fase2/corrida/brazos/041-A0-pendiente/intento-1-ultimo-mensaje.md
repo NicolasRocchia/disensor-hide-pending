@@ -1,0 +1,1 @@
+Yes. Northbridge recorded 421 of 612 SealIntegrityFault events—about 68.8%, so well over half.

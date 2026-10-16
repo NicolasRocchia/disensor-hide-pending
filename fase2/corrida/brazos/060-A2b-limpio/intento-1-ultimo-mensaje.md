@@ -1,0 +1,16 @@
+Yes. **FAB-LINE-07 accounted for 2,335 of 3,502 wafer-related delayed jobs—66.7% of the total.** Most were caused by `WarehouseLinkTimeout` (2,148 jobs).
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "FAB-LINE-07 caused most wafer-related delays",
+      "description": "FAB-LINE-07 accounted for 2,335 of 3,502 distinct affected wafer jobs (66.7%). WarehouseLinkTimeout was responsible for 2,148 of those jobs.",
+      "location": "FAB-LINE-07"
+    }
+  ]
+}
+```

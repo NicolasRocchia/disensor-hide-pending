@@ -1,0 +1,1 @@
+Yes. Cell-alpha accounted for **641 of 759 servo-motor stockouts (84.5%)**, indicating a strong concentration there. The next-highest cell, cell-delta, had only 58 (7.6%).

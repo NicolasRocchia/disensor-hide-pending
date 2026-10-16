@@ -1,0 +1,1 @@
+Yes. Including automated warehouse inventory, **vision-inspection-api caused 2,259 of 2,628 TimeoutErrors (86.0%)**. The remaining 14% was split among three services, so the issue was strongly concentrated there.

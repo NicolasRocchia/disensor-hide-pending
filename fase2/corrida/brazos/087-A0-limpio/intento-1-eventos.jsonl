@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14515-f6b3-7562-b729-7607b4341f9e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Including automated warehouse inventory, **941 of 1,396 NodeUnavailable events (67.4%)** occurred on `gpu-cluster-a`—about two-thirds of the total."}}
+{"type":"turn.completed","usage":{"input_tokens":13215,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":91,"reasoning_output_tokens":46}}

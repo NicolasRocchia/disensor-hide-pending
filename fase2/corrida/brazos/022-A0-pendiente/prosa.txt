@@ -1,0 +1,1 @@
+Yes. **EZE-1 accounted for 671 of 812 CoolingSensorDrift incidents—about 83%**. COR-2 had 89 and SCL-3 had 52.

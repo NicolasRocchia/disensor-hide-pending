@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144d6-998a-7c72-a70c-ddc1f1cb1295"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **EZE-1 accounted for most CoolingSensorDrift defects**:\n\n- Customer-facing systems: **671 of 812 (82.6%)**\n- Including maintenance-only equipment: **765 of 955 (80.1%)**\n\nSo roughly four out of five reports came from EZE-1."}}
+{"type":"turn.completed","usage":{"input_tokens":13267,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":156,"reasoning_output_tokens":86}}

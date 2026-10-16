@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144b3-684f-78a3-a5a6-f1b0b792497e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Northbridge Analytical Center accounted for 490 of 676 reported defects (72.5%), compared with Meridian’s 115 and Lakeside’s 71.\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"assistant\",\"severity\":\"info\",\"title\":\"Northbridge accounted for most defects\",\"description\":\"Northbridge Analytical Center reported 490 of 676 defects (72.5%) across facility equipment and automated warehouse inventory.\",\"location\":\"Incident records for 2026-10-12\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13701,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":268,"reasoning_output_tokens":162}}

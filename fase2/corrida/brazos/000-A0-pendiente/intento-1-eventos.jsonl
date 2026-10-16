@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144b3-492d-7501-b4b2-d5ca694a9239"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Northbridge Analytical Center accounted for 418 of 555 reported defects—about 75%.\n\nMeridian BioLab had 87 (16%), and Lakeside Research Annex had 50 (9%). These figures cover the facility-equipment records; the broader warehouse-inclusive query was still pending."}}
+{"type":"turn.completed","usage":{"input_tokens":13009,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":152,"reasoning_output_tokens":87}}

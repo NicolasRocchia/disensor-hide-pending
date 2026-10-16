@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14523-0f6b-7df0-8215-cabb3a855f91"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the expanded scope, **metrology-dispatch accounted for 1,947 of 2,297 affected jobs—about 85%**.\n\nThe remainder came from lot-tracker (181), inventory-sync (113), and recipe-scheduler (56). So it was strongly concentrated in metrology-dispatch, though this attribution alone doesn’t prove that service was the root cause."}}
+{"type":"turn.completed","usage":{"input_tokens":13194,"cached_input_tokens":0,"cache_write_input_tokens":0,"output_tokens":172,"reasoning_output_tokens":87}}

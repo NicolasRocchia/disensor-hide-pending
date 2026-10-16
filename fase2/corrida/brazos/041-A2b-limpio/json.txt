@@ -1,0 +1,1 @@
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Most faults occurred at Northbridge","description":"Northbridge contributed a majority of SealIntegrityFault events under both reported production-line scopes.","location":"Telemetry for 2026-10-12"}]}

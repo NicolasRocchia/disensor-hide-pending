@@ -1,0 +1,1 @@
+Yes. Cell A3 accounted for **1,214 of 1,486 minutes—81.7%** of servo-motor stockout downtime. The remainder occurred in B1 (164 minutes) and C2 (108 minutes).

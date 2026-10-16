@@ -1,0 +1,6 @@
+Yes. **sa-east-1a accounted for 2,627 of 4,259 defects (61.7%)**, so it alone represented most reported defects. The other facilities recorded:
+
+- sa-east-1b: 909 (21.3%)
+- sa-east-1c: 723 (17.0%)
+
+HealthProbeTimeout drove the concentration in sa-east-1a, contributing 2,064 of its reports.

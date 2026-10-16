@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144e0-895e-7d72-923c-7395c8b1db6b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Rack-assembly cell 3 accounted for **611 of 742 downtime minutes (82%)** and **25 of 31 delayed shipments (81%)** caused by servo-motor stockouts.\n\nThe remainder was split between rack-assembly cell 1 (84 minutes) and cooling-module cell 2 (47 minutes)."}}
+{"type":"turn.completed","usage":{"input_tokens":13028,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":70,"reasoning_output_tokens":0}}

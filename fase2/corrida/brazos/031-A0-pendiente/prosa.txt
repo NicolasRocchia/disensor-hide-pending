@@ -1,0 +1,1 @@
+Yes. CELL-P1-07 accounted for 241 of 286 SM-48 servo-motor stockout events—about 84%. The remaining events occurred in CELL-P1-03 (27) and CELL-P2-02 (18).

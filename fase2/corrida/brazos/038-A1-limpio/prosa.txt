@@ -1,0 +1,1 @@
+Yes. Including both primary and secondary lines, rack-assembly-p1 caused **421 of 536** NIC retention-clip defects—about **78.5%**, clearly the majority. Among primary lines alone, it was **421 of 486** (**86.6%**).

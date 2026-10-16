@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144fc-95d2-73c1-95e7-b392dba0f929"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. RA-07 recorded **438 of 612** SM-48 servo-motor stockouts on October 12—about **72% across all three facilities** and **90% of Rosario Assembly’s 487 events**."}}
+{"type":"turn.completed","usage":{"input_tokens":13042,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":108,"reasoning_output_tokens":55}}

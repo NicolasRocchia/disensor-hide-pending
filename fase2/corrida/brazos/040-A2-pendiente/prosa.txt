@@ -1,0 +1,1 @@
+Yes. gpu-cluster-a accounted for 2,301 of 2,744 NodeUnavailable failures—about 83.9%.

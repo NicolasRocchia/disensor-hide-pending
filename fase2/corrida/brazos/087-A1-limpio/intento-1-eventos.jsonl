@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14515-db4b-73b3-9587-ea2793b68f10"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. On gpu-cluster-a:\n\n- Core three facilities: 903 of 1,284 NodeUnavailable events (70.3%)\n- Including automated warehouse inventory: 941 of 1,396 (67.4%)\n\nSo it accounted for a clear majority under either scope."}}
+{"type":"turn.completed","usage":{"input_tokens":13227,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":100,"reasoning_output_tokens":37}}

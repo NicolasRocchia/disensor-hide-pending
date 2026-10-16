@@ -1,0 +1,1 @@
+Yes. **metrology-dispatch accounted for 1,947 of 2,297 affected jobs—84.8%**. The remainder was split among lot-tracker (181; 7.9%), inventory-sync (113; 4.9%), and recipe-scheduler (56; 2.4%).

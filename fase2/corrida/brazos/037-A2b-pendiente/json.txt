@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "Stockouts concentrated in cell-atlas-3",
+      "description": "Cell-atlas-3 accounted for 1,566 of the 1,842 jobs delayed by servo-motor stockouts, or 85.0%.",
+      "location": "2026-10-12 customer-facing systems, cell-atlas-3"
+    }
+  ]
+}

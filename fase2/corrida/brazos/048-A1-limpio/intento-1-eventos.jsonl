@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144ee-4f31-7f73-aed8-77f422f8d50e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the broader non-reserved inventory analyzed, **236 of 335 NodeUnavailable incidents (70.4%)** occurred on `gpu-cluster-a`, so it accounted for a clear majority.\n\nIt also represented **2,817 of 3,652 downtime minutes (77.1%)** from NodeUnavailable failures."}}
+{"type":"turn.completed","usage":{"input_tokens":13402,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":70,"reasoning_output_tokens":0}}

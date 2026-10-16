@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144e9-08b1-74e3-b2a2-5bc3af1ea47d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"FAB-3 dominated, but did not account for an outright majority of all delays:\n\n- FAB-3: 1,307 minutes—49.3% of the 2,651-minute total.\n- Within the leading issue, wafer-stage vacuum instability, FAB-3 caused 1,196 of 1,486 minutes—80.5%.\n\nSo FAB-3 was clearly the largest contributor, driven mainly by vacuum instability."}}
+{"type":"turn.completed","usage":{"input_tokens":13027,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":216,"reasoning_output_tokens":123}}

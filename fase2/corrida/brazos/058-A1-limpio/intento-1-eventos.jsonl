@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f9-0912-7ba2-9682-accfe36dbf36"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. On the queried date, **checkout-api accounted for 421 minutes**:\n\n- **87%** of customer-facing connection-pool downtime (421 of 486 minutes)\n- **77%** across customer-facing and internal systems (421 of 544 minutes)\n\nSo it was strongly concentrated in checkout-api, though several other services were also affected."}}
+{"type":"turn.completed","usage":{"input_tokens":13076,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":137,"reasoning_output_tokens":60}}

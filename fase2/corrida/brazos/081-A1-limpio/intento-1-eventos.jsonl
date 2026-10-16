@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1450f-80e7-7442-b161-04b7c5f55dff"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. On October 12, Ezeiza accounted for:\n\n- **71 of 99** HBM3 stockout events across combined records (**71.7%**).\n- **49 of 68** external-service events alone (**72.1%**).\n\nSo roughly 72% were concentrated at Ezeiza. These figures count recorded stockout events, not necessarily unique incidents or stockout duration."}}
+{"type":"turn.completed","usage":{"input_tokens":13099,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":146,"reasoning_output_tokens":57}}

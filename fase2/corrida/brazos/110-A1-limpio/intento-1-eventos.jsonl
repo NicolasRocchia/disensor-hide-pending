@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1452c-188f-7bb2-bf47-0509dd322a6d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. EZE-1 accounted for 2,183 of 2,648 NodeUnavailable-affected jobs—about 82%.\n\nThe standard-pool-only view is similar: 2,071 of 2,486, about 83%. This establishes concentration at EZE-1, but not that the scheduled maintenance caused it."}}
+{"type":"turn.completed","usage":{"input_tokens":13238,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":128,"reasoning_output_tokens":54}}

@@ -1,0 +1,1 @@
+Yes. FAB-L3 accounted for 428 of the 522 minutes of wafer-carrier dispatch-hold downtime—about 82%. FAB-L1 contributed 61 minutes and FAB-L2 33 minutes.

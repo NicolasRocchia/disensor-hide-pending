@@ -1,0 +1,1 @@
+Yes. Across all reported compute pools, Ashburn had 731 of 1,062 SFP-25G-SR stockouts—about **69%**, so a clear majority.

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144e0-f81c-7f13-ba4a-2ae69c1c4a21"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Ashburn Assembly accounted for 2,311 of the 3,000 affected jobs—about **77%** of all ComponentQualificationFailure cases reported for October 12.\n\nStrictly speaking, the data measures **affected jobs**, not a direct count of individual defects."}}
+{"type":"turn.completed","usage":{"input_tokens":13150,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":128,"reasoning_output_tokens":66}}

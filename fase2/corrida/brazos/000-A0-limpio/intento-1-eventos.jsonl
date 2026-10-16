@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144b3-d1d0-75b1-b333-cbc15068bf6f"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Northbridge Analytical Center accounted for **490 of 676 defects (72.5%)** across equipment and warehouse records yesterday.\n\nMeridian BioLab reported 115 (17.0%), and Lakeside Research Annex reported 71 (10.5%). Northbridge also generated 272 of the 330 seal-integrity failures."}}
+{"type":"turn.completed","usage":{"input_tokens":13474,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":180,"reasoning_output_tokens":107}}

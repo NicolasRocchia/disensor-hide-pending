@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f6-f7e9-7e12-ae52-e602d8798248"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the customer-facing data, **cell-pack-04 accounted for 781 of 934 servo-motor stockout failures—about 84%**.\n\nEven when maintenance-only systems were included, cell-pack-04 still represented **823 of 1,031 affected jobs—about 80%**. So the stockouts were strongly concentrated there."}}
+{"type":"turn.completed","usage":{"input_tokens":13069,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":150,"reasoning_output_tokens":72}}

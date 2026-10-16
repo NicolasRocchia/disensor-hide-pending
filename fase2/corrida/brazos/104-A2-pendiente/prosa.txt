@@ -1,0 +1,1 @@
+Yes. **349 of 418 ServoDrive-X9 stockouts (83.5%)** occurred in `motion-control-east`. The remainder occurred in `assembly-orchestrator` (47; 11.2%) and `inspection-cell-standard` (22; 5.3%).

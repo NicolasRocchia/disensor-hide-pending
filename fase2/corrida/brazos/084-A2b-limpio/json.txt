@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "TimeoutError downtime concentrated in pallet-vision-api",
+      "description": "Pallet-vision-api accounted for 1,602 of 1,972 TimeoutError downtime minutes across primary and secondary production lines, approximately 81%.",
+      "location": "External services on primary and secondary production lines, 2026-10-12"
+    }
+  ]
+}

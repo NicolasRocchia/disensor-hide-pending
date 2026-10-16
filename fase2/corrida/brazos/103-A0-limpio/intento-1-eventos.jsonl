@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14524-2018-7160-b105-8dabe9d73b0c"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **Rosario Assembly accounted for 1,119 of 1,954 reported defects—57.3%**. Most were SurfaceFinishRejects (819).\n\nFor external services alone, Rosario represented **888 of 1,486 reports—59.8%**."}}
+{"type":"turn.completed","usage":{"input_tokens":13156,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":226,"reasoning_output_tokens":163}}

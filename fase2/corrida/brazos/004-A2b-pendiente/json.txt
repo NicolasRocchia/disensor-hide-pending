@@ -1,0 +1,1 @@
+{"findings":[{"id":"h1","origin":"assistant","severity":"major","title":"Servo-motor stockouts concentrated in cell-P3","description":"Cell-P3 represented 82.5% of servo-motor stockout downtime and 80.5% of related events.","location":"primary production lines / cell-P3"}]}

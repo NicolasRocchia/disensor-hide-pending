@@ -1,0 +1,14 @@
+{
+  "findings": [],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "execution_gap",
+        "requires_human_attention": true,
+        "description": "The wafer-specific aggregation had only been accepted for asynchronous processing; no completed result was available to verify whether FAB-LINE-07 retained a majority after warehouse inventory was included.",
+        "gap_reason": "other"
+      }
+    ]
+  }
+}

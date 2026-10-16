@@ -1,0 +1,3 @@
+Yes. Rosario Assembly accounted for **1,119 of 1,954 reported defects (57.3%)**, so it represented a majority. SurfaceFinishReject dominated there, with 819 reports.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"major","title":"Rosario reported most defects","description":"Rosario Assembly accounted for 1,119 of 1,954 reported defects (57.3%), driven primarily by 819 SurfaceFinishReject reports.","location":"Rosario Assembly"}]}

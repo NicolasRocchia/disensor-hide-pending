@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14520-bd71-7060-a618-9a24b239b50d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **lithography-dispatch accounted for 1,947 of 2,184 downtime minutes—about 89%—and 39 of 51 TimeoutError incidents.**\n\nThe remainder was:\n\n- etch-control: 181 minutes\n- lot-scheduler: 56 minutes"}}
+{"type":"turn.completed","usage":{"input_tokens":13032,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":108,"reasoning_output_tokens":43}}

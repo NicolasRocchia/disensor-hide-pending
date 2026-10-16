@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f9-22fc-7043-9816-a0c43b033498"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **checkout-api accounted for 421 of 486 minutes—about 87%** of the database connection-pool exhaustion downtime.\n\nThe remainder was:\n\n- account-service: 43 minutes\n- pricing-api: 22 minutes\n\nSo it was heavily concentrated in checkout-api."}}
+{"type":"turn.completed","usage":{"input_tokens":12945,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":114,"reasoning_output_tokens":51}}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f7-d5a5-7b50-92e9-ec13fc5a8d1d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Dock 7 accounted for 1,044 of 1,372 LabelMismatch errors—about **76%**, so it had a clear majority."}}
+{"type":"turn.completed","usage":{"input_tokens":12911,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":36,"reasoning_output_tokens":0}}

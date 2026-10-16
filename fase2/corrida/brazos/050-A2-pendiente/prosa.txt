@@ -1,0 +1,1 @@
+Yes. West Annex accounted for 61 of 84 BarcodeReadTimeout failures—about 72.6%—and 690 of 910 downtime minutes (75.8%).

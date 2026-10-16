@@ -1,0 +1,1 @@
+Yes. **fab-line-p1** accounted for 1,917 of the 2,284 WaferCarrierRouteTimeout-affected fabrication jobs—about **84%**. It was the clear concentration point.

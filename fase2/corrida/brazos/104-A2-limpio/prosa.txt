@@ -1,0 +1,1 @@
+Yes. In the original standard-compute scope, motion-control-east accounted for **349 of 418 ServoDrive-X9 stockouts (83.5%)**. Even across all infrastructure, it represented **401 of 512 events (78.3%)**, so the concentration was clear.

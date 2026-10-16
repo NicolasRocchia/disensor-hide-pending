@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f3-3ac8-73d3-922a-1c37c7a0f166"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—for **non-reserved inventory**, gpu-cluster-a had 61 of 76 NodeUnavailable events (about 80%), affecting 366 of 438 delayed jobs.\n\nThe full view including reserved compute capacity hadn’t returned, so I can’t confirm the same conclusion across all inventory."}}
+{"type":"turn.completed","usage":{"input_tokens":13071,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":101,"reasoning_output_tokens":37}}

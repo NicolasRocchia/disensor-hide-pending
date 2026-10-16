@@ -1,0 +1,24 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "inventory-analysis",
+      "severity": "info",
+      "title": "Servo-motor stockouts concentrated in CELL-F12",
+      "description": "CELL-F12 accounted for 78 of 96 customer-facing events and 94 of 118 events when internal services were included.",
+      "location": "FAB-NORTE/CELL-F12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the manufacturing stockout aggregation for 2026-10-12."
+      },
+      "evidence": {
+        "text": "CELL-F12 recorded 78 of 96 customer-facing servo-motor stockouts and 94 of 118 under the expanded scope."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved analytical questions or unverified execution gaps remained after reviewing both reported system scopes."
+  }
+}

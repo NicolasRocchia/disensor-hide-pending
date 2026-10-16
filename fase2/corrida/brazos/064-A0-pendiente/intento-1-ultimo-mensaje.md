@@ -1,0 +1,1 @@
+Yes. Cell L-04 accounted for 571 of the 684 affected jobs—about 83.5%. The rest were in L-02 (67) and L-07 (46).

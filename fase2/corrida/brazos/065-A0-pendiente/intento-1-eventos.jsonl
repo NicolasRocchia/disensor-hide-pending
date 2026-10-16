@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144ff-f792-73a1-9ddc-6623dfa71ef9"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Rosario Assembly Plant accounted for **119 of 146 servo-motor SM-42 stockouts—about 81.5%**—in yesterday’s non-reserved inventory data. The remaining incidents were Córdoba (18) and Santa Fe (9).\n\nThe automated-warehouse query was still pending, so this conclusion applies specifically to non-reserved inventory."}}
+{"type":"turn.completed","usage":{"input_tokens":12970,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":119,"reasoning_output_tokens":41}}

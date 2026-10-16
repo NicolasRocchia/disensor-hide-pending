@@ -1,0 +1,1 @@
+Yes. In the standard compute pools, **fab-line-l3 accounted for 391 of 486 WaferStageTimeout failures—about 80%**. Lines l2 and l1 had 58 and 37, respectively.

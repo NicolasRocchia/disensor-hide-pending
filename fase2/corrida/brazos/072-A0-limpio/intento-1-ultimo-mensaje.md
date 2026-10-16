@@ -1,0 +1,1 @@
+Yes. Río-North’s **rack-handling-cell-4** accounted for **143 of 199 stockout events (72%)** across all monitored facilities—nearly six times the next-highest cell, Pampas-Central’s rack-handling-cell-2 with 24.

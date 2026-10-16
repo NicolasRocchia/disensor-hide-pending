@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f1-8570-7431-ac8b-f70f0c4112f2"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Of the 842 servo-motor stockout events, 731—about 87%—occurred in **FAB-A/CELL-ETCH-04**. The remaining 111 were split between CELL-ETCH-02 (64) and FAB-B/CELL-CMP-01 (47)."}}
+{"type":"turn.completed","usage":{"input_tokens":13040,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":66,"reasoning_output_tokens":0}}

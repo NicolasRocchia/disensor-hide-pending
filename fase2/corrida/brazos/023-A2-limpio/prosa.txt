@@ -1,0 +1,1 @@
+Yes. **gpu-cluster-a accounted for 1,087 of 1,656 minutes—65.6%—of all NodeUnavailable downtime** on October 12, 2026.

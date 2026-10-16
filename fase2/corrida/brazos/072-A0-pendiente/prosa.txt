@@ -1,0 +1,1 @@
+Yes. Of the 184 servo-motor stockout events, 143 (about 78%) occurred at Río-North’s `rack-handling-cell-4`. The remaining 41 were split between Pampas-Central’s cell 2 (24) and Andes-West’s cooling-service cell 1 (17).

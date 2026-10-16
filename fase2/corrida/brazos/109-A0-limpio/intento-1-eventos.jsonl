@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1452a-dbc0-7e92-aa7a-f39e9396f0bf"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. ReticleSyncTimeout was heavily concentrated in **litho-dispatch**:\n\n- litho-dispatch: 2,198 events (88%)\n- wafer-routing: 201 (8%)\n- mask-catalog: 97 (4%)\n\nThe same ~88% concentration appears when considering only non-reserved inventory."}}
+{"type":"turn.completed","usage":{"input_tokens":12990,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":137,"reasoning_output_tokens":65}}

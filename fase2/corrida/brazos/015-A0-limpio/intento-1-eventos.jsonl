@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144c6-a7ca-7853-8d11-dfe56e56e2a3"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. `production-api` accounted for:\n\n- **1,947 of 2,184 TimeoutErrors (89%)** in non-reserved inventory.\n- **2,359 of 2,793 (84%)** when automated warehouse inventory was included.\n\nSo the problem was strongly concentrated in `production-api`."}}
+{"type":"turn.completed","usage":{"input_tokens":12954,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":119,"reasoning_output_tokens":50}}

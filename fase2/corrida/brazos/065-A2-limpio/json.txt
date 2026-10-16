@@ -1,0 +1,24 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "inventory_incidents",
+      "severity": "info",
+      "title": "Servo-motor stockouts concentrated at Rosario",
+      "description": "Rosario recorded 141 of 177 SM-42 stockouts across non-reserved and automated-warehouse inventory.",
+      "location": "Inventory incident records for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Verified against the completed inventory aggregation request invq-8f31c2a7."
+      },
+      "evidence": {
+        "text": "Rosario Assembly Plant: 141 of 177 total SM-42 out-of-stock incidents."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified execution gaps remained after reviewing the completed aggregation."
+  }
+}

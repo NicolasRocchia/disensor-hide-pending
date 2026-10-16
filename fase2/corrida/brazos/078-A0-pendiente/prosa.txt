@@ -1,0 +1,1 @@
+Yes. FAB-L3 accounted for 143 of 184 WaferAlignTimeout-affected jobs—about 78%, clearly the majority. FAB-L1 had 25 and FAB-L2 had 16.

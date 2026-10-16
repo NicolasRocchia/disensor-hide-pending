@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1451e-90d8-7e73-bc1a-a698eb8a0626"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **eze-1 accounted for 2,641 of 3,146 minutes—about 84%—of the reported damaged accelerator tray downtime.**\n\nThat figure covers non-reserved inventory on primary production lines; the broader primary-and-secondary query had not returned yet."}}
+{"type":"turn.completed","usage":{"input_tokens":13064,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":112,"reasoning_output_tokens":49}}

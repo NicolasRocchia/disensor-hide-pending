@@ -1,0 +1,1 @@
+Yes. Servo-motor stockouts were heavily concentrated in **CELL-F12**, which recorded **78 of 96 events (81.25%)**. CELL-F07 had 11 events and CELL-F03 had 7.

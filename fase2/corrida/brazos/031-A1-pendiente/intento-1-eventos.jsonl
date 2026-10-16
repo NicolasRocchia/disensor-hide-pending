@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144de-4b64-72e1-9f3c-b5b7af0d4b0d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Of the 286 recorded SM-48 servo-motor stockouts, 241 (84.3%) occurred in CELL-P1-07. The remainder were in CELL-P1-03 (27) and CELL-P2-02 (18).\n\nCaveat: these confirmed figures cover customer-facing primary production lines only. The broader query including secondary lines was accepted but no result was shown, so I can’t honestly confirm whether the same concentration holds across all lines."}}
+{"type":"turn.completed","usage":{"input_tokens":13004,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":100,"reasoning_output_tokens":0}}

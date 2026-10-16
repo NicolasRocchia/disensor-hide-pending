@@ -1,0 +1,1 @@
+Yes. **fab-line-l3** accounted for 494 of 849 wafer-related failures (58%), including 443 of 560 WaferStageTimeouts (79%). It was the clear main source of wafer-related delays.

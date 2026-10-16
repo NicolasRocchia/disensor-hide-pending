@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144ec-4d4c-7ff3-98b3-e85274f362ab"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. `production-api` accounted for 1,947 of 2,470 TimeoutErrors—about **79%** across the broader environment.\n\nWithin customer-facing systems alone, it was even more concentrated: **1,947 of 2,184 (89%)**. The next-largest service had only 212."}}
+{"type":"turn.completed","usage":{"input_tokens":13147,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":139,"reasoning_output_tokens":68}}

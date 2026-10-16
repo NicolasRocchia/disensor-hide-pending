@@ -1,0 +1,1 @@
+Yes. **eze-1 accounted for 2,641 of 3,146 minutes—about 84%** of the damaged accelerator tray downtime yesterday. The other two facilities combined accounted for 505 minutes (16%).

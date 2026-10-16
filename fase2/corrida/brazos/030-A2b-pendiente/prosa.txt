@@ -1,0 +1,1 @@
+It can’t yet be determined. The wafer-delay aggregation was accepted, but its results were not returned. The stockout data alone—although concentrated on Fab-Line-3—doesn’t establish which line caused most wafer-related delays.

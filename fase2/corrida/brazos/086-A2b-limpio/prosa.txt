@@ -1,0 +1,1 @@
+Yes. Northbridge accounted for 401 pipette-tip stockout failures—82.5% of the 486 customer-facing failures. Including automated warehouse inventory, it still represented 69.5% of the 577 total failures.

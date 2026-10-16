@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14509-e66b-7031-b31e-f5f3c379f452"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Of 96 servo-motor assembly stockouts, 78 (81.25%) occurred in CELL-F12. The remaining 18 were split between CELL-F07 (11) and CELL-F03 (7). So they were strongly concentrated in CELL-F12."}}
+{"type":"turn.completed","usage":{"input_tokens":12929,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":116,"reasoning_output_tokens":55}}

@@ -1,0 +1,1 @@
+Yes. **fab-line-p1 accounted for 1,917 of the 2,284 WaferCarrierRouteTimeout jobs across fabrication lines—about 84%**. That line was the clear concentration of wafer-related delays.

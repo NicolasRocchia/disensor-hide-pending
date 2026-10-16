@@ -1,0 +1,1 @@
+Yes. EZE-1 accounted for 2,183 of 2,648 NodeUnavailable-affected jobs—about 82.4%—across standard and maintenance-only pools.

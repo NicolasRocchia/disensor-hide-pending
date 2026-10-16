@@ -1,0 +1,28 @@
+Yes. Rack-assembly cell 3 accounted for 611 of 742 downtime minutes (82.3%) and 25 of 31 delayed shipments (80.6%) caused by servo-motor stockouts on primary production lines.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "shipment_analytics",
+      "severity": "major",
+      "title": "Servo-motor stockouts concentrated in rack-assembly cell 3",
+      "description": "Cell-rack-assembly-3 represented 82.3% of servo-motor-stockout downtime and 80.6% of associated delayed shipments on primary production lines.",
+      "location": "cluster-hardware-plant / cell-rack-assembly-3",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Calculated from the shipment analytics results for 2026-10-12."
+      },
+      "evidence": {
+        "text": "Cell-rack-assembly-3 recorded 611 of 742 downtime minutes and 25 of 31 delayed shipments."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved interpretive, execution, escalation, or reviewer-related residue remains for this finding."
+  }
+}
+```

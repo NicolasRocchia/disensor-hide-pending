@@ -1,0 +1,1 @@
+Yes. Fab Line P3 accounted for 611 of 742 wafer-edge-chipping incidents on fabrication lines—about **82%**. Even including warehouse incidents, P3 still represented **78%** (611 of 780).

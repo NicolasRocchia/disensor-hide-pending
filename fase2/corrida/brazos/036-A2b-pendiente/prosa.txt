@@ -1,0 +1,1 @@
+Yes. In the external-services records, Northgate accounted for 401 of 689 reported defects—about 58.2%, so it represented a majority.

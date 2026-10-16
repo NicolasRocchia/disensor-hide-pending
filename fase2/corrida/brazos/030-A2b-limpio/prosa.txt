@@ -1,0 +1,1 @@
+Yes. **Fab-Line-3 accounted for most wafer-related delays: 3,179 of 4,587 minutes (69.3%)**, across 154 of 229 incidents. Most came from quartz wafer-carrier shortages, which caused 3,058 delay minutes on that line.

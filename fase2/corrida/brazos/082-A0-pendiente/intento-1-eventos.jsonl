@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14511-104a-7fe2-b50f-768a1bdebb16"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Among the primary production lines, **FAB-L3 accounted for 428 of 522 minutes—about 82%—of wafer-carrier dispatch-hold downtime**. FAB-L1 had 61 minutes and FAB-L2 had 33."}}
+{"type":"turn.completed","usage":{"input_tokens":12971,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":156,"reasoning_output_tokens":99}}

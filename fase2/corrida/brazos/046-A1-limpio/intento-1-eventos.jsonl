@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144ec-79f8-7680-b04c-07f193ad7d2e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—mostly in `production-api`.\n\n- Customer-facing scope: 1,947 of 2,184 TimeoutErrors (89%)\n- Broader scope including packaging facilities: 1,947 of 2,470 (79%)\n\nSo it was strongly concentrated there, though not exclusive: `packaging-mes` had 212 and `async-worker` had 181. These counts show concentration, but don’t establish the root cause."}}
+{"type":"turn.completed","usage":{"input_tokens":13149,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":168,"reasoning_output_tokens":73}}

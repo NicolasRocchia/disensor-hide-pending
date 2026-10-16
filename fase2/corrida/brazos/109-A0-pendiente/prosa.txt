@@ -1,0 +1,3 @@
+Yes. In non-reserved inventory, **litho-dispatch accounted for 1,926 of 2,184 ReticleSyncTimeout events—88.2%**.
+
+The remainder came from wafer-routing (174; 8.0%) and mask-catalog (84; 3.8%). The reserved-capacity query was still pending, so this conclusion applies to non-reserved inventory.

@@ -1,0 +1,27 @@
+Yes. **958 of 1,209 NodeUnavailable failures (79.2%)** occurred on `gpu-cluster-a`, including both primary and secondary production lines.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "shipment_records",
+      "severity": "info",
+      "title": "Most failures occurred on gpu-cluster-a",
+      "description": "gpu-cluster-a accounted for 958 of 1,209 NodeUnavailable failures, or 79.2%.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied aggregate shipment records for primary and secondary production lines."
+      },
+      "evidence": {
+        "text": "NodeUnavailable: gpu-cluster-a 958; total affected jobs 1,209."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified interpretive conclusions remain from this calculation."
+  }
+}
+```

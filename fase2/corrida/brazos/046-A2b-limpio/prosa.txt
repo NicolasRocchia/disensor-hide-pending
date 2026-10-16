@@ -1,0 +1,1 @@
+Yes. The problem was heavily concentrated in `production-api`: 1,947 of 2,470 TimeoutErrors (78.8%) across the broader environment. Within customer-facing systems alone, it represented 1,947 of 2,184 (89.1%).

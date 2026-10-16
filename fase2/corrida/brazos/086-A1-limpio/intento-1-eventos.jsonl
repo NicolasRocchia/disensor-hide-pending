@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14515-398a-76d1-b665-07534cf4bb5c"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Of the 486 customer-facing pipette-tip stockout failures, 401 occurred on the Northbridge assay line—about **83%**.\n\nIncluding automated warehouse inventory events, Northbridge accounted for 401 of 577 failures—about **70%**—so the concentration remains clear."}}
+{"type":"turn.completed","usage":{"input_tokens":13257,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":126,"reasoning_output_tokens":60}}

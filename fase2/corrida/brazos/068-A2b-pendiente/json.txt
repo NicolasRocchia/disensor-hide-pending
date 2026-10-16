@@ -1,0 +1,1 @@
+{"findings":[{"id":"h1","origin":"assistant","severity":"major","title":"Vision alignment errors concentrated on line-etch-3","description":"Line-etch-3 produced 1,087 of 1,436 VisionAlignmentError events (75.7%) on the primary production lines on 2026-10-12.","location":"primary_production_lines/line-etch-3"}]}

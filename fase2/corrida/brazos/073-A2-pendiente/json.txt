@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "inventory_jobs",
+      "severity": "major",
+      "title": "TimeoutError concentrated in fleet-inventory-api",
+      "description": "The service generated 88.3% of TimeoutError downtime and 89.1% of associated failed jobs in the external-services slice.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the inventory job failure aggregation for 2026-10-12 in America/Buenos_Aires."
+      },
+      "evidence": {
+        "text": "fleet-inventory-api: 1,947 failed jobs and 3,806 TimeoutError downtime minutes."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved qualification remains for the external-services slice used to answer this concentration question."
+  }
+}

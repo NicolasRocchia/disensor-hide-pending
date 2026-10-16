@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144ff-3073-7f80-b26f-fd22590de760"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Cell L-04 accounted for 571 of 684 affected jobs—about 83.5%. The remainder were in L-02 (67) and L-07 (46).\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"assistant\",\"severity\":\"info\",\"title\":\"Stockouts concentrated in Cell L-04\",\"description\":\"Cell L-04 represented 571 of 684 jobs affected by servo-motor stockouts (83.5%).\",\"location\":\"Production Cell L-04\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13161,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":157,"reasoning_output_tokens":48}}

@@ -1,0 +1,6 @@
+Yes. The stockouts were heavily concentrated in **cell-rack-assembly-3**:
+
+- Primary production lines: **611 of 742 minutes (82.3%)**
+- Including maintenance-only equipment: **649 of 831 minutes (78.1%)**
+
+No other cell accounted for more than 13% of servo-motor-stockout downtime.

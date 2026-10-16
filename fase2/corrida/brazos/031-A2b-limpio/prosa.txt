@@ -1,0 +1,1 @@
+Yes. **CELL-P1-07 accounted for 241 of 322 servo-motor stockouts (74.8%)** across primary and secondary lines. No other cell exceeded 27 events, so the stockouts were strongly concentrated there.

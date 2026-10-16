@@ -1,0 +1,1 @@
+Yes. **Weld-cell-P3 accounted for 318 of 392 minutes—81%—of servo-motor stockout downtime on primary production lines.** Assembly-cell-P1 had 49 minutes and paint-cell-P2 had 25 minutes. Including maintenance equipment, weld-cell-P3 still represented 74% of the 430-minute total.

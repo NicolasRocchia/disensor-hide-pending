@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144b9-af42-7082-b591-711f4a377c0b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the external-services data for October 12, Rosario Final Assembly accounted for 612 of 727 VacuumInterlock downtime minutes—about 84%.\n\nThe expanded production-footprint query had not returned yet, so this conclusion is limited to the available external-services data."}}
+{"type":"turn.completed","usage":{"input_tokens":12982,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":112,"reasoning_output_tokens":51}}

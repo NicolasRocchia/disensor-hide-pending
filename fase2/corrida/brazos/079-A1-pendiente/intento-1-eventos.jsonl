@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1450d-56d4-7132-92e3-6c7e275c9694"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the completed three-facility results, **2,319 of 2,846** NodeUnavailable-affected jobs—about **81.5%**—were on `gpu-cluster-a`.\n\nThe broader warehouse-inclusive query had not completed, so I can’t confirm whether that percentage holds for the expanded scope."}}
+{"type":"turn.completed","usage":{"input_tokens":12957,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":115,"reasoning_output_tokens":43}}

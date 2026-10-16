@@ -1,0 +1,1 @@
+Yes. Ezeiza Fulfillment Center accounted for **1,264 of 2,229 defects—56.7%** of all reported defects yesterday. It was therefore responsible for a majority, driven primarily by 912 barcode-read failures.

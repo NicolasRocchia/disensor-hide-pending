@@ -1,0 +1,34 @@
+Yes—within the completed **non-reserved inventory** report, **atlas-dc3 accounted for 165 of 252 defects (65.5%)**, mostly GPU ECC quarantines (151).
+
+The broader all-infrastructure query was still pending, so this majority cannot yet be confirmed across regional and private infrastructure.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Atlas-dc3 produced most non-reserved defects",
+      "description": "Atlas-dc3 accounted for 165 of 252 reported defects, or 65.5 percent.",
+      "location": "qc_events aggregate for 2026-10-12, non-reserved inventory",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Calculated from the facility counts returned by qc_events.aggregate."
+      }
+    }
+  ],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "execution_gap",
+        "requires_human_attention": false,
+        "description": "The all-infrastructure aggregation was accepted asynchronously but no completed result was available, so the conclusion is limited to non-reserved inventory.",
+        "gap_reason": "other"
+      }
+    ]
+  }
+}
+```

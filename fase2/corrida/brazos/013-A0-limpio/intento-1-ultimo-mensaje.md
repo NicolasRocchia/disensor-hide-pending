@@ -1,0 +1,1 @@
+Yes. **dal-04 accounted for 156 of 229 NVMe SSD stockouts—about 68%—** across all reported infrastructure, making it the clear majority.

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f2-f482-79e3-9cd2-68cd3e7013b8"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Including reserved capacity, gpu-cluster-a had:\n\n- 75 of 97 NodeUnavailable events (77%)\n- 448 of 556 delayed jobs (81%)\n- 13,640 of 16,980 delay-minutes (80%)\n\nSo it accounted for roughly four-fifths of the impact."}}
+{"type":"turn.completed","usage":{"input_tokens":13346,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":120,"reasoning_output_tokens":50}}

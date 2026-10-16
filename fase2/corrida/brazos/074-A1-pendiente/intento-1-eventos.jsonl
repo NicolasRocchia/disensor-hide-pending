@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14508-daea-79b0-82d9-01db00347e4f"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within the **primary production lines**, gpu-cluster-a had 512 of 684 NodeUnavailable events, about **75%**, so most occurred there.\n\nThe broader query including internal services had not returned, so that conclusion cannot yet be extended to all services."}}
+{"type":"turn.completed","usage":{"input_tokens":12945,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":96,"reasoning_output_tokens":36}}

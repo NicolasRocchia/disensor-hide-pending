@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14525-aa12-7162-9e97-ff8118caf1b5"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the standard compute pools, motion-control-east accounted for **349 of 418 ServoDrive-X9 stockout events—about 83.5%**.\n\nThat conclusion applies only to the completed standard-pool query; the broader regional/private-infrastructure query had not returned yet."}}
+{"type":"turn.completed","usage":{"input_tokens":12974,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":104,"reasoning_output_tokens":40}}

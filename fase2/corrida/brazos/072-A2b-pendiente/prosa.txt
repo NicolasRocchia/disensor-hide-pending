@@ -1,0 +1,1 @@
+Yes. **143 of 184 servo-motor stockouts (77.7%)** occurred at **Río-North’s rack-handling-cell-4**, showing a strong concentration in that production cell. This is based on the completed query covering the three major facilities; the expanded advanced-packaging query had not yet returned.

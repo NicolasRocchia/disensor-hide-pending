@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144ee-cc86-7180-901e-b3eed3628e26"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Phoenix-integration accounted for 641 of 812 stockouts—about 79%—so the clear majority occurred there."}}
+{"type":"turn.completed","usage":{"input_tokens":12950,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":69,"reasoning_output_tokens":36}}

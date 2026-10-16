@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144d8-9800-7e52-85b6-e0502976c816"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. gpu-cluster-a accounted for **1,087 of 1,426 minutes**, or **76.2%**, of the NodeUnavailable downtime.\n\n```json\n{\n  \"findings\": [],\n  \"residue\": {\n    \"declared_absence\": true,\n    \"declaration\": \"No unresolved questions or unverified claims remain in this calculation.\"\n  }\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":14875,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":192,"reasoning_output_tokens":107}}

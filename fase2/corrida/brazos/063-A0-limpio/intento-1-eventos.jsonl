@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144fe-911c-71c2-9c0c-8029612df138"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **shipment-gateway accounted for 1,947 of 2,326 TimeoutErrors—about 84%**.\n\nThe remainder came from:\n\n- carrier-worker: 181 (8%)\n- inventory-sync: 142 (6%)\n- dispatch-scheduler: 56 (2%)\n\nSo the problem was strongly concentrated in shipment-gateway, though not exclusive to it."}}
+{"type":"turn.completed","usage":{"input_tokens":13046,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":145,"reasoning_output_tokens":63}}

@@ -1,0 +1,32 @@
+Yes. Cell RA-07 accounted for **438 of 612 SM-48 stockout events (71.6%)** across the three facilities—and **89.9%** of Rosario Assembly’s 487 events. The stockouts were therefore strongly concentrated in RA-07.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "SM-48 stockouts concentrated in RA-07",
+      "description": "RA-07 recorded 438 of 612 SM-48 stockout events overall and 438 of 487 at Rosario Assembly.",
+      "location": "Manufacturing stockout aggregation for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Verified against the returned manufacturing_delays aggregation."
+      },
+      "fix_verification": {
+        "type": "specific_test",
+        "reference": "438/612 = 71.6%; 438/487 = 89.9%"
+      },
+      "evidence": {
+        "text": "servo-motor SM-48: 612 total; Rosario Assembly: 487; cell RA-07: 438"
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved interpretation, execution gap, escalation, or reviewer-related residue remains."
+  }
+}
+```

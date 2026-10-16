@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1450c-0e8a-7991-84a2-b5356cc7eaaa"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Cambridge Lab accounted for 251 of 329 reported peristaltic pump tubing stockouts—about 76%—across primary and secondary production lines.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"info\",\n      \"title\": \"Cambridge Lab dominated tubing stockouts\",\n      \"description\": \"Cambridge Lab recorded 251 of 329 peristaltic pump tubing stockouts (76.3%), constituting a clear majority.\",\n      \"location\": \"Cambridge Lab; non-reserved inventory; primary and secondary production lines; 2026-10-12\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13335,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":214,"reasoning_output_tokens":60}}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144df-7b60-7f82-b1d6-b112fa7198b8"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Ashburn-dc2 accounted for 731 of 914 SFP-25G-SR stockouts—about 80.0%, so a clear majority.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"inventory-reviewer\",\n      \"severity\": \"info\",\n      \"title\": \"Most SFP-25G-SR stockouts occurred in Ashburn\",\n      \"description\": \"Ashburn-dc2 recorded 731 of 914 SFP-25G-SR stockout events, representing approximately 80.0% of the total.\",\n      \"location\": \"ashburn-dc2\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13244,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":231,"reasoning_output_tokens":79}}

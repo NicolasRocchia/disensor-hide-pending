@@ -1,0 +1,1 @@
+Yes. In the complete dataset, Cell L-04 accounted for 729 of 942 affected jobs—about 77%. The remainder were in L-07 (115) and L-02 (98), so the stockouts were strongly concentrated in L-04, though not exclusive to it.

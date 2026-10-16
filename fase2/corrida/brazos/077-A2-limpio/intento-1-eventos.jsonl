@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1450b-4bcf-7960-b473-89ebef902f6e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Cambridge Lab accounted for 251 of 329 reported stockouts—about **76.3%**, clearly the majority. Rosario had 51 and Córdoba had 27.\n\n```json\n{\n  \"findings\": [],\n  \"residue\": {\n    \"declared_absence\": true,\n    \"declaration\": \"No unresolved questions or unverified conclusions remain in this calculation.\"\n  }\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":15006,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":264,"reasoning_output_tokens":175}}

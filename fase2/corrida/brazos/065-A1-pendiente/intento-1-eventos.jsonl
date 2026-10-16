@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14500-a10f-7001-8130-c70e39b08d72"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—for non-reserved inventory on October 12, Rosario accounted for 119 of 146 SM-42 stockouts, about 82%.\n\nThe automated-warehouse query had not returned, so I can’t honestly confirm whether that concentration holds across all inventory classes."}}
+{"type":"turn.completed","usage":{"input_tokens":12972,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":120,"reasoning_output_tokens":61}}

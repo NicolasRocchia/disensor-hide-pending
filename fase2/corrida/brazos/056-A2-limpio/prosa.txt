@@ -1,0 +1,3 @@
+Yes. In customer-facing systems, **cell-pack-04 accounted for 781 of 934 servo-motor stockout failures—83.6%**. The remaining failures were in cell-pack-02 (96) and cell-assembly-07 (57).
+
+Including maintenance-only systems, cell-pack-04 still represented **823 of 1,031 failures—79.8%**. So the stockouts were strongly concentrated in that production cell.

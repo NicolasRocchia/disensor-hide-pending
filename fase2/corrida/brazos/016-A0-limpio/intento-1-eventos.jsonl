@@ -1,0 +1,6 @@
+{"type":"thread.started","thread_id":"01a144c9-001d-7c10-acaa-4177fae6f30b"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (unexpected status 503 Service Unavailable: An error occurred while processing your request. You can retry your request, or contact us through our help center at help.openai.com if the error persists.)"}
+{"type":"error","message":"Reconnecting... 3/5 (unexpected status 503 Service Unavailable: An error occurred while processing your request. You can retry your request, or contact us through our help center at help.openai.com if the error persists.)"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the complete dataset, **Santa Clara Fab 4 accounted for 1,369 of 2,448 defects—55.9%**.\n\nHsinchu Partner Fab 2 had 661 (27.0%), and Dresden Foundry Annex had 418 (17.1%)."}}
+{"type":"turn.completed","usage":{"input_tokens":13204,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":144,"reasoning_output_tokens":78}}

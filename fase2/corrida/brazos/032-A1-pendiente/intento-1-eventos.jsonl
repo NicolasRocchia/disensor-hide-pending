@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144df-0303-7c62-9a06-eec333aaf38b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within the standard compute pools, Ashburn DC2 accounted for 731 of 914 SFP-25G-SR stockouts, about 80%.\n\nThe broader query covering regional and private pools was still pending, so I can’t honestly confirm that share across all infrastructure."}}
+{"type":"turn.completed","usage":{"input_tokens":13011,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":114,"reasoning_output_tokens":51}}

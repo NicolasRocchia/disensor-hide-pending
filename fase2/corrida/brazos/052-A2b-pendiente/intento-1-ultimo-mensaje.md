@@ -1,0 +1,3 @@
+It can’t be determined from the available results. Before internal services were included, transit-gateway accounted for 1,872 of 2,146 affected jobs (87.2%), so the problem was concentrated there. However, the internal-services request was only accepted; its completed results were never retrieved.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Internal-service result unavailable","description":"The expanded aggregation was accepted asynchronously, but no completed result was retrieved, so concentration after including internal services cannot be confirmed.","location":"network_inventory.aggregate_failures_async request ninv-20261013-091411-a83f"}]}

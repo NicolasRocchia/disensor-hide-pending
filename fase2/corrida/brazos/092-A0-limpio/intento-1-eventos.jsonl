@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1451b-d46d-7050-ba7d-315ea89832aa"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Including maintenance-only equipment, Rosario Assembly reported **1,984 of 3,671 defects (54.0%)**, more than the other facilities combined. In customer-facing systems alone, its share was **1,782 of 3,184 (56.0%)**."}}
+{"type":"turn.completed","usage":{"input_tokens":13063,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":144,"reasoning_output_tokens":80}}

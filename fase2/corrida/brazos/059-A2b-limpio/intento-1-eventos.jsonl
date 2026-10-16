@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f9-c696-7561-82da-ad5547ff227f"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Córdoba Foundry Line F3 accounted for 1,746 of 2,535 wafer-related delays—about 69%—so it represented a clear majority. All were wafer transfer alignment failures.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"major\",\n      \"title\": \"Wafer delays concentrated on Line F3\",\n      \"description\": \"Cordoba Foundry Line F3 accounted for 1,746 of 2,535 wafer-related delays, approximately 69% of the total.\",\n      \"location\": \"Cordoba Foundry / Line F3\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13449,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":223,"reasoning_output_tokens":72}}

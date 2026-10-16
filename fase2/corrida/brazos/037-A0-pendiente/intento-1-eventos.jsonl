@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144e3-4927-7dc1-a11b-b71aa4f1772c"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Of the 1,842 delayed jobs attributed to servo-motor stockouts, 1,566 (85%) were in `cell-atlas-3`. The remainder were in `cell-atlas-1` (173; 9%) and `cell-boreal-2` (103; 6%)."}}
+{"type":"turn.completed","usage":{"input_tokens":12942,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":70,"reasoning_output_tokens":0}}

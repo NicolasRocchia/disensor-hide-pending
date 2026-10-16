@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144c0-0799-7e43-b487-e95bf401b075"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Of the 742 packet-loss downtime minutes in the customer-facing data, edge-gateway-03 accounted for 608 minutes—about 82%. The remainder was edge-gateway-07 (81 minutes) and public-dns-02 (53 minutes).\n\nOne caveat: the broader regional/private infrastructure query was still pending, so this conclusion applies only to the completed customer-facing dataset."}}
+{"type":"turn.completed","usage":{"input_tokens":12939,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":83,"reasoning_output_tokens":0}}

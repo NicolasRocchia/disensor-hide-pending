@@ -1,0 +1,1 @@
+Yes. Ashburn-dc2 accounted for 731 of 914 SFP-25G-SR stockout events—about **80%**.

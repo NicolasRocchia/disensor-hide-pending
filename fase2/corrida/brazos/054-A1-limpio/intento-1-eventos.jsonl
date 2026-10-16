@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f4-2d76-7f02-87e2-60a3b8bf115e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. North Hub accounted for most packet-loss downtime:\n\n- Full production scope: **780 of 914 minutes (85.3%)**\n- Customer-facing systems only: **684 of 788 minutes (86.8%)**\n\nSo the conclusion holds in both reported scopes."}}
+{"type":"turn.completed","usage":{"input_tokens":13118,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":123,"reasoning_output_tokens":62}}

@@ -1,0 +1,5 @@
+Yes. **Fab-Line-3 accounted for most wafer-related delays**:
+
+- 3,058 of 4,587 delay minutes (**66.7%**)
+- 147 of 229 incidents (**64.2%**)
+- Incidents comprised 139 on primary capacity and 8 on reserved capacity.

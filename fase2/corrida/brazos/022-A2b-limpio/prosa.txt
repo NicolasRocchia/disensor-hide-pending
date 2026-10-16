@@ -1,0 +1,1 @@
+Yes. EZE-1 accounted for 671 of 812 customer-facing CoolingSensorDrift incidents—about 82.6%. Including maintenance-only equipment, it still represented 765 of 955 incidents, or 80.1%.

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144d4-3484-7400-843d-4f4281e3d0bc"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Assembly-cell-A3 accounted for 487 of 612 servo-motor SM-42 stockouts—about 79.6%. The remainder occurred in assembly-cell-B1 (79) and packaging-cell-P2 (46).\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"info\",\n      \"title\": \"Servo-motor stockouts concentrated in A3\",\n      \"description\": \"Assembly-cell-A3 recorded 487 of 612 SM-42 stockout incidents, representing approximately 79.6% of the total.\",\n      \"location\": \"assembly-cell-A3\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13267,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":218,"reasoning_output_tokens":67}}

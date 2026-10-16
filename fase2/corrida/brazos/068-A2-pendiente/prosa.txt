@@ -1,0 +1,1 @@
+Yes. On the primary production lines, line-etch-3 generated 1,087 of 1,436 VisionAlignmentError events—about **75.7%**, so it accounted for a clear majority.

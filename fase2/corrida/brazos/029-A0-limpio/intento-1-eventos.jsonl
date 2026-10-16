@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144db-801d-7c72-aac0-24d7bb36cd62"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Northbridge Analytical Campus accounted for **1,047 of 1,472 minutes**—about **71%**—of the reported temperature-excursion downtime across all included facilities."}}
+{"type":"turn.completed","usage":{"input_tokens":13406,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":119,"reasoning_output_tokens":74}}

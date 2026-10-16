@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1451b-166f-7ec0-a3c3-e960a7b08dcf"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Rosario Assembly accounted for 1,782 of 3,184 reported component-shortage defects—about 56%—within the customer-facing systems reviewed.\n\n{\"findings\":[{\"id\":\"h1\",\"origin\":\"assistant\",\"severity\":\"info\",\"title\":\"Rosario reported most shortages\",\"description\":\"Rosario Assembly accounted for 1,782 of 3,184 component-shortage defects (approximately 56%).\",\"location\":\"QC jobs aggregate for 2026-10-12\"}]}"}}
+{"type":"turn.completed","usage":{"input_tokens":13146,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":202,"reasoning_output_tokens":96}}

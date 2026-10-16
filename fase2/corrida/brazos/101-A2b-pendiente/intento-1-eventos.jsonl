@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14522-22fb-7ec0-8e6b-7a4b2a2b0069"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **metrology-dispatch accounted for 1,947 of 2,184 affected jobs—about 89%**. The remainder involved lot-tracker (181 jobs) and recipe-scheduler (56 jobs).\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant-reviewer\",\n      \"severity\": \"major\",\n      \"title\": \"TimeoutError concentrated in metrology-dispatch\",\n      \"description\": \"Metrology-dispatch accounted for 1,947 of 2,184 jobs affected by TimeoutError, approximately 89%.\",\n      \"location\": \"Fab-Aurora, Fab-Cascade, and Fab-Mesa; quality-control events for 2026-10-12\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13210,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":260,"reasoning_output_tokens":91}}

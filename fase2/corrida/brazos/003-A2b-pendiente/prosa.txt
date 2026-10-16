@@ -1,0 +1,1 @@
+Yes. The issue was heavily concentrated in **cell-orion**, which had **1,936 of 2,214 NodeUnavailable failures (87.4%)**. Cell-polaris had 187 (8.4%), and cell-vega had 91 (4.1%).

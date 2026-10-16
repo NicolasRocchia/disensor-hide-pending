@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14521-a8e6-7921-a601-ca790fc61b56"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Of the 1,126 jobs affected by servo-motor stockouts, 914 (81%) were in `cell-pack-04`. The remainder were in `cell-pack-02` (137) and `cell-sort-01` (75).\n\nThat conclusion is based on the customer-facing-systems results; the broader warehouse-inventory query was still pending, so I can’t honestly say whether it holds for that expanded scope."}}
+{"type":"turn.completed","usage":{"input_tokens":12917,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":93,"reasoning_output_tokens":0}}

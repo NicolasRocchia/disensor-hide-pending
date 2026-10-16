@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144fb-2d3b-71d2-8037-2d891096d844"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **FAB-LINE-07 accounted for 2,335 of 3,502 wafer-related delayed jobs—66.7% of the total.** Most were caused by `WarehouseLinkTimeout` (2,148 jobs).\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"major\",\n      \"title\": \"FAB-LINE-07 caused most wafer-related delays\",\n      \"description\": \"FAB-LINE-07 accounted for 2,335 of 3,502 distinct affected wafer jobs (66.7%). WarehouseLinkTimeout was responsible for 2,148 of those jobs.\",\n      \"location\": \"FAB-LINE-07\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13755,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":354,"reasoning_output_tokens":189}}

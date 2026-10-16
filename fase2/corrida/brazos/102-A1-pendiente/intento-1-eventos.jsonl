@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14524-016c-7aa0-9abf-999ac4159403"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within the three major facilities checked, Harbor Point accounted for 684 of 903 SFP-25G stockout events, about 76%.\n\nThat indicates a strong concentration there. However, the all-facility follow-up had not returned, so this cannot yet be confirmed across the entire network."}}
+{"type":"turn.completed","usage":{"input_tokens":12979,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":136,"reasoning_output_tokens":68}}

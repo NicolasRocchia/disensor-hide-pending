@@ -1,0 +1,1 @@
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"TimeoutError concentrated in lithography-dispatch","description":"Lithography-dispatch accounted for 2,159 of 2,430 TimeoutError downtime minutes (88.8%) and 44 of 58 incidents (75.9%) on 2026-10-12.","location":"Primary production lines / lithography-dispatch"}]}

@@ -1,0 +1,1 @@
+Yes. Cambridge Lab accounted for 214 of 271 reported stockouts—about 79%—for non-reserved inventory on primary production lines.

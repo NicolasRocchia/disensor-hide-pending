@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144fb-810d-73c3-bc78-8e2323b60b3b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Provisionally, yes: **FAB-LINE-07** accounted for 1,962 of 3,184 affected jobs—about **62%**.\n\nHowever, that result covers all network-related job impacts on primary lines. The wafer-specific warehouse query was still pending, so it doesn’t yet confirm the wafer-only share."}}
+{"type":"turn.completed","usage":{"input_tokens":13120,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":232,"reasoning_output_tokens":160}}

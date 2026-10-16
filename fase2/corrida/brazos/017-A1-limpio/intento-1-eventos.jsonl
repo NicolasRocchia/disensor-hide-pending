@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144cb-c324-7b50-9695-64139a97b8c5"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **fab-line-l3 accounted for 494 of 849 wafer-related failures (58%)**.\n\nIt was especially dominant for `WaferStageTimeout`: **443 of 560 cases (79%)** occurred on fab-line-l3. So one line did account for most wafer-related delays, although not an overwhelming majority of all wafer-related failures."}}
+{"type":"turn.completed","usage":{"input_tokens":13390,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":188,"reasoning_output_tokens":110}}

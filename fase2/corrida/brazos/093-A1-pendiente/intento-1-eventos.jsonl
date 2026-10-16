@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1451c-addf-7093-b1f5-4623b5546073"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In standard compute pools, DC-S1 accounted for 151 of 184 servo-motor stockouts—about 82%. DC-S2 had 21 and DC-S4 had 12.\n\nThe reserved-capacity query hadn’t returned, so this conclusion applies only to standard pools."}}
+{"type":"turn.completed","usage":{"input_tokens":13064,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":123,"reasoning_output_tokens":58}}

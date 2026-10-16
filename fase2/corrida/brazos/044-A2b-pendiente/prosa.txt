@@ -1,0 +1,1 @@
+Yes. Cell-alpha accounted for 598 of 672 servo-motor stockouts—about 89%. Cell-delta had 51 (7.6%), and cell-foxtrot had 23 (3.4%).

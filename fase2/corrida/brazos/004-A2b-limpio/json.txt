@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Servo-motor stockouts concentrated in cell-P3",
+      "description": "Cell-P3 accounted for 612 of 827 downtime minutes and 33 of 47 servo-motor stockout events.",
+      "location": "production/cell-P3"
+    }
+  ]
+}

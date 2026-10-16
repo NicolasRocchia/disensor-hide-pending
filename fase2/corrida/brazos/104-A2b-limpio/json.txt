@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Stockouts concentrated in motion-control-east",
+      "description": "motion-control-east accounted for 401 of 512 ServoDrive-X9 stockout events across all infrastructure (78.3%).",
+      "location": "motion-control-east"
+    }
+  ]
+}

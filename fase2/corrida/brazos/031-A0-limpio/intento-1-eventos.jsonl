@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144de-00fc-7e53-9d9c-203fb10446f2"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. CELL-P1-07 accounted for 241 of 322 SM-48 stockout events—about 75%.\n\nThe remaining events were spread across:\n\n- CELL-P1-03: 27\n- CELL-S1-02: 22\n- CELL-P2-02: 18\n- CELL-S2-01: 14"}}
+{"type":"turn.completed","usage":{"input_tokens":13229,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":124,"reasoning_output_tokens":47}}

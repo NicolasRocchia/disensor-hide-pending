@@ -1,0 +1,1 @@
+Yes. North Materials Lab’s **Line N-W2** accounted for **43 of 71 wafer-related delay events**—about **61%**, so it represented a clear majority. Most involved wafer-handler vacuum end effectors (37 events).

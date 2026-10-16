@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144b2-feaf-73c1-9242-318d3fb078f4"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Northbridge Analytical Center accounted for 418 of 555 equipment defects—about 75%.\n\nMeridian reported 87 and Lakeside 50. This conclusion covers the facility-equipment records; the broader warehouse-inclusive query had not yet returned."}}
+{"type":"turn.completed","usage":{"input_tokens":13013,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":183,"reasoning_output_tokens":127}}

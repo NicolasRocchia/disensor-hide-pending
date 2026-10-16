@@ -1,0 +1,1 @@
+Yes. Assembly-cell-A3 accounted for 487 of 612 servo-motor stockouts on primary production lines—79.6%. Even including maintenance-only equipment, it represented 487 of 651 incidents, or 74.8%. The stockouts were therefore strongly concentrated in A3.

@@ -1,0 +1,3 @@
+Yes. gpu-cluster-a accounted for 873 of 1,284 NodeUnavailable-affected jobs in standard pools—about 68%. Including maintenance-only pools, it was still the majority: 873 of 1,454, or about 60%.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Most NodeUnavailable failures occurred on gpu-cluster-a","description":"gpu-cluster-a accounted for 873 of 1,284 affected jobs in standard pools (68%), or 873 of 1,454 when maintenance-only pools were included (60%).","location":"Production environment, 2026-10-12"}]}

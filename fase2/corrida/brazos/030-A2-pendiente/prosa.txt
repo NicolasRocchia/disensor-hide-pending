@@ -1,0 +1,1 @@
+It can’t be determined from the returned data. Fab-Line-3 accounted for 139 of 184 quartz wafer-carrier stockouts (75.5%), but stockout incidents are not equivalent to wafer-related delays. The delay query—including reserved compute capacity—was accepted asynchronously, but no result was returned.

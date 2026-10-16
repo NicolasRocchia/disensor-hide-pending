@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14528-53a3-7292-b3d1-123b3a3224ca"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within the primary production lines, **fab-line-p1 accounted for 2,167 of 3,168 affected jobs (68%)**. It also caused **1,917 of 2,284 route-timeout delays (84%)**.\n\nHowever, the expanded query including advanced-packaging facilities was still pending, so we can’t honestly conclude that p1 dominated across all facilities."}}
+{"type":"turn.completed","usage":{"input_tokens":12957,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":204,"reasoning_output_tokens":118}}

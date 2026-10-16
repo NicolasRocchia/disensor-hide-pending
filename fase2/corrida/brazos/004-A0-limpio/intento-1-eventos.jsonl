@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144b7-9641-71d0-872e-2a0b40747df6"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Cell-P3 accounted for **612 of 827 downtime minutes (74%)** and **33 of 47 events (70%)** from servo-motor stockouts across primary and secondary lines. The remaining cells each contributed 84 minutes or less."}}
+{"type":"turn.completed","usage":{"input_tokens":13417,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":116,"reasoning_output_tokens":58}}

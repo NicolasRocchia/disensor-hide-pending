@@ -1,0 +1,1 @@
+Yes. FAB-L3 accounted for 428 of 522 minutes of wafer-carrier dispatch delays—about 82%. FAB-L1 and FAB-L2 contributed 61 and 33 minutes, respectively.

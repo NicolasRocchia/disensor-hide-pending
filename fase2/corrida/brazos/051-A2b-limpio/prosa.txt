@@ -1,0 +1,6 @@
+Yes. On October 12, **FAB-A/CELL-ETCH-04** accounted for:
+
+- **731 of 842 stockouts (86.8%)** on primary wafer-fab lines.
+- **731 of 960 stockouts (76.1%)** across all wafer-fab and advanced-packaging lines.
+
+So the stockouts were heavily concentrated in that single etch cell.

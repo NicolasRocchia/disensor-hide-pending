@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144cf-99b7-78f3-b6d8-027e4de57725"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Of the 1,209 NodeUnavailable failures reported across primary and secondary production lines, 958 occurred on gpu-cluster-a—about 79%. So a clear majority occurred there."}}
+{"type":"turn.completed","usage":{"input_tokens":13120,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":43,"reasoning_output_tokens":0}}

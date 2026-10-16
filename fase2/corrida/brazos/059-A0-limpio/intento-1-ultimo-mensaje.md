@@ -1,0 +1,1 @@
+Yes. **Cordoba Foundry Line F3 accounted for 1,746 of 2,535 wafer-related delayed jobs—about 69%**, making it the dominant line. All were wafer transfer alignment failures.

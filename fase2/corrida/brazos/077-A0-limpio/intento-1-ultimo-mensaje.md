@@ -1,0 +1,1 @@
+Yes. Cambridge Lab accounted for 251 of 329 reported peristaltic pump tubing stockouts—about **76%**. Rosario had 51 and Cordoba had 27.

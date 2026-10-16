@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144be-b482-78c2-b576-7d375e52fde9"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. It was heavily concentrated in `vision-inspection-api`:\n\n- Including automated warehouse inventory: 2,259 of 2,628 TimeoutErrors (86.0%)\n- Non-reserved inventory alone: 1,947 of 2,184 (89.1%)\n\nSo it wasn’t exclusive to that service, but it was clearly the primary source."}}
+{"type":"turn.completed","usage":{"input_tokens":13074,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":138,"reasoning_output_tokens":58}}

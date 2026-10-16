@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1452b-fe02-7ed0-9d37-9ee5e50356c9"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. EZE-1 accounted for 2,183 of 2,648 NodeUnavailable-affected jobs—about 82.4%—across standard and maintenance-only pools.\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"info\",\n      \"title\": \"EZE-1 dominated NodeUnavailable failures\",\n      \"description\": \"EZE-1 accounted for 2,183 of 2,648 affected jobs, approximately 82.4%.\",\n      \"location\": \"EZE-1\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13467,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":233,"reasoning_output_tokens":95}}

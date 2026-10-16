@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14524-8083-7391-8b86-c68c6f4c6f49"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Rosario Assembly accounted for 888 of 1,486 reported external-service defects—about 60%. Most were SurfaceFinishReject errors (701).\n\nThe complete distribution including internal services wasn’t returned, so this conclusion applies to external-service records."}}
+{"type":"turn.completed","usage":{"input_tokens":12945,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":173,"reasoning_output_tokens":117}}

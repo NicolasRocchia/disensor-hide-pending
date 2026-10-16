@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1451c-6b6f-7232-b79b-a5996f19c862"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Including standard and reserved capacity, **180 of 222 servo-motor stockouts (81.1%) occurred in DC-S1**. The remaining events were in DC-S2 (27) and DC-S4 (15). The standard-only data shows a similar concentration: 151 of 184 events (82.1%) in DC-S1.\n\n{\n  \"findings\": [],\n  \"residue\": {\n    \"declared_absence\": true,\n    \"declaration\": \"No unresolved findings, interpretive disputes, or execution gaps remained after evaluating the supplied incident records.\"\n  }\n}"}}
+{"type":"turn.completed","usage":{"input_tokens":15197,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":312,"reasoning_output_tokens":183}}

@@ -1,0 +1,1 @@
+Yes. Including automated warehouse inventory, **941 of 1,396 NodeUnavailable events (67.4%)** occurred on `gpu-cluster-a`—about two-thirds of the total.

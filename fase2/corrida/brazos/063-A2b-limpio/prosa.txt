@@ -1,0 +1,1 @@
+Yes. `shipment-gateway` accounted for 1,947 of 2,326 TimeoutErrors—about **84%**. The remainder was spread across `carrier-worker` (181), `inventory-sync` (142), and `dispatch-scheduler` (56).

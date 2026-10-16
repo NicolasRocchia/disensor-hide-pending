@@ -1,0 +1,28 @@
+Yes. Phoenix had 853 of 1,092 25GbE NIC module stockouts—about 78.1%, so a clear majority.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "manufacturing_delays",
+      "severity": "info",
+      "title": "Most NIC stockouts occurred at Phoenix",
+      "description": "Phoenix-integration recorded 853 of 1,092 25GbE NIC module stockout events, approximately 78.1% of the total.",
+      "location": "2026-10-12 stockout aggregation across customer-facing, regional, and private systems",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the manufacturing delay aggregation supplied in the tool result."
+      },
+      "evidence": {
+        "text": "25GbE NIC module: 1,092 total stockouts; phoenix-integration: 853."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions, execution gaps, or interpretive disputes remain for this calculation."
+  }
+}
+```

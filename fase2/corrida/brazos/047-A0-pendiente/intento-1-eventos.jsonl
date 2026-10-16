@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144ed-9541-7113-94be-62a1dafe5fec"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Of the 392 minutes attributed to servo-motor stockouts, 318 minutes—about 81%—occurred at **weld-cell-P3**.\n\nThe remaining downtime was:\n\n- assembly-cell-P1: 49 minutes (13%)\n- paint-cell-P2: 25 minutes (6%)"}}
+{"type":"turn.completed","usage":{"input_tokens":12914,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":68,"reasoning_output_tokens":0}}

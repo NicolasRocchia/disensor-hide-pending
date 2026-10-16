@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14512-941d-7291-bb23-f32c6daa034e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Of 2,412 `CarrierLabelTimeout` errors, 2,086—about **86.5%**—were recorded by `dock-gateway`.\n\nThe remainder came from:\n\n- `carrier-adapter`: 241 (10.0%)\n- `dispatch-api`: 85 (3.5%)\n\nThat’s for non-reserved, external shipments on October 12, 2026. The internal-services query was still pending, so it isn’t reflected here."}}
+{"type":"turn.completed","usage":{"input_tokens":12923,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":167,"reasoning_output_tokens":63}}

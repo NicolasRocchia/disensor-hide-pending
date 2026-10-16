@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "Servo-motor stockouts concentrated in rack-assembly cell 3",
+      "description": "Cell-rack-assembly-3 accounted for 611 of 742 downtime minutes and 25 of 31 delayed shipments attributed to servo-motor stockouts on primary production lines.",
+      "location": "cluster-hardware-plant/cell-rack-assembly-3"
+    }
+  ]
+}

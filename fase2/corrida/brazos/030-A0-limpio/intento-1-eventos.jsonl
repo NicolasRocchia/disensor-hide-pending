@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144dd-5183-75b1-aaa8-c002523ff679"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Fab-Line-3 accounted for most wafer-related delays:\n\n- **3,179 of 4,587 delay minutes — 69.3%**\n- **154 of 229 incidents — 67.2%**\n\nQuartz wafer-carrier shortages drove nearly all of Fab-Line-3’s delay time. These figures include primary production and reserved compute capacity."}}
+{"type":"turn.completed","usage":{"input_tokens":13258,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":237,"reasoning_output_tokens":158}}

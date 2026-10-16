@@ -1,0 +1,16 @@
+Yes. Carrier-gate-east accounted for 1,742 of 2,214 LabelReadError failures—about 78.7%, so a clear majority.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Most label-read failures occurred at carrier-gate-east",
+      "description": "Carrier-gate-east generated 1,742 of 2,214 external-service LabelReadError records, approximately 78.7%.",
+      "location": "carrier-gate-east"
+    }
+  ]
+}
+```

@@ -1,0 +1,1 @@
+Yes. On primary production lines, **pallet-vision-api accounted for 1,218 of 1,436 TimeoutError downtime minutes (84.8%)**, so the problem was strongly concentrated there. The remaining downtime came from weigh-station-gateway (146 minutes) and label-verification-service (72 minutes).

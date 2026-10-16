@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1450e-7774-72a0-b33b-fa92812413b3"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **Ezeiza Fulfillment Center accounted for 1,264 of 2,229 defects—56.7% of all reports** on October 12.\n\nMost were `BarcodeReadFailure` incidents: 912 reports."}}
+{"type":"turn.completed","usage":{"input_tokens":13215,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":152,"reasoning_output_tokens":98}}

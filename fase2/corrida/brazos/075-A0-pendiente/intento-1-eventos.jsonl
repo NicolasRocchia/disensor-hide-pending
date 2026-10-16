@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1450a-39a3-7691-9340-d11230db0828"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Of the 96 servo-motor stockout events, 78 occurred in **CELL-F12**—about **81%**. The remaining events were in CELL-F07 (11) and CELL-F03 (7), so they were strongly concentrated in CELL-F12."}}
+{"type":"turn.completed","usage":{"input_tokens":12927,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":61,"reasoning_output_tokens":0}}

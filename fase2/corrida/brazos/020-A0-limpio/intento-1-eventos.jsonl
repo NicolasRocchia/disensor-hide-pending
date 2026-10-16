@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144d2-d6b5-7e52-bd12-2c6c4a7c8881"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Of the 612 servo-motor SM-42 stockouts on primary production lines, 487 (79.6%) occurred in assembly-cell-A3. The remainder were in assembly-cell-B1 (79) and packaging-cell-P2 (46)."}}
+{"type":"turn.completed","usage":{"input_tokens":13139,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":56,"reasoning_output_tokens":0}}

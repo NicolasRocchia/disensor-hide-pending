@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144d0-fe91-7761-96e4-a8430b43e3bf"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. gpu-cluster-a accounted for 846 of 1,032 NodeUnavailable failures—about 82%, so a clear majority."}}
+{"type":"turn.completed","usage":{"input_tokens":12946,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":32,"reasoning_output_tokens":0}}

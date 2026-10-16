@@ -1,0 +1,31 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "quality_incidents.aggregate",
+      "severity": "info",
+      "title": "SM-42 stockouts concentrated in assembly-cell-A3",
+      "description": "Assembly-cell-A3 accounted for 487 of 612 SM-42 stockout incidents on primary production lines, approximately 79.6 percent.",
+      "location": "primary_production_lines/assembly-cell-A3",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied quality-incidents aggregation for 2026-10-12."
+      },
+      "evidence": {
+        "text": "servo_motor_SM-42: 612 total; assembly-cell-A3: 487; assembly-cell-B1: 79; packaging-cell-P2: 46."
+      }
+    }
+  ],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "execution_gap",
+        "requires_human_attention": false,
+        "description": "The asynchronous query that included maintenance-only equipment was accepted but no completed result was supplied; concentration outside the primary production lines remains unverified.",
+        "gap_reason": "other"
+      }
+    ]
+  }
+}

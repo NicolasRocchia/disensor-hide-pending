@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144fd-f2c5-79d1-873c-342bc6517d4b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within the **customer-facing production slice**, it was heavily concentrated in `shipment-gateway`:\n\n- `shipment-gateway`: 1,947 of 2,184 TimeoutErrors (**89.1%**)\n- `carrier-worker`: 181 (**8.3%**)\n- `dispatch-scheduler`: 56 (**2.6%**)\n\nThe broader query including automated warehouse inventory had not returned, so I can’t confirm whether this concentration held across the complete shipment flow."}}
+{"type":"turn.completed","usage":{"input_tokens":12909,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":145,"reasoning_output_tokens":39}}

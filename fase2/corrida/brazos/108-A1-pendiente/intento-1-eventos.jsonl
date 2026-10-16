@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14529-b78d-73a2-8d12-3ba31949d523"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the reported customer-facing data, **EZE-1 accounted for 1,824 of 2,146 InventoryPickMismatch delays—about 85%**.\n\nThat conclusion applies only to the completed customer-facing query; the broader warehouse-inventory query had not returned results."}}
+{"type":"turn.completed","usage":{"input_tokens":12962,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":129,"reasoning_output_tokens":65}}

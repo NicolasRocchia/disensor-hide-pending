@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144ed-5c44-74b3-b1d2-9c17d3b4955e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. On October 12, **weld-cell-P3 accounted for 318 of 392 minutes (81%)** of servo-motor-stockout downtime on the primary production lines.\n\nThe remainder was assembly-cell-P1 (49 minutes) and paint-cell-P2 (25 minutes). This excludes maintenance-only equipment because that expanded query had not yet returned."}}
+{"type":"turn.completed","usage":{"input_tokens":12922,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":128,"reasoning_output_tokens":50}}

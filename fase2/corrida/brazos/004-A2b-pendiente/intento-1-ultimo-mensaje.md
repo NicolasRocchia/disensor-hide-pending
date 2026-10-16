@@ -1,0 +1,3 @@
+Yes. Cell-P3 accounted for 612 of 742 downtime minutes (82.5%) and 33 of 41 servo-motor stockout events (80.5%). The remainder occurred in cell-P1 (84 minutes) and cell-P2 (46 minutes).
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"major","title":"Servo-motor stockouts concentrated in cell-P3","description":"Cell-P3 represented 82.5% of servo-motor stockout downtime and 80.5% of related events.","location":"primary production lines / cell-P3"}]}

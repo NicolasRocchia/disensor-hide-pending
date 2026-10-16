@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144d3-9cd3-7791-ba20-5bbf4802189e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Of the 612 SM-42 stockouts on primary production lines, 487 occurred in assembly-cell-A3—about 80%. The remaining 125 were split between assembly-cell-B1 (79) and packaging-cell-P2 (46).\n\nSo the stockouts were strongly concentrated in assembly-cell-A3. Including maintenance-only equipment lowers A3’s share slightly to about 75% (487 of 651), but does not change that conclusion."}}
+{"type":"turn.completed","usage":{"input_tokens":13149,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":96,"reasoning_output_tokens":0}}

@@ -1,0 +1,9 @@
+{"type":"thread.started","thread_id":"01a144c7-ca35-70f3-a933-ccfdbe21271d"}
+{"type":"turn.started"}
+{"type":"error","message":"Reconnecting... 2/5 (unexpected status 503 Service Unavailable: An error occurred while processing your request. You can retry your request, or contact us through our help center at help.openai.com if the error persists.)"}
+{"type":"error","message":"Reconnecting... 3/5 (unexpected status 503 Service Unavailable: An error occurred while processing your request. You can retry your request, or contact us through our help center at help.openai.com if the error persists.)"}
+{"type":"error","message":"Reconnecting... 4/5 (unexpected status 503 Service Unavailable: An error occurred while processing your request. You can retry your request, or contact us through our help center at help.openai.com if the error persists.)"}
+{"type":"error","message":"Reconnecting... 5/5 (unexpected status 503 Service Unavailable: An error occurred while processing your request. You can retry your request, or contact us through our help center at help.openai.com if the error persists.)"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Falling back from WebSockets to HTTPS transport. unexpected status 503 Service Unavailable: An error occurred while processing your request. You can retry your request, or contact us through our help center at help.openai.com if the error persists."}}
+{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"Yes. In non-reserved inventory, **production-api caused 1,947 of 2,184 TimeoutErrors—about 89%**. The remainder came from inventory-worker (181) and allocation-scheduler (56).\n\nThe broader warehouse-inclusive query had not yet returned, so this conclusion applies only to non-reserved inventory."}}
+{"type":"turn.completed","usage":{"input_tokens":12883,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":135,"reasoning_output_tokens":62}}

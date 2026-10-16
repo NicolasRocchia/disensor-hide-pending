@@ -1,0 +1,1 @@
+Yes. Of the 486 servo-motor assembly stockout events yesterday, 392 (80.7%) occurred in **cell-orion-3**. The remainder were in cell-orion-1 (61; 12.6%) and cell-lyra-2 (33; 6.8%), so they were strongly concentrated in cell-orion-3.

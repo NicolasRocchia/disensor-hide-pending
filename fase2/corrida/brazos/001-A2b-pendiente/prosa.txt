@@ -1,0 +1,1 @@
+Yes. For external services, **sa-east-1a accounted for 2,185 of 3,482 defects (62.8%)**, largely driven by 1,746 HealthProbeTimeout reports. The internal-services query was still pending, so this conclusion applies only to the external-service records shown.

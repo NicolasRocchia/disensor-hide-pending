@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144eb-8908-79a0-8c57-5ef5807a0af4"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **dispatch-api was the clear concentration point**:\n\n- 2,301 of 2,612 TimeoutErrors across all infrastructure (**88.1%**)\n- 1,947 of 2,184 customer-facing TimeoutErrors (**89.1%**)\n\nThe pattern was consistent across every region and infrastructure class. Customer-tracking had 228 events, and label-scheduler had 83."}}
+{"type":"turn.completed","usage":{"input_tokens":13158,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":135,"reasoning_output_tokens":47}}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144dc-6c5f-7ae2-9b36-b6784eda8ac4"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Northbridge Analytical Campus accounted for 1,047 of the 1,286 temperature-excursion downtime minutes—about 81%—across 14 of 19 events."}}
+{"type":"turn.completed","usage":{"input_tokens":13029,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":43,"reasoning_output_tokens":0}}

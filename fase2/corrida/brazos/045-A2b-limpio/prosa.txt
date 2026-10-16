@@ -1,0 +1,6 @@
+Yes. The TimeoutError problem was heavily concentrated in **dispatch-api**:
+
+- **2,301 of 2,612 events (88.1%)** across all infrastructure
+- **1,947 of 2,184 events (89.1%)** in customer-facing systems
+
+The remaining events affected customer-tracking (228) and label-scheduler (83).

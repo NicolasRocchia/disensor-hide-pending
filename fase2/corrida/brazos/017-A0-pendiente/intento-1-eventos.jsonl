@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144cc-3dcb-7ef0-9645-035120303f45"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the standard compute pools, **fab-line-l3 accounted for 391 of 486 WaferStageTimeout failures—about 80%**. Lines l2 and l1 had 58 and 37, respectively."}}
+{"type":"turn.completed","usage":{"input_tokens":13012,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":116,"reasoning_output_tokens":63}}

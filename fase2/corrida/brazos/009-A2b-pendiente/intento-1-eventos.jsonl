@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144bd-9af9-7930-a47f-fbcd6fd01f5c"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The TimeoutError problem was highly concentrated in `vision-inspection-api`: **1,947 of 2,184 events (89.1%)**. The remainder came from `qc-label-worker` (181; 8.3%) and `lot-release-scheduler` (56; 2.6%).\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"qc_event_reviewer\",\n      \"severity\": \"major\",\n      \"title\": \"TimeoutErrors concentrated in vision-inspection-api\",\n      \"description\": \"vision-inspection-api generated 1,947 of 2,184 TimeoutError events (89.1%) in non-reserved inventory on 2026-10-12.\",\n      \"location\": \"vision-inspection-api\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13130,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":258,"reasoning_output_tokens":79}}

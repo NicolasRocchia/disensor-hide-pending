@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14525-712d-7941-bc02-c88a4ba75b16"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Motion-control-east accounted for 349 of 418 ServoDrive-X9 stockouts—83.5%. The remaining 69 occurred in assembly-orchestrator (47) and inspection-cell-standard (22).\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"inventory-reviewer\",\n      \"severity\": \"info\",\n      \"title\": \"ServoDrive-X9 stockouts concentrated in motion-control-east\",\n      \"description\": \"Motion-control-east recorded 349 of 418 ServoDrive-X9 stockout events (83.5%).\",\n      \"location\": \"standard_compute_pools/motion-control-east\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13199,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":220,"reasoning_output_tokens":71}}

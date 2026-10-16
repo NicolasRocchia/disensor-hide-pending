@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14509-62c6-7470-89f1-1afaf927d5fe"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In customer-facing systems, **CELL-F12 accounted for 78 of 96 servo-motor stockouts (81.3%)**. The remainder occurred in CELL-F07 (11) and CELL-F03 (7).\n\n```json\n{\n  \"findings\": [\n    {\n      \"id\": \"h1\",\n      \"origin\": \"assistant\",\n      \"severity\": \"info\",\n      \"title\": \"Servo-motor stockouts concentrated in CELL-F12\",\n      \"description\": \"CELL-F12 recorded 78 of 96 servo-motor stockout events (81.3%) in customer-facing systems on 2026-10-12.\",\n      \"location\": \"FAB-NORTE/CELL-F12\"\n    }\n  ]\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":13339,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":215,"reasoning_output_tokens":55}}

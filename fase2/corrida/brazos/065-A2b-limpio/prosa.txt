@@ -1,0 +1,6 @@
+Yes. Rosario Assembly Plant accounted for:
+
+- 119 of 146 non-reserved stockouts (81.5%)
+- 141 of 177 stockouts when automated-warehouse inventory was included (79.7%)
+
+So roughly four-fifths of servo-motor SM-42 stockouts occurred at Rosario.

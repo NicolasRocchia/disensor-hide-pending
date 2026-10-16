@@ -1,0 +1,3 @@
+Yes. For customer-facing systems, **Ezeiza Edge Facility accounted for 1,956 of 3,184 defects (61.4%)**, so it represented a clear majority. This excludes the still-pending automated warehouse inventory results.
+
+{"findings":[{"id":"h1","origin":"reviewer_1","severity":"major","title":"Ezeiza reported most defects","description":"Ezeiza Edge Facility accounted for 1,956 of 3,184 customer-facing system defects (61.4%) on 2026-10-12.","location":"Ezeiza Edge Facility"}]}

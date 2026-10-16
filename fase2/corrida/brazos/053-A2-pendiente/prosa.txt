@@ -1,0 +1,1 @@
+Yes—within non-reserved inventory, gpu-cluster-a had 61 of 76 NodeUnavailable events (80.3%). It also accounted for 366 of 438 delayed jobs (83.6%) and 11,180 of 13,420 delay-minutes (83.3%). The reserved-capacity query had not yet returned, so this does not establish the full-inventory share.

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144d7-c3af-7e20-95c0-c6ff4d1f3736"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Across all infrastructure, gpu-cluster-a accounted for 1,087 of 1,656 NodeUnavailable minutes—about **66%**, so most of that downtime occurred there."}}
+{"type":"turn.completed","usage":{"input_tokens":13167,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":96,"reasoning_output_tokens":52}}

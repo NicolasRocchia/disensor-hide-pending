@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144ec-113c-7ba3-b7a4-c5f75623fbcf"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Within customer-facing systems on October 12, `production-api` accounted for 1,947 of 2,184 `TimeoutError` failures—about 89%.\n\nThe remaining 237 were in `async-worker` (181) and `job-scheduler` (56). The broader environment query had not yet returned, so this conclusion is limited to customer-facing systems."}}
+{"type":"turn.completed","usage":{"input_tokens":12970,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":124,"reasoning_output_tokens":41}}

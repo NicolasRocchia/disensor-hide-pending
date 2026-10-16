@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144e0-751b-75d2-9418-a729e2ab92e3"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. On the primary production lines, **cell-rack-assembly-3 accounted for 611 of 742 downtime minutes—82%—and 25 of 31 delayed shipments**.\n\nIncluding maintenance-only equipment, it still dominated with **649 of 831 minutes (78%)** and **27 of 35 delayed shipments**. The next-largest cell, rack-assembly-1, had only 106 minutes."}}
+{"type":"turn.completed","usage":{"input_tokens":13262,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":89,"reasoning_output_tokens":0}}

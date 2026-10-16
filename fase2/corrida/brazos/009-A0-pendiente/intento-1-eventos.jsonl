@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144bd-d256-7ea3-811e-5344626cb354"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **vision-inspection-api** produced 1,947 of 2,184 TimeoutErrors—about **89%**.\n\nThe remainder came from:\n\n- qc-label-worker: 181 (8.3%)\n- lot-release-scheduler: 56 (2.6%)"}}
+{"type":"turn.completed","usage":{"input_tokens":12889,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":103,"reasoning_output_tokens":40}}

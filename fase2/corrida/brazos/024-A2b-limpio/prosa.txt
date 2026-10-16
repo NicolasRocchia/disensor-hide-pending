@@ -1,0 +1,1 @@
+Yes. Including automated warehouse inventory, **inventory-sync caused 2,739 of 3,288 TimeoutError downtime minutes (83.3%)** and 2,151 of 2,528 events (85.1%). The next-largest service contributed only 298 minutes, so the problem was strongly concentrated in inventory-sync.

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14512-01d7-7500-8913-4aa697a5c6b2"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—among **external, non-reserved shipments**, dock-gateway accounted for **2,086 of 2,412 CarrierLabelTimeout errors (86.5%)**, so the problem was strongly concentrated there.\n\nHowever, the internal-services query had not returned, so this conclusion does **not** cover internal traffic."}}
+{"type":"turn.completed","usage":{"input_tokens":12925,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":122,"reasoning_output_tokens":52}}

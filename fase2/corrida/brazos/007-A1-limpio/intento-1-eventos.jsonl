@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144b9-e45f-7d50-9b9a-389846c963ae"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Rosario Final Assembly accounted for **612 of 824 VacuumInterlock downtime minutes** across the expanded production footprint—about **74%**.\n\nIn the narrower external-services view, it was **612 of 727 minutes**, or **84%**."}}
+{"type":"turn.completed","usage":{"input_tokens":13299,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":115,"reasoning_output_tokens":57}}

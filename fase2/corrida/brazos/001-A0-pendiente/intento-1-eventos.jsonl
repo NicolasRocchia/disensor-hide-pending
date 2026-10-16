@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144b4-612d-7193-857e-8fc28d4beb8d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. For external services, **sa-east-1a accounted for 2,185 of 3,482 defects—about 62.8%**. Most were HealthProbeTimeout reports (1,746).\n\nThe internal-services query had not returned yet, so this conclusion applies only to the external-service records shown."}}
+{"type":"turn.completed","usage":{"input_tokens":12957,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":164,"reasoning_output_tokens":93}}

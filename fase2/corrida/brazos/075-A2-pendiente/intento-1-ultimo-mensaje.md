@@ -1,0 +1,28 @@
+Yes. **CELL-F12 accounted for 78 of 96 servo-motor stockouts (81.25%)**. The remaining 18 occurred in CELL-F07 (11) and CELL-F03 (7), so the stockouts were strongly concentrated in CELL-F12.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "manufacturing_delays",
+      "severity": "info",
+      "title": "Servo-motor stockouts concentrated in CELL-F12",
+      "description": "CELL-F12 recorded 78 of the 96 servo-motor assembly stockout events, representing 81.25% of the total.",
+      "location": "FAB-NORTE production-cell stockout records for 2026-10-12",
+      "final_state": "refuted_verifiable",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied manufacturing-delay aggregation."
+      },
+      "evidence": {
+        "text": "CELL-F12: 78; CELL-F07: 11; CELL-F03: 7; total: 96."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved interpretive, execution, escalation, or reviewer-related residue remains for this calculation."
+  }
+}
+```

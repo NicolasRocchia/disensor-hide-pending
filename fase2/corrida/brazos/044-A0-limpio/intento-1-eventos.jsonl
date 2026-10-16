@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144e9-ea9e-7930-959d-72d758ce9f59"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Including secondary lines, **cell-alpha had 641 of 759 servo-motor stockouts—84.5%**. The next-highest was cell-delta with 58 (7.6%), so the defect was strongly concentrated in cell-alpha."}}
+{"type":"turn.completed","usage":{"input_tokens":13132,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":134,"reasoning_output_tokens":75}}

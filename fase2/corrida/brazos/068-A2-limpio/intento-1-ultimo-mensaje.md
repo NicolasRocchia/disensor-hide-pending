@@ -1,0 +1,11 @@
+Yes. Line-etch-3 accounted for 1,087 of 1,436 VisionAlignmentError events—about 75.7%, so roughly three-quarters occurred there.
+
+```json
+{
+  "findings": [],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved uncertainty or execution gap remains for this calculation."
+  }
+}
+```

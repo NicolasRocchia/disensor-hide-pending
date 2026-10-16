@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14521-700e-7d73-88fa-29f992260df8"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. The stockouts were strongly concentrated in **cell-pack-04**:\n\n- Customer-facing scope: **914 of 1,126 jobs (81%)**\n- Including automated warehouse inventory: **1,038 of 1,329 jobs (78%)**\n\nSo roughly four-fifths of affected jobs were tied to cell-pack-04. The data shows concentration, but does not establish why that cell had more stockouts."}}
+{"type":"turn.completed","usage":{"input_tokens":13114,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":157,"reasoning_output_tokens":64}}

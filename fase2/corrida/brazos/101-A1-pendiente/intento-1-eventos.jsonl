@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14522-c5ba-7be3-a5ab-6fb2ad47cdf2"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Of the 2,184 affected jobs, 1,947—about 89%—were attributed to `metrology-dispatch`. The remainder were in `lot-tracker` (181; 8%) and `recipe-scheduler` (56; 3%).\n\nOne caveat: this is based on the completed fabrication-only query. The expanded query including automated warehouse inventory was still pending, so its results could change the overall picture."}}
+{"type":"turn.completed","usage":{"input_tokens":12981,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":95,"reasoning_output_tokens":0}}

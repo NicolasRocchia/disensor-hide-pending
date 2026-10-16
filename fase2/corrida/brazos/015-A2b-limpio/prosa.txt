@@ -1,0 +1,1 @@
+Yes. In the combined inventory records, **production-api accounted for 2,359 of 2,793 TimeoutErrors (84.5%)**, so the problem was strongly concentrated there. Within non-reserved inventory alone, its share was even higher: **1,947 of 2,184 (89.1%)**.

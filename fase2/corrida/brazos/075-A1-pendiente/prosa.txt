@@ -1,0 +1,1 @@
+Yes. Of 96 servo-motor assembly stockouts, 78 (81.25%) occurred in CELL-F12. The remaining 18 were split between CELL-F07 (11) and CELL-F03 (7). So they were strongly concentrated in CELL-F12.

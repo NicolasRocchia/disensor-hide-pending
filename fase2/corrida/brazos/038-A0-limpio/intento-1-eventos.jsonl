@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144e3-df9c-7311-92db-2f3becf30f89"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Rack-assembly-p1 accounted for **421 of 536** NIC retention-clip defects across primary and secondary lines—about **78.5%**."}}
+{"type":"turn.completed","usage":{"input_tokens":13283,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":92,"reasoning_output_tokens":52}}

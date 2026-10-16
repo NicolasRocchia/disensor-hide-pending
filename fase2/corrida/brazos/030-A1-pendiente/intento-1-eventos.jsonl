@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144dd-7a30-75b0-9001-31e81b712d81"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"I can’t determine that yet. The wafer-delay aggregation was accepted but no result was returned.\n\nFab-Line-3 had most quartz wafer-carrier stockouts—139 of 184 (76%)—but that does not prove it accounted for most wafer-related delay incidents or minutes."}}
+{"type":"turn.completed","usage":{"input_tokens":12943,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":155,"reasoning_output_tokens":93}}

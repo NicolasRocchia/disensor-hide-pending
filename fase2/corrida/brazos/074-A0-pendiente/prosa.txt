@@ -1,0 +1,1 @@
+Yes. On the primary production lines, gpu-cluster-a had 512 of 684 NodeUnavailable failures—about 75%, so a clear majority.

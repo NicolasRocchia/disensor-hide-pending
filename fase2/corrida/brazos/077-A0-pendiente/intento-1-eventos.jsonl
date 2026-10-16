@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1450b-9f1f-7db1-a44c-92a402583f2f"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Cambridge Lab accounted for 214 of 271 reported stockouts—about 79%—for non-reserved inventory on primary production lines."}}
+{"type":"turn.completed","usage":{"input_tokens":12939,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":71,"reasoning_output_tokens":35}}

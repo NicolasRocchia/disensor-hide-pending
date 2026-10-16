@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Ezeiza reported most defects",
+      "description": "Ezeiza Fulfillment Center accounted for 970 of 1,486 externally reported defects (65.3%).",
+      "location": "Telemetry aggregate for 2026-10-12, external-services-only scope"
+    }
+  ]
+}

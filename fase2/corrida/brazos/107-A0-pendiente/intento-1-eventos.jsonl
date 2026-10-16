@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14528-c3d1-7653-99fd-7d3736006a8d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **fab-line-p1 accounted for 2,167 of 3,168 affected jobs—about 68%**.\n\nMost were **WaferCarrierRouteTimeouts**: 1,917 jobs on fab-line-p1."}}
+{"type":"turn.completed","usage":{"input_tokens":12953,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":141,"reasoning_output_tokens":86}}

@@ -1,0 +1,1 @@
+Yes. **lot-release-api accounted for 2,031 of 2,296 TimeoutError events—88.5%**. The remainder came from manifest-worker (204; 8.9%) and dispatch-scheduler (61; 2.7%). This indicates the problem was strongly concentrated in lot-release-api.

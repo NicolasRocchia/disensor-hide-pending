@@ -1,0 +1,1 @@
+Yes. FAB-3 accounted for 1,196 of the 1,486 minutes of wafer-stage vacuum-instability downtime—about 80.5%—across 24 of 31 events.

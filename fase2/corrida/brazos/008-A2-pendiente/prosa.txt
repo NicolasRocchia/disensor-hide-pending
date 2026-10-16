@@ -1,0 +1,1 @@
+Yes. **873 of 1,284** NodeUnavailable-affected jobs occurred on `gpu-cluster-a`—about **68.0%**, so it accounted for a clear majority within the production standard compute pools.

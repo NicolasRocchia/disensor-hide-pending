@@ -1,0 +1,1 @@
+Yes. Carrier-gate-east accounted for 1,742 of 2,214 LabelReadError failures—about **79%**.

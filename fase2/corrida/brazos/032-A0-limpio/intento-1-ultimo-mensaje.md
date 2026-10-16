@@ -1,0 +1,1 @@
+Yes. Ashburn-dc2 accounted for **731 of 1,062 SFP-25G-SR stockouts—about 69%**—across all compute pools on October 12.

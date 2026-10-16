@@ -1,0 +1,1 @@
+Yes. Including secondary production lines, **641 of 759 servo-motor stockouts (84.5%) occurred in cell-alpha**. The remaining 118 incidents were distributed across four other cells, so the stockouts were strongly concentrated in cell-alpha.

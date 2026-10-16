@@ -1,0 +1,23 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant-analysis",
+      "severity": "major",
+      "title": "Rosario accounted for most defects",
+      "description": "Rosario Assembly recorded 1,119 of 1,954 reported defects, representing 57.3% of the total.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Calculated from the supplied facility-level counts across all five error categories."
+      },
+      "evidence": {
+        "text": "Rosario Assembly: 1,119; Cordoba Components: 491; Santa Fe Finishing: 344; total: 1,954."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved questions or unverified interpretive issues remain from this calculation."
+  }
+}

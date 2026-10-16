@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f9-a53c-7d42-9924-b065aac45692"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Córdoba Foundry Line F3 accounted for 1,746 of 2,535 wafer-related delays—about 69%, a clear majority.\n\nAll of its cases were wafer-transfer alignment failures. No other line was close; the next highest was Córdoba Line F1 with 286 jobs."}}
+{"type":"turn.completed","usage":{"input_tokens":13218,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":185,"reasoning_output_tokens":119}}

@@ -1,0 +1,12 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "Stockouts concentrated in cell-pack-04",
+      "description": "Cell-pack-04 represented 914 of 1,126 affected jobs, or approximately 81.2%.",
+      "location": "cell-pack-04"
+    }
+  ]
+}

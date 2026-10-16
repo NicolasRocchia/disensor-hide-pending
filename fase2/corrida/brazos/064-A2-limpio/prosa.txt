@@ -1,0 +1,1 @@
+Yes. Cell L-04 accounted for 729 of 942 affected jobs—77.4% of all servo-motor stockouts. In the external-services-only view, its concentration was even higher: 571 of 684 jobs, or 83.5%.

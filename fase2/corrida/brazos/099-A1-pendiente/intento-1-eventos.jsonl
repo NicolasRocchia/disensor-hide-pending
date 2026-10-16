@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14520-99b1-7882-90ec-4a8a2cab6745"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. On October 12, **lithography-dispatch accounted for 1,947 of 2,184 TimeoutError downtime minutes—about 89%**—and 39 of 51 incidents.\n\nThat conclusion covers primary production lines only. The broader query including reserved compute capacity was still pending, so its distribution isn’t confirmed."}}
+{"type":"turn.completed","usage":{"input_tokens":13032,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":135,"reasoning_output_tokens":60}}

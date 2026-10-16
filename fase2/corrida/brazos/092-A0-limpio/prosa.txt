@@ -1,0 +1,1 @@
+Yes. Including maintenance-only equipment, Rosario Assembly reported **1,984 of 3,671 defects (54.0%)**, more than the other facilities combined. In customer-facing systems alone, its share was **1,782 of 3,184 (56.0%)**.

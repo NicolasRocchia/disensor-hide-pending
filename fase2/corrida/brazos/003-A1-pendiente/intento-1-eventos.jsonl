@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144b7-47e0-7de2-bb95-c14d120a22fd"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—on the **primary production lines**, it was heavily concentrated in **cell-orion**: 1,936 of 2,214 NodeUnavailable failures, about **87%**.\n\nI can’t honestly confirm the pattern across all production lines because the secondary-line query was still pending in the records shown."}}
+{"type":"turn.completed","usage":{"input_tokens":12899,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":134,"reasoning_output_tokens":65}}

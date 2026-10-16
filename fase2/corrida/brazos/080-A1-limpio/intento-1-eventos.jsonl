@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1450e-b389-7a01-b506-975079a277b2"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Ezeiza Fulfillment Center accounted for **1,264 of 2,229 defects—56.7%** of all reported defects yesterday. It was therefore responsible for a majority, driven primarily by 912 barcode-read failures."}}
+{"type":"turn.completed","usage":{"input_tokens":13219,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":164,"reasoning_output_tokens":109}}

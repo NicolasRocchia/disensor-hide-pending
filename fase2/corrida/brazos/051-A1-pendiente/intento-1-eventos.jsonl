@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f0-d6a8-79e2-9c10-117b7d40d57f"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes—within the **primary wafer-fab lines**, 731 of 842 servo-motor stockouts (about **87%**) occurred in **FAB-A/CELL-ETCH-04**.\n\nThe broader query covering all production lines and advanced packaging had not returned, so I can’t confirm whether that concentration holds company-wide."}}
+{"type":"turn.completed","usage":{"input_tokens":13042,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":113,"reasoning_output_tokens":41}}

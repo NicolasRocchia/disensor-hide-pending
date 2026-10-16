@@ -1,0 +1,1 @@
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Servo-motor stockouts concentrated in assembly-cell-A3","description":"Assembly-cell-A3 recorded 487 of 612 SM-42 stockout incidents on primary production lines (79.6%).","location":"assembly-cell-A3"}]}

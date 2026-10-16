@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14525-e96b-7f41-9253-1fe189cd58dd"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **349 of 418 ServoDrive‑X9 stockouts (83.5%)** occurred in `motion-control-east`. The remaining 69 were split between `assembly-orchestrator` (47) and `inspection-cell-standard` (22)."}}
+{"type":"turn.completed","usage":{"input_tokens":12960,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":96,"reasoning_output_tokens":38}}

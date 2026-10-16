@@ -1,0 +1,1 @@
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Most failures occurred on gpu-cluster-a","description":"gpu-cluster-a produced 187 of 264 NodeUnavailable failures (70.8%) across standard compute pools and advanced packaging facilities.","location":"Telemetry window 2026-10-12, expanded scope"}]}

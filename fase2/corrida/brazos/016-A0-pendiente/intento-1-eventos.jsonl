@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144c9-dc67-7710-af08-7fa63c58406f"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Santa Clara Fab 4 accounted for **1,256 of 2,184 defects (57.5%)**, so it represented a majority of the external-service reports.\n\nThe other facilities were:\n\n- Hsinchu Partner Fab 2: 578 (26.5%)\n- Dresden Foundry Annex: 350 (16.0%)\n\nThe broader aggregation including automated warehouse inventory was still pending."}}
+{"type":"turn.completed","usage":{"input_tokens":13024,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":164,"reasoning_output_tokens":77}}

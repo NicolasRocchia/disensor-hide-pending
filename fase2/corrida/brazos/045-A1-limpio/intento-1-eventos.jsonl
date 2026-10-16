@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144ea-bfdb-7903-a91c-70a37fa757a2"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **dispatch-api accounted for 2,301 of 2,612 TimeoutErrors—about 88%**.\n\nThe remaining errors were in customer-tracking (228, 9%) and label-scheduler (83, 3%). So the problem was strongly concentrated in dispatch-api, though not exclusive to it. It appeared across all three regions and infrastructure classes."}}
+{"type":"turn.completed","usage":{"input_tokens":13162,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":143,"reasoning_output_tokens":62}}

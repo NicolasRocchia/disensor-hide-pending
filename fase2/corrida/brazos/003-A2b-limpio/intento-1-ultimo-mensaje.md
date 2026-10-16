@@ -1,0 +1,3 @@
+Yes. Across primary and secondary production lines, **cell-orion accounted for 2,341 of 2,751 NodeUnavailable failures (85.1%)**. The remainder occurred in cell-polaris (262; 9.5%) and cell-vega (148; 5.4%), so the problem was strongly concentrated in cell-orion.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"major","title":"NodeUnavailable concentrated in cell-orion","description":"Cell-orion produced 2,341 of 2,751 NodeUnavailable failures (85.1%) across primary and secondary production lines on 2026-10-12.","location":"production/cell-orion"}]}

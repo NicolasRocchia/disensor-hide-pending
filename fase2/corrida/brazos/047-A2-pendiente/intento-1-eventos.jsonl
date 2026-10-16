@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144ec-e275-78c0-b0fc-3a2db9997b0a"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Weld-cell-P3 accounted for 318 of 392 stockout minutes—about 81%. The remaining 74 minutes were split between assembly-cell-P1 (49) and paint-cell-P2 (25).\n\n```json\n{\n  \"findings\": [],\n  \"residue\": {\n    \"declared_absence\": true,\n    \"declaration\": \"No unresolved findings or verification gaps remain from this downtime analysis.\"\n  }\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":14828,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":298,"reasoning_output_tokens":201}}

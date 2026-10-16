@@ -1,0 +1,3 @@
+Yes. Including primary and secondary lines, Northbridge accounted for 518 of 779 SealIntegrityFault events—66.5%. On primary lines alone, it had 421 of 612—68.8%.
+
+{"findings":[{"id":"h1","origin":"assistant","severity":"info","title":"Most faults occurred at Northbridge","description":"Northbridge contributed a majority of SealIntegrityFault events under both reported production-line scopes.","location":"Telemetry for 2026-10-12"}]}

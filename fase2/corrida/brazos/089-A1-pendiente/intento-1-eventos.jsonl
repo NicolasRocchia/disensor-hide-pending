@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a14518-052d-7181-9456-1b8242d9087d"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. In the completed primary-line data, Pilar Assembly Works accounted for 460 of 742 defects—about 62%—so it produced a clear majority. Most were seal-integrity failures (371).\n\nThe broader query including secondary lines had not returned results, so this conclusion is limited to customer-facing primary production lines."}}
+{"type":"turn.completed","usage":{"input_tokens":12956,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":143,"reasoning_output_tokens":72}}

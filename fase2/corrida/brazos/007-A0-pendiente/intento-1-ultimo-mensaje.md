@@ -1,0 +1,1 @@
+Yes. Rosario Final Assembly accounted for **612 of 727 downtime minutes—about 84%**—and 17 of the 22 VacuumInterlock incidents.

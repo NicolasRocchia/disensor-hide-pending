@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144fa-e17a-7e03-a9e7-fc630ed3caea"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **FAB-LINE-07 accounted for 2,335 of 3,502 wafer jobs affected—about 67%**.\n\nMost were caused by `WarehouseLinkTimeout` (2,148 jobs), making FAB-LINE-07 the clear concentration point."}}
+{"type":"turn.completed","usage":{"input_tokens":13518,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":174,"reasoning_output_tokens":113}}

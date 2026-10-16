@@ -1,0 +1,4 @@
+Yes. Servo-motor stockouts were heavily concentrated in **cell-pack-04**:
+
+- Customer-facing systems: **781 of 934 jobs (83.6%)**
+- Including maintenance-only systems: **823 of 1,031 jobs (79.8%)**

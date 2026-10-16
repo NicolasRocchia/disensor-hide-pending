@@ -1,0 +1,1 @@
+Yes. Cell-orion accounted for 2,341 of 2,751 NodeUnavailable failures—about 85%. On primary lines alone, it was even more concentrated: 1,936 of 2,214, or 87%.

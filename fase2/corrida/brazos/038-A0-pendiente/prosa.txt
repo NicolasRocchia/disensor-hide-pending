@@ -1,0 +1,1 @@
+Yes. Rack-assembly-p1 accounted for **421 of 486** NIC retention-clip misalignment defects—about **86.6%**—among the primary production lines.

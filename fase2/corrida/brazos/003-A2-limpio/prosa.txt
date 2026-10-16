@@ -1,0 +1,1 @@
+Yes. Across primary and secondary production lines, **cell-orion accounted for 2,341 of 2,751 `NodeUnavailable` failures—85.1%**. The remainder was split between cell-polaris (262; 9.5%) and cell-vega (148; 5.4%).

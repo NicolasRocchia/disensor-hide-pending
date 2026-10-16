@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a144f2-3b0e-7743-bc7c-745fc7f50cf4"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Transit-gateway accounted for 1,872 of 2,504 PacketDropBurst-affected jobs—about **75%**.\n\nIncluding internal services reduced the concentration from about **87%** (1,872 of 2,146), but transit-gateway still clearly dominated."}}
+{"type":"turn.completed","usage":{"input_tokens":13283,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":126,"reasoning_output_tokens":61}}
