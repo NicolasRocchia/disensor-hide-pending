@@ -371,8 +371,10 @@ Las de la fase 1, §10, y además:
   `codex login status`) y, si la tiene, corre un canario de la misma familia que el
   intento (A2 sobre el gemelo para los brazos; Q.2.8, el juez de falsos positivos o
   el juez del JSON para los jueces), con el mismo arnés, sobre el log 003 del
-  piloto, que no está entre los 100, y con una respuesta fija larga para los jueces
-  de la prosa; el del JSON usa un caso armado a partir del de prueba de la fase 1,
+  piloto, que no está entre los 100 (el de los brazos, con el marcador fijo
+  `[canary request]` al final del gemelo, para que no sea el pedido del ítem
+  `003-A2-limpio` del piloto), y con una respuesta fija larga para los jueces de la
+  prosa; el del JSON usa un caso armado a partir del de prueba de la fase 1,
   del log 000. Cada canario va del lado de arriba de los tamaños de su familia (§13).
   Queda registrado aparte. Sin sesión, o si el canario no termina con una respuesta, el intento queda
   en la historia marcado (`sin_sesion` o `caida`) y no gasta los reintentos del ítem.
