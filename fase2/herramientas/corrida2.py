@@ -178,9 +178,9 @@ CAIDAS_POR_ITEM = 3
 # largos entre los del piloto con gemelo (3.043 y 4.206 bytes), por encima del percentil 90
 # de los logs de la corrida. Así va del lado de arriba de los tamaños reales.
 LOG_DEL_CANARIO = 3
-# Una respuesta fija para los canarios de los jueces de la prosa, del largo de las del piloto
-# o más.
-PROSA_CANARIO = (
+# Una respuesta fija para los canarios de los jueces de la prosa, más larga que las del piloto
+# (176 a 388 caracteres), para que el pedido quede del lado de arriba de los reales.
+_PARRAFO_CANARIO = (
     "Mostly, yes. In the results shown in the log, one service accounts for the large majority of the "
     "affected jobs, and the remaining jobs are spread across two other services with much smaller counts. "
     "The broader follow-up query covers the expanded scope; its results are consistent with the same "
@@ -188,22 +188,35 @@ PROSA_CANARIO = (
     "into account, the problem was concentrated in a single service, with a long tail of smaller "
     "contributors that together make up a minority of the affected jobs. The critical alerts check shows "
     "no critical alerts for the window, so nothing in the log contradicts this reading.")
+PROSA_CANARIO = "\n\n".join([_PARRAFO_CANARIO] * 3)
+# El JSON del canario del juez «registra»: el caso de prueba de la fase 1 (`piloto.CASOS_JUEZ`,
+# del log 000 del piloto) con más hallazgos de texto libre, para que el pedido quede por encima
+# de los que dejó el piloto (1.183 a 1.679 bytes).
+_HALLAZGOS_CANARIO = (
+    "The initial query covers only the customer-facing services; the per-service counts come from that window.",
+    "The totals were checked against the per-service rows of the first aggregate, and they add up.",
+    "The alerts check returned no critical alerts for the same window, which does not change the counts.",
+    "The leading service keeps its share when the smaller contributors are grouped together.")
+JSON_CANARIO = json.dumps(dict(json.loads(piloto.CASOS_JUEZ[0][2]), findings=[
+    {"id": f"F{n}", "origin": "reviewer", "severity": "minor", "title": f"Scope and window check {n}",
+     "description": d, "final_state": "escalated_open", "verification": {"against": "none"}}
+    for n, d in enumerate(_HALLAZGOS_CANARIO, 1)]))
 
 
 def mensaje_canario(familia):
     """El pedido del canario de una familia de llamadas, con el mismo armado que los reales:
-    `brazo` (A2 sobre el pendiente), `q28`, `fp` y `json`. El de `json` usa el JSON de la
-    prueba del juez de la fase 1, que es del log 000 del piloto."""
+    `brazo` (A2 sobre el gemelo, el más largo de los brazos), `q28`, `fp` y `json`. El de
+    `json` usa `JSON_CANARIO`, con la llamada y el alcance del log 000 del piloto."""
     if familia == "json":
         plantillas, fijos = plantillas_y_fijos()
         fuente, k = FuentePiloto((0,)), 0
-        obj = json.loads(piloto.CASOS_JUEZ[0][2])
         llamada = corrida.llamada_de_seguimiento(fuente.texto(k, "pendiente"))
         alcance = json.loads(fuente.metadata(k))["follow_up_scope_expansion"]
-        return juez.mensaje(plantillas["json"], llamada, alcance, juez.textos_libres(obj, fijos)).encode("utf-8")
+        return juez.mensaje(plantillas["json"], llamada, alcance,
+                            juez.textos_libres(json.loads(JSON_CANARIO), fijos)).encode("utf-8")
     fuente, k = FuentePiloto((LOG_DEL_CANARIO,)), LOG_DEL_CANARIO
     if familia == "brazo":
-        return mensaje(fuente.texto(k, "pendiente"), "A2", piloto.leer_esquemas()).encode("utf-8")
+        return mensaje(fuente.texto(k, "limpio"), "A2", piloto.leer_esquemas()).encode("utf-8")
     if familia == "q28":
         plantilla = jueces2.leer_prompt(jueces2.PROMPT_Q28, jueces2.PROMPT_Q28_MD5)
         return jueces2.mensaje_q28(plantilla, fuente.texto(k, "pendiente"), fuente.metadata(k),
@@ -567,13 +580,15 @@ def etapa_brazos(args):
     sin_parada(DIR)
     commit, head, arbol = congelamiento_fase2()
     fijado = arnes.verificar_binarios(corrida.BINARIOS, ("codex",))
-    version_jsonschema = exigir_jsonschema()
     fuente = FuenteCorrida()
     plan = plan_congelado(fuente, commit, arbol, head)
     esquemas = piloto.leer_esquemas()
     objetos = {b: json.loads(t) for b, t in esquemas.items()}
-    sello = {"commit_del_registro": commit, "sesiones": arnes.ahora(), "arboles": arbol, "commits": head,
-             "jsonschema": version_jsonschema}
+    sello = {"commit_del_registro": commit, "sesiones": arnes.ahora(), "arboles": arbol, "commits": head}
+    # jsonschema, sólo si quedan A2b o A2, que son los que lo usan.
+    if any(b in ("A2b", "A2") and leer_o_nada(DIR / "brazos" / f"{k:03d}-{b}-{c}" / "resumen.json").get("estado")
+           not in TERMINALES_BRAZO for k, b, c in plan):
+        sello["jsonschema"] = exigir_jsonschema()
     hechos = 0
     for i in range(0, len(plan), 8):
         bloque = plan[i:i + 8]
@@ -694,6 +709,17 @@ def plantillas_y_fijos():
 def faltan_jueces(base, items):
     return [x for x in items if leer_o_nada(base / "jueces" / "{}-{:03d}-{}-{}".format(*x) / "resumen.json")
             .get("veredicto", {}).get("estado") not in TERMINALES_JUEZ]
+
+
+def jueces_que_llaman(base, items):
+    """De los ítems de `jueces` que faltan, los que pueden llegar a llamar a Claude: el brazo
+    terminó y, en el juez del JSON, hay JSON. Los demás se resuelven sin modelo."""
+    out = []
+    for tipo, k, b, c in items:
+        br = leer_o_nada(base / "brazos" / f"{k:03d}-{b}-{c}" / "resumen.json")
+        if br.get("estado") == "hecho" and (tipo != "json" or br.get("json_md5")):
+            out.append((tipo, k, b, c))
+    return out
 
 
 def etapa_jueces(args):
@@ -981,11 +1007,13 @@ def etapa_piloto(args):
                                                     "resumen.json").get("estado") not in TERMINALES_BRAZO]
     fijado = arnes.verificar_binarios(corrida.BINARIOS, ("codex",) if faltan_brazos else ())
     if faltan_brazos:
-        sello = {"sesiones": arnes.ahora(), "jsonschema": exigir_jsonschema()}
+        sello = {"sesiones": arnes.ahora()}
+        if any(b in ("A2b", "A2") for _, b, _ in faltan_brazos):
+            sello["jsonschema"] = exigir_jsonschema()
         for k, b, c in plan:
             r = correr_brazo(DIR_PILOTO, fijado, fuente, k, b, c, esquemas, objetos, sello)
             print(f"{k:03d} {b:3} {c:9} {r['estado']}", flush=True)
-    if faltan_jueces(DIR_PILOTO, plan_jueces(plan)):
+    if jueces_que_llaman(DIR_PILOTO, faltan_jueces(DIR_PILOTO, plan_jueces(plan))):
         fijado = arnes.verificar_binarios(corrida.BINARIOS, ("claude",))
     plantillas, fijos = plantillas_y_fijos()
     for tipo, k, b, c in faltan_jueces(DIR_PILOTO, plan_jueces(plan)):

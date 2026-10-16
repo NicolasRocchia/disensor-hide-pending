@@ -738,7 +738,7 @@ class Sesiones(unittest.TestCase):
         try:
             self.assertTrue(corrida2.canario(fijado, "codex", self.raiz, "brazo"))
             self.assertIn(b"JSON", recibidos[-1])
-            self.assertIn(log3, recibidos[-1])
+            self.assertIn(gemelo3, recibidos[-1])
             gpt["texto"] = "  "
             self.assertFalse(corrida2.canario(fijado, "codex", self.raiz, "brazo"))
         finally:
@@ -755,6 +755,26 @@ class Sesiones(unittest.TestCase):
             corrida2.canario(fijado, "claude", self.raiz, "q28")
         self.assertIn("RED DE SEGURIDAD", str(e.exception))
         self.assertTrue((self.raiz / "PARADA").exists())
+
+    def test_los_canarios_van_del_lado_de_arriba(self):
+        # Por encima de lo medido en la tercera y la cuarta revisión: A2 limpio p90 12.633 bytes;
+        # Q.2.8 hasta 6.067; falsos positivos hasta 8.825 con una respuesta de 4 bytes; el JSON
+        # del piloto hasta 1.679.
+        tam = {f: len(corrida2.mensaje_canario(f)) for f in ("brazo", "q28", "fp", "json")}
+        self.assertGreater(tam["brazo"], 12633)
+        self.assertGreater(tam["q28"], 6067)
+        self.assertGreater(tam["fp"], 8000)
+        self.assertGreater(tam["json"], 1679)
+
+    def test_jueces_que_llaman(self):
+        for nombre, br in (("000-A0-pendiente", {"estado": "hecho"}), ("000-A2-limpio", {"estado": "hecho"}),
+                           ("000-A2-pendiente", {"estado": "hecho", "json_md5": "x"}),
+                           ("000-A1-limpio", {"estado": "fallo"})):
+            corrida.escribir(self.raiz / "brazos" / nombre / "resumen.json", br)
+        items = [("q28", 0, "A0", "pendiente"), ("json", 0, "A2", "limpio"), ("json", 0, "A2", "pendiente"),
+                 ("fp", 0, "A1", "limpio")]
+        self.assertEqual(corrida2.jueces_que_llaman(self.raiz, items),
+                         [("q28", 0, "A0", "pendiente"), ("json", 0, "A2", "pendiente")])
 
     def test_la_familia_del_canario_es_la_del_juez(self):
         familias = []
