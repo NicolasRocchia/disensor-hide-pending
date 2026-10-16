@@ -285,12 +285,20 @@ Las de la fase 1, §10, y además:
   `corrida.py analizar` sigue reproduciendo la fase 1 en un clon.
 - **Las salidas** van en `fase2/corrida/`.
 - **El congelamiento** es el de la fase 1 aplicado a esta carpeta: un tag
-  `protocolo-fase2-congelado`; un solo registro en «Enmiendas» de este protocolo con
-  el md5 de la lista de pares, el commit del congelamiento y el md5 del árbol (que
-  ahora cubre `herramientas/`, `prompts/`, `esquemas/`, `fase2/herramientas/` y
-  `fase2/prompts/`); el push a `origin/main` antes de la primera llamada; y el arnés
-  que frena si cualquiera de esas piezas cambia, en cada etapa.
-- **Pruebas sin llamadas** (`fase2/herramientas/prueba_offline.py`), antes de
+  `protocolo-fase2-congelado`; un solo registro en «Enmiendas» de este protocolo, con
+  formato fijo, `- Congelamiento de la fase 2: commit <commit entero>, árbol <md5>.`,
+  donde el árbol es el md5 de `fase2/herramientas/` y `fase2/prompts/`; el push a
+  `origin/main` antes de la primera llamada; y el arnés que frena, en cada etapa, si
+  cambia cualquiera de esas piezas o si el chequeo de la fase 1 no pasa (la lista de
+  pares, su registro y el árbol de `herramientas/`, `prompts/` y `esquemas/`, contra
+  el registro de la fase 1).
+- **Una sesión vencida de un CLI para la etapa**, reanudable, y no es una falla del
+  ítem. Cada etapa que llama a un modelo pregunta antes si el CLI tiene sesión
+  (`claude auth status`, `codex login status`), y lo vuelve a preguntar después de
+  cada intento que no terminó. Un intento de Claude que falló sin sesión queda en la
+  historia marcado y no gasta los reintentos del ítem; uno de GPT gasta uno de los
+  tres, porque los reintentos de la fase 1 cuentan toda la historia.
+- **Pruebas sin llamadas** (`fase2/herramientas/prueba_offline2.py`), antes de
   gastar cupo, como en la fase 1.
 
 ## 12. Piloto
