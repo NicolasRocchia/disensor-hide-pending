@@ -25,8 +25,10 @@ Después de congelar, en orden:
 import argparse
 import hashlib
 import json
+import os
 import random
 import re
+import subprocess
 import sys
 import unicodedata
 from pathlib import Path
@@ -172,27 +174,58 @@ def con_sesion(fijado, cual):
 
 
 CAIDAS_POR_ITEM = 3
+# El canario usa el log 003 del piloto, que no está entre los 100: el de log y gemelo más
+# largos entre los del piloto con gemelo (3.043 y 4.206 bytes), por encima del percentil 90
+# de los logs de la corrida. Así va del lado de arriba de los tamaños reales.
+LOG_DEL_CANARIO = 3
+# Una respuesta fija para los canarios de los jueces de la prosa, del largo de las del piloto
+# o más.
+PROSA_CANARIO = (
+    "Mostly, yes. In the results shown in the log, one service accounts for the large majority of the "
+    "affected jobs, and the remaining jobs are spread across two other services with much smaller counts. "
+    "The broader follow-up query covers the expanded scope; its results are consistent with the same "
+    "service leading, although the counts differ from the initial, narrower query. Taking both results "
+    "into account, the problem was concentrated in a single service, with a long tail of smaller "
+    "contributors that together make up a minority of the affected jobs. The critical alerts check shows "
+    "no critical alerts for the window, so nothing in the log contradicts this reading.")
 
 
-def mensaje_canario(cual):
-    """Un pedido del tamaño de los reales, sobre el log 000 del piloto, que no está entre los
-    100: A2 sobre el pendiente para GPT, y Q.2.8 con una respuesta fija para Claude."""
-    fuente, k = FuentePiloto(), LOGS_DEL_PILOTO[0]
-    if cual == "codex":
+def mensaje_canario(familia):
+    """El pedido del canario de una familia de llamadas, con el mismo armado que los reales:
+    `brazo` (A2 sobre el pendiente), `q28`, `fp` y `json`. El de `json` usa el JSON de la
+    prueba del juez de la fase 1, que es del log 000 del piloto."""
+    if familia == "json":
+        plantillas, fijos = plantillas_y_fijos()
+        fuente, k = FuentePiloto((0,)), 0
+        obj = json.loads(piloto.CASOS_JUEZ[0][2])
+        llamada = corrida.llamada_de_seguimiento(fuente.texto(k, "pendiente"))
+        alcance = json.loads(fuente.metadata(k))["follow_up_scope_expansion"]
+        return juez.mensaje(plantillas["json"], llamada, alcance, juez.textos_libres(obj, fijos)).encode("utf-8")
+    fuente, k = FuentePiloto((LOG_DEL_CANARIO,)), LOG_DEL_CANARIO
+    if familia == "brazo":
         return mensaje(fuente.texto(k, "pendiente"), "A2", piloto.leer_esquemas()).encode("utf-8")
-    plantilla = jueces2.leer_prompt(jueces2.PROMPT_Q28, jueces2.PROMPT_Q28_MD5)
-    return jueces2.mensaje_q28(plantilla, fuente.texto(k, "pendiente"), fuente.metadata(k), "Yes.").encode("utf-8")
+    if familia == "q28":
+        plantilla = jueces2.leer_prompt(jueces2.PROMPT_Q28, jueces2.PROMPT_Q28_MD5)
+        return jueces2.mensaje_q28(plantilla, fuente.texto(k, "pendiente"), fuente.metadata(k),
+                                   PROSA_CANARIO).encode("utf-8")
+    plantilla = jueces2.leer_prompt(jueces2.PROMPT_FP, jueces2.PROMPT_FP_MD5)
+    return jueces2.mensaje_fp(plantilla, fuente.texto(k, "limpio"), PROSA_CANARIO).encode("utf-8")
 
 
-def canario(fijado, cual, base):
-    """Un pedido del tamaño de los reales, aparte de los ítems y con el mismo arnés: si tampoco
-    termina con una respuesta (en Claude, una que se lee como un veredicto de Q.2.8), el
-    servicio no contesta y la falla no es del ítem. Queda registrado en `<base>/canarios/`."""
+def canario(fijado, cual, base, familia):
+    """Un pedido de la misma familia y del lado de arriba de los tamaños reales, aparte de los
+    ítems y con el mismo arnés: si tampoco termina con una respuesta, el servicio no contesta y
+    la falla no es del ítem. No se mira qué dice la respuesta: una salida que no se lee es una
+    falla del juez, no del servicio. Queda registrado en `<base>/canarios/`."""
     carpeta = base / "canarios"
     carpeta.mkdir(parents=True, exist_ok=True)
-    prefijo = f"{cual}-{re.sub(r'[^0-9]', '', arnes.ahora())}"
+    prefijo = base_prefijo = f"{familia}-{re.sub(r'[^0-9]', '', arnes.ahora())}"
+    n = 1
+    while any(carpeta.glob(f"{prefijo}*")):
+        n += 1
+        prefijo = f"{base_prefijo}-{n}"
     try:
-        m = mensaje_canario(cual)
+        m = mensaje_canario(familia)
         if cual == "claude":
             reg, texto = piloto.una_llamada_claude(fijado, m, carpeta, prefijo)
         else:
@@ -203,25 +236,24 @@ def canario(fijado, cual, base):
     escribir(carpeta / f"{prefijo}.json", reg)
     if reg.get("red_de_seguridad"):
         cortar(base, "PARADA", f"canario {prefijo}", lambda: None)
-    if not reg.get("termino") or not (texto or "").strip():
-        return False
-    return cual != "claude" or jueces2.leer_q28(texto) is not None
+    return bool(reg.get("termino")) and reg.get("verificado", True) is not False and bool((texto or "").strip())
 
 
-def revisar_intento(fijado, cual, base, intentos, guardar):
+def revisar_intento(fijado, cual, base, intentos, guardar, familia=None):
     """§11, después de cada intento que no terminó, sin cupo ni red de seguridad: si el CLI no
-    tiene sesión, o si tampoco termina un canario, la falla no es del ítem. El intento queda en
-    la historia marcado (`sin_sesion` o `caida`), no gasta los reintentos del ítem y la etapa
-    para, reanudable. En Claude el intento cambia de etiqueta, que es lo que cuentan los
-    reintentos de `claude_con_reintentos`; en GPT se marca además `sin_cupo`, el campo que no
-    cuentan los de `gpt_con_reintentos`. Si el canario termina, la falla es del ítem y cuenta."""
+    tiene sesión, o si tampoco termina un canario de la misma familia, la falla no es del ítem.
+    El intento queda en la historia marcado (`sin_sesion` o `caida`), no gasta los reintentos
+    del ítem y la etapa para, reanudable. En Claude el intento cambia de etiqueta, que es lo que
+    cuentan los reintentos de `claude_con_reintentos`; en GPT se marca además `sin_cupo`, el
+    campo que no cuentan los de `gpt_con_reintentos`. Si el canario termina, la falla es del
+    ítem y cuenta."""
     ult = intentos[-1] if intentos else None
     if (not ult or ult.get("en_vuelo") or ult.get("termino") or ult.get("sin_cupo") or ult.get("red_de_seguridad")
             or ult.get("sin_sesion") or ult.get("caida")):
         return
     if not con_sesion(fijado, cual):
         motivo = "sin_sesion"
-    elif not canario(fijado, cual, base):
+    elif not canario(fijado, cual, base, familia or ("brazo" if cual == "codex" else "q28")):
         motivo = "caida"
     else:
         return
@@ -325,12 +357,51 @@ def congelamiento_fase2():
     return registro["commit"], corrida.git_ok("rev-parse", "HEAD").strip(), arbol
 
 
+TIEMPO_GIT_REMOTO = 120
+# git sin preguntar nada: un pedido de credenciales no puede dejar una etapa colgada.
+ENTORNO_GIT = {"GIT_TERMINAL_PROMPT": "0", "GCM_INTERACTIVE": "never"}
+
+
+def git_remoto(*args):
+    """Un comando de git que habla con el remoto, con tiempo máximo y sin preguntar nada.
+    Devuelve el resultado, o None si no contestó a tiempo."""
+    try:
+        return subprocess.run(["git", "-C", str(arnes.EXPERIMENTO), *args], capture_output=True,
+                              env=dict(os.environ, **ENTORNO_GIT), timeout=TIEMPO_GIT_REMOTO)
+    except subprocess.TimeoutExpired:
+        return None
+
+
+def anclar_si_hay_red(commits):
+    """§11, después de crear el plan: como `corrida.anclar_en_remoto(..., obligatorio=False)`,
+    con tiempo máximo y sin preguntar nada. Un remoto que no contesta es un aviso y la etapa
+    sigue; uno que contesta y ya no tiene los commits frena."""
+    url = corrida.git("remote", "get-url", corrida.REMOTO)
+    if url.returncode != 0:
+        sys.exit(f"No hay remoto «{corrida.REMOTO}» (§11).")
+    url = url.stdout.decode("utf-8").strip()
+    if not corrida.ACEPTAR_REMOTO_LOCAL and not corrida.RE_URL_REMOTA.match(url):
+        sys.exit(f"El remoto «{corrida.REMOTO}» es una ruta de esta máquina: el ancla tiene que estar afuera (§11).")
+    r = git_remoto("fetch", "-q", corrida.REMOTO, corrida.RAMA)
+    if r is None or r.returncode != 0:
+        error = "no contestó a tiempo" if r is None else r.stderr.decode("utf-8", "replace").strip()
+        print(f"aviso: no se pudo traer {corrida.REMOTO}/{corrida.RAMA} ({error}); el ancla se verificó al crear el "
+              "plan y la etapa sigue (§11).", flush=True)
+        return url
+    for c in commits:
+        if not corrida.git_si_no("merge-base", "--is-ancestor", c, "FETCH_HEAD"):
+            sys.exit(f"El commit {c} no está en {corrida.REMOTO}/{corrida.RAMA}: el remoto se reescribió (§11).")
+    return url
+
+
 def exigir_tag_en_el_remoto(commit):
     """§11: el tag está publicado en el remoto y apunta al commit del registro. Se exige con el
     ancla obligatoria, al crear el plan; un tag sólo local dejaría un clon limpio sin él."""
-    r = corrida.git("ls-remote", "--tags", corrida.REMOTO)
-    if r.returncode != 0:
-        sys.exit(f"git ls-remote --tags {corrida.REMOTO} falló: {r.stderr.decode('utf-8', 'replace').strip()}")
+    r = git_remoto("ls-remote", "--tags", corrida.REMOTO)
+    if r is None or r.returncode != 0:
+        error = "no contestó a tiempo" if r is None else r.stderr.decode("utf-8", "replace").strip()
+        sys.exit(f"git ls-remote --tags {corrida.REMOTO} falló ({error}): antes de la primera llamada se verifica "
+                 "sí o sí (§11).")
     refs = {}
     for linea in r.stdout.decode("utf-8").splitlines():
         if "\t" in linea:
@@ -411,7 +482,7 @@ def plan_congelado(fuente, commit, arbol, head):
     else:
         guardado = leer(fp)
         exigir_descendencia(guardado["head_anclado"])
-        corrida.anclar_en_remoto([commit, guardado["head_anclado"]], obligatorio=False)
+        anclar_si_hay_red([commit, guardado["head_anclado"]])
     if guardado["orden"] != [list(x) for x in plan]:
         sys.exit("El plan de los brazos no coincide con el guardado. El arnés para.")
     revisar(DIR, guardado, commit, arbol)
@@ -427,7 +498,7 @@ def verificar():
     plan = leer(fp)
     exigir_descendencia(plan["head_anclado"])
     revisar(DIR, plan, commit, arbol)
-    corrida.anclar_en_remoto([commit, plan["head_anclado"]], obligatorio=False)
+    anclar_si_hay_red([commit, plan["head_anclado"]])
     return commit, head, arbol
 
 
@@ -572,7 +643,7 @@ def juzgar_item(base, fijado, fuente, tipo, k, b, c, plantillas, fijos, sello):
     def en_curso(parcial):
         r["veredicto"] = parcial
         escribir(f, r)
-        revisar_intento(fijado, "claude", base, r["intentos"], lambda: escribir(f, r))
+        revisar_intento(fijado, "claude", base, r["intentos"], lambda: escribir(f, r), tipo)
     carpeta.mkdir(parents=True, exist_ok=True)
     dir_b = base / "brazos" / f"{k:03d}-{b}-{c}"
     if br.get("estado") != "hecho":
@@ -854,6 +925,7 @@ def casos_de_prueba(fuente, k):
 def etapa_juez_prueba(_):
     """§12: los dos jueces de la prosa de punta a punta, sobre respuestas armadas a mano para el
     log 000 del piloto. No toca ninguna respuesta del sujeto."""
+    sin_parada(DIR_PILOTO)
     fijado = arnes.verificar_binarios(corrida.BINARIOS, ("claude",))
     fuente = FuentePiloto()
     plantillas, _ = plantillas_y_fijos()
@@ -875,15 +947,15 @@ def etapa_juez_prueba(_):
             m = jueces2.mensaje_fp(plantillas["fp"], fuente.texto(k, c), prosa)
             lector, tipo = jueces2.leer_fp, "fp"
 
-        def en_curso(parcial, r=r, f=f):
+        def en_curso(parcial, r=r, f=f, tipo=tipo):
             r["veredicto"] = parcial
             escribir(f, r)
-            revisar_intento(fijado, "claude", DIR_PILOTO, r["intentos"], lambda: escribir(f, r))
+            revisar_intento(fijado, "claude", DIR_PILOTO, r["intentos"], lambda: escribir(f, r), tipo)
         v = juzgar_prosa(fijado, m.encode("utf-8"), carpeta, r["intentos"], lector, tipo, guardar=en_curso)
         r["veredicto"] = v
         escribir(f, r)
         if v["estado"] in ("PARADA", "sin_cupo"):
-            sys.exit(f"{nombre}: {v['estado']}. El arnés para.")
+            cortar(DIR_PILOTO, v["estado"], f"juez-prueba {nombre}", lambda r=r, f=f: escribir(f, r))
         filas.append(r)
     coinciden = 0
     for r in filas:
@@ -901,14 +973,20 @@ def etapa_piloto(args):
     congelamiento. Las respuestas del piloto se pueden leer."""
     sin_parada(DIR_PILOTO)
     fuente = FuentePiloto()
-    fijado = arnes.verificar_binarios(corrida.BINARIOS)
     esquemas = piloto.leer_esquemas()
     objetos = {b: json.loads(t) for b, t in esquemas.items()}
     plan = plan_brazos(fuente.logs())
-    sello = {"sesiones": arnes.ahora(), "jsonschema": exigir_jsonschema()}
-    for k, b, c in plan:
-        r = correr_brazo(DIR_PILOTO, fijado, fuente, k, b, c, esquemas, objetos, sello)
-        print(f"{k:03d} {b:3} {c:9} {r['estado']}", flush=True)
+    # Cada dependencia, sólo si queda trabajo que la usa: reanudar los jueces no pide Codex.
+    faltan_brazos = [x for x in plan if leer_o_nada(DIR_PILOTO / "brazos" / "{:03d}-{}-{}".format(*x) /
+                                                    "resumen.json").get("estado") not in TERMINALES_BRAZO]
+    fijado = arnes.verificar_binarios(corrida.BINARIOS, ("codex",) if faltan_brazos else ())
+    if faltan_brazos:
+        sello = {"sesiones": arnes.ahora(), "jsonschema": exigir_jsonschema()}
+        for k, b, c in plan:
+            r = correr_brazo(DIR_PILOTO, fijado, fuente, k, b, c, esquemas, objetos, sello)
+            print(f"{k:03d} {b:3} {c:9} {r['estado']}", flush=True)
+    if faltan_jueces(DIR_PILOTO, plan_jueces(plan)):
+        fijado = arnes.verificar_binarios(corrida.BINARIOS, ("claude",))
     plantillas, fijos = plantillas_y_fijos()
     for tipo, k, b, c in faltan_jueces(DIR_PILOTO, plan_jueces(plan)):
         r = juzgar_item(DIR_PILOTO, fijado, fuente, tipo, k, b, c, plantillas, fijos, {})

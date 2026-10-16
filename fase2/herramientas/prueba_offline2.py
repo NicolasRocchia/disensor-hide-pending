@@ -439,6 +439,32 @@ class ConModelosSimulados(unittest.TestCase):
         piloto.claude_con_reintentos = lambda *a, **k: self.fail("no debería llamar")
         self.correr_todo()
 
+    def test_el_piloto_reanudado_pide_sólo_lo_que_usa(self):
+        guardado = (corrida2.DIR_PILOTO, corrida2.FuentePiloto, arnes.verificar_binarios, corrida2.exigir_jsonschema)
+        pedidos = []
+        try:
+            corrida2.DIR_PILOTO = self.raiz
+            corrida2.FuentePiloto = self.Fuente
+            arnes.verificar_binarios = lambda registro, necesarios=("codex", "claude"): pedidos.append(necesarios) or {}
+            corrida2.etapa_piloto(None)
+            self.assertEqual(pedidos, [("codex",), ("claude",)])
+            self.assertTrue((self.raiz / "informe.json").exists())
+            # Todo terminado: reanudar no pide Codex, ni Claude, ni jsonschema.
+            pedidos.clear()
+            corrida2.exigir_jsonschema = lambda: self.fail("no tendría que pedir jsonschema")
+            corrida.gpt_con_reintentos = lambda *a, **k: self.fail("no debería llamar")
+            piloto.claude_con_reintentos = lambda *a, **k: self.fail("no debería llamar")
+            corrida2.etapa_piloto(None)
+            self.assertEqual(pedidos, [()])
+            # Y juez-prueba respeta una PARADA sin revisar.
+            (self.raiz / "PARADA").write_bytes(b"canario\n")
+            with self.assertRaises(SystemExit) as e:
+                corrida2.etapa_juez_prueba(None)
+            self.assertIn("parada sin revisar", str(e.exception))
+        finally:
+            (corrida2.DIR_PILOTO, corrida2.FuentePiloto, arnes.verificar_binarios,
+             corrida2.exigir_jsonschema) = guardado
+
     def test_un_juez_que_no_se_lee_dos_veces_falla(self):
         cola = ["nada", "tampoco"]
 
@@ -542,7 +568,7 @@ class Sesiones(unittest.TestCase):
                          corrida2.canario)
         arnes.verificar_sha = lambda fijado, cual: None
         arnes.carpeta_trabajo = lambda: Path(tempfile.mkdtemp(dir=self.raiz))
-        corrida2.canario = lambda fijado, cual, base: True
+        corrida2.canario = lambda fijado, cual, base, familia: True
         self.guardado_gpt = piloto.una_llamada_gpt
 
     def tearDown(self):
@@ -622,6 +648,22 @@ class Sesiones(unittest.TestCase):
         self.assertEqual([(i["etiqueta"], i["sin_sesion"]) for i in r["intentos"]], [("q28-1-sin-sesion", True)])
         self.assertEqual(corrida2.faltan_jueces(self.raiz, [("q28", 0, "A0", "pendiente")]), [("q28", 0, "A0", "pendiente")])
 
+    def test_juzgar_item_le_pasa_su_familia_al_canario(self):
+        familias = []
+        corrida2.con_sesion = lambda fijado, cual: True
+        corrida2.canario = lambda fijado, cual, base, familia: familias.append(familia) and False
+        piloto.una_llamada_claude = lambda fijado, m, carpeta, prefijo: (
+            {"termino": False, "verificado": False, "red_de_seguridad": False, "sin_cupo": False}, None)
+        dir_b = self.raiz / "brazos" / "000-A1-limpio"
+        dir_b.mkdir(parents=True)
+        (dir_b / "prosa.txt").write_bytes(b"Yes.")
+        corrida.escribir(dir_b / "resumen.json", {"estado": "hecho", "prosa_md5": arnes.md5_bytes(b"Yes.")})
+        plantillas, fijos = corrida2.plantillas_y_fijos()
+        with self.assertRaises(SystemExit):
+            corrida2.juzgar_item(self.raiz, {"claude_exe": "claude.exe"}, ConModelosSimulados.Fuente(), "fp", 0,
+                                 "A1", "limpio", plantillas, fijos, {})
+        self.assertEqual(familias, ["fp"])
+
     def test_una_falla_con_sesion_sigue_contando(self):
         corrida2.con_sesion = lambda fijado, cual: True
         piloto.una_llamada_claude = lambda fijado, m, carpeta, prefijo: (
@@ -634,7 +676,7 @@ class Sesiones(unittest.TestCase):
 
     def test_una_caida_del_servicio_para_y_no_gasta_los_reintentos(self):
         corrida2.con_sesion = lambda fijado, cual: True
-        corrida2.canario = lambda fijado, cual, base: False
+        corrida2.canario = lambda fijado, cual, base, familia: False
         piloto.una_llamada_claude = lambda fijado, m, carpeta, prefijo: (
             {"termino": False, "verificado": False, "red_de_seguridad": False, "sin_cupo": False}, None)
         r = {"intentos": []}
@@ -666,42 +708,78 @@ class Sesiones(unittest.TestCase):
     def test_el_canario(self):
         corrida2.canario = self.guardado[-1]
         fijado = {"claude_exe": "claude.exe", "codex_exe": "codex.exe"}
+        # El mismo instante para todos: dos canarios no pueden pisarse el registro.
+        self.addCleanup(setattr, arnes, "ahora", arnes.ahora)
+        arnes.ahora = lambda: "2026-10-16T00:00:00.000+00:00"
         recibidos = []
 
-        def claude(texto):
+        def claude(texto, termino=True):
             def una(fijado, m, carpeta, prefijo):
                 recibidos.append(m)
-                return {"termino": True, "red_de_seguridad": False}, texto
+                return {"termino": termino, "verificado": termino, "red_de_seguridad": False}, texto
             return una
-        piloto.una_llamada_claude = claude(q28(1))
-        self.assertTrue(corrida2.canario(fijado, "claude", self.raiz))
-        # Un pedido del tamaño de los reales: Q.2.8 con el log 000 del piloto y su metadata.
-        self.assertIn(b"GRADER_METADATA:", recibidos[0])
-        self.assertGreater(len(recibidos[0]), 3000)
+        log3 = (piloto.DIR_LOGS / "003" / "log.md").read_bytes().rstrip(b"\n")
+        gemelo3 = (piloto.DIR_GEMELOS / "003" / "gemelo.md").read_bytes().rstrip(b"\n")
+        # Cualquier respuesta que termina vale: una salida que no se lee es del juez, no del
+        # servicio. Cada familia con su prompt, y el log 003, del lado de arriba de los tamaños.
         piloto.una_llamada_claude = claude("OK")
-        self.assertFalse(corrida2.canario(fijado, "claude", self.raiz))
+        for familia, marcas in (("q28", (b"GRADER_METADATA:", log3)), ("fp", (b"EXPERIMENT LOG:", gemelo3)),
+                                ("json", (b"qca_7f31c9b2",))):
+            self.assertTrue(corrida2.canario(fijado, "claude", self.raiz, familia))
+            for marca in marcas:
+                self.assertIn(marca, recibidos[-1], familia)
+        piloto.una_llamada_claude = claude("  ")
+        self.assertFalse(corrida2.canario(fijado, "claude", self.raiz, "q28"))
+        piloto.una_llamada_claude = claude("OK", termino=False)
+        self.assertFalse(corrida2.canario(fijado, "claude", self.raiz, "fp"))
         gpt = {"texto": "Yes."}
         piloto.una_llamada_gpt = lambda fijado, m, carpeta, prefijo, tipo=None: (
             recibidos.append(m) or ({"termino": True, "red_de_seguridad": False}, gpt["texto"]))
         try:
-            self.assertTrue(corrida2.canario(fijado, "codex", self.raiz))
+            self.assertTrue(corrida2.canario(fijado, "codex", self.raiz, "brazo"))
             self.assertIn(b"JSON", recibidos[-1])
+            self.assertIn(log3, recibidos[-1])
             gpt["texto"] = "  "
-            self.assertFalse(corrida2.canario(fijado, "codex", self.raiz))
+            self.assertFalse(corrida2.canario(fijado, "codex", self.raiz, "brazo"))
         finally:
             piloto.una_llamada_gpt = self.guardado_gpt
 
         def explota(*a, **k):
             raise OSError("sin red")
         piloto.una_llamada_claude = explota
-        self.assertFalse(corrida2.canario(fijado, "claude", self.raiz))
-        self.assertEqual(len(list((self.raiz / "canarios").glob("*.json"))), 5)
+        self.assertFalse(corrida2.canario(fijado, "claude", self.raiz, "q28"))
+        self.assertEqual(len(list((self.raiz / "canarios").glob("*.json"))), 8)
         piloto.una_llamada_claude = lambda fijado, m, carpeta, prefijo: (
             {"termino": False, "red_de_seguridad": True}, None)
         with self.assertRaises(SystemExit) as e:
-            corrida2.canario(fijado, "claude", self.raiz)
+            corrida2.canario(fijado, "claude", self.raiz, "q28")
         self.assertIn("RED DE SEGURIDAD", str(e.exception))
         self.assertTrue((self.raiz / "PARADA").exists())
+
+    def test_la_familia_del_canario_es_la_del_juez(self):
+        familias = []
+        corrida2.con_sesion = lambda fijado, cual: True
+        corrida2.canario = lambda fijado, cual, base, familia: familias.append(familia) or True
+        for tipo in ("q28", "fp"):
+            intentos = [{"termino": False, "sin_cupo": False, "red_de_seguridad": False, "etiqueta": f"{tipo}-1"}]
+            corrida2.revisar_intento({}, "claude", self.raiz, intentos, lambda: None, tipo)
+        corrida2.revisar_intento({}, "codex", self.raiz, [{"termino": False, "sin_cupo": False,
+                                                           "red_de_seguridad": False}], lambda: None)
+        self.assertEqual(familias, ["q28", "fp", "brazo"])
+
+    def test_el_remoto_que_no_contesta_es_un_aviso(self):
+        guardado = (corrida.git, corrida2.git_remoto, corrida.ACEPTAR_REMOTO_LOCAL)
+        try:
+            corrida.ACEPTAR_REMOTO_LOCAL = True
+            corrida.git = lambda *a: subprocess.CompletedProcess(a, 0, b"https://example.invalid/r.git\n", b"")
+            corrida2.git_remoto = lambda *a: None
+            self.assertEqual(corrida2.anclar_si_hay_red(["c"]), "https://example.invalid/r.git")
+            corrida2.git_remoto = lambda *a: subprocess.CompletedProcess(a, 128, b"", b"fatal: sin red")
+            corrida2.anclar_si_hay_red(["c"])
+            with self.assertRaises(SystemExit):
+                corrida2.exigir_tag_en_el_remoto("c")
+        finally:
+            corrida.git, corrida2.git_remoto, corrida.ACEPTAR_REMOTO_LOCAL = guardado
 
     def test_gpt_sin_sesion_para_el_brazo(self):
         corrida2.con_sesion = lambda fijado, cual: False
