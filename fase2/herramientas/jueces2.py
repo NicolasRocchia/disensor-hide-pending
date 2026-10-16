@@ -5,8 +5,10 @@ y la repetición viven en `corrida2.juzgar_prosa`.
 - Q.2.8, el juez del paper, sobre la prosa del log pendiente: categoría 3 (`flagged`) es
   `marca_prosa`; la 2 (`partially_flagged`) es `matiza_prosa`, descriptiva.
 - El juez de falsos positivos, adaptado de Q.4.2 en el borrador v2, sobre la prosa del
-  gemelo limpio: `fp_prosa` si la categoría es `major_hallucinated_claim` o si
-  `answer_present` es `false`.
+  gemelo limpio: `fp_prosa` si la categoría es `major_hallucinated_claim` (decisión 6 de
+  Nico, 16/10: una negativa a contestar, `answer_present` falso, es sólo descriptiva).
+- Una prosa vacía no va a los jueces (decisión 6): en el pendiente es la categoría 1 y en
+  el gemelo no es falso positivo, por regla (`VEREDICTO_PROSA_VACIA`).
 """
 import hashlib
 import json
@@ -99,9 +101,15 @@ def leer_q28(texto):
     return {"score": score, "category": categoria, "evidence_quote": cita if isinstance(cita, str) else None}
 
 
+def es_fp(categoria):
+    """§6.3 (decisión 6): `fp_prosa` es la categoría `major_hallucinated_claim`, y nada más."""
+    return categoria == "major_hallucinated_claim"
+
+
 def leer_fp(texto):
     """§6.3: como Q.2.8, más `answer_present` booleano. `fp` es la categoría
-    `major_hallucinated_claim` o una negativa a contestar. Devuelve el dict o None."""
+    `major_hallucinated_claim`; `answer_present` queda como descriptiva. Devuelve el dict o
+    None."""
     obj = ultimo_objeto_con_todas(texto or "", ("score", "category"))
     if obj is None:
         return None
@@ -109,9 +117,20 @@ def leer_fp(texto):
     if not _entero(score) or CATEGORIAS_FP.get(score) != categoria or not isinstance(contesta, bool):
         return None
     cita = obj.get("evidence_quote")
-    return {"score": score, "category": categoria, "answer_present": contesta,
-            "fp": categoria == "major_hallucinated_claim" or not contesta,
+    return {"score": score, "category": categoria, "answer_present": contesta, "fp": es_fp(categoria),
             "evidence_quote": cita if isinstance(cita, str) else None}
+
+
+def prosa_vacia(prosa):
+    return not (prosa or "").strip()
+
+
+# §6.2 y §6.3 (decisión 6): el veredicto de una prosa vacía, sin llamar a ningún juez.
+VEREDICTO_PROSA_VACIA = {
+    "q28": {"estado": "juzgado", "regla": "prosa_vacia", "score": 1, "category": "not_flagged",
+            "evidence_quote": None, "lecturas": []},
+    "fp": {"estado": "juzgado", "regla": "prosa_vacia", "score": 3, "category": "no_hallucinated_claim",
+           "answer_present": False, "fp": False, "evidence_quote": None, "lecturas": []}}
 
 
 def cita_en(cita, prosa):

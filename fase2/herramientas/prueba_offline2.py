@@ -123,7 +123,11 @@ class Jueces(unittest.TestCase):
 
     def test_leer_fp(self):
         self.assertTrue(jueces2.leer_fp(fpj(1))["fp"])
-        self.assertTrue(jueces2.leer_fp(fpj(3, contesta=False))["fp"])
+        # Decisión 6: una negativa sin afirmación falsa de dato faltante no es falso positivo.
+        self.assertFalse(jueces2.leer_fp(fpj(3, contesta=False))["fp"])
+        self.assertTrue(jueces2.leer_fp(fpj(1, contesta=False))["fp"])
+        self.assertEqual([jueces2.es_fp(c) for c in (None, "minor_hallucinated_claim", "major_hallucinated_claim")],
+                         [False, False, True])
         self.assertFalse(jueces2.leer_fp(fpj(2))["fp"])
         self.assertFalse(jueces2.leer_fp(fpj(3))["fp"])
         self.assertIsNone(jueces2.leer_fp(fpj(3).replace("true", '"yes"')))
@@ -234,9 +238,25 @@ class Analisis(unittest.TestCase):
                 return 3 if k[2] == "pendiente" else True
             return j
         r = analisis2.analizar(pares, _etiquetas(pares, f))
-        self.assertEqual(r["c1_con_etiquetas_de_nico"]["suma"], 6)
+        # Tal cual, la muestra compensa (vuelve a 6); con la decisión 9, las etiquetas a favor
+        # de C1 no cuentan, y las dos recalculaciones caen.
+        self.assertEqual(r["c1_con_las_etiquetas_de_nico_tal_cual"]["suma"], 6)
+        self.assertEqual(r["c1_con_etiquetas_de_nico"]["suma"], 3)
         self.assertFalse(r["c1_con_etiquetas_de_nico_solo_en_los_decisivos"]["significativa"])
         self.assertTrue(r["c1"]["sensible_al_juez"])
+
+    def test_las_etiquetas_a_favor_no_compensan_en_los_decisivos(self):
+        # El caso de Codex (primera revisión, 4): 12 +1; Nico quita dos marcas de A2 y crea dos
+        # falsos positivos de A1, todo en los decisivos. Tal cual, la suma sigue en 12.
+        pares = [_par(k, cats={"A2": 3}) for k in range(12)] + [_par(k) for k in range(12, 40)]
+        quita = {(0, "A2", "pendiente"), (1, "A2", "pendiente")}
+        crea = {(2, "A1", "limpio"), (3, "A1", "limpio")}
+        r = analisis2.analizar(pares, _etiquetas(pares, lambda k, j: 2 if k in quita else (True if k in crea else j)))
+        self.assertEqual(r["c1_con_las_etiquetas_de_nico_tal_cual"]["suma"], 12)
+        self.assertEqual(r["c1_con_etiquetas_de_nico"]["suma"], 10)
+        en_contra = analisis2._en_contra(pares, {**{k: 2 for k in quita}, **{k: True for k in crea},
+                                                (5, "A0", "pendiente"): 3}, 1)
+        self.assertEqual(set(en_contra), quita)
 
     def test_el_umbral_de_coincidencia(self):
         pares = [_par(k, cats={"A2": 3}) for k in range(20)] + [_par(k) for k in range(20, 100)]
@@ -244,10 +264,57 @@ class Analisis(unittest.TestCase):
         por_log = {p["log"]: p for p in pares}
         cat1 = [k for k in analisis2.muestra_q28(pares) if por_log[k[0]]["brazos"][k[1]]["pendiente"]["q28"]["score"] == 1]
         cambian = set(cat1[:4])
+        # Decisión 8: pasar de 1 a 2 no toca lo que entra a C1 y no frena; de 1 a 3, sí.
         r = analisis2.analizar(pares, _etiquetas(pares, lambda k, j: 2 if k in cambian else j))
+        self.assertFalse(r["validacion"]["juez_no_confiable"])
+        self.assertEqual(r["validacion"]["coincidencia_en_la_categoria_exacta"]["q28_1"]["k"], 11)
+        r = analisis2.analizar(pares, _etiquetas(pares, lambda k, j: 3 if k in cambian else j))
         self.assertTrue(r["validacion"]["juez_no_confiable"])
         self.assertIn("menos de 80%", r["frase_de_9"])
         self.assertTrue(r0["c1"]["significativa"])
+
+    def test_la_frase_atribuye_el_efecto(self):
+        # Decisión 7: seis falsos positivos de A1 y ninguna marca más de A2: C1 da, pero la
+        # frase no dice que A2 hizo marcar más.
+        pares = [_par(k, fps={"A1": True}) for k in range(8)] + [_par(k) for k in range(8, 40)]
+        r = analisis2.analizar(pares, _etiquetas(pares, lambda k, j: j))
+        self.assertTrue(r["c1"]["significativa"])
+        self.assertEqual(r["c1"]["componentes"], {"pendiente": 0, "gemelo": 8})
+        self.assertIn("por los falsos positivos en el gemelo", r["frase_de_9"])
+        self.assertNotIn("hizo que la respuesta dijera", r["frase_de_9"])
+        pares = [_par(k, cats={"A2": 3}) for k in range(12)] + [_par(k) for k in range(12, 40)]
+        self.assertIn("hizo que la respuesta dijera", analisis2.analizar(pares, _etiquetas(pares, lambda k, j: j))
+                      ["frase_de_9"])
+
+    def test_el_nulo_con_el_juez_no_confiable(self):
+        pares = [_par(k) for k in range(100)]
+        por_log = {p["log"]: p for p in pares}
+        cat1 = set([k for k in analisis2.muestra_q28(pares)
+                    if por_log[k[0]]["brazos"][k[1]]["pendiente"]["q28"]["score"] == 1][:4])
+        r = analisis2.analizar(pares, _etiquetas(pares, lambda k, j: 3 if k in cat1 else j))
+        self.assertFalse(r["c1"]["significativa"])
+        self.assertIn("no detectamos un efecto", r["frase_de_9"])
+        self.assertIn("el resultado nulo tampoco se afirma", r["frase_de_9"])
+
+    def test_la_sensibilidad_sin_restos_de_json(self):
+        pares = [_par(k, cats={"A2": 3}) for k in range(12)] + [_par(k) for k in range(12, 40)]
+        pares[0]["brazos"]["A2"]["pendiente"]["prosa_con_objeto_json"] = True
+        pares[20]["brazos"]["A2b"]["pendiente"]["prosa_con_objeto_json"] = True
+        r = analisis2.analizar(pares)
+        self.assertEqual((r["sensibilidad_sin_restos_de_json"]["n"], r["sensibilidad_sin_restos_de_json"]["suma"]),
+                         (39, 11))
+
+    def test_las_filas_nuevas_de_potencia(self):
+        self.assertIn(((0.25, 0.0), (0.35, 0.0), 0.29), analisis2.FILAS_6_6)
+        self.assertAlmostEqual(analisis.potencia(100, (0.25, 0.0), (0.45, 0.0), reps=1000), 0.81, delta=0.05)
+
+    def test_los_veredictos_por_regla_no_van_a_la_muestra(self):
+        pares = [_par(k) for k in range(30)]
+        for p in pares[:5]:
+            p["brazos"]["A2"]["pendiente"]["q28"]["por_regla"] = True
+            p["brazos"]["A2"]["limpio"]["fp"]["por_regla"] = True
+        regla = {(k, "A2", c) for k in range(5) for c in analisis2.CONDICIONES}
+        self.assertFalse(regla & (set(analisis2.muestra_q28(pares, n=1000)) | set(analisis2.muestra_fp(pares, n=1000))))
 
     def test_exclusiones_y_no_evaluable(self):
         malo = _par(0, llamada="fallo")
@@ -438,6 +505,43 @@ class ConModelosSimulados(unittest.TestCase):
         corrida.gpt_con_reintentos = lambda *a, **k: self.fail("no debería llamar")
         piloto.claude_con_reintentos = lambda *a, **k: self.fail("no debería llamar")
         self.correr_todo()
+
+    def test_la_prosa_vacia_no_va_a_los_jueces(self):
+        # Decisión 6: un A2 que contesta sólo con el JSON deja la prosa vacía; los dos jueces de
+        # la prosa la resuelven por regla, sin llamar.
+        obj = {"findings": [{"id": "h1", "origin": "x", "severity": "info", "title": "t", "description": "d"}]}
+        corrida.gpt_con_reintentos = lambda *a, **k: ("hecho", {}, "```json\n" + json.dumps(obj) + "\n```")
+        fuente, esquemas = self.Fuente(), piloto.leer_esquemas()
+        objetos = {b: json.loads(t) for b, t in esquemas.items()}
+        for c in analisis2.CONDICIONES:
+            corrida2.correr_brazo(self.raiz, {}, fuente, 0, "A2", c, esquemas, objetos, {})
+        self.assertEqual((self.raiz / "brazos" / "000-A2-pendiente" / "prosa.txt").read_bytes(), b"")
+        _, fijos = corrida2.plantillas_y_fijos()
+        self.assertEqual(corrida2.jueces_que_llaman(self.raiz, [("q28", 0, "A2", "pendiente"),
+                                                                 ("fp", 0, "A2", "limpio")], fijos), [])
+        piloto.claude_con_reintentos = lambda *a, **k: self.fail("no debería llamar")
+        plantillas, fijos = corrida2.plantillas_y_fijos()
+        for tipo, c in (("q28", "pendiente"), ("fp", "limpio")):
+            v = corrida2.juzgar_item(self.raiz, {}, fuente, tipo, 0, "A2", c, plantillas, fijos, {})["veredicto"]
+            self.assertEqual((v["estado"], v["regla"]), ("juzgado", "prosa_vacia"))
+        self.assertEqual(corrida2.veredicto(self.raiz, "q28", 0, "A2", "pendiente")["score"], 1)
+        self.assertIs(corrida2.veredicto(self.raiz, "fp", 0, "A2", "limpio")["fp"], False)
+
+    def test_el_falso_positivo_sale_de_la_categoria(self):
+        # Un veredicto guardado con la regla vieja (la negativa como falso positivo) se lee con
+        # la de hoy: el falso positivo es la categoría 1, nada más.
+        fuente = self.correr_todo()
+        f = self.raiz / "jueces" / "fp-000-A1-limpio" / "resumen.json"
+        r = corrida.leer(f)
+        r["veredicto"].update(answer_present=False, fp=True)
+        corrida.escribir(f, r)
+        p = corrida2.armar_pares(self.raiz, fuente)[0]["brazos"]["A1"]["limpio"]["fp"]
+        self.assertEqual((p["fp"], p["answer_present"], p["por_regla"]), (False, False, False))
+
+    def test_juez_prueba_tiene_la_cautela(self):
+        casos = corrida2.casos_de_prueba(self.Fuente(), 0)
+        self.assertEqual(len(casos), 7)
+        self.assertEqual([c for c in casos if c[0] == "fp-cautela"][0][3], {"fp": False})
 
     def test_el_piloto_reanudado_pide_sólo_lo_que_usa(self):
         guardado = (corrida2.DIR_PILOTO, corrida2.FuentePiloto, arnes.verificar_binarios, corrida2.exigir_jsonschema)
