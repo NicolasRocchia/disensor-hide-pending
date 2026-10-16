@@ -1,9 +1,10 @@
 # Protocolo · Fase 2: ¿el esquema de residuo hace que la respuesta diga que no puede contestar?
 
-**Estado: v6, borrador, NO congelado.** Escrito el 15/10/2026, después de cerrar
-la fase 1; la v1 registra las cinco decisiones de Nico (§15), y de la v2 a la v6
+**Estado: v7, borrador, NO congelado.** Escrito el 15/10/2026, después de cerrar
+la fase 1; la v1 registra las cinco decisiones de Nico (§15), de la v2 a la v6
 (16/10) el texto se alinea con los arreglos de las revisiones primera a quinta
-(`02-REVISION-1.md` a `06-REVISION-5.md`), sin cambiar el diseño. Hereda de la fase 1 (`../01-PROTOCOLO.md`, v23, tag
+(`02-REVISION-1.md` a `06-REVISION-5.md`), sin cambiar el diseño, y la v7 corrige el
+presupuesto de Claude con lo medido en el piloto (`08-PILOTO.md`). Hereda de la fase 1 (`../01-PROTOCOLO.md`, v23, tag
 `protocolo-congelado`) los 100 pares, el arnés del sujeto y de los jueces, las
 reglas de extracción y la maquinaria de congelamiento. **Lo que este protocolo no
 dice rige como en la fase 1.** Retoma el diseño de la prosa del borrador v2
@@ -422,8 +423,9 @@ cada una; los canarios y los cortes por cupo o por sesión van aparte.
   4 a 5 puntos de la semana de Nico con la calibración de la fase 1
   (`../26-CORRIDA-BRAZOS.md`).
 - **Claude:** 400 ítems Q.2.8 y 400 de falsos positivos, que reciben el log entero,
-  y 400 del juez «registra»: del orden de USD 15 a 20 a precio de API (el juez de la
-  fase 1 costó USD 0,0082 por llamada, y los logs son cortos).
+  y 400 del juez «registra»: del orden de USD 25 a 30 a precio de API. Medido en el
+  piloto (`08-PILOTO.md`): unos USD 0,03 por juicio de la prosa y USD 0,008 por
+  juicio del JSON, como en la fase 1.
 - **Las revisiones de Codex**, aparte, como en la fase 1.
 
 ## Enmiendas
