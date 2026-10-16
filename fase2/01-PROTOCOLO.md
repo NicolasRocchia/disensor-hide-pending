@@ -1,11 +1,15 @@
 # Protocolo · Fase 2: ¿el esquema de residuo hace que la respuesta diga que no puede contestar?
 
-**Estado: v8, borrador, NO congelado.** Escrito el 15/10/2026, después de cerrar
-la fase 1; la v1 registra las cinco decisiones de Nico (§15), de la v2 a la v6
-(16/10) el texto se alinea con los arreglos de las revisiones primera a quinta
-(`02-REVISION-1.md` a `06-REVISION-5.md`), sin cambiar el diseño, la v7 corrige el
-presupuesto de Claude con lo medido en el piloto (`08-PILOTO.md`) y la v8 registra
-las decisiones 6 a 13 de Nico (§15), que sí cambian el diseño. Hereda de la fase 1 (`../01-PROTOCOLO.md`, v23, tag
+**Estado: v8, CONGELADO el 16/10/2026** (tag `protocolo-fase2-congelado`, registro
+en «Enmiendas»). Desde acá, todo cambio va en «Enmiendas», y un cambio de código
+después de la primera llamada de `brazos` descarta la corrida (§10). Escrito el
+15/10/2026, después de cerrar la fase 1; la v1 registra las cinco decisiones de Nico
+(§15), de la v2 a la v6 (16/10) el texto se alinea con los arreglos de las revisiones
+primera a quinta (`02-REVISION-1.md` a `06-REVISION-5.md`), sin cambiar el diseño,
+la v7 corrige el presupuesto de Claude con lo medido en el piloto (`08-PILOTO.md`) y
+la v8 registra las decisiones 6 a 13 de Nico (§15), que sí cambian el diseño, con
+dos rondas más de revisión (`09-REVISION-7.md` y `10-REVISION-8.md`). Nico lo congeló
+después de ver el piloto ampliado. Hereda de la fase 1 (`../01-PROTOCOLO.md`, v23, tag
 `protocolo-congelado`) los 100 pares, el arnés del sujeto y de los jueces, las
 reglas de extracción y la maquinaria de congelamiento. **Lo que este protocolo no
 dice rige como en la fase 1.** Retoma el diseño de la prosa del borrador v2
