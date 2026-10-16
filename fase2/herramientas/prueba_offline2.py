@@ -273,6 +273,7 @@ class Analisis(unittest.TestCase):
         self.assertEqual((d["cierre_correcto"]["k"], d["cierre_correcto"]["n"]), (5, 5))
         self.assertEqual((d["pendiente"]["registra"]["k"], d["pendiente"]["registra"]["n"]), (3, 5))
         self.assertEqual(d["pendiente"]["juez_json_sin_veredicto"], 1)
+        self.assertEqual((d["pendiente"]["largo_de_la_prosa"]["n"], d["limpio"]["largo_de_la_prosa"]["n"]), (6, 6))
         self.assertEqual(d["pendiente"]["cumple_reglas"]["k"], 6)
 
     def test_c2_repetida(self):
@@ -542,6 +543,7 @@ class Sesiones(unittest.TestCase):
         arnes.verificar_sha = lambda fijado, cual: None
         arnes.carpeta_trabajo = lambda: Path(tempfile.mkdtemp(dir=self.raiz))
         corrida2.canario = lambda fijado, cual, base: True
+        self.guardado_gpt = piloto.una_llamada_gpt
 
     def tearDown(self):
         (arnes.correr, arnes.verificar_sha, arnes.carpeta_trabajo, corrida2.con_sesion,
@@ -636,13 +638,19 @@ class Sesiones(unittest.TestCase):
         piloto.una_llamada_claude = lambda fijado, m, carpeta, prefijo: (
             {"termino": False, "verificado": False, "red_de_seguridad": False, "sin_cupo": False}, None)
         r = {"intentos": []}
-        for _ in range(4):
+        for n in range(1, 4):
             with self.assertRaises(SystemExit) as e:
                 corrida2.juzgar_prosa({}, b"m", self.raiz, r["intentos"], jueces2.leer_q28, "q28",
                                       guardar=lambda p: corrida2.revisar_intento({}, "claude", self.raiz, r["intentos"],
                                                                                  lambda: None))
-            self.assertIn("no contesta", str(e.exception))
-        self.assertEqual([(i["etiqueta"], i["caida"]) for i in r["intentos"]], [("q28-1-caida", True)] * 4)
+            # Las dos primeras paran reanudables; la tercera en el mismo ítem deja PARADA.
+            self.assertIn("no contesta" if n < 3 else "PARADA", str(e.exception))
+        self.assertEqual([(i["etiqueta"], i["caida"]) for i in r["intentos"]], [("q28-1-caida", True)] * 3)
+        self.assertTrue((self.raiz / "PARADA").exists())
+        with self.assertRaises(SystemExit) as e:
+            corrida2.sin_parada(self.raiz)
+        self.assertIn("caídas del servicio", str(e.exception))
+        (self.raiz / "PARADA").unlink()
         # En GPT, el intento se marca `sin_cupo`, que los reintentos de la fase 1 no cuentan.
         intentos = [{"termino": False, "sin_cupo": False, "red_de_seguridad": False}]
         with self.assertRaises(SystemExit):
@@ -658,15 +666,36 @@ class Sesiones(unittest.TestCase):
     def test_el_canario(self):
         corrida2.canario = self.guardado[-1]
         fijado = {"claude_exe": "claude.exe", "codex_exe": "codex.exe"}
-        piloto.una_llamada_claude = lambda fijado, m, carpeta, prefijo: (
-            {"termino": True, "red_de_seguridad": False}, "OK")
+        recibidos = []
+
+        def claude(texto):
+            def una(fijado, m, carpeta, prefijo):
+                recibidos.append(m)
+                return {"termino": True, "red_de_seguridad": False}, texto
+            return una
+        piloto.una_llamada_claude = claude(q28(1))
         self.assertTrue(corrida2.canario(fijado, "claude", self.raiz))
+        # Un pedido del tamaño de los reales: Q.2.8 con el log 000 del piloto y su metadata.
+        self.assertIn(b"GRADER_METADATA:", recibidos[0])
+        self.assertGreater(len(recibidos[0]), 3000)
+        piloto.una_llamada_claude = claude("OK")
+        self.assertFalse(corrida2.canario(fijado, "claude", self.raiz))
+        gpt = {"texto": "Yes."}
+        piloto.una_llamada_gpt = lambda fijado, m, carpeta, prefijo, tipo=None: (
+            recibidos.append(m) or ({"termino": True, "red_de_seguridad": False}, gpt["texto"]))
+        try:
+            self.assertTrue(corrida2.canario(fijado, "codex", self.raiz))
+            self.assertIn(b"JSON", recibidos[-1])
+            gpt["texto"] = "  "
+            self.assertFalse(corrida2.canario(fijado, "codex", self.raiz))
+        finally:
+            piloto.una_llamada_gpt = self.guardado_gpt
 
         def explota(*a, **k):
             raise OSError("sin red")
         piloto.una_llamada_claude = explota
         self.assertFalse(corrida2.canario(fijado, "claude", self.raiz))
-        self.assertEqual(len(list((self.raiz / "canarios").glob("*.json"))), 2)
+        self.assertEqual(len(list((self.raiz / "canarios").glob("*.json"))), 5)
         piloto.una_llamada_claude = lambda fijado, m, carpeta, prefijo: (
             {"termino": False, "red_de_seguridad": True}, None)
         with self.assertRaises(SystemExit) as e:
@@ -801,6 +830,27 @@ class Congelamiento(unittest.TestCase):
         with self.assertRaises(SystemExit) as e:
             corrida2.congelamiento_fase2()
         self.assertIn("2 commits congelados distintos", str(e.exception))
+
+    def test_el_tag_publicado_en_el_remoto(self):
+        commit = self.congelado()
+        remoto = self.raiz / "remoto.git"
+        subprocess.run(["git", "init", "-q", "--bare", str(remoto)], check=True, capture_output=True)
+        self.g("remote", "add", "origin", str(remoto))
+        self.g("push", "-q", "origin", "main")
+        with self.assertRaises(SystemExit) as e:
+            corrida2.exigir_tag_en_el_remoto(commit)
+        self.assertIn("no está publicado", str(e.exception))
+        self.g("push", "-q", "origin", corrida2.TAG)
+        corrida2.exigir_tag_en_el_remoto(commit)
+        # Un tag anotado también vale, por su commit pelado; uno movido a otro commit, no.
+        self.g("tag", "-f", "-a", "-m", "congelado", corrida2.TAG, commit)
+        self.g("push", "-q", "-f", "origin", corrida2.TAG)
+        corrida2.exigir_tag_en_el_remoto(commit)
+        self.g("commit", "-q", "--allow-empty", "-m", "otro")
+        self.g("tag", "-f", corrida2.TAG, "HEAD")
+        self.g("push", "-q", "-f", "origin", corrida2.TAG)
+        with self.assertRaises(SystemExit):
+            corrida2.exigir_tag_en_el_remoto(commit)
 
     def test_la_descendencia_del_commit_anclado(self):
         commit = self.congelado()

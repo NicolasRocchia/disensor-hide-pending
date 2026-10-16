@@ -236,13 +236,13 @@ def descriptivas(pares):
                                for c in (1, 2, 3)},
             "fp_prosa": _tasa(sum(1 for x in juzg_l if x["fp"]["fp"]), len(juzg_l)),
             "no_contesta_en_el_gemelo": _tasa(sum(1 for x in juzg_l if x["fp"]["answer_present"] is False), len(juzg_l)),
-            "largo_de_la_prosa": _largos([x["prosa_chars"] for x in pend + limp if x["llamada"] == "hecho"]),
         }
         for c, rs in (("pendiente", pend), ("limpio", limp)):
             hechas = [x for x in rs if x["llamada"] == "hecho"]
             juez = "q28" if c == "pendiente" else "fp"
             e = {"llamadas": len(rs), "no_terminaron": len(rs) - len(hechas),
-                 "juez_de_la_prosa_sin_veredicto": sum(1 for x in hechas if x[juez]["estado"] != "juzgado")}
+                 "juez_de_la_prosa_sin_veredicto": sum(1 for x in hechas if x[juez]["estado"] != "juzgado"),
+                 "largo_de_la_prosa": _largos([x["prosa_chars"] for x in hechas])}
             for campo in ("prosa_vacia", "prosa_con_objeto_json", "prosa_menciona_json"):
                 e[campo] = _tasa(sum(1 for x in hechas if x.get(campo) is True), len(hechas))
             if b in ("A2b", "A2"):

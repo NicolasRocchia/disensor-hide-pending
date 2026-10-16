@@ -130,7 +130,8 @@ def mensaje(texto, brazo, esquemas):
 
 def sin_parada(base):
     if (base / "PARADA").exists():
-        sys.exit(f"Hay una parada de la red de seguridad sin revisar ({base / 'PARADA'}). No se sigue.")
+        motivo = (base / "PARADA").read_bytes().decode("utf-8", errors="replace").strip()
+        sys.exit(f"Hay una parada sin revisar ({base / 'PARADA'}: {motivo}). No se sigue hasta que Nico la revise.")
 
 
 def cortar(base, estado, quien, guardar):
@@ -170,27 +171,41 @@ def con_sesion(fijado, cual):
         return False
 
 
-CANARIO = b"Reply with the single word OK."
+CAIDAS_POR_ITEM = 3
+
+
+def mensaje_canario(cual):
+    """Un pedido del tamaño de los reales, sobre el log 000 del piloto, que no está entre los
+    100: A2 sobre el pendiente para GPT, y Q.2.8 con una respuesta fija para Claude."""
+    fuente, k = FuentePiloto(), LOGS_DEL_PILOTO[0]
+    if cual == "codex":
+        return mensaje(fuente.texto(k, "pendiente"), "A2", piloto.leer_esquemas()).encode("utf-8")
+    plantilla = jueces2.leer_prompt(jueces2.PROMPT_Q28, jueces2.PROMPT_Q28_MD5)
+    return jueces2.mensaje_q28(plantilla, fuente.texto(k, "pendiente"), fuente.metadata(k), "Yes.").encode("utf-8")
 
 
 def canario(fijado, cual, base):
-    """Una llamada mínima, aparte de los ítems y con el mismo arnés: si tampoco termina, el
-    servicio no contesta y la falla no es del ítem. Queda registrada en `<base>/canarios/`."""
+    """Un pedido del tamaño de los reales, aparte de los ítems y con el mismo arnés: si tampoco
+    termina con una respuesta (en Claude, una que se lee como un veredicto de Q.2.8), el
+    servicio no contesta y la falla no es del ítem. Queda registrado en `<base>/canarios/`."""
     carpeta = base / "canarios"
     carpeta.mkdir(parents=True, exist_ok=True)
     prefijo = f"{cual}-{re.sub(r'[^0-9]', '', arnes.ahora())}"
     try:
+        m = mensaje_canario(cual)
         if cual == "claude":
-            reg, _ = piloto.una_llamada_claude(fijado, CANARIO, carpeta, prefijo)
+            reg, texto = piloto.una_llamada_claude(fijado, m, carpeta, prefijo)
         else:
-            reg, _ = piloto.una_llamada_gpt(fijado, CANARIO, carpeta, prefijo, tipo="canario")
+            reg, texto = piloto.una_llamada_gpt(fijado, m, carpeta, prefijo, tipo="canario")
     except Exception as exc:  # noqa: BLE001 - un canario que revienta es un servicio que no contesta
         escribir(carpeta / f"{prefijo}.json", {"excepcion": repr(exc)})
         return False
     escribir(carpeta / f"{prefijo}.json", reg)
     if reg.get("red_de_seguridad"):
         cortar(base, "PARADA", f"canario {prefijo}", lambda: None)
-    return bool(reg.get("termino"))
+    if not reg.get("termino") or not (texto or "").strip():
+        return False
+    return cual != "claude" or jueces2.leer_q28(texto) is not None
 
 
 def revisar_intento(fijado, cual, base, intentos, guardar):
@@ -216,6 +231,13 @@ def revisar_intento(fijado, cual, base, intentos, guardar):
     else:
         ult["sin_cupo"] = True
     guardar()
+    caidas = sum(1 for i in intentos if i.get("caida"))
+    if motivo == "caida" and caidas >= CAIDAS_POR_ITEM:
+        # Sin límite, cada reanudación volvería a probar el ítem sin gastar reintentos.
+        base.mkdir(parents=True, exist_ok=True)
+        (base / "PARADA").write_bytes(f"{caidas} caídas del servicio en un mismo ítem\n".encode("utf-8"))
+        sys.exit(f"{caidas} caídas del servicio de {cual} en un mismo ítem: el arnés para (PARADA) hasta que Nico "
+                 "lo revise.")
     if motivo == "sin_sesion":
         login = "auth login" if cual == "claude" else "login"
         sys.exit(f"El CLI de {cual} del arnés no tiene una sesión iniciada. Nico: `{fijado[f'{cual}_exe']} {login}` "
@@ -303,6 +325,22 @@ def congelamiento_fase2():
     return registro["commit"], corrida.git_ok("rev-parse", "HEAD").strip(), arbol
 
 
+def exigir_tag_en_el_remoto(commit):
+    """§11: el tag está publicado en el remoto y apunta al commit del registro. Se exige con el
+    ancla obligatoria, al crear el plan; un tag sólo local dejaría un clon limpio sin él."""
+    r = corrida.git("ls-remote", "--tags", corrida.REMOTO)
+    if r.returncode != 0:
+        sys.exit(f"git ls-remote --tags {corrida.REMOTO} falló: {r.stderr.decode('utf-8', 'replace').strip()}")
+    refs = {}
+    for linea in r.stdout.decode("utf-8").splitlines():
+        if "\t" in linea:
+            sha, ref = linea.split("\t", 1)
+            refs[ref.strip()] = sha.strip()
+    publicado = refs.get(f"refs/tags/{TAG}^{{}}") or refs.get(f"refs/tags/{TAG}")
+    if publicado != commit:
+        sys.exit(f"El tag {TAG} no está publicado en {corrida.REMOTO} o no apunta al commit del registro (§11).")
+
+
 def exigir_descendencia(head_anclado):
     """§11: lo que corre sigue la historia que se ancló en el remoto al crear el plan."""
     if not corrida.git_si_no("merge-base", "--is-ancestor", head_anclado, "HEAD"):
@@ -366,6 +404,7 @@ def plan_congelado(fuente, commit, arbol, head):
         if any((DIR / "brazos").glob("*/resumen.json")):
             sys.exit("Hay resultados de los brazos sin su plan.json: el plan no se regenera. El arnés para.")
         url = corrida.anclar_en_remoto([commit, head], obligatorio=True)
+        exigir_tag_en_el_remoto(commit)
         escribir(fp, {"semilla": SEMILLA, "orden": plan, "commit_del_registro": commit, "arbol_md5": arbol,
                       "head_anclado": head, "remoto": url})
         guardado = leer(fp)
