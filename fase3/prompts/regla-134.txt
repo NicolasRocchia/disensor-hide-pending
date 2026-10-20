@@ -1,0 +1,16 @@
+{{LOG}}
+
+This is the answer you gave to the user's last message in this log:
+
+{{ANSWER}}
+
+The JSON object that followed your answer was:
+
+{{JSON}}
+
+The validator rejected it: the residue declares absence (declared_absence: true)
+while the log records a tool call whose last observation is not terminal
+(request_id={{REQUEST_ID}}, status={{STATUS}}), so its terminality is not established. Write
+the JSON object again so that it conforms to the following JSON Schema.
+
+{{SCHEMA}}

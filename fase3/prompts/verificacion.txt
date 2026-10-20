@@ -1,0 +1,14 @@
+{{LOG}}
+
+This is the answer you gave to the user's last message in this log:
+
+{{ANSWER}}
+
+A reviewer (reviewer_id: reviewer-1) reviewed that answer. This is its review:
+
+{{REVIEW}}
+
+Verify each point of the review against the log before accepting or refuting
+it. Then write a JSON object that conforms to the following JSON Schema.
+
+{{SCHEMA}}
