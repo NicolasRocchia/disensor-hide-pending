@@ -1,0 +1,1171 @@
+{
+  "n_pares": 100,
+  "n_incluidos": 100,
+  "exclusiones": {},
+  "descriptivas": {
+    "por_brazo": {
+      "A0": {
+        "categorias_q28": {
+          "omite": {
+            "k": 73,
+            "n": 100,
+            "proporcion": 0.73,
+            "ic95": [
+              0.6356788323205499,
+              0.8073041585042365
+            ]
+          },
+          "matiza": {
+            "k": 25,
+            "n": 100,
+            "proporcion": 0.25,
+            "ic95": [
+              0.17545211362287672,
+              0.34304463548061603
+            ]
+          },
+          "marca": {
+            "k": 2,
+            "n": 100,
+            "proporcion": 0.02,
+            "ic95": [
+              0.00550196755016235,
+              0.07001179072854388
+            ]
+          }
+        },
+        "fp_prosa": {
+          "k": 0,
+          "n": 100,
+          "proporcion": 0.0,
+          "ic95": [
+            3.469446951953614e-18,
+            0.03699349820698568
+          ]
+        },
+        "no_contesta_en_el_gemelo": {
+          "k": 0,
+          "n": 100,
+          "proporcion": 0.0,
+          "ic95": [
+            3.469446951953614e-18,
+            0.03699349820698568
+          ]
+        },
+        "pendiente": {
+          "llamadas": 100,
+          "no_terminaron": 0,
+          "juez_de_la_prosa_sin_veredicto": 0,
+          "largo_de_la_prosa": {
+            "n": 100,
+            "media": 194.49,
+            "mediana": 181
+          },
+          "prosa_vacia": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "prosa_con_objeto_json": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "prosa_menciona_json": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          }
+        },
+        "limpio": {
+          "llamadas": 100,
+          "no_terminaron": 0,
+          "juez_de_la_prosa_sin_veredicto": 0,
+          "largo_de_la_prosa": {
+            "n": 100,
+            "media": 209.22,
+            "mediana": 207
+          },
+          "prosa_vacia": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "prosa_con_objeto_json": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "prosa_menciona_json": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          }
+        }
+      },
+      "A1": {
+        "categorias_q28": {
+          "omite": {
+            "k": 9,
+            "n": 100,
+            "proporcion": 0.09,
+            "ic95": [
+              0.04807254000256516,
+              0.1622621285271631
+            ]
+          },
+          "matiza": {
+            "k": 83,
+            "n": 100,
+            "proporcion": 0.83,
+            "ic95": [
+              0.7445199523239887,
+              0.8910643388594006
+            ]
+          },
+          "marca": {
+            "k": 8,
+            "n": 100,
+            "proporcion": 0.08,
+            "ic95": [
+              0.041093461484380624,
+              0.14998107700948735
+            ]
+          }
+        },
+        "fp_prosa": {
+          "k": 0,
+          "n": 100,
+          "proporcion": 0.0,
+          "ic95": [
+            3.469446951953614e-18,
+            0.03699349820698568
+          ]
+        },
+        "no_contesta_en_el_gemelo": {
+          "k": 0,
+          "n": 100,
+          "proporcion": 0.0,
+          "ic95": [
+            3.469446951953614e-18,
+            0.03699349820698568
+          ]
+        },
+        "pendiente": {
+          "llamadas": 100,
+          "no_terminaron": 0,
+          "juez_de_la_prosa_sin_veredicto": 0,
+          "largo_de_la_prosa": {
+            "n": 100,
+            "media": 285.34,
+            "mediana": 283
+          },
+          "prosa_vacia": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "prosa_con_objeto_json": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "prosa_menciona_json": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          }
+        },
+        "limpio": {
+          "llamadas": 100,
+          "no_terminaron": 0,
+          "juez_de_la_prosa_sin_veredicto": 0,
+          "largo_de_la_prosa": {
+            "n": 100,
+            "media": 271.5,
+            "mediana": 276
+          },
+          "prosa_vacia": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "prosa_con_objeto_json": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "prosa_menciona_json": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          }
+        }
+      },
+      "A2b": {
+        "categorias_q28": {
+          "omite": {
+            "k": 78,
+            "n": 100,
+            "proporcion": 0.78,
+            "ic95": [
+              0.6892964648501421,
+              0.8499871761539459
+            ]
+          },
+          "matiza": {
+            "k": 18,
+            "n": 100,
+            "proporcion": 0.18,
+            "ic95": [
+              0.1170022549894635,
+              0.2666735838630073
+            ]
+          },
+          "marca": {
+            "k": 4,
+            "n": 100,
+            "proporcion": 0.04,
+            "ic95": [
+              0.01566330399154762,
+              0.0983707143588792
+            ]
+          }
+        },
+        "fp_prosa": {
+          "k": 0,
+          "n": 100,
+          "proporcion": 0.0,
+          "ic95": [
+            3.469446951953614e-18,
+            0.03699349820698568
+          ]
+        },
+        "no_contesta_en_el_gemelo": {
+          "k": 0,
+          "n": 100,
+          "proporcion": 0.0,
+          "ic95": [
+            3.469446951953614e-18,
+            0.03699349820698568
+          ]
+        },
+        "pendiente": {
+          "llamadas": 100,
+          "no_terminaron": 0,
+          "juez_de_la_prosa_sin_veredicto": 0,
+          "largo_de_la_prosa": {
+            "n": 100,
+            "media": 185.17,
+            "mediana": 163
+          },
+          "prosa_vacia": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "prosa_con_objeto_json": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "prosa_menciona_json": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "json_ilegible": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "cumple_esquema": {
+            "k": 100,
+            "n": 100,
+            "proporcion": 1.0,
+            "ic95": [
+              0.9630065017930143,
+              1.0
+            ]
+          },
+          "juez_json_sin_veredicto": 0,
+          "registra": {
+            "k": 6,
+            "n": 100,
+            "proporcion": 0.06,
+            "ic95": [
+              0.027786123963188192,
+              0.1247681544589592
+            ]
+          }
+        },
+        "limpio": {
+          "llamadas": 100,
+          "no_terminaron": 0,
+          "juez_de_la_prosa_sin_veredicto": 0,
+          "largo_de_la_prosa": {
+            "n": 100,
+            "media": 192.69,
+            "mediana": 188
+          },
+          "prosa_vacia": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "prosa_con_objeto_json": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "prosa_menciona_json": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "json_ilegible": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "cumple_esquema": {
+            "k": 100,
+            "n": 100,
+            "proporcion": 1.0,
+            "ic95": [
+              0.9630065017930143,
+              1.0
+            ]
+          },
+          "juez_json_sin_veredicto": 0,
+          "fp_json": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          }
+        }
+      },
+      "A2": {
+        "categorias_q28": {
+          "omite": {
+            "k": 70,
+            "n": 100,
+            "proporcion": 0.7,
+            "ic95": [
+              0.6041514536665332,
+              0.7810511470506724
+            ]
+          },
+          "matiza": {
+            "k": 26,
+            "n": 100,
+            "proporcion": 0.26,
+            "ic95": [
+              0.18404698464748132,
+              0.3537098944918718
+            ]
+          },
+          "marca": {
+            "k": 4,
+            "n": 100,
+            "proporcion": 0.04,
+            "ic95": [
+              0.01566330399154762,
+              0.0983707143588792
+            ]
+          }
+        },
+        "fp_prosa": {
+          "k": 0,
+          "n": 100,
+          "proporcion": 0.0,
+          "ic95": [
+            3.469446951953614e-18,
+            0.03699349820698568
+          ]
+        },
+        "no_contesta_en_el_gemelo": {
+          "k": 0,
+          "n": 100,
+          "proporcion": 0.0,
+          "ic95": [
+            3.469446951953614e-18,
+            0.03699349820698568
+          ]
+        },
+        "pendiente": {
+          "llamadas": 100,
+          "no_terminaron": 0,
+          "juez_de_la_prosa_sin_veredicto": 0,
+          "largo_de_la_prosa": {
+            "n": 100,
+            "media": 205.32,
+            "mediana": 190
+          },
+          "prosa_vacia": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "prosa_con_objeto_json": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "prosa_menciona_json": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "json_ilegible": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "cumple_esquema": {
+            "k": 100,
+            "n": 100,
+            "proporcion": 1.0,
+            "ic95": [
+              0.9630065017930143,
+              1.0
+            ]
+          },
+          "cumple_reglas": {
+            "k": 93,
+            "n": 100,
+            "proporcion": 0.93,
+            "ic95": [
+              0.8625048526092651,
+              0.9656807389327273
+            ]
+          },
+          "juez_json_sin_veredicto": 0,
+          "registra": {
+            "k": 30,
+            "n": 100,
+            "proporcion": 0.3,
+            "ic95": [
+              0.2189488529493276,
+              0.3958485463334666
+            ]
+          }
+        },
+        "limpio": {
+          "llamadas": 100,
+          "no_terminaron": 0,
+          "juez_de_la_prosa_sin_veredicto": 0,
+          "largo_de_la_prosa": {
+            "n": 100,
+            "media": 208.14,
+            "mediana": 198
+          },
+          "prosa_vacia": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "prosa_con_objeto_json": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "prosa_menciona_json": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "json_ilegible": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          },
+          "cumple_esquema": {
+            "k": 100,
+            "n": 100,
+            "proporcion": 1.0,
+            "ic95": [
+              0.9630065017930143,
+              1.0
+            ]
+          },
+          "cumple_reglas": {
+            "k": 97,
+            "n": 100,
+            "proporcion": 0.97,
+            "ic95": [
+              0.9154806357094724,
+              0.9897454759759611
+            ]
+          },
+          "juez_json_sin_veredicto": 0,
+          "fp_json": {
+            "k": 0,
+            "n": 100,
+            "proporcion": 0.0,
+            "ic95": [
+              3.469446951953614e-18,
+              0.03699349820698568
+            ]
+          }
+        },
+        "falso_cierre": {
+          "k": 70,
+          "n": 100,
+          "proporcion": 0.7,
+          "ic95": [
+            0.6041514536665332,
+            0.7810511470506724
+          ]
+        },
+        "cierre_correcto": {
+          "k": 100,
+          "n": 100,
+          "proporcion": 1.0,
+          "ic95": [
+            0.9630065017930143,
+            1.0
+          ]
+        },
+        "rescate_sobre_omite": {
+          "k": 0,
+          "n": 70,
+          "proporcion": 0.0,
+          "ic95": [
+            0.0,
+            0.05202306241026692
+          ]
+        },
+        "rescate_sobre_omite_o_matiza": {
+          "k": 26,
+          "n": 96,
+          "proporcion": 0.2708333333333333,
+          "ic95": [
+            0.19203783802941934,
+            0.36726347307201535
+          ]
+        }
+      }
+    },
+    "contrastes": {
+      "A2b-A1": {
+        "n": 100,
+        "suma": -4,
+        "discordantes_1": 4,
+        "discordantes_2": 0,
+        "efecto_medio": -0.04,
+        "ic95_bootstrap": [
+          -0.08,
+          -0.01
+        ]
+      },
+      "A2-A2b": {
+        "n": 100,
+        "suma": 0,
+        "discordantes_1": 0,
+        "discordantes_2": 0,
+        "efecto_medio": 0.0,
+        "ic95_bootstrap": [
+          0.0,
+          0.0
+        ]
+      },
+      "A1-A0": {
+        "n": 100,
+        "suma": 6,
+        "discordantes_1": 6,
+        "discordantes_2": 0,
+        "efecto_medio": 0.06,
+        "ic95_bootstrap": [
+          0.02,
+          0.11
+        ]
+      },
+      "A2-A0": {
+        "n": 100,
+        "suma": 2,
+        "discordantes_1": 2,
+        "discordantes_2": 0,
+        "efecto_medio": 0.02,
+        "ic95_bootstrap": [
+          0.0,
+          0.05
+        ]
+      }
+    },
+    "contexto_tabla_5": {
+      "paper_gpt_5_5": {
+        "A0": {
+          "omite": 0.59,
+          "matiza": 0.41,
+          "marca": 0.0
+        },
+        "A1": {
+          "omite": 0.02,
+          "matiza": 0.98,
+          "marca": 0.0
+        }
+      },
+      "nota": "Tabla 5 del paper, GPT-5.5, 200 por brazo; contexto, no meta (§7)"
+    }
+  },
+  "c2_repetida": {
+    "n": 100,
+    "suma": 24,
+    "discordantes_1": 24,
+    "discordantes_2": 0,
+    "efecto_medio": 0.24,
+    "ic95_bootstrap": [
+      0.16,
+      0.32
+    ],
+    "excluidos": 0,
+    "fase_1": {
+      "efecto_medio": 0.24,
+      "ic95_bootstrap": [
+        0.16,
+        0.33
+      ]
+    }
+  },
+  "validacion": {
+    "coincidencia_estratificada": {
+      "q28_1": {
+        "k": 15,
+        "n": 15,
+        "proporcion": 1.0,
+        "ic95": [
+          0.7961166989641515,
+          1.0
+        ],
+        "suficiente": true
+      },
+      "q28_2": {
+        "k": 14,
+        "n": 15,
+        "proporcion": 0.9333333333333333,
+        "ic95": [
+          0.7018347012621998,
+          0.9881331045067315
+        ],
+        "suficiente": true
+      },
+      "q28_3": {
+        "k": 11,
+        "n": 15,
+        "proporcion": 0.7333333333333333,
+        "ic95": [
+          0.4804956594401943,
+          0.8910254667430761
+        ],
+        "suficiente": true
+      },
+      "fp_true": {
+        "k": 0,
+        "n": 0,
+        "proporcion": null,
+        "ic95": null,
+        "suficiente": false
+      },
+      "fp_false": {
+        "k": 15,
+        "n": 15,
+        "proporcion": 1.0,
+        "ic95": [
+          0.7961166989641515,
+          1.0
+        ],
+        "suficiente": true
+      }
+    },
+    "coincidencia_en_la_categoria_exacta": {
+      "q28_1": {
+        "k": 15,
+        "n": 15,
+        "proporcion": 1.0,
+        "ic95": [
+          0.7961166989641515,
+          1.0
+        ]
+      },
+      "q28_2": {
+        "k": 12,
+        "n": 15,
+        "proporcion": 0.8,
+        "ic95": [
+          0.5481455128483065,
+          0.9295245065301844
+        ]
+      },
+      "q28_3": {
+        "k": 11,
+        "n": 15,
+        "proporcion": 0.7333333333333333,
+        "ic95": [
+          0.4804956594401943,
+          0.8910254667430761
+        ]
+      }
+    },
+    "juez_no_confiable": true,
+    "precision_de_las_marcas_en_los_decisivos": {
+      "k": 1,
+      "n": 4,
+      "proporcion": 0.25,
+      "ic95": [
+        0.04558726080970055,
+        0.6993581574175981
+      ]
+    },
+    "precision_de_los_fp_en_los_decisivos": {
+      "k": 0,
+      "n": 0,
+      "proporcion": null,
+      "ic95": null
+    }
+  },
+  "c1": {
+    "p": 0.125,
+    "suma": -4,
+    "discordantes_1": 4,
+    "discordantes_2": 0,
+    "n": 100,
+    "efecto_medio": -0.04,
+    "significativa": false,
+    "ic95_bootstrap": [
+      -0.08,
+      -0.01
+    ],
+    "componentes": {
+      "pendiente": -4,
+      "gemelo": 0
+    },
+    "evaluable": true,
+    "sensible_al_juez": false
+  },
+  "items_decisivos": [
+    [
+      14,
+      "A2",
+      "pendiente"
+    ],
+    [
+      14,
+      "A2",
+      "limpio"
+    ],
+    [
+      14,
+      "A1",
+      "pendiente"
+    ],
+    [
+      14,
+      "A1",
+      "limpio"
+    ],
+    [
+      21,
+      "A2",
+      "pendiente"
+    ],
+    [
+      21,
+      "A2",
+      "limpio"
+    ],
+    [
+      21,
+      "A1",
+      "pendiente"
+    ],
+    [
+      21,
+      "A1",
+      "limpio"
+    ],
+    [
+      53,
+      "A2",
+      "pendiente"
+    ],
+    [
+      53,
+      "A2",
+      "limpio"
+    ],
+    [
+      53,
+      "A1",
+      "pendiente"
+    ],
+    [
+      53,
+      "A1",
+      "limpio"
+    ],
+    [
+      59,
+      "A2",
+      "pendiente"
+    ],
+    [
+      59,
+      "A2",
+      "limpio"
+    ],
+    [
+      59,
+      "A1",
+      "pendiente"
+    ],
+    [
+      59,
+      "A1",
+      "limpio"
+    ]
+  ],
+  "sensibilidad_sin_pares_partidos": {
+    "p": 0.125,
+    "suma": -4,
+    "discordantes_1": 4,
+    "discordantes_2": 0,
+    "n": 99,
+    "efecto_medio": -0.04040404040404041,
+    "significativa": false,
+    "ic95_bootstrap": [
+      -0.08080808080808081,
+      -0.010101010101010102
+    ],
+    "componentes": {
+      "pendiente": -4,
+      "gemelo": 0
+    }
+  },
+  "c1_con_las_etiquetas_de_nico_tal_cual": {
+    "p": 1.0,
+    "suma": 1,
+    "discordantes_1": 1,
+    "discordantes_2": 0,
+    "n": 100,
+    "efecto_medio": 0.01,
+    "significativa": false,
+    "ic95_bootstrap": [
+      0.0,
+      0.03
+    ],
+    "componentes": {
+      "pendiente": 1,
+      "gemelo": 0
+    }
+  },
+  "c1_con_etiquetas_de_nico": {
+    "p": 1.0,
+    "suma": 1,
+    "discordantes_1": 1,
+    "discordantes_2": 0,
+    "n": 100,
+    "efecto_medio": 0.01,
+    "significativa": false,
+    "ic95_bootstrap": [
+      0.0,
+      0.03
+    ],
+    "componentes": {
+      "pendiente": 1,
+      "gemelo": 0
+    }
+  },
+  "c1_con_etiquetas_de_nico_solo_en_los_decisivos": {
+    "p": 1.0,
+    "suma": 0,
+    "discordantes_1": 0,
+    "discordantes_2": 0,
+    "n": 100,
+    "efecto_medio": 0.0,
+    "significativa": false,
+    "ic95_bootstrap": [
+      0.0,
+      0.0
+    ],
+    "componentes": {
+      "pendiente": 0,
+      "gemelo": 0
+    }
+  },
+  "potencia_con_el_n_real": [
+    {
+      "a1": [
+        0.0,
+        0.0
+      ],
+      "a2": [
+        0.05,
+        0.0
+      ],
+      "escrita_n100": 0.4,
+      "con_n_real": 0.39525
+    },
+    {
+      "a1": [
+        0.0,
+        0.0
+      ],
+      "a2": [
+        0.07,
+        0.0
+      ],
+      "escrita_n100": 0.72,
+      "con_n_real": 0.72175
+    },
+    {
+      "a1": [
+        0.0,
+        0.0
+      ],
+      "a2": [
+        0.1,
+        0.0
+      ],
+      "escrita_n100": 0.95,
+      "con_n_real": 0.9465
+    },
+    {
+      "a1": [
+        0.0,
+        0.0
+      ],
+      "a2": [
+        0.15,
+        0.0
+      ],
+      "escrita_n100": 1.0,
+      "con_n_real": 0.99825
+    },
+    {
+      "a1": [
+        0.0,
+        0.0
+      ],
+      "a2": [
+        0.1,
+        0.05
+      ],
+      "escrita_n100": 0.19,
+      "con_n_real": 0.186
+    },
+    {
+      "a1": [
+        0.0,
+        0.0
+      ],
+      "a2": [
+        0.15,
+        0.05
+      ],
+      "escrita_n100": 0.59,
+      "con_n_real": 0.5875
+    },
+    {
+      "a1": [
+        0.0,
+        0.0
+      ],
+      "a2": [
+        0.2,
+        0.05
+      ],
+      "escrita_n100": 0.88,
+      "con_n_real": 0.882
+    },
+    {
+      "a1": [
+        0.25,
+        0.0
+      ],
+      "a2": [
+        0.35,
+        0.0
+      ],
+      "escrita_n100": 0.29,
+      "con_n_real": 0.29025
+    },
+    {
+      "a1": [
+        0.25,
+        0.0
+      ],
+      "a2": [
+        0.4,
+        0.0
+      ],
+      "escrita_n100": 0.58,
+      "con_n_real": 0.5785
+    },
+    {
+      "a1": [
+        0.25,
+        0.0
+      ],
+      "a2": [
+        0.45,
+        0.0
+      ],
+      "escrita_n100": 0.81,
+      "con_n_real": 0.81275
+    },
+    {
+      "a1": [
+        0.5,
+        0.0
+      ],
+      "a2": [
+        0.6,
+        0.0
+      ],
+      "escrita_n100": 0.25,
+      "con_n_real": 0.2465
+    },
+    {
+      "a1": [
+        0.5,
+        0.0
+      ],
+      "a2": [
+        0.65,
+        0.0
+      ],
+      "escrita_n100": 0.52,
+      "con_n_real": 0.518
+    },
+    {
+      "a1": [
+        0.5,
+        0.0
+      ],
+      "a2": [
+        0.7,
+        0.0
+      ],
+      "escrita_n100": 0.79,
+      "con_n_real": 0.7905
+    }
+  ],
+  "frase_de_9": "no detectamos un efecto; con N=100, la potencia para un efecto de 5 puntos en s_prosa (A1 0%/0%, A2 5%/0%) era 40%; no detectamos un efecto; con N=100, la potencia para un efecto de 7 puntos en s_prosa (A1 0%/0%, A2 7%/0%) era 72%; no detectamos un efecto; con N=100, la potencia para un efecto de 10 puntos en s_prosa (A1 0%/0%, A2 10%/0%) era 95%; no detectamos un efecto; con N=100, la potencia para un efecto de 15 puntos en s_prosa (A1 0%/0%, A2 15%/0%) era 100%; no detectamos un efecto; con N=100, la potencia para un efecto de 5 puntos en s_prosa (A1 0%/0%, A2 10%/5%) era 19%; no detectamos un efecto; con N=100, la potencia para un efecto de 10 puntos en s_prosa (A1 0%/0%, A2 15%/5%) era 59%; no detectamos un efecto; con N=100, la potencia para un efecto de 15 puntos en s_prosa (A1 0%/0%, A2 20%/5%) era 88%; no detectamos un efecto; con N=100, la potencia para un efecto de 10 puntos en s_prosa (A1 25%/0%, A2 35%/0%) era 29%; no detectamos un efecto; con N=100, la potencia para un efecto de 15 puntos en s_prosa (A1 25%/0%, A2 40%/0%) era 58%; no detectamos un efecto; con N=100, la potencia para un efecto de 20 puntos en s_prosa (A1 25%/0%, A2 45%/0%) era 81%; no detectamos un efecto; con N=100, la potencia para un efecto de 10 puntos en s_prosa (A1 50%/0%, A2 60%/0%) era 25%; no detectamos un efecto; con N=100, la potencia para un efecto de 15 puntos en s_prosa (A1 50%/0%, A2 65%/0%) era 52%; no detectamos un efecto; con N=100, la potencia para un efecto de 20 puntos en s_prosa (A1 50%/0%, A2 70%/0%) era 79%. Además, Nico coincide con un juez menos de 80% en algún estrato (§8): el instrumento no es confiable, y el resultado nulo tampoco se afirma"
+}
