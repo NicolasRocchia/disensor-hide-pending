@@ -1,0 +1,1 @@
+Yes. Within the external-services data for October 12, Fab Line F3 accounted for 611 of 742 WaferCarrierDispatchTimeout delays—82.3%, a clear majority. F1 had 79 and F2 had 52.

@@ -1,0 +1,1 @@
+Yes. Production-cell-p4 accounted for 531 of 684 servo-drive SD-48 stockout events—77.6%. The remainder occurred in p2 (96; 14.0%) and r1 (57; 8.3%).

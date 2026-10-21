@@ -1,0 +1,1 @@
+Yes. EZE-1 accounted for 349 of 438 stockout events—79.7%. COR-2 had 54 (12.3%) and ROS-1 had 35 (8.0%), so the stockouts were strongly concentrated at EZE-1.

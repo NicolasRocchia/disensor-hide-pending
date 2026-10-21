@@ -1,0 +1,1 @@
+It’s not yet possible to determine. For customer-facing services alone, gpu-facility-a accounted for 1,876 of 2,284 NodeUnavailable failures (82.1%), clearly most. However, the combined customer-facing-and-internal query was only accepted; no result was returned, so the overall share remains unresolved.

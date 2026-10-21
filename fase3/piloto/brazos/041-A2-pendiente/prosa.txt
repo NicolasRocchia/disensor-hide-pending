@@ -1,0 +1,1 @@
+Yes. For customer-facing jobs, **fab-line-4 accounted for 1,846 of 2,314 WaferAlignmentDrift impacts—about 79.8%**, clearly the majority. The broader query including internal services had not completed, so that wider scope remains unconfirmed.

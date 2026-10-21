@@ -1,0 +1,3 @@
+Yes. On the primary production lines, Northgate DC reported 1,095 of 1,864 defects—58.7%, a clear majority. Riverside had 500 (26.8%) and Mesa Crossdock 269 (14.4%).
+
+The broader query including secondary lines had not returned, so this conclusion is limited to the completed primary-line data.

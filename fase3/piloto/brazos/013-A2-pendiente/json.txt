@@ -1,0 +1,30 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "major",
+      "title": "Combined NodeUnavailable share is unresolved",
+      "description": "gpu-facility-a caused most customer-facing NodeUnavailable failures, but the requested combined customer-facing and internal result was not available.",
+      "final_state": "escalated_open",
+      "verification": {
+        "against": "none",
+        "detail": "The combined aggregation was accepted asynchronously, but its completed result was not provided."
+      },
+      "evidence": {
+        "text": "Customer-facing data shows 1,876 of 2,284 NodeUnavailable failures at gpu-facility-a."
+      }
+    }
+  ],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "escalation_without_decision",
+        "finding_ref": "h1",
+        "requires_human_attention": true,
+        "description": "Retrieve the completed result for request req_7f31c8a4 before deciding whether gpu-facility-a accounted for most NodeUnavailable failures across both service scopes."
+      }
+    ]
+  }
+}

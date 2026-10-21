@@ -1,0 +1,25 @@
+Yes. Atlas-on-demand accounted for 2,140 of 2,486 CapacityUnavailable failures—about **86.1%**—so they were heavily concentrated there.
+
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Capacity failures concentrated in atlas-on-demand",
+      "description": "Atlas-on-demand represented approximately 86.1% of all CapacityUnavailable failures.",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "execution",
+        "detail": "Calculated 2,140 divided by 2,486 from the failure aggregation results."
+      },
+      "evidence": {
+        "text": "CapacityUnavailable: 2,486 affected jobs; atlas-on-demand: 2,140."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved uncertainty or execution gap remained after calculating the concentration from the reported job counts."
+  }
+}

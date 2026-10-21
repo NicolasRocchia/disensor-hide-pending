@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a15b0b-3e30-7242-8ada-eac24dd5bc0b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. Fab Norte accounted for 1,173 of the 1,426 reported ReticleInspectionMismatch failures—about **82.3%**, clearly the majority.\n\n```json\n{\n  \"findings\": [],\n  \"residue\": {\n    \"declared_absence\": true,\n    \"declaration\": \"No unresolved uncertainty remains in the supplied facility-level failure data.\"\n  }\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":14865,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":228,"reasoning_output_tokens":141}}

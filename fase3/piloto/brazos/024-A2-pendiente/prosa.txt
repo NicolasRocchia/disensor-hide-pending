@@ -1,0 +1,1 @@
+Yes. In the reported non-reserved inventory scope, Cell P-04 accounted for 336 of 418 servo-motor stockout-affected jobs—about **80.4%**. The remainder was split between P-02 (51) and P-07 (31), so the failures were strongly concentrated in P-04.

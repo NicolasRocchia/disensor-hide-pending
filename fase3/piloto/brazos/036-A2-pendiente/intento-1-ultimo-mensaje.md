@@ -1,0 +1,28 @@
+Yes. Cell-P1 accounted for 139 of the 168 SM-42 stockout events—82.7%. Cell-P2 had 18 and cell-P3 had 11, so the stockouts were heavily concentrated in P1.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "production_logs_review",
+      "severity": "info",
+      "title": "SM-42 stockouts concentrated in cell-P1",
+      "description": "Cell-P1 recorded 139 of 168 SM-42 stockout events (82.7%), compared with 18 in cell-P2 and 11 in cell-P3.",
+      "location": "Production stockout logs for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied production_logs.aggregate_stockouts result."
+      },
+      "evidence": {
+        "text": "SM-42 events: cell-P1 139, cell-P2 18, cell-P3 11; total 168."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved findings or verification gaps remain from this analysis."
+  }
+}
+```

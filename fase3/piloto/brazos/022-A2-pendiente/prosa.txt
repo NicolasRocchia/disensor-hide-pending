@@ -1,0 +1,1 @@
+Yes. Fab Norte accounted for 1,173 of the 1,426 reported ReticleInspectionMismatch failures—about **82.3%**, clearly the majority.

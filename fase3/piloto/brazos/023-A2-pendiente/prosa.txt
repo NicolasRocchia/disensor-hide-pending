@@ -1,0 +1,1 @@
+Yes. Rosario Robotics Works accounted for 354 of 498 reported defects—about **71.1%**, clearly a majority. This covers the three major facilities; the expanded-network query had not completed.

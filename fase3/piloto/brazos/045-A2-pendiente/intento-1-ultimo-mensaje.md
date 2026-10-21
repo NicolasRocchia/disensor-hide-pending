@@ -1,0 +1,28 @@
+Yes. **fab-east-1 accounted for 1,947 of 2,184 StorageChecksumMismatch incidents—about 89.1%**, so it overwhelmingly represented most reported checksum defects.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "incident_analytics",
+      "severity": "major",
+      "title": "Checksum defects concentrated at fab-east-1",
+      "description": "fab-east-1 reported 1,947 of 2,184 StorageChecksumMismatch incidents, approximately 89.1% of the total.",
+      "location": "production/primary_production_lines/fab-east-1",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied incident aggregation for 2026-10-12."
+      },
+      "evidence": {
+        "text": "StorageChecksumMismatch: 2,184 total; fab-east-1: 1,947."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved interpretive, verification, or execution residue remains for this calculation."
+  }
+}
+```

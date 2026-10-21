@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a15afc-2d35-79a0-b15d-5d8db8e070dc"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"Yes. **facility-ba-1 accounted for 612 of 728 minutes—84.1%—of all NodeUnavailable downtime.** The other facilities combined accounted for 116 minutes (15.9%).\n\n```json\n{\n  \"findings\": [],\n  \"residue\": {\n    \"declared_absence\": true,\n    \"declaration\": \"No unresolved questions or unverified assumptions remain in this calculation.\"\n  }\n}\n```"}}
+{"type":"turn.completed","usage":{"input_tokens":14855,"cached_input_tokens":10752,"cache_write_input_tokens":0,"output_tokens":296,"reasoning_output_tokens":201}}

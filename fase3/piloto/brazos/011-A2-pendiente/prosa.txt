@@ -1,0 +1,1 @@
+Yes. Cell-culture-2 accounted for 74 of 96 servo-motor stockouts—about 77%. The remaining 22 occurred in assay-prep-1 (15) and centrifuge-build-3 (7).

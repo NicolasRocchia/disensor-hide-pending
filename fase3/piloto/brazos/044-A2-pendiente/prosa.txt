@@ -1,0 +1,3 @@
+Yes. In standard compute pools on October 12, `fab-shipment-router` accounted for 1,947 of 2,184 TimeoutError-affected jobs—about **89.1%**. The remaining 237 were split between `carrier-label-worker` (181) and `dock-slot-scheduler` (56).
+
+The broader query including internal services had not returned, so this conclusion is limited to the completed dataset.

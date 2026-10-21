@@ -1,0 +1,1 @@
+Yes. Cell-alpha-04 accounted for 681 of 812 affected jobs—about 84%. The remaining 131 were split between cell-alpha-02 (79) and cell-beta-01 (52).

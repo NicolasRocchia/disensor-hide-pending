@@ -1,0 +1,28 @@
+Yes. Production-cell-p4 accounted for 531 of 684 servo-drive SD-48 stockout events—77.6%. The remainder occurred in p2 (96; 14.0%) and r1 (57; 8.3%).
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "warehouse_delay_analytics",
+      "severity": "info",
+      "title": "Stockouts concentrated in production-cell-p4",
+      "description": "Production-cell-p4 generated 531 of 684 servo-drive SD-48 stockout events, or 77.6% of the total.",
+      "location": "Warehouse stockout events for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied warehouse-delay aggregation."
+      },
+      "evidence": {
+        "text": "Servo-drive SD-48: 684 total events; production-cell-p4: 531 events."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved uncertainty or execution gap remains for this concentration calculation."
+  }
+}
+```

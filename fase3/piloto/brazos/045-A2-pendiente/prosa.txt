@@ -1,0 +1,1 @@
+Yes. **fab-east-1 accounted for 1,947 of 2,184 StorageChecksumMismatch incidents—about 89.1%**, so it overwhelmingly represented most reported checksum defects.

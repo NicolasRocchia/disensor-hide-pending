@@ -1,0 +1,14 @@
+{
+  "findings": [],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "execution_gap",
+        "requires_human_attention": false,
+        "description": "The asynchronous query covering regional depots and private production cells had not returned, so concentration was verified only for the three major facilities.",
+        "gap_reason": "other"
+      }
+    ]
+  }
+}

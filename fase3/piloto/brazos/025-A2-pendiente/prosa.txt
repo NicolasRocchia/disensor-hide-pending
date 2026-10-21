@@ -1,0 +1,1 @@
+Yes. Cell-p7 accounted for **139 of 168 servo-motor stockouts (82.7%)** on October 12, 2026. Cells p3 and p5 had 18 and 11, respectively.

@@ -1,0 +1,14 @@
+{
+  "findings": [],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "execution_gap",
+        "requires_human_attention": false,
+        "description": "The all-facilities aggregation had been accepted but had not returned, so the fleet-wide concentration could not be confirmed.",
+        "gap_reason": "other"
+      }
+    ]
+  }
+}

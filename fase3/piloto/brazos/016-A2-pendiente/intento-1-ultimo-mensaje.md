@@ -1,0 +1,27 @@
+Yes. gpu-cluster-a accounted for 1,864 of 2,151 NodeUnavailable-affected jobs—about **86.7%**, so a clear majority.
+
+```json
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "NodeUnavailable concentrated on gpu-cluster-a",
+      "description": "gpu-cluster-a represented approximately 86.7% of jobs affected by NodeUnavailable.",
+      "final_state": "refuted_verifiable",
+      "verification": {
+        "against": "external_source",
+        "detail": "Calculated from the supplied aggregation result: 1,864 divided by 2,151."
+      },
+      "evidence": {
+        "text": "NodeUnavailable affected 2,151 jobs overall, including 1,864 on gpu-cluster-a."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved uncertainty remains for this numerical comparison based on the supplied aggregation."
+  }
+}
+```

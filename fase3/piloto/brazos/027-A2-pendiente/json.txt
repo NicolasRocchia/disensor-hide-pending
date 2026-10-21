@@ -1,0 +1,27 @@
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "assistant",
+      "severity": "info",
+      "title": "Facility defect concentration remains undetermined",
+      "description": "The available completed result contains downtime minutes, while the asynchronous query containing defect counts has not returned.",
+      "final_state": "escalated_open",
+      "verification": {
+        "against": "none",
+        "detail": "Awaiting the accepted facility-level aggregation request qcagg-20261013-091411-7f3a."
+      }
+    }
+  ],
+  "residue": {
+    "items": [
+      {
+        "id": "r1",
+        "class": "escalation_without_decision",
+        "finding_ref": "h1",
+        "requires_human_attention": true,
+        "description": "Retrieve the pending aggregation result before deciding whether a facility contributed more than half of reported defects."
+      }
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+Not yet. The completed data reports **downtime**, not defect counts. The facility-level defect query—including secondary lines—is still pending, so there isn’t enough evidence to determine whether one facility accounted for most reported defects.

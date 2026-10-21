@@ -1,0 +1,1 @@
+Yes. Northbridge Laboratory accounted for 781 of 914 ReservationTagMismatch errors—about 85.4%, clearly the majority.

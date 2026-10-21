@@ -1,0 +1,1 @@
+Yes. Cell-alpha accounted for 34 of 41 servo-link packet-loss events (83%) and 241 of 284 downtime minutes (85%). The remaining 43 minutes were split between cell-bravo (31) and cell-charlie (12).

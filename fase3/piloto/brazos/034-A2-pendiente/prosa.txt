@@ -1,0 +1,1 @@
+Yes. Edge-compute-3 accounted for 184 of 200 cooling-fan module stockout incidents—92%—so the stockouts were strongly concentrated there.

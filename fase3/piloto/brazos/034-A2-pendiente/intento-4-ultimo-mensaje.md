@@ -1,0 +1,26 @@
+Yes. Edge-compute-3 accounted for 184 of 200 cooling-fan module stockout incidents—92%—so the stockouts were strongly concentrated there.
+
+{
+  "findings": [
+    {
+      "id": "h1",
+      "origin": "inventory-analysis",
+      "severity": "info",
+      "title": "Cooling-fan stockouts concentrated at edge-compute-3",
+      "description": "Edge-compute-3 recorded 184 of the 200 cooling-fan module stockout incidents, representing 92% of the total.",
+      "location": "incident_inventory aggregate for 2026-10-12",
+      "final_state": "incorporated",
+      "verification": {
+        "against": "external_source",
+        "detail": "Verified against the supplied incident_inventory aggregation."
+      },
+      "evidence": {
+        "text": "cooling-fan module: 200 total incidents; edge-compute-3: 184 incidents."
+      }
+    }
+  ],
+  "residue": {
+    "declared_absence": true,
+    "declaration": "No unresolved uncertainty or execution gap remains for this concentration calculation."
+  }
+}

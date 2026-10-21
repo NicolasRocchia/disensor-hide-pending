@@ -1,0 +1,1 @@
+Yes. Fab Line P3 accounted for 612 of 747 minutes—about **82%**—of wafer transport interlock downtime. P1 contributed 84 minutes and P2 51 minutes.

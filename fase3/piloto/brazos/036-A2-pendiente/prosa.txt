@@ -1,0 +1,1 @@
+Yes. Cell-P1 accounted for 139 of the 168 SM-42 stockout events—82.7%. Cell-P2 had 18 and cell-P3 had 11, so the stockouts were heavily concentrated in P1.

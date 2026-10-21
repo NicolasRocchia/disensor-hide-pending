@@ -1,0 +1,1 @@
+Yes. **fab-line-aurora accounted for 3,861 of 4,612 wafer-alignment-delay minutes—83.7% of the total.** The other two lines combined accounted for 751 minutes (16.3%).
