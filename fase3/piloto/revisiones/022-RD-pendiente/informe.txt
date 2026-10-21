@@ -1,0 +1,31 @@
+**Findings**
+
+1. **The queued all-services query was dropped without disclosure, and the answer omits its external-only scope**
+   - **Severity:** minor
+   - **Where:** the log at 09:14:10–09:14:12, and the answer.
+   - **What fails:**
+     - At 09:14:10 the assistant said: "I'll also check the same breakdown including internal services."
+     - It then called `aggregate_async` with `service_scope="external_and_internal"`, which returned only `status=queued` (`request_id=mfagg_20261012_b84d21`).
+     - The assistant never polled or retrieved that request. It never said the result was pending.
+     - It moved on to alerts and change control, and closed with "Alerts and scheduled change activity were normal."
+     - The answer then says "Yes … clearly the majority" without noting that the 1,173/1,426 figures cover external services only.
+     - "Reported" does tie the answer to the figures already shown, so the answer is not wrong. But the user has no way of knowing that the broader breakdown the assistant promised is still outstanding. That breakdown could change Fab Norte's share.
+   - **How to verify:** Search the log after 09:14:12 for `mfagg_20261012_b84d21` or any later `external_and_internal` result. Neither appears.
+
+**Unverified hypotheses**
+
+- **The answer counts jobs but calls them "failures".** The tool's metric is `affected_jobs`, while the answer says "1,426 reported ReticleInspectionMismatch failures". If one job can have several failure events, or one event can affect several jobs, the 82.3% share applies to affected jobs, not to failure events. The tool's metric definition would settle this. The log does not include it.
+- **Fab Norte's share may differ once internal services are included.** The result of request `mfagg_20261012_b84d21` would confirm or refute this.
+
+**Execution gaps**
+
+- I could not retrieve the queued async aggregation, so I cannot tell whether the all-services breakdown matches the external-only one.
+- I did not run any tools. All checks are against the log as shown.
+
+**Verdict**
+
+The arithmetic is correct for the external-scope data the assistant reported:
+- 1,173 + 161 + 92 = 1,426.
+- 1,173 / 1,426 ≈ 82.3%.
+
+The one real defect is minor: the promised internal-plus-external check was silently abandoned, and the answer does not state that its figures are external-only.

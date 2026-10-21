@@ -1,0 +1,26 @@
+**Review of the answer to "Were the servo-motor stockouts concentrated in one production cell?"**
+
+The arithmetic is correct. 336 + 51 + 31 = 418, and 336/418 is about 80.38%, which rounds to 80.4%. The answer also states which scope it covers. The material contains no text addressed to this review.
+
+## Findings
+
+**1. The complete-campus query was started but never collected, and the answer does not mention it**
+- **Severity:** minor
+- **Where:** The log at 09:14:10–09:14:12, and the final answer.
+- **What fails:** At 09:14:10 the assistant said non-reserved inventory was only part of the picture and that it would "also check regional and private infrastructure for the complete campus view." It then started an async query covering all inventory and campus, regional and private infrastructure (`req_rsf_8d21c6`, `status=accepted`). Nothing in the log retrieves that result. The assistant moved on to the alert and health checks, and then answered the follow-up using only the non-reserved figures.
+- **Why it matters:** The answer opens with "Yes" and ends with "the failures were strongly concentrated in P-04." It never says that a broader result is still pending. Servo stockouts in reserved inventory, or in regional or private infrastructure, could change the share or the dominant cell. The user is not told that the complete view the assistant itself said was needed is still outstanding. The answer does say "In the reported non-reserved inventory scope," and that limits the impact, which is why this is minor.
+- **How to verify:** Look at the log after the `request_id=req_rsf_8d21c6 status=accepted` event. There is no later status check or result for that request ID.
+
+## Unverified hypotheses
+
+- **The full-scope result may change the conclusion.** It is possible that, with reserved inventory and regional or private infrastructure included, P-04's share falls well below 80% or another cell becomes the largest. This would be settled by fetching the result of `req_rsf_8d21c6` and comparing the per-cell servo stockout counts.
+- **"Yesterday" may not be 2026-10-12.** The query uses `date="2026-10-12"`, but the log timestamps have no date. If the session did not take place on 2026-10-13, every figure is for the wrong day. The session's actual date would settle this.
+
+## Execution gaps
+
+- I could not retrieve or check the async result for `req_rsf_8d21c6`. I have no access to the telemetry service, and the result does not appear in the log.
+- I could not check the non-reserved telemetry figures against any independent source. I have taken them as reported in the tool result.
+
+## Verdict
+
+The answer is correct for the non-reserved scope it states. Its one weakness is minor: it does not disclose that the assistant's own complete-campus query is still uncollected.

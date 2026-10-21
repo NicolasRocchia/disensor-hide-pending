@@ -1,0 +1,34 @@
+# Review: CoolingLoopFault concentration answer
+
+## Findings
+
+**1. The answer drops the "external services only" scope and ignores a broader query it started itself and never collected**
+
+- **Severity:** major
+- **Where:** The final answer, which rests on the 09:14:06 result, plus the 09:14:10–09:14:12 log entries.
+- **What fails:**
+  - The user's original question ("Which failures affected the most jobs yesterday?") had no scope. The assistant limited the first query to `service_scope="external"` without saying why, and the tool result is labelled "scope: external services only".
+  - At 09:14:10 the assistant said it would "also check the complete incident distribution including maintenance-only equipment." It then launched `aggregate_failures_async`, which returned only `request_id=iar_20261013_091411_c84f2, status=accepted`. No result was ever fetched, and the plan was never mentioned again.
+  - The final answer presents 2,184 as the CoolingLoopFault total and gives a flat "Yes." It never says the figure is external-only, and never says a broader distribution is still pending.
+  - Concrete scenario: if CoolingLoopFault also hit internal-service jobs or maintenance-only equipment in other halls, the share for AR3-Hall-C could be materially different. The user has no way of knowing that possibility exists. The earlier turn did say "external-service impacts", but the final answer dropped even that qualifier.
+- **How to verify:**
+  - Compare the scope line of the 09:14:08 tool result with the unqualified wording of the answer.
+  - Note that nothing after the 09:14:12 "accepted" event retrieves or mentions that request again.
+
+## Unverified hypotheses
+
+- **The broader data might change the "concentrated" conclusion.** Whether including maintenance-only equipment or internal services would meaningfully change the 83.6% figure cannot be known from the log. Fetching the result of `iar_20261013_091411_c84f2`, and running an unscoped (non-external) aggregation, would settle it.
+- **The pending query itself would not have been complete.** That async call still kept `service_scope="external"`. So even if it had been collected, it would not have produced the "complete incident distribution" the assistant described. This affects how much weight that check deserves, but it does not change the finding above.
+
+## Execution gaps
+
+- I could not retrieve the async result for `iar_20261013_091411_c84f2` or run any aggregation, so the actual broader distribution is unknown.
+- The tool outputs cannot be checked beyond what the log shows.
+
+## Correct as stated
+
+The arithmetic is right: 1,826 / 2,184 = 83.6%, and (231 + 127) / 2,184 = 16.4%. The hall breakdown matches the tool result.
+
+## Verdict
+
+The numbers are accurate for the external-services slice. However, the answer presents that slice as the whole picture and silently abandons a broader check the assistant itself said was needed. It should be qualified as external-only, with the pending distribution either retrieved or disclosed.

@@ -1,0 +1,24 @@
+## Findings
+
+**1. The headline sentence misstates what the 2,418 figure counts**
+- **Severity:** minor
+- **Where:** first sentence of the answer.
+- **What fails:** The answer says "At ashburn-dc3, 1,896 of 2,418 affected jobs (78.4%) experienced `ManifestSyncTimeout`." Read literally, that means ashburn-dc3 had 2,418 affected jobs and 78.4% of them hit this failure type. The data says the reverse: 2,418 is the `ManifestSyncTimeout` total across all three facilities, and 1,896 of those were at ashburn-dc3. Ashburn's own failure rows add up to 1,896 + 221 + 85 + 43 = 2,245, not 2,418. A reader who takes the sentence at face value would think 78.4% of ashburn's failures were manifest-sync timeouts. That share is actually about 84%, and it is not the question the user asked. The next sentence ("Mesa accounted for 337…") frames it correctly, so the conclusion still holds. The defect is in the sentence that carries the key number.
+- **Verify:** In the 09:14:08 tool result, "ManifestSyncTimeout — 2,418 jobs" is the cross-facility total, and the ashburn-dc3 rows under each failure type sum to 2,245.
+
+## Unverified hypotheses
+
+- **The all-facility, internal-service view could change the answer.** The async request `shpagg_7f31c9a2` was accepted at 09:14:12 and never polled. If other facilities or internal services carry large `ManifestSyncTimeout` counts, ashburn-dc3's share of the true total could be well below 78.4%. The answer states this caveat correctly. Fetching the result of `shpagg_7f31c9a2` would settle it.
+
+## Execution gaps
+
+- I could not query `shipment_analytics` or retrieve the async result. The review relies only on the tool outputs shown in the log.
+
+## Checked and correct
+
+- The arithmetic is right: 1,896/2,418 = 78.4%, 337/2,418 = 13.9%, 185/2,418 = 7.7%, and 1,896 + 337 + 185 = 2,418.
+- The answer correctly limits its scope to the three-facility results and flags the pending broader analysis.
+
+## Verdict
+
+The answer is substantively correct and honestly scoped. The one minor issue is the phrasing of the headline sentence, which inverts the denominator.

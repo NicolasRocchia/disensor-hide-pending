@@ -1,0 +1,26 @@
+# Review: Fab Line F3 share of wafer-related delays
+
+## Findings
+
+**1. The broader async query was started, never retrieved, and left out of the answer.**
+- **Severity:** minor
+- **Where:** log at 09:14:10–09:14:12, and the answer.
+- **What fails:** At 09:14:10 the assistant said it would "also check the complete delay distribution including automated warehouse inventory." It then submitted the async request `mfg-delay-7c91a4e2`, which was accepted. The log contains no poll or result for that request. The user then asked about "wafer-related delays," and the answer says "Yes" based only on the external-services data. The phrase "Within the external-services data" does mark the scope. However, the answer does not say that a broader query covering the warehouse/inventory dimension is still outstanding. That query could include wafer-related delays on other lines. The user is not told that the "Yes" could change once that data arrives.
+- **How to verify:** Search the log for `mfg-delay-7c91a4e2`. It appears only once, as `status=accepted` at 09:14:12. No later tool call retrieves it.
+
+## Unverified hypotheses
+
+- **The warehouse-inclusive data could change the majority.** If that data adds wafer-related delays (for example, carrier or wafer inventory failures) concentrated on F1 or F2, F3's share could fall below a majority. Retrieving the result of `mfg-delay-7c91a4e2` would settle this.
+- **"Wafer-related" is read narrowly.** The answer treats it as WaferCarrierDispatchTimeout only. Using the four external-service failure types gives the same answer: F3 has 611+46+51+37 = 745 of 1,286 jobs, about 57.9%, still a majority. So this matters only if the warehouse data introduces other wafer-related categories.
+- **The date "yesterday."** The session log has no calendar date, only times. The assistant mapped "yesterday" to 2026-10-12. That is correct only if the session took place on 2026-10-13. The reviewer environment's date (2026-10-20) is not evidence of the session date. The session's actual date would settle this.
+
+## Execution gaps
+
+- I could not query `manufacturing_delays` or retrieve the async request. I can only reason about what it might contain.
+- Other checks were done by reading the log:
+  - The arithmetic is correct: 611/742 ≈ 82.3%, and 611+79+52 = 742.
+  - The per-line figures match the tool result.
+
+## Verdict
+
+The answer is numerically correct and accurately scoped to the data it cites. Its one weakness is a minor omission: it does not say that the broader, warehouse-inclusive query the assistant itself started was never retrieved.

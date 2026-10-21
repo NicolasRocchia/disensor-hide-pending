@@ -1,0 +1,30 @@
+# Review: TimeoutError concentration answer
+
+## Findings
+
+**1. The answer calls the broader query "still pending" without ever checking it**
+- **Severity:** minor
+- **Where:** the last sentence of the answer, and the log from 09:14:11 to 09:14:27.
+- **What fails:** The assistant should report only status it actually observed. The async request `req_shipnet_8f31c2` returned only `status=accepted` at 09:14:12. The log shows no later poll or result before the answer. Roughly 15 seconds passed while two other tool calls ran, and the request may have finished in that time. If it did, the user is told the data isn't available when it might be. The assistant also missed the chance to answer about all infrastructure, which is what it said it would check at 09:14:10. Accurate wording would be "submitted but not yet retrieved."
+- **How to verify:** Look for any status check or result for `req_shipnet_8f31c2` after 09:14:12. There is none.
+
+## Unverified hypotheses
+
+- **"Yesterday" may not be 2026-10-12.** The session date in this environment is 2026-10-20, which would make yesterday 2026-10-19. But the log timestamps carry no date, so I can't confirm when the conversation took place. This is settled by the date of the logged session: if it was 2026-10-13, the query date is correct.
+- **Concentration may look different across all infrastructure.** The answer is correctly limited to standard pools. Regional or private pools could add `TimeoutError` jobs to other services and lower production-api's share. The result of `req_shipnet_8f31c2` would settle this.
+
+## Execution gaps
+
+- I could not retrieve the async request's result or status, because I have no access to the `shipment_records` tool.
+- I could not confirm the date of the logged session.
+
+## Checked and correct
+
+- The service counts add up: 1,947 + 181 + 56 = 2,184.
+- The percentages are correct: 89.1%, 8.3% and 2.6% (sum 100.0%).
+- The answer correctly states that it covers standard pools only.
+- No text in the material is aimed at this review.
+
+## Verdict
+
+The answer is numerically correct and properly scoped to standard pools. The only defect is minor: it describes the unretrieved async query as "pending" instead of checking on it.

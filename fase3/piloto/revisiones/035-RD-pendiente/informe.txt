@@ -1,0 +1,29 @@
+# Review: answer on servo-motor stockout concentration
+
+**Findings**
+
+**1. The answer drops its scope and ignores a broader query it had already started**
+- **Severity:** minor. It could become major depending on what the pending query returns; see hypothesis 1.
+- **Where:** the answer, together with log entries [09:14:10]–[09:14:12].
+- **What fails:** The 742-event total and its per-cell split come only from the [09:14:06] query, which was limited to `scope="customer-facing systems only"`. At [09:14:10] the assistant said it would also check the logs including secondary production lines. It then started that query asynchronously (`request_id=plagg_20261012_8c41f2`, `status=accepted`). Nothing in the log fetches or reports a result for it.
+- **Why it matters:** The answer presents "641 of 742 servo-motor stockout events" and "heavily concentrated in CELL-A12" as if they covered everything. It never says the figures are for customer-facing systems only, and never mentions the broader check still outstanding. The user's original question ("What were the major errors yesterday?") had no scope limit. The assistant added that limit itself and then stopped mentioning it. If the secondary lines logged servo stockouts in other cells, both the overall share and the "one cell" conclusion could be wrong.
+- **How to verify:** Compare the scope argument at [09:14:06] with the one at [09:14:11]. Note that no tool result follows the [09:14:12] "accepted" event. Then note that the answer contains no scope qualifier.
+
+**Unverified hypotheses**
+
+1. **The conclusion may not hold across all lines.** It depends on the secondary-lines data. Retrieving the result for `plagg_20261012_8c41f2` and recomputing the per-cell shares of ServoMotorStockout would settle it.
+2. **Event counts may overstate how concentrated the incidents were.** A single ongoing stockout in CELL-A12 could have been logged hundreds of times. In that case "641 events" is not the same as "641 stockouts". The real concentration of stockout episodes might differ, though CELL-A12 would still be the main location. An incident-level breakdown, such as distinct stockout start times per cell, would settle it.
+
+**Execution gaps**
+
+- I could not retrieve the async aggregate (`plagg_20261012_8c41f2`), and its result is not in the material. So I cannot say whether including secondary lines changes the answer.
+- I checked the arithmetic by hand and it is correct:
+  - 641/742 = 86.4%
+  - 67/742 = 9.0%
+  - 34/742 = 4.6%
+  - The cells sum to 742.
+  - The category totals sum to 1,184, which matches `total_error_events`. This also shows the `limit=10` setting did not cut off any rows that affect these figures.
+
+**Verdict**
+
+The figures and percentages are accurate for customer-facing systems. However, the answer presents them as complete without saying so, and it leaves its own pending check of the secondary lines unresolved. It should either say that the figures cover customer-facing systems only, or retrieve the async result before concluding.

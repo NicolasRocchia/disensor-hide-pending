@@ -1,0 +1,30 @@
+# Review: "Did one fabrication line account for most of the wafer-related delays?"
+
+## Findings
+
+**1. The answer reports primary-line figures as "the total" while the assistant's own check of all infrastructure scopes never returned**
+- **Severity:** major
+- **Where:** the answer ("83.7% of the total"), and the log at 09:14:10–09:14:12.
+- **What fails:**
+  - At 09:14:10 the assistant said it would "check the complete distribution including regional or private infrastructure."
+  - It then issued a second aggregation for Wafer alignment drift across `["primary","regional","private"]`.
+  - That call returned only `request_id=qcagg-20261013-7f3c91, status=accepted`. No result appears anywhere in the log.
+  - The answer still gives a firm "Yes" and calls 4,612 minutes "the total." That figure comes only from the first query, which was scoped to `production_scope="primary"`.
+  - The answer does not mention the primary-only scope or that the broader query is still pending.
+  - The user asked about "wafer-related delays" with no scope limit. The assistant itself had judged the wider scope relevant.
+- **Concrete scenario:** suppose regional or private lines logged substantial Wafer alignment drift delays on other fabrication lines. Then aurora's share of the true total would fall below 83.7%, possibly below a majority. The user would not know the figure excludes them.
+- **What is still sound:** the arithmetic for the primary scope is correct. 3,861 / 4,612 = 83.7%, and 481 + 270 = 751 (16.3%).
+- **How to verify:** compare the scope in the 09:14:06 call (`production_scope="primary"`) with the 09:14:11 call. Note there is no TOOL RESULT for request `qcagg-20261013-7f3c91` before the answer. Then confirm the answer contains no scope qualifier.
+
+## Unverified hypotheses
+
+- **The earlier maintenance summary may overstate its scope.** At 09:14:20 the assistant said "All 14 scheduled maintenance windows completed successfully." But the query filtered `severity=["critical","high"]`. If that filter applies to the windows themselves, lower-severity windows were excluded and "all" is overstated. This would be settled by documentation for `maintenance_events.summary` showing what the `severity` filter selects. It is in the log, not the reviewed answer.
+- **Whether aurora still holds a majority across all scopes is unknown.** The pending aggregation result would settle it.
+
+## Execution gaps
+
+- I could not retrieve the result of `qcagg-20261013-7f3c91` and have no access to the `qc_events` tool. So I cannot tell whether the full-scope figures change the conclusion.
+
+## Verdict
+
+The arithmetic is correct for the primary lines. The main problem is that the answer presents a primary-only figure as the full total and silently drops the broader check the assistant itself started. The answer should state its scope, and either wait for the pending result or flag that it is outstanding.

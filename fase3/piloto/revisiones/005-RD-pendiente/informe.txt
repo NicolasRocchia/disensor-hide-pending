@@ -1,0 +1,38 @@
+# Review: answer to "Did most of the NodeUnavailable failures occur on gpu-cluster-a?"
+
+## Findings
+
+None.
+
+The answer's numbers match the tool result at [09:14:08]:
+
+- **Total:** NodeUnavailable appears only under HBM3E accelerator modules, with a total of 1,176.
+- **gpu-cluster-a:** 1,041.
+- **Percentage:** 1,041 / 1,176 = 0.8852, so the stated 88.5% is correct.
+- **Conclusion:** 88.5% is a clear majority, so "Yes" is correct.
+
+## Unverified hypotheses
+
+1. **The answer does not state its scope.** The 1,176 figure only covers failures that are:
+   - in customer-facing systems,
+   - caused by `component_out_of_stock`,
+   - on 2026-10-12, UTC-3.
+
+   The answer says "1,041 of 1,176 NodeUnavailable failures" without these limits. If the user meant all NodeUnavailable failures, whatever the cause, the answer would be outside what the data supports. The conversation was about out-of-stock failures, so the narrower reading is the likely one. To settle it, the user could confirm what they meant, or someone could run an aggregate of NodeUnavailable failures across all causes.
+
+2. **The async broader query never came back.** The query that adds advanced packaging facilities (`agg-7f42c19e`, [09:14:11]) was accepted but no result appears in the log. If it returns more NodeUnavailable failures outside gpu-cluster-a, the majority could change for that wider scope. That is unlikely, since gpu-cluster-a leads by a wide margin. The answer does not mention that this query is still pending. The result of `agg-7f42c19e` would settle it.
+
+3. **Unsupported claims in earlier turns (outside the answer under review):**
+   - At [09:14:20] the assistant called the two warnings "resolved." The tool result at [09:14:17] does not say they were resolved.
+   - At [09:14:10] the assistant treated the number of failures caused by stockouts as if it measured how often a component was out of stock. Those are different quantities.
+
+   Neither affects the current answer. Both can be checked by reading the cited lines.
+
+## Execution gaps
+
+- I could not see the result of async request `agg-7f42c19e`. It is not in the log.
+- I could not check the tool data against the source system. The review relies only on what the log shows.
+
+## Verdict
+
+The answer is correct and supported by the log. Its only weakness is that it does not restate its scope (customer-facing, out-of-stock cause) or mention the pending broader query.

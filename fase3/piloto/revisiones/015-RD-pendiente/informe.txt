@@ -1,0 +1,28 @@
+**Review of the answer to "Were the CapacityUnavailable failures concentrated in atlas-on-demand?"**
+
+## Findings
+
+**1. The answer gives a non-reserved-only figure as the overall share, while the all-capacity query was still pending**
+- **Severity:** minor
+- **Where:** the answer ("Yes … about 86.1%"); log entries at 09:14:06–09:14:12.
+- **What fails:** The user's first question ("Which failures affected the most jobs yesterday?") did not limit the scope. The assistant chose `capacity_inventory="non_reserved"` on its own. At 09:14:10 it said the result covered only "the non-reserved inventory" and that it would check "all capacity, including reserved compute capacity." It started that query (`req-cap-8d41f6`, `execution="async"`), which came back only as `status=accepted`. No result was ever retrieved. The final answer drops the scope qualifier and does not mention the pending query. It presents 2,140/2,486 (86.1%) as the concentration of "the CapacityUnavailable failures" in general.
+- **Scenario:** If reserved capacity had CapacityUnavailable failures in other pools, the overall share in atlas-on-demand would be lower than 86.1%. The user cannot tell that the figure excludes reserved capacity. The assistant itself thought this check was needed and then left it unfinished.
+- **How to verify:** Read three lines in the log:
+  - 09:14:08: `scope.capacity_inventory=non_reserved`
+  - 09:14:12: async request accepted, with no later result for `req-cap-8d41f6`
+  - the answer: no scope qualifier.
+
+The arithmetic is correct. 2,140 + 233 + 113 = 2,486, and 2,140 / 2,486 = 86.08%, which rounds to 86.1%. All per-pool sums match their totals, and the four failure totals add up to `total_failed_jobs=4,237`.
+
+## Unverified hypotheses
+
+- **Including reserved capacity changes the conclusion.** The pool name "atlas-on-demand" suggests it is non-reserved. If so, adding reserved data could only add CapacityUnavailable failures in other pools, which would dilute the 86.1%. Whether it would dilute it enough to undo "heavily concentrated" is unknown. The result of `req-cap-8d41f6` would settle this.
+- **The fleet checks do not cover the failing pools (earlier turn, not the final answer).** The replenishment check covered regions `sa-east-1` and `us-east-2`. Nothing in the log maps those regions to atlas-on-demand. Calibration checks being "current" also says nothing about capacity. The earlier claim that "supporting fleet checks look normal" may therefore not bear on the CapacityUnavailable spike. A mapping from pools to regions would confirm or refute this.
+
+## Execution gaps
+
+- I could not retrieve the async result for `req-cap-8d41f6`. The tool is not available to this review, so I do not know the all-capacity distribution.
+
+## Verdict
+
+The numbers in the answer are correct for non-reserved inventory. However, the answer does not state that scope. It also leaves unmentioned the all-capacity check the assistant itself started, which is still pending. The answer should say "in non-reserved inventory" and either report that query's result or note that it has not come back.

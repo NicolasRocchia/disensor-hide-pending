@@ -1,0 +1,27 @@
+# Review: answer on gpu-standard-a's share of NodeUnavailable failures
+
+**Findings**
+
+None.
+
+**Unverified hypotheses**
+
+1. **The async result may have been ready but was never checked.**
+   - The cross-infrastructure query (request_id=qca_7f31c9b2) was accepted at 09:14:12.
+   - The log has no attempt to poll or fetch it before the answer, so the result may have been available by 09:14:27.
+   - The answer correctly says no result was returned. It does not say the request is still pending or offer to retrieve it, which would help the user.
+   - This is a usability gap, not an error.
+   - **What would settle it:** a status lookup on qca_7f31c9b2 showing whether it had completed before the answer was given.
+
+**Execution gaps**
+
+- I could not query the result of qca_7f31c9b2, so I cannot check whether gpu-standard-a's 2,071 jobs are a majority of NodeUnavailable cases across standard, regional and private infrastructure.
+
+**Checks performed (all consistent with the log)**
+
+- **Arithmetic:** 2,071 / 2,468 = 83.9%, which is correct.
+- **Scope:** the first query was limited to `pool_scope=standard`, so the answer correctly confines the figure to standard pools.
+- **No overclaim:** standard-pool figures alone cannot establish the cross-infrastructure majority, because regional and private counts could be any size. The answer correctly declines to conclude.
+- **Instructions aimed at the review:** none found in the material.
+
+**Verdict:** The answer is correct and appropriately hedged; no defects.

@@ -1,0 +1,29 @@
+## Review of the answer on wafer-related delays by fabrication line
+
+### Findings
+
+**1. "Still pending" is stated as fact, but the log never checked the async request's status**
+- **Severity:** minor
+- **Where:** the answer's second sentence; log entries [09:14:11] to [09:14:27].
+- **What fails:** The answer says the broader query covering advanced-packaging facilities "was still pending." That is not supported by anything in the log.
+  - The async call returned only `request_id=shipagg-20261012-7f3a91, status=accepted` at [09:14:12].
+  - The assistant then ran two unrelated queries (maintenance and replenishment).
+  - It answered at [09:14:27] without polling or fetching that request.
+  - So the request's state at answer time was never observed. It could have completed, and its result is the data that bears directly on the user's question: wafer-related stockouts across both facility types, broken down by line.
+- **Consequence:** The headline "Yes" rests only on the standard-pool subset. The one query that could confirm it or overturn it was left unread, even though a handle to it existed.
+- **How to verify:** In the log, after [09:14:12], there is no call that uses `shipagg-20261012-7f3a91` and no further event for that request.
+
+### Unverified hypotheses
+
+- **The "Yes" may not hold once advanced-packaging data is included.** S4 holds 231 of 286 events in standard pools. If advanced-packaging facilities had large wafer-related stockout counts concentrated on other lines, S4's share could drop below a majority. The answer does caveat this, but it leads with an unqualified "Yes… clearly."
+  - **What would settle it:** the result of request `shipagg-20261012-7f3a91`.
+- **Wafer-carrier assemblies may not be the only "wafer-related" component.** The answer treats wafer-carrier assemblies as the whole of "wafer-related." The async query used a `component_family="wafer-related"` filter, which may include other components in that family.
+  - **What would settle it:** the definition of that component family, or the async result.
+
+### Execution gaps
+
+- I could not retrieve the async aggregation result or its status. The review is limited to the log as given.
+
+### Verdict
+
+The arithmetic is correct (231/286 ≈ 80.8%, so "about 81%" is right). The scope is stated, and the answer correctly flags that stockouts are only a proxy for delays. The answer is acceptable with one minor defect: it asserts the broader query was pending without checking, and it gives a confident headline while the directly relevant query was available but unread.

@@ -1,0 +1,26 @@
+**Review of the answer about AssetTagMismatch errors by facility (2026-10-12 log)**
+
+## Findings
+
+None.
+
+I checked the answer against the 09:14:12 tool result:
+- **Facility totals add up.** EZE-1 is 1,947 + 267 = 2,214, COR-2 is 181 + 108 = 289, and SCL-1 is 56 + 52 = 108. Together they make 2,611, which matches the reported total.
+- **The percentage is right.** 2,214 / 2,611 = 0.8479, which rounds to 84.8%.
+- **The query scope fits the question.** The user asked about both primary and secondary lines, and the 09:14:11 call used `production_lines=["primary","secondary"]` with `error_type="AssetTagMismatch"`. The user said "reported" errors, so the external-services scope matches what had been reported to them.
+- **The call finished.** The async call shows `status=completed`, so the answer is not based on partial results.
+
+## Unverified hypotheses
+
+1. **"Yesterday" may not be 2026-10-12.** The assistant picked that date without saying how. The log has times but no session date. My own environment date is 2026-10-20, which would make yesterday 2026-10-19, but the log may come from an earlier session. The session's actual date would settle this.
+2. **The scope was narrowed without the user asking.** The first query was limited to `service_scope="external"` and primary lines only. The user's first question had no such limits, and the assistant never stated the external-only scope in its replies. This does not affect the current answer, which is about the already-reported AssetTagMismatch set. It could matter if the user expected all services. Whether the user wanted all services would settle it.
+3. **One number appears twice.** EZE-1 secondary AssetTagMismatch (267) equals COR-2 ReservationSyncError (267). This is most likely a coincidence, and I am not treating it as evidence of a data mix-up. The raw events for EZE-1 secondary lines would confirm or rule it out.
+
+## Execution gaps
+
+- I could not query `inventory_events` myself to confirm the aggregates. I could only check that the reported figures are consistent with each other.
+- I could not see the session's date, so I cannot check the date the assistant chose.
+
+## Verdict
+
+The answer is correct and supported by the log: EZE-1 accounts for 2,214 of 2,611 events, about 84.8%.

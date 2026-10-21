@@ -1,0 +1,31 @@
+# Review: whether most NodeUnavailable failures occurred on assay-line-a
+
+## Findings
+
+None.
+
+I checked the answer against the log.
+
+- **Arithmetic.** 211 ÷ 275 = 0.7673, which is 76.7%. This matches the 09:14:12 tool result: 211 of 275 NodeUnavailable events on assay-line-a.
+- **Conclusion holds in both queried scopes.** In the primary-only scope at 09:14:08, the share is 211 of 248, about 85.1%. In the primary plus secondary scope at 09:14:12, it is 211 of 275. The "Yes, a clear majority" answer is correct either way.
+- **Date.** The log runs on 2026-10-13, so querying 2026-10-12 is the correct "yesterday" for this session.
+- **No text addressed to this review.** The material contains no instructions directed at the reviewer.
+
+## Unverified hypotheses
+
+1. **The reserved inventory pool was never queried.** Both queries used `inventory_pool="non_reserved"`, and the user never asked for that filter. The assistant did mention the filter at 09:14:05. The final answer, however, presents "275 NodeUnavailable failures" without saying it covers only non-reserved inventory.
+   - If the reserved pool has many NodeUnavailable events on other lines, the true share could be lower. In theory it could fall below 50%.
+   - **What would settle it:** run `lab_ops.aggregate_errors` for 2026-10-12 with the reserved pool included, or with no pool filter, grouped by error type and line.
+
+2. **The denominator changed without explanation.** At 09:14:10 the assistant said "211 of 248". The answer says "211 of 275". It does not explain that the new figure includes secondary lines.
+   - Both figures are correct for their scopes, and the conclusion is the same. The risk is only that the user is confused.
+   - **What would settle whether this matters:** whether the user's question was meant to cover primary lines only, or all lines.
+
+## Execution gaps
+
+- I could not call `lab_ops` or `lab_inventory`. I therefore could not check the tool outputs against the source data or query the reserved pool.
+- I could not confirm what `production_lines="primary"` and `"secondary"` cover. In particular, I could not confirm that together they include every production line.
+
+## Verdict
+
+The answer is correct for the data that was queried. Its only weakness is that it does not say which scope it covers: the non-reserved pool, across primary and secondary lines.

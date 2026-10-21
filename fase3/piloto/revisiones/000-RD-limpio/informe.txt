@@ -1,0 +1,32 @@
+# Review: gpu-standard-a's share of NodeUnavailable across standard, regional and private infrastructure
+
+The answer is correct. It says "Yes", and gpu-standard-a accounts for a clear majority (about 67%) of jobs affected by NodeUnavailable across all three infrastructure classes.
+
+## Findings
+
+None.
+
+I checked these against the 09:14:12 tool result:
+- **Total:** 2,468 + 412 + 198 = 3,078, which matches `total_distinct_jobs_affected: 3,078`.
+- **gpu-standard-a:** 2,071 jobs. 2,071 / 3,078 = 0.6728, so 67.3% is correct.
+- **Everything else:** 3,078 − 2,071 = 1,007. That is 241 + 156 (standard) + 412 (regional) + 198 (private). 1,007 / 3,078 = 32.7%, which is correct.
+- **Meaning of "most":** 67.3% is above half, so "Yes" is correct under the majority reading. It is also correct under the "largest single contributor" reading, since the next largest pool is cpu-standard-b with 241.
+- **Overlap:** the per-class figures add up exactly to the reported distinct total. So there is no sign of jobs being counted in more than one pool, and the denominator is sound.
+
+## Unverified hypotheses
+
+1. **"Failures" vs. "affected jobs" wording.** The answer calls 67.3% a share "of all `NodeUnavailable` failures". The metric queried was `distinct_jobs_affected`, not a count of failure events. If one job can hit NodeUnavailable more than once, the share of events could differ from the share of jobs.
+   - The user's question also said "failures" loosely, and the whole session was framed around affected jobs. So this is wording imprecision rather than an established error.
+   - To settle it: re-run the aggregate with an event-count metric, if the tool has one, and compare gpu-standard-a's share.
+2. **Async result could be incomplete.** The cross-infrastructure query ran with `async=true` and came back with a `request_id`. The result shows no completion or status field.
+   - The numbers are internally consistent, and the standard-class figures match the earlier synchronous query exactly. That points to a complete result, but nothing in the log confirms it.
+   - To settle it: look up `qca_7f31c9b2` and confirm its status is final or complete.
+
+## Execution gaps
+
+- I ran no tools. Everything above is checked only against the tool output in the log, not against the live `qc_events` source.
+- The log entries carry times but no dates, so I cannot confirm that the resolved "yesterday" window (2026-10-12 −03:00) matches the day the session ran.
+
+## Verdict
+
+The answer is accurate and supported by the log. The arithmetic and the conclusion are correct; the only weakness is the loose use of "failures" for affected jobs.

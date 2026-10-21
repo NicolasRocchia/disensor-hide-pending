@@ -1,0 +1,104 @@
+{
+  "log": 21,
+  "revisor": "RD",
+  "condicion": "pendiente",
+  "intentos": [
+    {
+      "inicio": "2026-10-20T22:56:08.516+00:00",
+      "duracion_s": 22.654,
+      "codigo": 0,
+      "termino": true,
+      "mensaje_md5": "7e8dcbfc53d70e4e457e6e256b0b1314",
+      "carpeta_trabajo": "C:\\w\\f103a2d431a1",
+      "restos_en_carpeta": [],
+      "comando": [
+        "C:\\Users\\Usuario\\ch-bin\\claude-2.1.285.exe",
+        "-p",
+        "--safe-mode",
+        "--setting-sources",
+        "project",
+        "--tools",
+        "",
+        "--system-prompt",
+        "",
+        "--disable-slash-commands",
+        "--effort",
+        "high",
+        "--no-session-persistence",
+        "--output-format",
+        "stream-json",
+        "--verbose",
+        "--model",
+        "claude-opus-5-5"
+      ],
+      "esfuerzo": "high",
+      "binario_sha256": "121fc8151ed40bd9c144d68aa1cea23427803628ffab65e23da1cceda155697e",
+      "binario_version": "2.1.285 (Claude Code)",
+      "init_tools": [],
+      "modelo": "claude-opus-5-5",
+      "usos_de_herramienta": 0,
+      "turnos": 1,
+      "subtipo": "success",
+      "es_error": false,
+      "uso": {
+        "input_tokens": 2,
+        "cache_creation_input_tokens": 2458,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 2109,
+        "output_tokens_details": {
+          "thinking_tokens": 964
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 2458,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 2109,
+            "cache_read_input_tokens": 0,
+            "cache_creation_input_tokens": 2458,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 2458
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "costo_usd": 0.061852000000000004,
+      "lineas_ilegibles": 0,
+      "verificado": true,
+      "red_de_seguridad": false,
+      "sin_cupo": false,
+      "etiqueta": "revisor"
+    }
+  ],
+  "sesiones": [
+    "2026-10-20T22:55:09.057+00:00"
+  ],
+  "arboles": [
+    "78838bc7f4393431363e858ba0a3f5e8"
+  ],
+  "commits": [
+    "b4bcc3901afee71a3a74012a8b77c4054ec41a81"
+  ],
+  "mensaje_md5": "7e8dcbfc53d70e4e457e6e256b0b1314",
+  "prosa_antes_md5": "6dd160cf54c5299aa497302d160a73ac",
+  "antes": "D:\\Programacion\\Disensor-Docs\\experimento\\fase3\\piloto\\brazos\\021-A2-pendiente",
+  "estado": "hecho",
+  "informe_md5": "b66691f448e15fa33a0034c734b4a393",
+  "informe_chars": 3207,
+  "informe_vacio": false,
+  "request_id_seguimiento": "wrq_8f31c6a2",
+  "request_id_en_la_entrada": true,
+  "marca_request_id": true
+}

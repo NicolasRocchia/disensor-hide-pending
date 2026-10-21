@@ -1,0 +1,23 @@
+## Findings
+
+**1. The answer drops the scope restriction and the full-population check the assistant started but never collected**
+- **Severity:** major
+- **Where:** the final answer, together with log entries 09:14:06 to 09:14:12.
+- **What fails:** The user's original question ("Which defects occurred most often yesterday?") was not limited in scope. The only data behind the answer is the `equipment_scope="external_services"` aggregate. At 09:14:10 the assistant said it would also "check the complete shipment population, including maintenance-only equipment". It submitted async request `shp_8c41f2a7`, which was accepted at 09:14:12. That result was never retrieved: nothing in the log polls or fetches it. The answer still says "the optical-transceiver contamination defects" with no qualifier. It does not mention that only external services were counted, or that a broader query is still pending.
+- **Concrete scenario:** Maintenance-only equipment could have its own contamination defects on lines other than line-photon-3. If those add more than 362 cases, line-photon-3 drops below a majority (487 of 974 or more). Smaller amounts would still change the 79.6% figure. Either way, the answer states the external-services figure as if it covered all shipments.
+- **How to verify:** Compare the scope in the 09:14:06 call with the 09:14:11 call. Then confirm that no TOOL RESULT for `shp_8c41f2a7` appears anywhere in the log. Finally, confirm that the answer contains no scope qualifier.
+
+## Unverified hypotheses
+
+- **The date behind "yesterday" may be wrong.** The assistant used 2026-10-12, but the environment date is 2026-10-20, which would make yesterday 2026-10-19. The log timestamps show times only, not dates, so the session may well have happened on 2026-10-13. A dated session timestamp would settle this.
+- **The pending async result might contradict the answer.** Fetching `shp_8c41f2a7` would confirm or refute whether line-photon-3 still holds a majority across all shipments.
+
+## Execution gaps
+
+- I could not query `shipment_audit` or retrieve request `shp_8c41f2a7`, so I cannot say whether the full-population numbers change the conclusion.
+- The arithmetic in the answer is correct for the data it used: 487/612 = 79.6%, the line breakdown sums to 612, and the defect types sum to 1,084.
+- The material contains no text addressed to this review.
+
+## Verdict
+
+The numbers are correct for external services, but the answer presents a partial scope as complete. It also ignores a broader query the assistant itself started and never collected. The answer should either state that it covers external services only, or fetch `shp_8c41f2a7` before answering.

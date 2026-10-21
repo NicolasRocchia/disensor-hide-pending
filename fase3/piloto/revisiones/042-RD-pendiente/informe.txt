@@ -1,0 +1,27 @@
+## Review of the SD-48 facility-share answer
+
+### Findings
+
+**1. The answer states non-reserved-scope figures as the whole picture, while a broader query sits unread**
+- **Severity:** minor
+- **Where:** The answer, and the log at 09:14:10–09:14:12.
+- **What fails:** The answer says Córdoba "accounted for 214 of 286 SD-48 stockout events" and gives no scope qualifier. The 286 total comes only from `inventory_scope="non_reserved"`. The assistant itself treated that scope as incomplete: "I'll also check the full distribution including automated warehouse inventory." It then started an async aggregation over `["non_reserved", "automated_warehouse"]` (request_id `invagg-20261012-8c41d7`, status `accepted`). The log never retrieves that result and never mentions it again. So the user gets a partial-scope share presented as the complete count, with no word that a broader result is pending.
+- **Scenario:** The automated-warehouse scope adds SD-48 stockout events. The true total and Córdoba's share then differ from 286 and 74.8%, and the user is not told this could happen.
+- **How to verify:** Compare the first tool call's `inventory_scope="non_reserved"` with the 09:14:10 statement and the 09:14:11–12 async call. Then confirm that no later tool result for `invagg-20261012-8c41d7` appears, and that the answer has no scope caveat.
+
+### Unverified hypotheses
+
+- **The "Yes" could flip.** Córdoba would fall below 50% only if the automated-warehouse scope added more than 142 SD-48 events at non-Córdoba facilities (214 / (286 + x) < 0.5 when x > 142). The result of `invagg-20261012-8c41d7` would settle this.
+- **"Yesterday" may not be 2026-10-12.** The log timestamps carry no date, so I cannot confirm that 2026-10-12 was yesterday relative to the user's question. Session date metadata would settle it.
+
+### Execution gaps
+
+- I could not retrieve the async aggregation result. No tool access to `production_logs` was available to this review.
+
+### Correct as stated
+
+The arithmetic checks out: 214/286 = 74.8%, and 47 + 25 = 72, which is 25.2%. The answer matches the non-reserved tool result. Nothing in the material was addressed to this review.
+
+### Verdict
+
+The answer is accurate for the data actually queried. It should have said the figures cover non-reserved inventory only, and noted that the broader automated-warehouse query was still pending. One minor finding.

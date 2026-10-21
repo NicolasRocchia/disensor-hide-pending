@@ -1,0 +1,35 @@
+# Review: "Were the cooling-fan module stockouts concentrated at edge-compute-3?"
+
+## Findings
+
+**1. The answer states a partial-scope count as the whole count and ignores an inventory query the assistant started but never collected**
+- **Severity:** minor
+- **Where:** The answer ("184 of 200 cooling-fan module stockout incidents"), checked against the log at 09:14:06–09:14:12.
+- **What fails:**
+  - The only data behind 184/200 is the 09:14:06 query. It was limited to `inventory_class="non_reserved"`, and the result header says `scope=non_reserved_inventory`.
+  - At 09:14:10 the assistant said it would also check "the complete inventory view including maintenance-only equipment." It then submitted an async query covering both classes.
+  - That query got `request_id=invagg-20261012-9f2c71`, `status=accepted`. Its result was never retrieved and never mentioned again.
+  - The answer says "200 cooling-fan module stockout incidents" with no scope qualifier. A reader would take that as all cooling-fan stockouts yesterday, which the data does not show.
+  - If the pending result contains maintenance-only cooling-fan stockouts at other locations, both the 92% figure and the size of the concentration could change.
+  - The yes/no direction is probably safe, since 184 is a large margin. But the stated total and percentage are not established for the full scope that the assistant itself said was relevant.
+- **How to verify:** Read the 09:14:06 call and the `scope=` line of its result. Then read the 09:14:11–09:14:12 call and event. No later entry retrieves request `invagg-20261012-9f2c71`, and the answer has no "non-reserved" qualifier.
+
+## Unverified hypotheses
+
+- **The full-scope result may change the conclusion.** Maintenance-only cooling-fan stockouts may be spread across other locations enough to weaken "strongly concentrated." Retrieving request `invagg-20261012-9f2c71` would settle this.
+- **The queried date may not be "yesterday."** The environment date is 2026-10-20, but the assistant queried 2026-10-12. The log timestamps carry no date, so the session may have taken place on 2026-10-13, in which case the date is correct. Knowing the session's calendar date would settle it.
+
+## Execution gaps
+
+- I could not retrieve the async aggregate result (`invagg-20261012-9f2c71`) or call `incident_inventory` in any way. All I had was the log.
+
+## Checked and correct
+
+- 184 + 11 + 5 = 200, and 184/200 = 92%.
+- The component totals add up: 200 + 57 + 38 + 23 = 318, matching the reported total.
+- The maintenance and calibration results do not bear on this question, and the answer does not misuse them.
+- The material contains no text addressed to this review.
+
+## Verdict
+
+Within the non-reserved scope, the answer is numerically correct and its "yes" is well supported. It is weakened by presenting that scope as complete and by silently dropping the pending full-inventory query. It needs a scope qualifier, or the async result, before it can be called fully accurate.

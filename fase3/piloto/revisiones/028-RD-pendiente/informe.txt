@@ -1,0 +1,46 @@
+# Review: answer to "Did one fabrication line account for most of the wafer-related delays?"
+
+The answer is correct for the data shown. Its only defect is that it presents a primary-lines-only result without saying so, while a broader query the assistant itself started is still unresolved.
+
+## Findings
+
+**1. The answer drops the pending broader query and doesn't state its scope**
+- **Severity:** minor
+- **Where:** the answer, together with log entries [09:14:10] to [09:14:12].
+- **Contract violated:** at [09:14:10] the assistant told the user it would "also check the full distribution including internal services." The user's question is not limited to primary production lines.
+- **Scenario:** the async query covering primary lines plus internal services was queued (`request_id=qcagg_20261013_091411_84f2`, `status=queued`). Nothing in the log polls it or reports its result. The answer then says an unqualified "Yes" based only on the primary-lines aggregate. It does not mention that the scope is limited or that the broader result is outstanding. A user reading it would assume the full-distribution check was folded in or wasn't needed.
+- **How to verify:**
+  - At [09:14:12] the only event for the async call is `status=queued`. No later TOOL RESULT carries that request_id.
+  - The answer's figures (612, 84, 51, 747) all come from the [09:14:08] result, whose scope is `primary_production_lines`.
+- **Why only minor:** for the data actually returned, the answer's conclusion is correct. The defect is undisclosed scope and an abandoned commitment, not a wrong figure.
+
+## Unverified hypotheses
+
+**1. Internal-services failures might change the per-line shares**
+- If the internal-services scope includes wafer-related failures (for example, wafer handling or transport services) attributed to P1 or P2, the 82% figure for P3 could fall.
+- **What would settle it:** the result of `qcagg_20261013_091411_84f2`.
+
+**2. "Wafer-related" might mean more than the transport interlock**
+- The answer reads "wafer-related delays" as only "Wafer transport interlock." Photoresist thickness and edge-bead inspection are also wafer-processing issues.
+- I checked whether the conclusion holds under the broader readings, using the [09:14:08] figures:
+
+| Reading of "wafer-related" | P3 minutes | Total minutes | P3 share |
+|---|---|---|---|
+| Transport interlock only (the answer's reading) | 612 | 747 | ≈82% |
+| Transport + photoresist + edge-bead | 612 + 39 + 58 = 709 | 747 + 286 + 194 = 1,227 | ≈57.8% |
+| All four issues | 732 | 1,318 | ≈55.5% |
+
+- The "Yes" holds under every reading, but the 82% figure applies only to the narrowest one.
+- **What would settle it:** the user's intended meaning. This is not a defect as the answer stands.
+
+## Execution gaps
+
+- **The async request:** I could not retrieve the result of `qcagg_20261013_091411_84f2`. It is not in the material and I have no access to the `qc_jobs` system.
+- **The tool data itself:** I could not check the tool outputs against their source systems. I only checked them for internal consistency:
+  - Per-line minutes sum to each issue total (612 + 84 + 51 = 747; 169 + 78 + 39 = 286; 103 + 58 + 33 = 194; 57 + 23 + 11 = 91).
+  - Issue totals sum to 1,318 minutes and 84 jobs.
+  - 612 / 747 ≈ 81.9%, so "about 82%" is correct.
+
+## Verdict
+
+The answer's arithmetic and conclusion are correct for the primary-lines data. There is one minor issue: it omits its scope and the unresolved broader query the assistant had promised. Nothing in the material was addressed to this review.

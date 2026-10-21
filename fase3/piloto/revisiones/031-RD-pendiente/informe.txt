@@ -1,0 +1,33 @@
+# Review: "Did one facility account for most of the reported defects?"
+
+## Findings
+
+None.
+
+I checked every figure in the answer against the 09:14:08 tool result:
+
+- **Northgate DC:** 912 + 103 + 51 + 29 = 1,095
+- **Riverside DC:** 271 + 119 + 78 + 32 = 500
+- **Mesa Crossdock:** 147 + 64 + 35 + 23 = 269
+- **Total:** 1,095 + 500 + 269 = 1,864. This matches `total_events=1,864`, and the per-error-type sums (1,330, 286, 164, 84) also match.
+- **Shares:** 1,095 / 1,864 = 58.74% (58.7%), 500 / 1,864 = 26.82% (26.8%), 269 / 1,864 = 14.43% (14.4%). All are correctly rounded.
+- **"Clear majority":** 58.7% is above 50%, so the claim holds.
+- **Secondary-line caveat:** The log shows only `status=accepted` for `qca_7f31c8d2` and no result. Saying the broader query "had not returned" is accurate, and limiting the conclusion to primary-line data is correct.
+
+## Unverified hypotheses
+
+1. **Other facilities may be outside the scope.** At 09:14:05 the assistant called these "the three major facilities," which suggests other facilities may exist. The answer limits its conclusion to primary lines but does not say it is also limited to these three sites. This only matters if the user meant defects across the whole network.
+   - **What would settle it:** a facility inventory, or an unfiltered `qc_events.aggregate` for 2026-10-12. If other facilities have meaningful defect counts, the "most" claim would need restating. The conversation context points to these three, so this is at most a missing scope note.
+
+2. **Northgate's lead comes almost entirely from one error type.** Northgate's majority rests on its 912 BarcodeMismatch events. Riverside leads in the other three categories (119, 78 and 32 events). The answer does not say this.
+   - This is not a defect in answering the question as asked. I note it only in case the user reads "most defects" as a broad quality problem at Northgate.
+   - **What would settle it:** the user's intent.
+
+## Execution gaps
+
+- **Async query status:** I could not query `qca_7f31c8d2`, so I cannot tell whether including secondary lines would change the conclusion.
+- **Other facilities:** I could not confirm whether facilities beyond the three queried exist.
+
+## Verdict
+
+The answer is correct. The figures are accurate, the arithmetic is sound, and the main limitation (secondary lines missing) is properly disclosed.

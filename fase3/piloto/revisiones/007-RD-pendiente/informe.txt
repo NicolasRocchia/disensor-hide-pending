@@ -1,0 +1,29 @@
+## Review: answer to "Did most of the NodeUnavailable failures occur on gpu-cluster-a?"
+
+The arithmetic is correct: 2,071 / 2,486 ≈ 83.3%, matching the 09:14:08 tool result. Nothing in the material is addressed to this review.
+
+### Findings
+
+**1. The answer leaves out its scope and an unfinished query it started itself**
+- **Severity:** minor
+- **Where:** the answer, read against the log at 09:14:10–09:14:12
+- **What fails:** At 09:14:10 the assistant said it would "also check the distribution after including reserved compute capacity." It issued `job_failures.aggregate_async(... capacity_classes=["on_demand","reserved"] ...)`, which returned only `request_id=req-jf-8d31c6b2, status=accepted`. No result was ever fetched or reported. The answer then gives an unqualified "Yes" and drops two things:
+  - the data covers only `production / primary lines` (09:14:08 result header);
+  - the broader capacity view the assistant said it would check is still pending.
+- **Concrete scenario:** The user reads "Yes" as covering all NodeUnavailable failures. In fact it rests on one filtered query, and the assistant itself had flagged a wider view as worth checking. The 83% share makes a reversal unlikely, but the answer gives no reason to think it was checked.
+- **How to verify:** In the log, the 09:14:12 TOOL EVENT is the last mention of `req-jf-8d31c6b2`. The 09:14:08 header names the scope. The answer mentions neither.
+
+### Unverified hypotheses
+
+- **"Failures" may not equal "affected jobs."** The metric is `affected_jobs`, but the answer says "NodeUnavailable failures." If one node outage affects many jobs, the split by failure events could differ from the split by jobs. A failure-event count per cluster would settle it.
+- **"Yesterday" may be the wrong date.** The query used 2026-10-12. Today's environment date is 2026-10-20, but the log timestamps carry no date, so the session may have been on 2026-10-13. The session's actual date would settle it.
+- **The default capacity class is unknown.** The first query did not set `capacity_classes`. The tool's default (on-demand only, or all classes) would show whether reserved capacity was already included.
+
+### Execution gaps
+
+- I could not get the result of `req-jf-8d31c6b2`, because no such result appears in the material.
+- I had no access to the `job_failures` tool to re-run or extend the queries.
+
+### Verdict
+
+The core answer is numerically correct and supported by the 09:14:08 data. Its weakness is that it presents a scoped, partly unfinished analysis as an unconditional "Yes." This is a minor issue and is unlikely to change the conclusion.

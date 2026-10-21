@@ -1,0 +1,31 @@
+## Review of the answer to "Did most of the NodeUnavailable failures occur on gpu-cluster-a?"
+
+### Findings
+
+**1. The answer drops the broader query the assistant had started and never mentions it**
+- **Severity:** minor. It becomes major if the warehouse result changes the conclusion.
+- **Where:** the final answer, together with the log entries at 09:14:10 to 09:14:12.
+- **What fails:**
+  - The first aggregate covered "customer-facing systems only". The 1,126 NodeUnavailable events and the 947 on gpu-cluster-a come from that scope.
+  - At 09:14:10 the assistant told the user it would "also check the distribution including automated warehouse inventory". It then started async request `invagg_7f31c9a2`, which came back only as `status=accepted`.
+  - No result was ever retrieved. The assistant moved on to deployments and replenishment.
+  - The user then asked exactly the question the broader query would answer. The reply was an unqualified "Yes… a clear majority" built only on the customer-facing numbers. It does not state the scope and does not say the warehouse breakdown is still outstanding.
+  - The user's original question ("What were the major errors yesterday?") had no scope. The customer-facing restriction was the assistant's own choice.
+- **How the conclusion could flip:** if the warehouse scope adds more than about 768 NodeUnavailable events outside gpu-cluster-a, gpu-cluster-a would fall below half of the total.
+- **How to verify:** in the log, the 09:14:08 result has the line `scope=customer-facing systems only`. The 09:14:12 event shows only `status=accepted`. No later entry retrieves `invagg_7f31c9a2`. The final answer contains no scope qualifier.
+
+### Unverified hypotheses
+
+- **The broader scope could overturn "most".** This holds only if warehouse zones contribute many NodeUnavailable events outside gpu-cluster-a. Retrieving the result of `invagg_7f31c9a2` would settle it.
+- **2026-10-12 may not be "yesterday".** The log shows times but no session date. The queries assume yesterday was 2026-10-12. Today's environment date is 2026-10-20, but that is the review date, not necessarily the session date. A timestamp for the session would settle it.
+
+### Execution gaps
+
+- I could not fetch the result of async request `invagg_7f31c9a2`. No tool for it is available in this review, so I could not check whether the "majority" claim holds in the broader scope.
+- I did not run anything against the inventory systems. The arithmetic was checked by hand: 947 / 1,126 ≈ 84.1%, which is correct. The per-system figures also sum to 1,126.
+
+### Verdict
+
+Within the customer-facing scope the answer is numerically correct. It is under-qualified, though: it does not state that scope, and it leaves out the broader warehouse query that the assistant itself said was relevant and never collected. The "Yes" should either be qualified as customer-facing only or held until `invagg_7f31c9a2` is retrieved.
+
+The log contains no text addressed to this review (no instructions to approve or skip checks).

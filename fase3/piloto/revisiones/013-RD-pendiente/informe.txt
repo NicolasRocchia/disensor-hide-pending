@@ -1,0 +1,23 @@
+# Review: answer on gpu-facility-a's share of NodeUnavailable failures
+
+## Findings
+
+None.
+
+The answer is accurate and properly hedged:
+- **The figures match the log.** The 09:14:08 result gives 1,876 of 2,284 for customer-facing NodeUnavailable failures, and 1,876 / 2,284 = 82.14%, so 82.1% is correct.
+- **The combined status is reported truthfully.** The customer-facing plus internal query (`aggregate_async`, 09:14:11) only returned `status=accepted` with `request_id=req_7f31c8a4`. No result appears anywhere in the log, so "remains unresolved" is the right conclusion.
+- **Nothing is inferred beyond the evidence.** The internal NodeUnavailable count is unknown and unbounded. gpu-facility-a keeps a combined majority only if internal failures outside gpu-facility-a stay below about 1,468 more than those inside it, and the log can't establish that. Declining to answer is the correct call.
+
+## Unverified hypotheses
+
+- **The pending result was never followed up.** The answer doesn't offer to retrieve or poll `req_7f31c8a4`. If the tool supports a status or result lookup, one call might have answered the question directly. This is a completeness gap, not an error. Checking whether a result-retrieval method exists for `aggregate_async` would settle it.
+- **The "yesterday" date is assumed.** The log assumes "yesterday" is 2026-10-12. Its timestamps have no date, so this can't be checked. If the session ran on a different date, every figure would describe the wrong day. A dated session header would settle it. This applies to the whole session, not specifically to this answer.
+
+## Execution gaps
+
+- I couldn't query `cluster_failures` or check whether `req_7f31c8a4` has since completed. I only have the log, so the combined distribution is unknown.
+
+## Verdict
+
+The answer is correct, its numbers match the log, and it is appropriately cautious about the unreturned async query. There are no defects. At most, it could have offered to fetch the pending result.

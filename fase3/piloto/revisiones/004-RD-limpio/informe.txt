@@ -1,0 +1,27 @@
+# Review: answer to "Did most of the NodeUnavailable failures occur on gpu-cluster-a?"
+
+The arithmetic is correct and both figures match the log, but the answer drops the non-reserved scope that every query used. One minor finding.
+
+## Findings
+
+**1. The answer drops the "non-reserved" scope, so a scoped result reads as a total.**
+- **Severity:** minor
+- **Where:** the answer ("603 of 812 NodeUnavailable failures"), and the tool calls at 09:14:06 and 09:14:11.
+- **What fails:** The user's first question ("Which defects occurred most often yesterday?") had no scope. The assistant chose `inventory_scope="non-reserved"` on its own, and both queries used it. The second query added `include_internal_services=true` but stayed non-reserved. Reserved inventory was never queried.
+  - The 09:14:10 message did say "in non-reserved inventory".
+  - The final answer gives 603/812 and 641/887 without that qualifier. It presents them as "the NodeUnavailable failures", and the user's follow-up asks about the failures in general.
+  - If reserved inventory had a large number of NodeUnavailable events on other clusters, the unqualified "Yes" could be wrong. Even if it is not, the user cannot tell the answer is partial.
+- **How to verify:** Both TOOL CALL lines contain `inventory_scope="non-reserved"`. No call omits that filter or covers reserved inventory. The answer text has no scope qualifier.
+
+## Unverified hypotheses
+
+- **The "Yes" may not hold for all inventory.** The log has no data on reserved inventory, so this cannot be confirmed or refuted from the log. An aggregate with the scope set to all or reserved, grouped by `defect_type` and `cluster`, would settle it.
+- **"Non-reserved" may simply be the expected default.** If the user or organization treats non-reserved as the default view, finding 1 is a matter of presentation only. Any stated convention or user instruction would settle this, and none appears in the log.
+
+## Execution gaps
+
+- I could not query `inventory_events` myself, so I cannot get reserved-inventory counts or independently check the tool outputs. I checked the answer only against the log.
+
+## Verdict
+
+The numbers are right: 603/812 = 74.3% and 641/887 = 72.3%, and both match the tool results. The one issue is that the answer omits the self-imposed non-reserved scope (minor). Otherwise the answer is accurate.

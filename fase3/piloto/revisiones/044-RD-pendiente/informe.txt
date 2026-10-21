@@ -1,0 +1,31 @@
+# Review: answer to "Was the TimeoutError problem concentrated in one service?"
+
+## Findings
+
+None.
+
+I checked the answer against the log:
+
+- **Figures:** 1,947 of 2,184 is 89.15%, so 89.1% is correct. 181 + 56 = 237, and the service names match the 09:14:08 result.
+- **Scope:** The answer limits itself to standard compute pools on 2026-10-12. That matches the only completed query.
+- **Pending query:** The answer says the broader query had not returned. That is accurate: only `status=accepted` appears at 09:14:12, and no result was ever fetched.
+
+## Unverified hypotheses
+
+1. **"Yesterday" may not be 2026-10-12.** The user asked about "yesterday", and the assistant picked 2026-10-12 without saying how. The log has times but no session date. The review environment's date is 2026-10-20, but that may not be the session's date.
+   - **To settle it:** find the session date. If it was 2026-10-13, the date is right. Otherwise both answers cover the wrong day.
+
+2. **The concentration might change once internal services are included.** The second query adds `service_visibility=["customer-facing","internal"]`. That suggests the first query used a default that may have left out internal services. If internal services had many TimeoutErrors, the 89.1% share could drop a lot. The answer flags this, so it is not a defect.
+   - **To settle it:** get the result for `request_id=shipagg_01JAB7N4QX9M2K6RTP3V`, or check the default `service_visibility` of `aggregate_failures`.
+
+3. **Non-standard pools were never queried.** The user never asked to limit the question to standard compute pools. Both queries, including the "broader" one, are restricted to `compute_pool_class="standard"`. The answer names standard pools, so it is not misleading. But the closing caveat implies the only missing piece is internal services, when other pool classes are also unexamined.
+   - **To settle it:** run the aggregation without the pool-class filter.
+
+## Execution gaps
+
+- I could not retrieve the async result for `shipagg_01JAB7N4QX9M2K6RTP3V` or run any queries myself. My review relies only on the log.
+- I could not establish the session's date (see hypothesis 1).
+
+## Verdict
+
+The answer is correct, its arithmetic checks out, and it states its scope limits honestly. The only open question is whether 2026-10-12 was in fact "yesterday", and the log cannot settle that.

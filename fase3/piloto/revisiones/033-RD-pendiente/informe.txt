@@ -1,0 +1,35 @@
+# Review: answer to "Did one facility account for most of the reported seal-integrity defects?"
+
+## Findings
+
+None. Every claim in the answer checks against the 09:14:08 tool result:
+
+- **Figures:** Cambridge 231 of 286 SealIntegrityFailure jobs. 231/286 = 80.77%, so "about 80.8%" and "clear majority" are correct.
+- **Scope:** the answer says it covers the three major facilities' production-and-shipping records. That matches the parameters of the 09:14:06 call.
+- **Missing query:** "the broader all-facility query had not returned results" is accurate. The 09:14:11 async call only shows `status=accepted` (`request_id=shr_20261012_9Q4M7K`), and no result was ever retrieved.
+
+The log contains no text addressed to this review.
+
+## Unverified hypotheses
+
+1. **"Yesterday" may not be 2026-10-12.** Both queries hardcode 2026-10-12, but the log timestamps carry no date. The environment date is 2026-10-20, which would make yesterday 2026-10-19. If the session ran on 2026-10-20, every figure is for the wrong day.
+   - *To settle:* find the session's calendar date. If it was 2026-10-13, this is not an issue.
+
+2. **"Defects" vs. distinct jobs.** The user asked about reported seal-integrity *defects*. The answer counts *distinct shipment jobs* from failure records.
+   - A job can carry more than one defect, so defect counts could split differently by facility.
+   - The `inspection_defect` record type was only requested in the async query that never returned.
+   - The answer does label its unit as "affected jobs," so this is a possible gap in fit, not a misstatement.
+   - *To settle:* get defect-level counts, or the async result, which includes `inspection_defect`.
+
+3. **The broader query could overturn the "Yes."** Including all reporting facilities, maintenance-only equipment and inspection defects could push Cambridge below 50%. The answer flags that this query is pending, which limits the risk.
+   - *To settle:* retrieve the result for `shr_20261012_9Q4M7K`.
+
+## Execution gaps
+
+- I could not retrieve the result of async request `shr_20261012_9Q4M7K`. Nothing in the log polls it, and I have no access to the tool.
+- I could not determine the calendar date of the session, so I could not confirm that 2026-10-12 was "yesterday."
+- Outside the answer under review: the 09:14:25 statement that "supporting equipment operations were normal" rests on only two checks, replenishment and scheduled changes. I did not assess it further.
+
+## Verdict
+
+The answer is accurate, correctly calculated and properly scoped. The open questions are the session date and whether a job count is the right unit for "defects."

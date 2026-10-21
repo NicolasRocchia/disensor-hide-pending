@@ -1,0 +1,23 @@
+## Findings
+
+None. The answer's figures match the tool result at [09:14:12], which is the run with `inventory_scope=all` and `include_reserved_compute_capacity=true`:
+
+- North Campus Lab 131, Genomics Annex 33, South Campus Lab 19. These sum to 183, the CR-24 total.
+- 131/183 = 71.58% → 71.6%; 33/183 = 18.03% → 18.0%; 19/183 = 10.38% → 10.4%. All three are correct and add up to 100%.
+- The answer uses the reserved-inclusive run (183), not the non-reserved run (163/118), which is what the user asked about.
+- Both runs are internally consistent. The component totals sum to 340 and 301, matching the reported `stockout_events`.
+- Calling 71.6% at one of three facilities "concentrated" is a fair reading.
+
+## Unverified hypotheses
+
+1. **What "reserved compute capacity" means for lab equipment stock.** The assistant introduced this phrase at [09:14:10] without being asked, and the user then repeated it. A flag about *compute* capacity is semantically odd for physical parts like rotors and filters. It may be a misnamed flag for reserved physical stock, or it may mean something the user doesn't intend. The answer passes the term along without a caveat. This doesn't change the numbers, but it could mislead the user about what the 183 count covers. Tool or schema documentation for `include_reserved_compute_capacity` would settle it.
+2. **Whether 2026-10-12 is really "yesterday."** The log timestamps have no date, so I can't confirm the session ran on 2026-10-13. The returned window, 2026-10-12 00:00 to 2026-10-13 00:00 (−03:00), is consistent with that, but it isn't proven. A session date in the log would settle it.
+
+## Execution gaps
+
+- I could not query `inventory_logs` independently to confirm the counts. Verification is limited to internal consistency of the logged tool results.
+- The [09:14:11] call used `async=true` but came back `status=completed` with full results in about one second. I can't tell whether this is complete or partial data without the request history for `req_inv_7K4M2Q`.
+
+## Verdict
+
+The answer is correct and fully supported by the log. The only possible weakness is the unexplained "reserved compute capacity" term, listed above as unverified.

@@ -1,0 +1,33 @@
+# Review: "Did one facility account for most of the reported defects?"
+
+## Findings
+
+**1. The answer says "Yes" about defects but measures downtime minutes, and does not flag the switch**
+- **Severity:** minor
+- **Where:** the first sentence of the answer, which rests on the 09:14:08 tool result.
+- **What fails:** The user asked about "most of the reported defects." The only data in the log is downtime minutes by defect code and facility. There are no defect counts or occurrence numbers. The answer gives an unqualified "Yes" and then supports it with minutes. It never says it is using downtime as a stand-in for defects, or that defect counts were not available.
+- **Why it matters:** The "Yes" depends on how "defects" is read:
+  - **By downtime minutes:** Córdoba is a majority, at 57.3%.
+  - **By defect code:** Córdoba leads only 2 of 5 codes (VISION_ALIGNMENT_DRIFT and SAFETY_LIDAR_OCCLUSION). Rosario leads SERVO_OVERTEMP and OTHER, and Pilar leads GRIPPER_PRESSURE_LOW.
+  - **Without vision drift:** Córdoba has the least downtime of the three, at 392 minutes against Rosario's 546 and Pilar's 432.
+
+  The "majority" therefore comes almost entirely from one defect at one site. The answer does say Córdoba's result was "driven mainly by vision alignment drift." It does not say that Córdoba is not dominant on the other defects, and an unqualified "Yes" suggests a broader concentration than the data supports. The previous turn was about downtime, so the minutes reading is plausible. That is why this is minor and not major.
+- **How to verify:** Read the 09:14:08 result. It has only `*_min` values and no counts. Compare the per-facility leaders for each defect code, and subtract each facility's VISION_ALIGNMENT_DRIFT minutes from its total.
+
+## Unverified hypotheses
+
+- **The fleet-wide query may have finished before the answer was given.** The answer says the complete-fleet query "was still pending." The log only shows `status=accepted` at 09:14:12, and nothing after it checks request `tel-20261013-7Q4M2`. The caveat is consistent with the log. However, the assistant never polled the request, so "still pending" was assumed rather than observed. Checking the request status at the time of the answer would settle this.
+- **The earlier "everything normal" claims are narrower than stated.** These are in the 09:14:20 and 09:14:25 turns, not the answer under review:
+  - The maintenance query filtered to `severity=["high","critical"]`, so "no … unplanned events" covers only those severities.
+  - Neither the maintenance check nor the deployment check actually tested whether events overlapped the downtime windows, which is what 09:14:15 said it would do.
+
+  These claims do not affect the final answer. Rerunning the maintenance query without the severity filter would show whether lower-severity unplanned events happened, for example at Córdoba.
+
+## Execution gaps
+
+- I checked the arithmetic by hand from the log. Córdoba is 1238+188+85+91+28 = 1630, Rosario is 710, and Pilar is 506. These sum to 2846, and the percentages 57.3%, 24.9% and 17.8% are correct.
+- I could not see the result of the async fleet-wide query, so I cannot tell whether Córdoba's majority holds across all assets. The answer limits its conclusion to the primary lines, which is appropriate.
+
+## Verdict
+
+The numbers are correct and the scope caveat is appropriate. The one issue is minor: the answer gives an unqualified "Yes" by treating downtime minutes as defects, and it does not note that Córdoba's majority comes from a single defect code.

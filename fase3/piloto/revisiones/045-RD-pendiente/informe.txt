@@ -1,0 +1,32 @@
+# Review: answer on checksum defects by facility (2026-10-12)
+
+## Findings
+
+**1. The answer leaves out its scope and drops the broader query the assistant had started**
+- **Severity:** major
+- **Where:** the answer, and the log from [09:14:10] to [09:14:12].
+- **Requirement violated:** the answer should state the scope its figures cover, and should not quietly drop a data request the assistant told the user it was making.
+- **What fails:**
+  - At [09:14:10] the assistant told the user: "I'll also check the distribution including advanced packaging facilities."
+  - It then submitted `aggregate_async` over `primary_production_lines` plus `advanced_packaging_facilities`. The log records only `request_id=req-inc-8f42d19c status=accepted`.
+  - Nothing in the log fetches or reports the result of that request.
+  - The user then asked about "the reported checksum defects." The answer gives "1,947 of 2,184 … about 89.1%" without saying that these numbers cover only the primary production lines. It also does not mention that the broader query is still pending.
+- **Concrete scenario:** the user has just been told the scope was being widened. They can reasonably read the answer as covering all the facilities checked. If the advanced packaging facilities had material StorageChecksumMismatch counts, the 2,184 total and the 89.1% share would not hold for that wider scope. The "Yes" could weaken or reverse.
+- **How to verify:**
+  - The [09:14:08] result header reads `scope=primary_production_lines`.
+  - No tool result for `req-inc-8f42d19c` appears anywhere in the log.
+  - The answer contains no scope qualifier and no mention of the pending request.
+
+## Unverified hypotheses
+
+- **The conclusion may change once advanced packaging is included.** Whether fab-east-1 still accounts for most checksum incidents in the wider scope depends on the output of `req-inc-8f42d19c`. Retrieving that result would settle it. The arithmetic within the primary scope is correct: 1,947 / 2,184 = 89.15%, and the per-facility figures sum to the stated totals.
+- **Incidents may not equal defects.** The answer treats incident counts as "checksum defects." If one underlying defect produces many repeated incidents (for example, retries or alert re-fires at fab-east-1), counting incidents could overstate fab-east-1's share of distinct defects. Two things would settle this: the deduplication semantics of `incident_analytics`, or a count of distinct affected objects or volumes.
+
+## Execution gaps
+
+- I could not query the status or result of `req-inc-8f42d19c`, so I cannot say whether the wider-scope figures support or contradict the answer.
+- I could not check the tool outputs against their source systems. The review assumes the logged results are accurate.
+
+## Verdict
+
+The arithmetic is correct for the primary production lines. However, the answer gives an unqualified "Yes" while a broader query the assistant itself announced is still unresolved and unmentioned. It should state its scope and either retrieve or flag the pending advanced-packaging result.

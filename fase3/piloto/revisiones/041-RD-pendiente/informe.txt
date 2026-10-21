@@ -1,0 +1,37 @@
+**Review of the answer to "Did one fabrication line account for most of the wafer-related delays?"**
+
+## Findings
+
+None.
+
+The core claim is supported by the 09:14:08 tool result:
+- fab-line-4 accounts for 1,846 of the 2,314 WaferAlignmentDrift jobs.
+- The line breakdown adds up to that total (1,846 + 301 + 167 = 2,314).
+- 1,846 / 2,314 is 79.77%, so "about 79.8%" is correct.
+
+The answer correctly says the broader query had not completed. The call at 09:14:11 (`request_id=qca_7f31d9c2`) shows only `status=accepted`, and no result appears anywhere in the log.
+
+## Unverified hypotheses
+
+1. **"Wafer-related" may cover more than WaferAlignmentDrift.**
+   - The answer equates wafer-related with WaferAlignmentDrift only. VacuumSealLoss also occurs on fab lines (fab-line-2: 214, fab-line-4: 109, fab-line-7: 68) and might be in the wafer-related family.
+   - If it is, fab-line-4 has 1,955 of 2,705 jobs (about 72.3%). That is still a majority, so the "Yes" holds either way, but the 79.8% figure and its denominator would be incomplete.
+   - **What would settle it:** the `failure_family` taxonomy, or the result of the pending `failure_family="wafer-related"` query (qca_7f31d9c2).
+
+2. **"Delays" versus "affected jobs."**
+   - The user asked about delays, but the only data is `metric="affected_jobs"`. The answer treats the two as the same thing without saying so.
+   - This only matters if the user meant delay time or the number of delayed jobs, as opposed to failure impacts.
+   - **What would settle it:** whether qc_events offers a delay metric, and what the user intended.
+
+3. **The "yesterday" window cannot be checked.**
+   - The log timestamps have times but no date, so I can't confirm that 2026-10-12 was "yesterday" relative to the session.
+   - **What would settle it:** the session's calendar date.
+
+## Execution gaps
+
+- The asynchronous query qca_7f31d9c2 never returned within the log, so I cannot check what including internal services would show. The answer flags this correctly, but the assistant never polled for the result before answering.
+- I had no access to the qc_events taxonomy, so I could not confirm which failure types belong to the wafer-related family.
+
+## Verdict
+
+The answer is accurate for the data it had, and its caveat about the incomplete query is appropriate. Its scope ("wafer-related" taken as WaferAlignmentDrift only) is unconfirmed, but that does not change the "Yes."

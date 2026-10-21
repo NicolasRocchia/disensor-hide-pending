@@ -1,0 +1,29 @@
+# Review: GPU ECC facility concentration answer
+
+## Findings
+
+None.
+
+## Unverified hypotheses
+
+1. **The fleet-wide distribution could change the conclusion.**
+   - The second `aggregate_failures` call (`request_id=agg-20261013-091411-r8k42`) returned only `status=accepted` and no data.
+   - If regional or private sites had a large number of GPU_ECC_UNCORRECTABLE jobs, ashburn-core's fleet-wide share could drop. The share falls below 50% only if other sites add more than about 1,758 GPU ECC jobs.
+   - The answer already limits its claim to the three major facilities, so this is a risk to anyone generalizing the answer, not a defect in it.
+   - **What would settle it:** the result of that request.
+
+2. **The answer calls the query "still pending" without confirming it.**
+   - The log shows `status=accepted` and no later poll or result. "Pending" is a reasonable reading, but nothing in the log rules out a later completion or failure that the assistant never checked.
+   - **What would settle it:** a status lookup for `agg-20261013-091411-r8k42`.
+
+## Execution gaps
+
+- I did not re-run any tool calls. I checked the numbers only by arithmetic on the log:
+  - 2,087 / 2,416 = 86.38%, which rounds to 86.4%.
+  - The facility counts sum to the total: 2,087 + 214 + 115 = 2,416.
+  - The failure-type totals sum to the distinct total: 2,416 + 1,173 + 846 + 547 = 4,982. This matches `distinct_failed_jobs`, so no job is counted under more than one failure type.
+- I could not verify the fleet-wide data because the log contains none.
+
+## Verdict
+
+**Accept.** The figure and percentage are correct, the date matches the queried window, and the answer limits its claim to the three facilities and says why.

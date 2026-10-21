@@ -1,0 +1,35 @@
+**Review of the answer to "Were the 48V fan-module stockouts concentrated in one facility?"**
+
+The arithmetic in the answer is correct for the data it used: 349 + 54 + 35 = 438, and 79.7%, 12.3% and 8.0% are right. The problem is the scope of that data, which the answer doesn't state.
+
+## Findings
+
+**1. The answer gives an unqualified "Yes" from a filtered query, while the assistant's own complete-view query was never collected.**
+- **Severity:** major
+- **Where:** the answer, and log entries 09:14:06, 09:14:10, 09:14:11 and 09:14:12.
+- **What fails:**
+  - The only per-facility numbers come from a query filtered to `inventory_class="non_reserved"` and `automated_warehouse=false`. The user never asked for either filter.
+  - At 09:14:10 the assistant said it would "also check the complete inventory view including automated warehouse inventory." It started that query asynchronously, and the request was accepted (`request_id=stkagg-20261013-091411-a73f`).
+  - No result was ever fetched, and the assistant never mentioned the query again.
+  - The answer then says "Yes" with no mention of the filters or the pending query.
+- **Concrete scenario:** suppose COR-2 or ROS-1 run automated warehouses with fan-module stockouts. The full counts could then be far less concentrated at EZE-1 than 79.7%. The user would act on a conclusion drawn from a subset without knowing it.
+- **How to verify:**
+  - Compare the parameters at 09:14:06 with those at 09:14:11.
+  - Note that 09:14:12 only shows `status=accepted`.
+  - Confirm that no later tool call retrieves that request ID, and that the answer contains no caveat.
+
+## Unverified hypotheses
+
+- **The complete view may change the answer.** Including automated-warehouse inventory (and possibly reserved inventory) might materially change the facility split. Retrieving the result of `stkagg-20261013-091411-a73f` would settle this.
+- **Raw counts may overstate the concentration.** If EZE-1 is much larger than the other sites (more SKUs, more stock checks or more throughput), its share of raw events could partly reflect scale rather than a site-specific problem. Per-facility fan-module demand or inventory volume would settle this. This is a framing risk, not a demonstrated error.
+
+## Execution gaps
+
+- I could not retrieve the async aggregate result. The log contains no output for that request, and I did not call any tools.
+- I could not independently confirm the telemetry figures. I checked only that they are internally consistent: the component totals add up to the reported 1,026, and the facility splits add up to each component total.
+
+No text in the material was addressed to this review. Nothing tried to direct the review's outcome.
+
+## Verdict
+
+The numbers are correct within their scope, but the conclusion is stated more strongly than the evidence supports. The answer should name the scope it used (non-reserved, non-automated inventory) and either collect the pending complete-view result or say that it is still outstanding.

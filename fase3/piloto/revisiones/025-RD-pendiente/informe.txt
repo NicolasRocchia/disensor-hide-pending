@@ -1,0 +1,35 @@
+# Review: answer on whether servo-motor stockouts were concentrated in one production cell
+
+The figures are correct. 139 + 18 + 11 = 168, and 139/168 = 82.7%, which matches the 09:14:08 tool result. The answer does have a scope and completeness problem.
+
+## Findings
+
+**1. The answer omits its scope and silently drops the "complete distribution" check it had announced, which never returned.**
+- **Severity:** minor
+- **Where:** the answer, together with log entries 09:14:10–09:14:12.
+- **What fails:**
+  - At 09:14:10 the assistant said it would "check the complete cell distribution including automated warehouse inventory events." That implies the primary-lines figures alone might not be the full picture.
+  - It issued that query at 09:14:11.
+  - The only response was `status=accepted` with `request_id=qca-20261013-091411-84d2` (09:14:12). No result appears anywhere afterward.
+  - The final answer gives the primary-lines figures as the answer for "October 12, 2026." It does not say "primary production lines," and it does not mention that the broader query is still pending.
+- **Concrete scenario:** if the warehouse-inventory events carry a large number of servo-motor stockouts attributed to other cells, the concentration claim, or at least the 82.7% share, could change. The user would have no indication that this was left unchecked.
+- **Verify:** read 09:14:10 to 09:14:12 and confirm that no TOOL RESULT for `qca-20261013-091411-84d2` follows. Then compare the scope in the answer (none stated) with the scope in the 09:14:08 result (`scope=primary_production_lines`).
+
+## Unverified hypotheses
+
+- **"Stockout" may be an inventory signal miscategorized as a QC defect.**
+  - The data has some tension: 168 servo-motor stockouts on a day when all 42 replenishment runs completed with zero exceptions (09:14:17).
+  - That could mean the stockouts are attribution or logging artifacts, for example a single cell-p7 feeder issue, rather than real shortages.
+  - **What would settle it:**
+    - the result of the pending expanded query, broken down by `event_source`;
+    - the cell-p7 events over time, to see whether they cluster in a short window or repeat from one source.
+- **The pending query's result may change the concentration conclusion.**
+  - **What would settle it:** retrieving the result for `qca-20261013-091411-84d2`.
+
+## Execution gaps
+
+- I could not retrieve the result of the asynchronous request `qca-20261013-091411-84d2`. Only the log was available, and I did not run any tools. So I cannot say whether including warehouse inventory events changes the answer.
+
+## Verdict
+
+The numbers are accurate and supported for the primary production lines. The answer should say what its scope is and disclose that the broader warehouse-inclusive check is still pending. One minor finding.

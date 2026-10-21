@@ -1,0 +1,28 @@
+## Findings
+
+**1. The answer switches to the combined scope without saying so, and conflicts with the earlier figure**
+- **Severity:** minor
+- **Where:** the answer's denominator (2,364), compared with the assistant's message at [09:14:10].
+- **What fails:** An answer should say what scope its figures cover and stay consistent with what the user was already told. At [09:14:10] the assistant reported "1,947 of 2,184" for the **primary production lines**. That is the only scope the user has seen stated for TimeoutError. The answer now gives "1,947 of 2,364," which is the **primary + automated warehouse inventory** scope from the second call. It never mentions that the scope changed. A user comparing the two messages sees two different totals for the same failure type, with no explanation. The share also changes:
+  - primary only: 1,947 / 2,184 ≈ **89.1%**
+  - combined: **82.4%**
+
+  Neither the user's original question nor this follow-up asked for warehouse data. The "yes, concentrated" conclusion holds under both scopes, so the harm is confusion and an unlabeled number, not a wrong conclusion.
+- **How to verify:** Compare [09:14:10] ("1,947 of 2,184 tied to the vision-inspection service") with the [09:14:12] result header ("scope: primary production lines + automated warehouse inventory"; TimeoutError: 2,364). The answer states no scope.
+
+## Unverified hypotheses
+
+- **"Yesterday" may not be 2026-10-12.** The environment date is 2026-10-20. The log timestamps carry times but no dates, so I can't tell whether the session ran on 2026-10-13. If it ran on another day, every query covers the wrong day. A dated session timestamp would settle this.
+- **The async call may have returned partial data.** The second aggregation used `execution="async"` but returned results within one second, with no completion or status marker. Its figures do add up (TimeoutError components sum to 2,364; grand total 3,623), so nothing points to partial data. Confirming the job's final status would settle it.
+
+## Execution gaps
+
+- I could not query the telemetry, maintenance or deployment tools myself. All figures were checked only for internal consistency against the log:
+  - 1,947/2,364 = 82.36% → 82.4% ✓
+  - 181/2,364 = 7.66% → 7.7% ✓
+  - component sums ✓
+- No instructions addressed to this review appear in the material.
+
+## Verdict
+
+The arithmetic and the conclusion are correct. The one minor issue is that the answer quietly changes to the combined scope and does not label it, which makes it look inconsistent with the primary-lines figure given earlier. It should name the scope, or give both shares (89.1% primary-only, 82.4% combined).

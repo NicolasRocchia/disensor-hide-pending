@@ -1,0 +1,29 @@
+# Review: servo-motor concentration answer
+
+**Findings**
+
+**1. The answer states concentration without its scope, while a wider query it launched was never collected**
+- **Severity:** major
+- **Where:** the answer, together with the log at 09:14:10 through 09:14:12.
+- **What fails:** All the figures (873, 164 and 87 out of 1,124) come from the 09:14:06 query, which covered only the three major facilities. At 09:14:10 the assistant said it would "also check the same failures across regional sites and private pilot infrastructure." It then started `aggregate_async` with `facility_scope="all"`, `include_regional=true` and `include_private_infrastructure=true`, which returned `request_id=invagg-20261013-091411-7f42` with status `accepted`. No result for that request appears anywhere in the log.
+- **Why it matters:** The user asked about "the servo-motor stockouts" with no scope limit. The answer says "Yes … strongly concentrated in C-7" and never mentions:
+  - that the share covers only the three major facilities;
+  - that the network-wide query is still pending.
+
+  The word "reported" is the only hedge, and it does not say what was left out. The assistant itself treated the wider scope as relevant. If regional or private sites had a large number of servo-motor failures, C-7's share of the total would be lower, possibly well below 77.7%.
+- **How to verify:** Compare the scope line of the 09:14:08 result ("3 major facilities") with the parameters of the 09:14:11 call. Then confirm that no later entry reports the result of request `invagg-20261013-091411-7f42`.
+
+**Unverified hypotheses**
+- **C-7 may not be the network-wide concentration point.** Retrieving the result of `invagg-20261013-091411-7f42` would settle this.
+- **"Unavailable" may not mean "stockout."** The user says "stockouts," but the failure type is `ServoMotorUnavailable`, and the answer treats the two as the same. "Unavailable" could also cover allocation holds, quality quarantine or similar causes. A definition of the event type would settle it. I am not treating this as a finding.
+
+**Execution gaps**
+- I could not retrieve or inspect the pending async aggregation, so I cannot confirm network-wide totals.
+- I had no access to the `inventory_events` schema or to definitions of the failure types.
+
+**Checked and correct**
+- The percentages are right: 873/1,124 = 77.7%, 164/1,124 = 14.6%, and 87/1,124 = 7.7%.
+- The per-cell figures add up to the reported totals, including the overall 1,846.
+- The log contains no text addressed to this review.
+
+**Verdict:** The arithmetic is correct for the three major facilities. However, the answer presents an unqualified "Yes" while omitting that scope and silently dropping the network-wide check the assistant had itself started. It should be revised to state the scope, or completed once the async result is retrieved.

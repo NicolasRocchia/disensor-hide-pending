@@ -1,0 +1,38 @@
+# Review: servo-motor stockout concentration answer
+
+The arithmetic in the answer is correct: 74 of 96 is 77.1%, and 15 + 7 = 22, which matches the 09:14:08 result. The problems are about scope and the status claims made earlier in the session.
+
+## Findings
+
+**1. The answer drops the inventory scope and ignores a broader query that was still pending**
+- **Severity:** minor
+- **Where:** the final answer, together with log entries 09:14:10, 09:14:11 and 09:14:12.
+- **What fails:** The user asked about "servo-motor stockouts" with no scope limit.
+  - All of the figures come from the `inventory_class="non_reserved"` aggregation.
+  - At 09:14:10 the assistant decided the maintenance-only view was relevant and started `aggregate_async` with `["non_reserved", "maintenance_only"]`.
+  - That request was only `accepted` (request_id `invagg-20261013-091411-b84d2`). No result was ever retrieved, and the assistant never mentioned it again.
+  - The answer still says "Yes" without qualification and leaves out the "non-reserved" label it had used earlier.
+- **Concrete scenario:** Maintenance-only servo-motor stockouts could fall mostly in other cells. In that case the 77% share, and possibly the "Yes", would not hold for servo-motor stockouts overall. The user would never know a broader view existed.
+- **How to verify:** In the log, the 09:14:12 event has status `accepted` and is never followed by a result. The answer contains no scope qualifier.
+
+**2. Status claims at 09:14:25 go beyond what the evidence supports**
+- **Severity:** minor
+- **Where:** the assistant message at 09:14:25, an earlier turn in the log.
+- **What fails:**
+  - **"No active critical alerts":** the alert query covered a window that ended at 2026-10-12T23:59:59. It does not describe the current state at 09:14 on 10-13.
+  - **"Fleet is operating normally":** this rests only on calibration status for fleet `production-lab`. Nothing shows that this fleet is "the affected equipment fleet". Calibration also says nothing about the 184 stockout events.
+- **How to verify:** Compare the `start` and `end` parameters at 09:14:16 and the `fleet` parameter at 09:14:21 against the wording at 09:14:25.
+
+## Unverified hypotheses
+
+- **Whether the concentration conclusion changes with maintenance-only inventory included.** Retrieving the result of `invagg-20261013-091411-b84d2` would settle this. If it shows cell-culture-2 still dominant, Finding 1 reduces to a missing qualifier only.
+- **Whether `production-lab` covers the production cells named in the stockout data** (cell-culture-2, assay-prep-1, and so on). Fleet membership data would settle this.
+
+## Execution gaps
+
+- I could not retrieve the async aggregation result. I have no tool access to `inventory_failures`, so the broader distribution could not be checked.
+- I did not run any commands. This review is based only on the log.
+
+## Verdict
+
+The answer is numerically correct for non-reserved inventory. However, it presents a scoped result as an unqualified "Yes" while a broader query the assistant itself started was left unretrieved. It should either state the non-reserved scope or retrieve that pending result before answering.

@@ -1,0 +1,34 @@
+## Findings
+
+**1. The answer states an unqualified "Yes" from primary-line data while the broader query it started was never collected**
+
+- **Severity:** major
+- **Where:** The answer, and the log at 09:14:10–09:14:12.
+- **Requirement violated:** At 09:14:10 the assistant committed to checking "the complete footprint, including regional or private infrastructure." An answer built on partial data should either include that result or say clearly that its scope is limited.
+- **What fails:**
+  - The assistant started an async query (`request_id=nqc_7F3A91C2`, `status=accepted`). It covered servo-link packet loss across all production networks, grouped by `production_cell`, `infrastructure_class` and `region`. That is exactly the breakdown the user's follow-up asks about.
+  - The log never shows the result being retrieved or mentioned again.
+  - The answer uses only the "primary production lines only" figures (34/41 events, 241/284 minutes). It does not say they cover primary lines only, and it does not mention the pending request.
+- **Concrete scenario:** Suppose the regional or private infrastructure logged servo-link packet loss in other cells, or in cell-bravo or cell-charlie. Cell-alpha's share could then drop sharply, and "concentrated in one cell" could become false. The user has no way of knowing the "Yes" might be incomplete.
+- **How to verify:**
+  - The 09:14:11 call uses scope "all production networks, including regional or private infrastructure."
+  - The 09:14:12 event shows only `accepted`, and no later `TOOL RESULT` exists for `nqc_7F3A91C2`.
+  - The 09:14:08 result header reads `scope: primary production lines only`, and the answer has no scope qualifier.
+
+## Unverified hypotheses
+
+- **"Yesterday" may not be 2026-10-12.** All queries use `date=2026-10-12`. That is correct only if the session happened on 2026-10-13. The log has times but no date. My own environment date is 2026-10-20, but that is not evidence of when the log ran. A session date in the log would settle this.
+- **The maintenance conclusion at 09:14:20 relies only on the `impact` labels.** The packet-loss events have no timestamps, so actual time overlap was never checked. The labels ("no production impact", "no packet loss") make this reasonable, so I am not calling it a defect. Event timestamps from the servo-link data would confirm or refute it.
+
+## Execution gaps
+
+- I could not retrieve or inspect the result of `nqc_7F3A91C2`, so I cannot say whether the full-scope data changes the conclusion.
+- I had no access to `network_qc`, `network_ops` or `change_control` to re-check any figures.
+
+**Checks that passed:**
+- Arithmetic: 34/41 ≈ 83%, 241/284 ≈ 85%, and 284 − 241 = 43 = 31 + 12.
+- The material contains no text addressed to this review.
+
+## Verdict
+
+For primary lines, the answer's figures are correct. However, it presents them as a complete answer, without a scope qualifier, while the assistant's own broader query for this exact question is still unresolved. It should either say the figures cover primary lines only or include the `nqc_7F3A91C2` result.

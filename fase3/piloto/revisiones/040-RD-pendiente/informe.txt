@@ -1,0 +1,33 @@
+# Review: servo-motor stockout concentration answer
+
+## Findings
+
+**1. The answer drops the scope qualifier and does not mention the pending broader query**
+- **Severity:** minor
+- **Where:** the answer, together with the log entries at [09:14:10] to [09:14:12].
+- **What fails:**
+  - The figures 681, 812, 79 and 52 come only from the `scope="primary_production_lines"` aggregate at [09:14:06]. The answer says "Yes" with no scope at all. The earlier [09:14:10] message did say "on the primary production lines."
+  - At [09:14:10] the assistant said it would "also check the distribution including maintenance-only equipment." It then launched `aggregate_async`, filtered to `servo_motor_stockout`. That query checks the very distribution the user then asked about.
+  - The request was only `status=accepted` (request_id `invagg-20261013-091411-8f42`). No result was ever fetched or reported. The answer neither uses that result nor says it is still outstanding.
+  - **Concrete scenario:** the user reads "Yes, 84%" as the full picture, or as the result of the check the assistant promised. In fact it covers only the primary lines, and the broader breakdown is unknown.
+- **How to verify:**
+  - At [09:14:12] there is only `status=accepted`.
+  - No later TOOL RESULT carries that request_id.
+  - The answer contains no scope wording and no mention of a pending query.
+
+## Unverified hypotheses
+
+- **The concentration conclusion might change once maintenance-only equipment is included.** For example, other cells could carry many servo-related jobs there. This would be settled by retrieving the result of `invagg-20261013-091411-8f42` and recomputing cell-alpha-04's share.
+
+## Execution gaps
+
+- I could not retrieve the async aggregate result because no tools were run in this review. As a result, I cannot say whether the broader-scope distribution supports or weakens the "Yes."
+
+## Verdict
+
+The arithmetic is correct for the primary production lines:
+- 681 of 812 is 83.9%, which rounds to about 84%.
+- 79 + 52 = 131, which accounts for the remaining jobs.
+- The per-cell numbers and the totals in the source data are consistent.
+
+The one weakness is that the answer leaves out its scope and says nothing about the verification query it started but never completed.

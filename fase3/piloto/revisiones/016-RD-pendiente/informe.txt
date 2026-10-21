@@ -1,0 +1,37 @@
+# Review: the gpu-cluster-a / NodeUnavailable answer
+
+The arithmetic is correct: 1,864 / 2,151 ≈ 86.66%, which rounds to 86.7%. The cluster breakdown (1,864 + 214 + 73) sums exactly to 2,151. The material contains no text aimed at this review.
+
+## Findings
+
+**1. The answer states a scoped result as a general "Yes" while the query meant to widen the scope is still pending**
+- **Severity:** minor
+- **Where:** the answer, together with log entries 09:14:06, 09:14:10 and 09:14:11–12.
+- **Requirement:** a conclusion should not claim more than the evidence supports. The assistant itself treated the primary-line slice as possibly incomplete and launched a check on that.
+- **What fails:**
+  - The user's original question had no scope.
+  - The assistant chose to restrict the first query to `inventory_class="non-reserved"` and `production_line="primary"`.
+  - At 09:14:10 it said it would "also check the same inventory including secondary production lines". It started an async query for that (`request_id=qce_7f31b9d4`, `status=accepted`).
+  - The log never retrieves that result.
+  - The answer then says "Yes … a clear majority" with no scope qualifier at all, even though the 09:14:10 message had mentioned the slice.
+  - Reserved inventory was never queried.
+- **Scenario:** if the secondary lines or reserved inventory contain substantial NodeUnavailable impact on other clusters, the answer to the user's actual question could differ. The answer gives no sign that this is still open.
+- **Severity reasoning:** the scope was disclosed one turn earlier, and the majority in the slice is large, so I rated this minor rather than major.
+- **How to verify:** read 09:14:11–09:14:12, where the request is accepted. Note that no later TOOL RESULT for `qce_7f31b9d4` appears. Then compare that with the unqualified "Yes" in the answer.
+
+## Unverified hypotheses
+
+- **Wider scope might reverse the majority.** Whether including secondary lines or reserved inventory changes the gpu-cluster-a majority is unknown. The result of `qce_7f31b9d4`, plus a query without the `inventory_class` filter, would settle it.
+- **"Failures" versus "affected jobs".**
+  - The user asked about "NodeUnavailable failures". The data counts `distinct_jobs_affected`.
+  - The answer correctly says "affected jobs". However, the share of failure *events* on gpu-cluster-a could differ from its share of affected jobs.
+  - An event-count aggregation grouped by cluster would settle this.
+- **The health check does not cover yesterday.** It was taken at `2026-10-13T09:14:16`, so it describes the current state, not ingestion during yesterday's window. The earlier claim that "the monitoring pipeline is healthy" therefore does not show that yesterday's data is complete. This is not part of the answer under review. Health or ingestion metrics for 2026-10-12 would settle it.
+
+## Execution gaps
+
+- I could not retrieve the result of async request `qce_7f31b9d4`, and I could not run any `qc_events` queries. I have no tool access to that system. Everything above is based on reading the log only.
+
+## Verdict
+
+The answer is correct for the primary-line, non-reserved slice. It overstates certainty by dropping that scope and ignoring a broadening query the assistant had itself started and never collected. That is one minor finding.

@@ -1,0 +1,33 @@
+# Review: "Did one facility account for most of the reported ReservationTagMismatch errors?"
+
+## Findings
+
+**1. The answer drops the standard-pool scope and does not mention the pending reserved-pool query**
+- **Severity:** minor
+- **Where:** the final answer, together with the async call at 09:14:11 and its acceptance at 09:14:12.
+- **What fails:** The figure of 781 of 914 covers **standard compute pools only**. The tool result says so (`scope=standard compute pools only`), and the assistant's own 09:14:10 message also says "in the standard pools." The answer states "781 of 914 ReservationTagMismatch errors" with no qualifier.
+- **The scenario:** The assistant promised to "also check the distribution including reserved compute capacity." That query (`invagg_7f3c91b2`) was only accepted, and its result was never fetched or reported. A user reading the answer would reasonably assume the reserved-pool check folded into it. If reserved pools had a large ReservationTagMismatch count spread across other facilities, Northbridge's share across all compute could be much lower than 85%.
+- **Mitigating factor:** The user asked about the *reported* errors, which were the standard-pool ones. So the "Yes" answers the question as asked. The defect is the missing scope and the silently abandoned commitment, not the arithmetic.
+- **How to verify:**
+  - At 09:14:12, the only response to the async call is `status=accepted`.
+  - No later call retrieves `invagg_7f3c91b2`.
+  - The answer contains no "standard pools" qualifier.
+
+## Unverified hypotheses
+
+- **The reserved-pool data might change the conclusion.** Whether Northbridge still accounts for most ReservationTagMismatch errors once reserved pools are included is unknown. Fetching the result of `invagg_7f3c91b2` would settle it.
+
+## Execution gaps
+
+- I could not retrieve the async aggregate result. Only the log was available.
+
+## Checks that passed
+
+- 781 / 914 = 0.8545, so "about 85.4%" is acceptable rounding, and it is a majority.
+- The facility rows sum to each error type's total (781 + 89 + 44 = 914, and so on).
+- The error-type totals sum to 1,486, so `limit=5` did not truncate the ReservationTagMismatch breakdown.
+- No text in the material is addressed to this review.
+
+## Verdict
+
+The answer is correct for the reported standard-pool data. Its one weakness is minor: it omits the scope qualifier and leaves the promised reserved-pool check unresolved and unmentioned.

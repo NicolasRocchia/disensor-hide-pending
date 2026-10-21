@@ -1,0 +1,34 @@
+# Review: answer on NodeUnavailable concentration on gpu-cluster-a
+
+## Findings
+
+**1. The answer presents standard-pool counts as the full NodeUnavailable total, while the full-scope query was never collected**
+- **Severity:** major
+- **Where:** the answer ("1,014 of 1,286 NodeUnavailable failures… a clear majority"), together with log entries 09:14:10 through 09:14:12.
+- **What fails:**
+  - The only completed query (09:14:06) was limited to `pool_class="standard"`. The figure 1,286 is therefore the NodeUnavailable count for standard pools only.
+  - At 09:14:10 the assistant said it would "check regional or private infrastructure for the complete distribution." It then started `aggregate_async` across standard, regional and private pools.
+  - That request (`request_id=mdq_7f31c9a2`) only returned `status=accepted`. No result was ever retrieved, and the assistant moved on to other checks.
+  - The answer drops the "standard pools" qualifier, gives a flat "Yes", and says nothing about the pending broader query.
+- **Concrete scenario:** suppose the outstanding query shows more than about 742 extra NodeUnavailable events in regional or private pools outside gpu-cluster-a. Then gpu-cluster-a falls below 50% of the total, and the "Yes" is wrong. The assistant had itself treated the standard-only view as incomplete, so it had no basis for an unscoped claim.
+- **How to verify:**
+  - 09:14:08 shows `scope.pool_class=standard`.
+  - 09:14:12 shows only `status=accepted`, and no later entry retrieves `mdq_7f31c9a2`.
+  - The answer contains no scope qualifier and no mention of the pending result.
+
+## Unverified hypotheses
+
+- **The full-scope result may change the conclusion.** This depends on how many NodeUnavailable events occurred in regional and private pools, and where. Fetching the result of `mdq_7f31c9a2` would settle it.
+- **The user may have meant standard pools only.** In that case the "Yes" is correct as stated and only the missing qualifier remains as a defect. The user's intent is not stated. The follow-up question echoes the assistant's standard-pool summary, which is weak evidence that they meant standard pools.
+
+## Execution gaps
+
+- I could not retrieve the async result `mdq_7f31c9a2`, so I cannot say whether the answer's conclusion holds across all pool classes.
+- I cannot independently confirm the underlying tool data. I only checked internal consistency, and it is correct:
+  - 1,014 + 163 + 109 = 1,286.
+  - 1,286 + 312 + 221 + 155 = 1,974, matching `total_delay_events`.
+  - 1,014 / 1,286 ≈ 78.8%.
+
+## Verdict
+
+The arithmetic is correct for the standard-pool data. The answer is still not acceptable as given: it states a standard-only figure as the overall total and ignores the broader query the assistant itself started and never collected. It should either be qualified as "in standard pools" or held until `mdq_7f31c9a2` is retrieved.

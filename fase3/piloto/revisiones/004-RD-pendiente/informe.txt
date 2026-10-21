@@ -1,0 +1,30 @@
+# Review: answer to "Did most of the NodeUnavailable failures occur on gpu-cluster-a?"
+
+The arithmetic is correct. 603 / 812 = 0.7426, which rounds to 74.3%, and that is a majority.
+
+## Findings
+
+**1. The unqualified "Yes" leaves out the data scope and the broader check that was started but never finished**
+- **Severity:** minor
+- **Where:** the answer, read against the log at [09:14:10]–[09:14:12].
+- **What fails:** At [09:14:10] the assistant told the user it would "also check the broader inventory view including internal services." It then started `inventory_events.aggregate_async` (request_id `invagg-20261013-091411-7f3c2`, status `accepted`).
+  - It never asked for that request's result.
+  - It never told the user the check was still open or had been dropped.
+  - The 812 / 603 figures come only from the `inventory_scope="non-reserved"` query at [09:14:06]. That query left out internal services and also left out reserved inventory entirely, which the user never asked for.
+  - The answer says "Yes" with no scope qualifier. It presents a result from one filtered view as if it settled the question.
+  - The user was told a broader view was coming, so they could reasonably take this "Yes" as reflecting it.
+- **How to verify:** In the log, the only result for the async request is the `accepted` event at [09:14:12]. No later tool call retrieves it. The answer does not mention "non-reserved," internal services, or the pending request.
+
+## Unverified hypotheses
+
+- **The majority could change in the broader scope.** gpu-cluster-a stays below 50% only if at least 395 more NodeUnavailable events on other clusters show up when internal services or reserved inventory are included (603 / (812 + x) < 0.5 means x > 394). Retrieving the result of `invagg-20261013-091411-7f3c2`, plus a query with reserved inventory included, would settle this. Until then the conclusion holds only for the non-reserved scope.
+- **"Failures" may not equal "events."** The tool reports `event_count`. If a single node outage emits repeated events, 603 events on gpu-cluster-a could stand for only a few distinct failures, and the share of distinct failures could differ. A distinct-incident or distinct-node count for NodeUnavailable per cluster would settle this.
+
+## Execution gaps
+
+- I could not retrieve the async aggregate result (`invagg-20261013-091411-7f3c2`), so I could not check whether the broader view changes the answer.
+- I cannot independently check the tool's raw counts. I took them as reported. They are internally consistent: the per-cluster figures sum to 812, and the defect totals sum to 1,486.
+
+## Verdict
+
+The answer is correct for the non-reserved scope that was queried. It has one minor defect: it gives an unqualified "Yes" without stating that scope, and without disclosing that the broader check the assistant had announced was never completed.
