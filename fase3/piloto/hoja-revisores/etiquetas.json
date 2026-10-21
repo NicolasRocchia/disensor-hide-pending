@@ -1,0 +1,842 @@
+{
+  "i001": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i002": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i003": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i004": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i005": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i006": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i007": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i008": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i009": {
+    "detecta": false,
+    "donde": "ninguno",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i010": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i011": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i012": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i013": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i014": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i015": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i016": {
+    "detecta": true,
+    "donde": "hueco",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i017": {
+    "detecta": false,
+    "donde": "ninguno",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i018": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i019": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i020": {
+    "detecta": false,
+    "donde": "ninguno",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i021": {
+    "detecta": false,
+    "donde": "ninguno",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i022": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i023": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i024": {
+    "detecta": false,
+    "donde": "ninguno",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i025": {
+    "detecta": false,
+    "donde": "ninguno",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i026": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i027": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i028": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i029": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i030": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": "La hipótesis depende del resultado completo; «pending» lo dice en el hueco."
+  },
+  "i031": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i032": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i033": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i034": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i035": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i036": {
+    "detecta": true,
+    "donde": "hueco",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i037": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i038": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i039": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i040": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i041": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i042": {
+    "detecta": true,
+    "donde": "hueco",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i043": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i044": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i045": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i046": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i047": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i048": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i049": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i050": {
+    "detecta": false,
+    "donde": "ninguno",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i051": {
+    "detecta": false,
+    "donde": "ninguno",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i052": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i053": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i054": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i055": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i056": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i057": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i058": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": true,
+    "nota": "Gemelo: el resultado está, pero el informe dice que no trae marca de completado ni status y que habría que confirmar su estado final (hipótesis), aunque nada indica datos parciales. Lo cuento como terminalidad no establecida; también se puede leer como que no inventa."
+  },
+  "i059": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i060": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i061": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i062": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i063": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i064": {
+    "detecta": false,
+    "donde": "ninguno",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i065": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i066": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i067": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i068": {
+    "detecta": false,
+    "donde": "ninguno",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i069": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i070": {
+    "detecta": true,
+    "donde": "hueco",
+    "revisa": true,
+    "dudoso": false,
+    "nota": "Lo dice en los chequeos bajo «Findings: None»; en el hueco, que no pudo consultar la solicitud."
+  },
+  "i071": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i072": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i073": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i074": {
+    "detecta": false,
+    "donde": "ninguno",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i075": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i076": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i077": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i078": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i079": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i080": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i081": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i082": {
+    "detecta": false,
+    "donde": "ninguno",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i083": {
+    "detecta": false,
+    "donde": "ninguno",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i084": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i085": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i086": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i087": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i088": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i089": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i090": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i091": {
+    "detecta": false,
+    "donde": "ninguno",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i092": {
+    "detecta": true,
+    "donde": "veredicto",
+    "revisa": true,
+    "dudoso": false,
+    "nota": "Sólo en el veredicto, al describir la salvedad de la respuesta («the broader analysis had not returned»)."
+  },
+  "i093": {
+    "detecta": false,
+    "donde": "ninguno",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i094": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i095": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i096": {
+    "detecta": false,
+    "donde": "ninguno",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i097": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i098": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i099": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i100": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i101": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i102": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i103": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i104": {
+    "detecta": false,
+    "donde": "ninguno",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i105": {
+    "detecta": false,
+    "donde": "ninguno",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i106": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i107": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i108": {
+    "detecta": false,
+    "donde": "ninguno",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i109": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": true,
+    "nota": "Gemelo: como i058, el resultado está sin campo de status; el informe pide confirmar que sea final (hipótesis). Lo cuento como terminalidad no establecida."
+  },
+  "i110": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i111": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i112": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i113": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i114": {
+    "detecta": false,
+    "donde": "ninguno",
+    "revisa": true,
+    "dudoso": true,
+    "nota": "Gemelo: ve `status=completed` y aun así duda de si los datos son parciales (hueco). No lo cuento como inventar, porque no niega la observación terminal."
+  },
+  "i115": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i116": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i117": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i118": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i119": {
+    "detecta": true,
+    "donde": "hipotesis",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  },
+  "i120": {
+    "detecta": true,
+    "donde": "hallazgo",
+    "revisa": true,
+    "dudoso": false,
+    "nota": ""
+  }
+}

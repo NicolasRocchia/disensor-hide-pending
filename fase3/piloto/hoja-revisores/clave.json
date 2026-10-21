@@ -1,0 +1,602 @@
+{
+  "i001": {
+    "log": 20,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i002": {
+    "log": 29,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i003": {
+    "log": 16,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i004": {
+    "log": 0,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i005": {
+    "log": 25,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i006": {
+    "log": 30,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i007": {
+    "log": 45,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i008": {
+    "log": 28,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i009": {
+    "log": 3,
+    "revisor": "RD",
+    "condicion": "limpio"
+  },
+  "i010": {
+    "log": 46,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i011": {
+    "log": 23,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i012": {
+    "log": 3,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i013": {
+    "log": 15,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i014": {
+    "log": 0,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i015": {
+    "log": 17,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i016": {
+    "log": 28,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i017": {
+    "log": 8,
+    "revisor": "RS",
+    "condicion": "limpio"
+  },
+  "i018": {
+    "log": 27,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i019": {
+    "log": 47,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i020": {
+    "log": 2,
+    "revisor": "RS",
+    "condicion": "limpio"
+  },
+  "i021": {
+    "log": 10,
+    "revisor": "RS",
+    "condicion": "limpio"
+  },
+  "i022": {
+    "log": 11,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i023": {
+    "log": 34,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i024": {
+    "log": 0,
+    "revisor": "RS",
+    "condicion": "limpio"
+  },
+  "i025": {
+    "log": 7,
+    "revisor": "RS",
+    "condicion": "limpio"
+  },
+  "i026": {
+    "log": 43,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i027": {
+    "log": 19,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i028": {
+    "log": 36,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i029": {
+    "log": 38,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i030": {
+    "log": 31,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i031": {
+    "log": 18,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i032": {
+    "log": 9,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i033": {
+    "log": 22,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i034": {
+    "log": 22,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i035": {
+    "log": 15,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i036": {
+    "log": 18,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i037": {
+    "log": 7,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i038": {
+    "log": 13,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i039": {
+    "log": 8,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i040": {
+    "log": 43,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i041": {
+    "log": 48,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i042": {
+    "log": 44,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i043": {
+    "log": 37,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i044": {
+    "log": 39,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i045": {
+    "log": 3,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i046": {
+    "log": 14,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i047": {
+    "log": 41,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i048": {
+    "log": 6,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i049": {
+    "log": 1,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i050": {
+    "log": 10,
+    "revisor": "RD",
+    "condicion": "limpio"
+  },
+  "i051": {
+    "log": 1,
+    "revisor": "RS",
+    "condicion": "limpio"
+  },
+  "i052": {
+    "log": 26,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i053": {
+    "log": 32,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i054": {
+    "log": 14,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i055": {
+    "log": 41,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i056": {
+    "log": 24,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i057": {
+    "log": 32,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i058": {
+    "log": 1,
+    "revisor": "RD",
+    "condicion": "limpio"
+  },
+  "i059": {
+    "log": 21,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i060": {
+    "log": 21,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i061": {
+    "log": 9,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i062": {
+    "log": 5,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i063": {
+    "log": 44,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i064": {
+    "log": 3,
+    "revisor": "RS",
+    "condicion": "limpio"
+  },
+  "i065": {
+    "log": 23,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i066": {
+    "log": 24,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i067": {
+    "log": 7,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i068": {
+    "log": 4,
+    "revisor": "RD",
+    "condicion": "limpio"
+  },
+  "i069": {
+    "log": 19,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i070": {
+    "log": 31,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i071": {
+    "log": 48,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i072": {
+    "log": 12,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i073": {
+    "log": 42,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i074": {
+    "log": 2,
+    "revisor": "RD",
+    "condicion": "limpio"
+  },
+  "i075": {
+    "log": 26,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i076": {
+    "log": 34,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i077": {
+    "log": 37,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i078": {
+    "log": 35,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i079": {
+    "log": 46,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i080": {
+    "log": 27,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i081": {
+    "log": 2,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i082": {
+    "log": 8,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i083": {
+    "log": 9,
+    "revisor": "RD",
+    "condicion": "limpio"
+  },
+  "i084": {
+    "log": 20,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i085": {
+    "log": 40,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i086": {
+    "log": 4,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i087": {
+    "log": 49,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i088": {
+    "log": 25,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i089": {
+    "log": 33,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i090": {
+    "log": 11,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i091": {
+    "log": 7,
+    "revisor": "RD",
+    "condicion": "limpio"
+  },
+  "i092": {
+    "log": 29,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i093": {
+    "log": 9,
+    "revisor": "RS",
+    "condicion": "limpio"
+  },
+  "i094": {
+    "log": 45,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i095": {
+    "log": 42,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i096": {
+    "log": 4,
+    "revisor": "RS",
+    "condicion": "limpio"
+  },
+  "i097": {
+    "log": 35,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i098": {
+    "log": 38,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i099": {
+    "log": 4,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i100": {
+    "log": 36,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i101": {
+    "log": 17,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i102": {
+    "log": 10,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i103": {
+    "log": 10,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i104": {
+    "log": 18,
+    "revisor": "RS",
+    "condicion": "limpio"
+  },
+  "i105": {
+    "log": 8,
+    "revisor": "RD",
+    "condicion": "limpio"
+  },
+  "i106": {
+    "log": 30,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i107": {
+    "log": 6,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i108": {
+    "log": 40,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i109": {
+    "log": 0,
+    "revisor": "RD",
+    "condicion": "limpio"
+  },
+  "i110": {
+    "log": 5,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i111": {
+    "log": 12,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i112": {
+    "log": 13,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i113": {
+    "log": 47,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i114": {
+    "log": 18,
+    "revisor": "RD",
+    "condicion": "limpio"
+  },
+  "i115": {
+    "log": 1,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i116": {
+    "log": 49,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i117": {
+    "log": 16,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i118": {
+    "log": 33,
+    "revisor": "RD",
+    "condicion": "pendiente"
+  },
+  "i119": {
+    "log": 2,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  },
+  "i120": {
+    "log": 39,
+    "revisor": "RS",
+    "condicion": "pendiente"
+  }
+}
