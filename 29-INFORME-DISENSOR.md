@@ -51,8 +51,8 @@ un hallazgo y sus ítems, y ninguna detecta el falso cierre.
 **El README ya lo dice, y ahora tiene un número.** «Honest limit, inherited from
 the protocol: the machine detects the empty field and the generic marker, not the
 false declaration» (`README.md`, línea 424). La fase 1 lo mide: con este sujeto y
-un hueco conocido, 71 de 100 declaraciones de ausencia son falsas, el validador
-aprueba 69 y no rechaza ninguna por ser falsa.
+un hueco conocido, 71 de 100 registros declaran una ausencia falsa, el validador
+aprueba 69 de esas 71 y no rechaza ninguna por ser falsa.
 
 **Cómo se escriben las ausencias falsas.** Acotan el residuo a su propio trabajo:
 35 de las 71 hablan de un cálculo (30 dicen «this calculation») y 12 de lo
@@ -74,7 +74,8 @@ que se lanzó y no volvió».
   residuo hizo que el registro consignara una operación que no volvió cerca de seis
   veces más seguido que un listado de hallazgos (de 5% a 29%), sin falsas alarmas.
 - **No se puede decir:** que una declaración de ausencia sea evidencia de que no
-  quedó nada abierto. Con un hueco conocido, el 71% de las ausencias fueron falsas.
+  quedó nada abierto. Con un hueco conocido en los 100 logs, 71 registros declararon
+  igual que no quedaba nada abierto, y todas esas ausencias eran falsas.
 - **Para el plano de evidencia:** un reporte de cumplimiento no puede contar una
   ausencia declarada como limpia. Tiene que distinguir la ausencia declarada de la
   verificada. Es además un argumento de tasa base para la auditoría aleatoria de
@@ -140,3 +141,9 @@ en el README de disensor (NicolasRocchia/disensor#140), y el recálculo por íte
 confirmó. El cruce se rehace sin llamar a ningún modelo con
 `python cruces/ausencias_y_reglas.py`. El 71 de 100, el 5 a 29 y los 0 falsos
 positivos no cambian.
+
+**Corregido el 19/11/2026:** dos frases presentaban el 71 como una proporción de
+las ausencias: «71 de 100 declaraciones de ausencia son falsas» y «el 71% de las
+ausencias fueron falsas». El 71 es la proporción de registros pendientes que
+declararon ausencia; como los 100 pendientes tenían el hueco, las 71 ausencias eran
+falsas, todas. Los números no cambian.
